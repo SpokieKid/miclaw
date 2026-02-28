@@ -41,7 +41,7 @@ function Nav() {
       initial={{ opacity: 0, y: -12 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-      className="fixed top-0 left-0 right-0 z-50 px-6 py-5 md:px-10"
+      className="fixed top-0 left-0 right-0 z-50 bg-[var(--cream)] px-6 py-5 md:px-10"
     >
       <div className="mx-auto flex max-w-7xl items-center justify-between">
         {/* Logo */}
@@ -104,7 +104,7 @@ function Hero() {
   return (
     <section
       ref={heroRef}
-      className="relative min-h-screen overflow-hidden pt-28 pb-20 md:pt-36 md:pb-28"
+      className="relative flex min-h-screen items-center overflow-hidden py-24 md:py-28"
     >
       {/* Subtle warm radial backdrop */}
       <div
@@ -134,7 +134,7 @@ function Hero() {
           <motion.h1
             variants={fadeUp}
             custom={1}
-            className="mt-8 font-serif text-[clamp(2.8rem,6vw,5.2rem)] leading-[1.05] tracking-tight text-[var(--bark)]"
+            className="mt-8 font-serif text-[clamp(2.8rem,5.5vw,4.5rem)] leading-[1.05] tracking-tight text-[var(--bark)]"
           >
             <span className="italic text-[var(--terracotta)]">{t('hero.titleAccent1')}</span>
             <br />
@@ -199,19 +199,63 @@ function Hero() {
         </motion.div>
       </div>
 
-      {/* Scroll indicator */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.4, duration: 0.8 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2"
-      >
+    </section>
+  )
+}
+
+/* ================================================================
+   DEMO VIDEO
+   ================================================================ */
+
+const VIDEO_URL = 'https://storage.googleapis.com/random-public-affe/miclaw/miclaw_final.mov'
+
+function Demo() {
+  const { t } = useLocale()
+
+  return (
+    <section className="relative py-20 md:py-28">
+      <div className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-12 px-6 md:grid-cols-2 md:gap-16 md:px-10">
+        {/* Left: Video */}
         <motion.div
-          animate={{ y: [0, 8, 0] }}
-          transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
-          className="mx-auto h-10 w-px bg-gradient-to-b from-[var(--warm)] to-transparent"
-        />
-      </motion.div>
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: '-80px' }}
+          variants={fadeUp}
+          custom={0}
+        >
+          <video
+            src={VIDEO_URL}
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="max-w-[320px] rounded-2xl shadow-lg"
+          />
+        </motion.div>
+
+        {/* Right: Title */}
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: '-80px' }}
+          variants={stagger}
+        >
+          <motion.h2
+            variants={fadeUp}
+            custom={0}
+            className="font-serif text-[clamp(1.6rem,3vw,2.4rem)] leading-[1.2] tracking-tight text-[var(--bark)]"
+          >
+            {t('demo.title')}
+          </motion.h2>
+          <motion.p
+            variants={fadeUp}
+            custom={2}
+            className="mt-5 max-w-md text-[1.05rem] leading-relaxed text-[var(--bark-light)]"
+          >
+            {t('demo.subtitle')}
+          </motion.p>
+        </motion.div>
+      </div>
     </section>
   )
 }
@@ -238,20 +282,6 @@ function Problem() {
       />
 
       <div className="relative z-10 mx-auto max-w-7xl px-6 md:px-10">
-        {/* Section label */}
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: '-80px' }}
-          variants={fadeUp}
-          custom={0}
-          className="mb-4"
-        >
-          <span className="font-mono text-[0.7rem] tracking-[0.15em] uppercase text-[var(--warm)]">
-            {t('problem.label')}
-          </span>
-        </motion.div>
-
         {/* Section title */}
         <motion.h2
           initial="hidden"
@@ -310,6 +340,7 @@ export default function Home() {
     <>
       <Nav />
       <Hero />
+      <Demo />
       <Problem />
     </>
   )

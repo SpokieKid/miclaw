@@ -14,6 +14,7 @@ export type TranslationKey =
   | 'hero.subtitle' | 'hero.subtitleLine2' | 'hero.subtitleCaption'
   | 'hero.priceCta' | 'hero.priceOld' | 'hero.priceAvail'
   | 'hero.cta'
+  | 'demo.title' | 'demo.subtitle'
   | 'problem.label' | 'problem.title' | 'problem.titleAccent'
   | 'problem.card1.title' | 'problem.card1.desc'
   | 'problem.card2.title' | 'problem.card2.desc'
@@ -34,6 +35,9 @@ export const translations: Record<Locale, Record<TranslationKey, string>> = {
     'hero.priceOld':        '',
     'hero.priceAvail':      '开售即抵 ¥50 · 限 100 名',
     'hero.cta':             '锁定早鸟',
+
+    'demo.title':          '按一下，说一句，搞定。',
+    'demo.subtitle':       '不用解锁手机，不用打开 App。对着小龙虾说话，OpenClaw 自动执行。',
 
     'problem.label':       '痛点',
     'problem.title':       '从想法到行动，',
@@ -60,6 +64,9 @@ export const translations: Record<Locale, Record<TranslationKey, string>> = {
     'hero.priceOld':        '',
     'hero.priceAvail':      '$10 off at launch · 100 spots',
     'hero.cta':             'Reserve Now',
+
+    'demo.title':          'One press. One sentence. Done.',
+    'demo.subtitle':       'No unlocking, no app switching. Speak to MiClaw and OpenClaw handles the rest.',
 
     'problem.label':       'The Problem',
     'problem.title':       'From thought to action,',
