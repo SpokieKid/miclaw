@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MiClaw — 说话，然后忘掉它</title>
+  <meta name="description" content="MiClaw 对讲机 — 你和 AI 智能体之间的直线电话。按下按钮，说出指令，松手走人。">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Floating nav -->
+  <nav class="nav" id="nav">
+    <div class="nav-inner">
+      <a href="#hero" class="nav-logo">MiClaw</a>
+      <div class="nav-links">
+        <a href="#problem">痛点</a>
+        <a href="#solution">方案</a>
+        <a href="#product">产品</a>
+        <a href="#howitworks">原理</a>
+        <a href="#specs">规格</a>
+        <a href="#compare">竞品</a>
+        <a href="#vision">未来</a>
+      </div>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile nav overlay -->
+  <div class="mobile-nav" id="mobileNav">
+    <a href="#problem">痛点</a>
+    <a href="#solution">方案</a>
+    <a href="#product">产品</a>
+    <a href="#howitworks">原理</a>
+    <a href="#specs">规格</a>
+    <a href="#compare">竞品</a>
+    <a href="#vision">未来</a>
+  </div>
+
+  <!-- ====== HERO ====== -->
+  <section class="hero" id="hero">
+    <canvas class="hero-canvas" id="heroCanvas"></canvas>
+    <div class="hero-gradient"></div>
+    <div class="hero-content">
+      <div class="hero-badge reveal">
+        <span class="led led--blue"></span>
+        AI 对讲机
+      </div>
+      <h1 class="hero-title reveal">
+        <span class="hero-title-brand">MiClaw</span>
+      </h1>
+      <p class="hero-tagline reveal">
+        <span class="hero-tagline-zh">说话，然后忘掉它</span>
+        <span class="hero-tagline-en">Speak, then forget about it</span>
+      </p>
+      <p class="hero-desc reveal">
+        按下按钮，说出指令，松手走人。<br>
+        你的 AI 智能体会处理一切。
+      </p>
+      <div class="hero-cta reveal">
+        <a href="#product" class="btn btn--primary">了解更多</a>
+        <a href="#solution" class="btn btn--ghost">产品理念</a>
+      </div>
+      <div class="hero-scroll-hint reveal">
+        <div class="scroll-line"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== PROBLEM ====== -->
+  <section class="section section--problem" id="problem">
+    <div class="container">
+      <div class="section-label reveal">The Problem</div>
+      <h2 class="section-title reveal">
+        从想法到行动，<br>
+        <span class="text-accent-red">路径太长了。</span>
+      </h2>
+      <div class="problem-grid">
+        <div class="problem-card reveal">
+          <div class="problem-icon">
+            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5">
+              <rect x="10" y="6" width="28" height="36" rx="4"/>
+              <rect x="14" y="12" width="20" height="14" rx="2"/>
+              <circle cx="24" cy="38" r="2"/>
+              <path d="M18 16h12M18 20h8" opacity="0.5"/>
+            </svg>
+          </div>
+          <h3>解锁 → 打开 → 等加载 → 打字</h3>
+          <p>想给 AI 下个指令？先掏手机，解锁，打开 App，等加载，然后打字输入。五步才能说出你要做的事。</p>
+        </div>
+        <div class="problem-card reveal">
+          <div class="problem-icon">
+            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5">
+              <circle cx="24" cy="24" r="18"/>
+              <path d="M24 12v12l8 4"/>
+              <circle cx="24" cy="24" r="2" fill="currentColor" opacity="0.5"/>
+            </svg>
+          </div>
+          <h3>碎片想法，转瞬即逝</h3>
+          <p>开车时想到的事、散步时的灵感、做饭时的念头——"等下记得买牛奶"，5 分钟后就忘了。</p>
+        </div>
+        <div class="problem-card reveal">
+          <div class="problem-icon">
+            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5">
+              <rect x="6" y="8" width="36" height="28" rx="3"/>
+              <path d="M16 36h16"/>
+              <circle cx="24" cy="22" r="6" stroke-dasharray="4 2"/>
+              <path d="M18 22h-6M30 22h6M24 16v-4M24 28v4" stroke-dasharray="2 2" opacity="0.4"/>
+            </svg>
+          </div>
+          <h3>AI 被困在屏幕里</h3>
+          <p>你的 AI 很聪明，但它只在你打开聊天窗口时才知道你在做什么。它缺少一条持续的感知通道。</p>
+        </div>
+      </div>
+      <div class="problem-visual reveal">
+        <div class="trapped-ai">
+          <div class="trapped-ai-screen">
+            <div class="trapped-ai-face">
+              <div class="trapped-ai-eye"></div>
+              <div class="trapped-ai-eye"></div>
+              <div class="trapped-ai-mouth"></div>
+            </div>
+          </div>
+          <div class="trapped-ai-waves">
+            <span></span><span></span><span></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== SOLUTION ====== -->
+  <section class="section section--solution" id="solution">
+    <div class="container">
+      <div class="section-label reveal">The Solution</div>
+      <h2 class="section-title reveal">
+        Use your agent<br>
+        <span class="text-accent-blue">like a special agent.</span>
+      </h2>
+      <p class="section-subtitle reveal">
+        想象一个特种兵在战场上。他不是一个人在战斗——他身后有整个 Mission Control。
+        他通过对讲机和后方保持联系：呼叫火力支援、请求情报、汇报态势。<br><br>
+        <strong>MiClaw 对讲机就是你和 AI 智能体之间的战术通讯频道。</strong>
+      </p>
+
+      <div class="channels">
+        <div class="channel-card reveal">
+          <div class="channel-icon channel-icon--visual">
+            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M24 6l18 12v12L24 42 6 30V18L24 6z"/>
+              <circle cx="24" cy="24" r="6"/>
+              <path d="M24 18v-6M24 36v-6M18 24h-6M36 24h-6" opacity="0.4"/>
+            </svg>
+          </div>
+          <div class="channel-label">你 — 特种兵</div>
+          <h3>按下按钮，下达指令</h3>
+          <p>想到一件事 → 按下按钮 → 说出来 → 松手走人。不需要知道后方怎么执行。</p>
+          <div class="channel-stat">
+            <span class="channel-stat-num">3</span>
+            <span class="channel-stat-label">秒内完成捕获</span>
+          </div>
+        </div>
+        <div class="channel-divider reveal">
+          <div class="channel-divider-line"></div>
+          <div class="channel-divider-icon">→</div>
+          <div class="channel-divider-line"></div>
+        </div>
+        <div class="channel-card channel-card--highlight reveal">
+          <div class="channel-icon channel-icon--audio">
+            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5">
+              <circle cx="24" cy="24" r="18"/>
+              <path d="M14 18c0-3.3 2.7-6 6-6h8c3.3 0 6 2.7 6 6v4c0 3.3-2.7 6-6 6h-8c-3.3 0-6-2.7-6-6v-4z" opacity="0.3"/>
+              <path d="M18 28l-2 8M30 28l2 8"/>
+              <circle cx="24" cy="22" r="3" fill="currentColor" opacity="0.5"/>
+            </svg>
+          </div>
+          <div class="channel-label">OpenClaw — Mission Control</div>
+          <h3>AI 智能体接收并执行</h3>
+          <p>语音转文字 → 理解指令 → 调度工具 → 执行任务。发邮件、设提醒、查信息——一切后台搞定。</p>
+          <div class="channel-stat">
+            <span class="channel-stat-num pulse-glow">MiClaw</span>
+            <span class="channel-stat-label">战术通讯频道</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="solution-arrow reveal">
+        <svg viewBox="0 0 24 48" fill="none" stroke="currentColor" stroke-width="1.5" opacity="0.3">
+          <path d="M12 0v40M4 32l8 8 8-8"/>
+        </svg>
+      </div>
+      <div class="solution-result reveal">
+        <div class="solution-result-icon">
+          <div class="openclaw-orb">
+            <div class="openclaw-ring"></div>
+            <div class="openclaw-ring"></div>
+            <div class="openclaw-core"></div>
+          </div>
+        </div>
+        <h3>只看结果</h3>
+        <p>就像特种兵呼叫完火力支援后不会站在原地等着看炮弹落地——<br>他继续执行自己的任务，后方自然会搞定。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== PRODUCT SHOWCASE ====== -->
+  <section class="section section--product" id="product">
+    <div class="container">
+      <div class="section-label reveal">The Product</div>
+      <h2 class="section-title reveal">
+        一个按钮，一个麦克风，<br>
+        <span class="text-accent-green">一条到 Agent 的直线。</span>
+      </h2>
+
+      <!-- Device visual -->
+      <div class="device-showcase reveal">
+        <div class="device">
+          <div class="device-body">
+            <div class="device-clip"></div>
+            <div class="device-face">
+              <div class="device-led" id="deviceLed"></div>
+              <div class="device-btn" id="deviceBtn">
+                <div class="device-btn-inner"></div>
+              </div>
+              <div class="device-mic">
+                <span></span><span></span><span></span>
+              </div>
+            </div>
+          </div>
+          <div class="device-shadow"></div>
+        </div>
+        <div class="device-label">
+          约 AirPods 充电盒一半大小 · 夹在衣领上
+        </div>
+      </div>
+
+      <!-- LED states -->
+      <div class="led-states reveal">
+        <div class="led-state">
+          <div class="led-dot led-dot--blue"></div>
+          <span>待机 · 可以说话</span>
+        </div>
+        <div class="led-state">
+          <div class="led-dot led-dot--red"></div>
+          <span>录音中</span>
+        </div>
+        <div class="led-state">
+          <div class="led-dot led-dot--green"></div>
+          <span>Agent 已收到</span>
+        </div>
+        <div class="led-state">
+          <div class="led-dot led-dot--orange"></div>
+          <span>已缓存 · 稍后上传</span>
+        </div>
+      </div>
+
+      <!-- Interaction flow -->
+      <div class="interaction reveal">
+        <h3 class="interaction-title">Push-to-Talk，像用对讲机一样</h3>
+        <div class="interaction-flow">
+          <div class="flow-step">
+            <div class="flow-step-icon">
+              <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5">
+                <circle cx="16" cy="16" r="10"/>
+                <circle cx="16" cy="16" r="4" fill="currentColor" opacity="0.3"/>
+              </svg>
+            </div>
+            <span>按下按钮</span>
+          </div>
+          <div class="flow-arrow">&rarr;</div>
+          <div class="flow-step">
+            <div class="flow-step-icon flow-step-icon--red">
+              <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5">
+                <circle cx="16" cy="16" r="10"/>
+                <circle cx="16" cy="16" r="4" fill="#ff4a4a"/>
+                <path d="M16 6v2M16 24v2M6 16h2M24 16h2" opacity="0.5"/>
+              </svg>
+            </div>
+            <span>说出指令</span>
+          </div>
+          <div class="flow-arrow">&rarr;</div>
+          <div class="flow-step">
+            <div class="flow-step-icon flow-step-icon--blue">
+              <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M8 22V10a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12"/>
+                <path d="M6 18l10 8 10-8" opacity="0.5"/>
+              </svg>
+            </div>
+            <span>松手走人</span>
+          </div>
+          <div class="flow-arrow">&rarr;</div>
+          <div class="flow-step">
+            <div class="flow-step-icon flow-step-icon--green">
+              <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5">
+                <circle cx="16" cy="16" r="10"/>
+                <path d="M11 16l3 3 7-7"/>
+              </svg>
+            </div>
+            <span>Agent 搞定</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Feature bento grid -->
+      <div class="bento reveal">
+        <div class="bento-item bento-item--wide">
+          <div class="bento-icon">
+            <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5">
+              <rect x="4" y="10" width="24" height="14" rx="7"/>
+              <circle cx="22" cy="17" r="4"/>
+            </svg>
+          </div>
+          <h4>夹式佩戴</h4>
+          <p>夹在衣领、口袋、包带上。无感佩戴，随时可用。</p>
+        </div>
+        <div class="bento-item">
+          <div class="bento-icon">
+            <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5">
+              <rect x="8" y="4" width="16" height="24" rx="2"/>
+              <path d="M12 22h8"/>
+              <path d="M14 8h4" opacity="0.5"/>
+            </svg>
+          </div>
+          <h4>极致小巧</h4>
+          <p>约 AirPods 充电盒一半大小。</p>
+        </div>
+        <div class="bento-item">
+          <div class="bento-icon bento-icon--orange">
+            <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5">
+              <rect x="10" y="6" width="12" height="20" rx="2"/>
+              <path d="M14 22h4"/>
+              <rect x="13" y="10" width="6" height="8" rx="1" opacity="0.3"/>
+            </svg>
+          </div>
+          <h4>离线不丢</h4>
+          <p>没网存 SD 卡，有网自动传。</p>
+        </div>
+        <div class="bento-item bento-item--wide">
+          <div class="bento-icon bento-icon--green">
+            <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M6 24c0-8 4-14 10-18"/>
+              <path d="M26 24c0-8-4-14-10-18"/>
+              <rect x="12" y="20" width="8" height="6" rx="1"/>
+              <path d="M14 20v-2a2 2 0 0 1 4 0v2"/>
+            </svg>
+          </div>
+          <h4>3-5 天续航</h4>
+          <p>3000mAh 大容量电池 + 深度睡眠模式。每天录 30 次，每次 30 秒，轻松撑 3-5 天不充电。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== HOW IT WORKS ====== -->
+  <section class="section section--howitworks" id="howitworks">
+    <div class="container">
+      <div class="section-label reveal">How It Works</div>
+      <h2 class="section-title reveal">
+        真实场景：<br>
+        <span class="text-accent-blue">开车上班的你。</span>
+      </h2>
+
+      <div class="pipeline">
+        <div class="pipeline-step reveal">
+          <div class="pipeline-num">01</div>
+          <div class="pipeline-content">
+            <div class="pipeline-icon">
+              <div class="soundwave">
+                <span></span><span></span><span></span><span></span><span></span>
+              </div>
+            </div>
+            <h3>按下按钮，说出指令</h3>
+            <p>"帮我给张三发一封邮件，告诉他周五的方案评审改到下周一，因为设计稿还没定稿。语气客气一点。"</p>
+          </div>
+        </div>
+
+        <div class="pipeline-connector reveal"></div>
+
+        <div class="pipeline-step reveal">
+          <div class="pipeline-num">02</div>
+          <div class="pipeline-content">
+            <div class="pipeline-icon pipeline-icon--blue">
+              <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M20 4v6M20 30v6"/>
+                <path d="M4 20h6M30 20h6"/>
+                <circle cx="20" cy="20" r="8"/>
+                <path d="M20 16v8M16 20h8" stroke-width="2"/>
+              </svg>
+            </div>
+            <h3>松手，绿灯闪烁</h3>
+            <p>音频通过 WiFi 上传到中转服务器，转发给 OpenClaw。你继续开车，不再想这件事。</p>
+          </div>
+        </div>
+
+        <div class="pipeline-connector reveal"></div>
+
+        <div class="pipeline-step reveal">
+          <div class="pipeline-num">03</div>
+          <div class="pipeline-content">
+            <div class="pipeline-icon pipeline-icon--green">
+              <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.5">
+                <rect x="8" y="8" width="24" height="24" rx="4"/>
+                <path d="M14 20h12M20 14v12" opacity="0.4"/>
+                <circle cx="20" cy="20" r="3"/>
+              </svg>
+            </div>
+            <h3>Agent 在后台执行</h3>
+            <p>OpenClaw 语音转文字 → 理解你的意图 → 起草邮件 → 等待你确认或直接发送。</p>
+          </div>
+        </div>
+
+        <div class="pipeline-connector reveal"></div>
+
+        <div class="pipeline-step reveal">
+          <div class="pipeline-num">04</div>
+          <div class="pipeline-content">
+            <div class="pipeline-icon pipeline-icon--accent">
+              <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.5">
+                <circle cx="20" cy="20" r="14"/>
+                <path d="M14 20l4 4 8-8"/>
+              </svg>
+            </div>
+            <h3>到办公室，邮件已经写好了</h3>
+            <p>打开电脑，Agent 已经起草好了邮件，一键确认发送。从想法到行动，零摩擦。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== TECH SPECS ====== -->
+  <section class="section section--specs" id="specs">
+    <div class="container">
+      <div class="section-label reveal">Tech Specs</div>
+      <h2 class="section-title reveal">
+        精心选择的每一个组件。
+      </h2>
+
+      <div class="specs-grid">
+        <div class="spec-card reveal">
+          <div class="spec-name">主控芯片</div>
+          <div class="spec-value">ESP32-S3</div>
+          <div class="spec-detail">原生 USB, WiFi, BLE 5.0</div>
+        </div>
+        <div class="spec-card reveal">
+          <div class="spec-name">麦克风</div>
+          <div class="spec-value">INMP441 (I2S)</div>
+          <div class="spec-detail">16kHz 采样，16-bit 单声道</div>
+        </div>
+        <div class="spec-card reveal">
+          <div class="spec-name">存储</div>
+          <div class="spec-value">MicroSD (SPI)</div>
+          <div class="spec-detail">离线缓存，自动同步</div>
+        </div>
+        <div class="spec-card reveal">
+          <div class="spec-name">电池</div>
+          <div class="spec-value">3000mAh</div>
+          <div class="spec-detail">混合使用 3-5 天续航</div>
+        </div>
+        <div class="spec-card reveal">
+          <div class="spec-name">充电</div>
+          <div class="spec-value">USB-C (TP4056)</div>
+          <div class="spec-detail">通用充电接口</div>
+        </div>
+        <div class="spec-card reveal">
+          <div class="spec-name">交互</div>
+          <div class="spec-value">PTT 按钮 + LED + 振动</div>
+          <div class="spec-detail">按下即录，直觉操控</div>
+        </div>
+        <div class="spec-card reveal">
+          <div class="spec-name">音频格式</div>
+          <div class="spec-value">WAV / Opus</div>
+          <div class="spec-detail">30 秒录音约 200-960KB</div>
+        </div>
+        <div class="spec-card reveal">
+          <div class="spec-name">物料成本</div>
+          <div class="spec-value">~$12</div>
+          <div class="spec-detail">单台 BOM 成本估算</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== COMPETITIVE COMPARISON ====== -->
+  <section class="section section--compare" id="compare">
+    <div class="container">
+      <div class="section-label reveal">vs Competition</div>
+      <h2 class="section-title reveal">
+        不做新平台，<br>
+        <span class="text-accent-orange">只做一件事做到极致。</span>
+      </h2>
+      <p class="section-subtitle reveal">
+        其他产品试图成为"新平台"或"手机替代品"。MiClaw 不是。<br>
+        它是你和 AI 智能体之间的战术通讯频道。
+      </p>
+
+      <div class="compare-table-wrap reveal">
+        <table class="compare-table">
+          <thead>
+            <tr>
+              <th>维度</th>
+              <th>Humane AI Pin</th>
+              <th>Rabbit R1</th>
+              <th>Limitless Pendant</th>
+              <th class="compare-highlight">MiClaw</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>价格</td>
+              <td>$699</td>
+              <td>$199</td>
+              <td>$99</td>
+              <td class="compare-highlight">$49-79</td>
+            </tr>
+            <tr>
+              <td>定位</td>
+              <td>替代手机</td>
+              <td>独立 AI 设备</td>
+              <td>会议记录工具</td>
+              <td class="compare-highlight">Agent 的遥控器</td>
+            </tr>
+            <tr>
+              <td>交互</td>
+              <td>触摸+语音+投影</td>
+              <td>触摸+语音+屏幕</td>
+              <td>被动录音</td>
+              <td class="compare-highlight">单按钮 PTT</td>
+            </tr>
+            <tr>
+              <td>核心理念</td>
+              <td>新计算平台</td>
+              <td>Action Model</td>
+              <td>记住一切</td>
+              <td class="compare-highlight">说话，然后忘掉它</td>
+            </tr>
+            <tr>
+              <td>复杂度</td>
+              <td>非常高</td>
+              <td>高</td>
+              <td>低</td>
+              <td class="compare-highlight">极低</td>
+            </tr>
+            <tr>
+              <td>类比</td>
+              <td>新型手机</td>
+              <td>万能遥控器</td>
+              <td>录音笔</td>
+              <td class="compare-highlight">战术对讲机</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== VISION ====== -->
+  <section class="section section--vision" id="vision">
+    <div class="container">
+      <div class="section-label reveal">The Future</div>
+      <h2 class="section-title reveal">
+        从原型到产品，<br>
+        <span class="text-accent-orange">三步走。</span>
+      </h2>
+
+      <div class="vision-content">
+        <div class="vision-card reveal">
+          <div class="vision-illustration">
+            <div class="ambient-rings">
+              <div class="ambient-ring"></div>
+              <div class="ambient-ring"></div>
+              <div class="ambient-ring"></div>
+              <div class="ambient-core">
+                <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <circle cx="16" cy="16" r="6"/>
+                  <path d="M16 4v4M16 24v4M4 16h4M24 16h4"/>
+                  <path d="M8.9 8.9l2.8 2.8M20.3 20.3l2.8 2.8M8.9 23.1l2.8-2.8M20.3 11.7l2.8-2.8" opacity="0.5"/>
+                </svg>
+              </div>
+            </div>
+          </div>
+          <div class="vision-text">
+            <h3>Phase 3：智能化</h3>
+            <p>
+              TinyML 环境感知模式——设备端运行轻量 AI 模型，自动分类环境音：会议中、通勤中、安静工作、对话中。
+              即使你没有按下按钮，OpenClaw 也能持续感知你的日常节奏。
+            </p>
+            <p>
+              加入扬声器，实现真正的双向对讲。Agent 不只是接收指令——它可以主动通过设备语音回复你。
+            </p>
+          </div>
+        </div>
+
+        <div class="vision-tags reveal">
+          <div class="vision-tag">
+            <span class="vision-tag-dot vision-tag-dot--blue"></span>
+            双向语音
+          </div>
+          <div class="vision-tag">
+            <span class="vision-tag-dot vision-tag-dot--green"></span>
+            TinyML 感知
+          </div>
+          <div class="vision-tag">
+            <span class="vision-tag-dot vision-tag-dot--orange"></span>
+            蓝牙连接
+          </div>
+          <div class="vision-tag">
+            <span class="vision-tag-dot vision-tag-dot--red"></span>
+            手势交互
+          </div>
+          <div class="vision-tag">
+            <span class="vision-tag-dot vision-tag-dot--blue"></span>
+            OTA 升级
+          </div>
+          <div class="vision-tag">
+            <span class="vision-tag-dot vision-tag-dot--green"></span>
+            多设备
+          </div>
+        </div>
+
+        <div class="vision-quote reveal">
+          <blockquote>
+            "世界上最短的'想法到行动'路径——<br>
+            按下按钮，说出来，事情就会被办好。"
+          </blockquote>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== FOOTER ====== -->
+  <footer class="footer" id="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-brand reveal">
+          <div class="footer-logo">MiClaw</div>
+          <p class="footer-tagline">说话，然后忘掉它。</p>
+        </div>
+        <div class="footer-links reveal">
+          <a href="https://myclaw.app" target="_blank" rel="noopener">myclaw.app</a>
+        </div>
+        <div class="footer-stats reveal">
+          <div class="footer-stat">
+            <div class="footer-stat-num">449+</div>
+            <div class="footer-stat-label">视觉通道 Beta 用户</div>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom reveal">
+        <p>&copy; 2026 MiClaw. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
