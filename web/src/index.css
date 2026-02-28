@@ -2,6 +2,13 @@
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
 
+@font-face {
+  font-family: 'Geist';
+  src: url('/node_modules/geist/dist/fonts/geist-sans/Geist-Variable.woff2') format('woff2');
+  font-weight: 100 900;
+  font-display: swap;
+}
+
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
@@ -55,7 +62,7 @@
     --color-bark-light: var(--bark-light);
     --color-sage: var(--sage);
 
-    --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-sans: 'Geist', -apple-system, BlinkMacSystemFont, sans-serif;
     --font-serif: 'DM Serif Display', Georgia, serif;
     --font-mono: 'Fira Code', 'Courier New', monospace;
     --radius: 0.625rem;
@@ -96,7 +103,7 @@
     --bark-light: #8a7e72;
     --sage: #7a8a6e;
 
-    --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-sans: 'Geist', -apple-system, BlinkMacSystemFont, sans-serif;
     --font-serif: 'DM Serif Display', Georgia, serif;
     --font-mono: 'Fira Code', 'Courier New', monospace;
     --shadow-color: hsl(30 20% 10%);

@@ -1,5 +1,5 @@
 /**
- * [INPUT]: Depends on framer-motion, lucide-react, react
+ * [INPUT]: Depends on framer-motion, lucide-react, react, i18n/context
  * [OUTPUT]: Exports Home landing page with Hero + Problem sections
  * [POS]: Main landing page of web app, rendered by App.tsx route
  * [PROTOCOL]: Update this header on changes, then check CLAUDE.md
@@ -7,7 +7,8 @@
 
 import { useRef } from 'react'
 import { motion, useScroll, useTransform } from 'framer-motion'
-import { Play, Smartphone, Clock, Monitor } from 'lucide-react'
+import { Smartphone, Clock, Monitor } from 'lucide-react'
+import { useLocale } from '@/i18n/context'
 
 /* ================================================================
    ANIMATION VARIANTS
@@ -33,6 +34,8 @@ const stagger = {
    ================================================================ */
 
 function Nav() {
+  const { locale, setLocale, t } = useLocale()
+
   return (
     <motion.nav
       initial={{ opacity: 0, y: -12 }}
@@ -41,31 +44,44 @@ function Nav() {
       className="fixed top-0 left-0 right-0 z-50 px-6 py-5 md:px-10"
     >
       <div className="mx-auto flex max-w-7xl items-center justify-between">
-        {/* Left links */}
-        <div className="hidden items-center gap-8 md:flex">
-          <a href="#problem" className="text-[0.85rem] text-[var(--bark-light)] transition-colors hover:text-[var(--bark)]">
-            痛点
-          </a>
-          <a href="#solution" className="text-[0.85rem] text-[var(--bark-light)] transition-colors hover:text-[var(--bark)]">
-            方案
-          </a>
-          <a href="#product" className="text-[0.85rem] text-[var(--bark-light)] transition-colors hover:text-[var(--bark)]">
-            产品
-          </a>
-        </div>
-
-        {/* Center logo */}
+        {/* Logo */}
         <a href="#" className="font-serif text-2xl tracking-tight text-[var(--bark)]">
           MiClaw
         </a>
 
-        {/* Right CTA */}
-        <a
-          href="#"
-          className="rounded-full bg-[var(--bark)] px-5 py-2.5 text-[0.82rem] font-medium text-[var(--cream)] transition-all hover:bg-[#2d2924] hover:shadow-lg"
-        >
-          Become a Backer
-        </a>
+        {/* Right: locale toggle + CTA */}
+        <div className="flex items-center gap-5">
+          <div className="flex items-center gap-0.5 text-[0.82rem]">
+            <button
+              onClick={() => setLocale('zh')}
+              className={`rounded-full px-2.5 py-1 transition-colors ${
+                locale === 'zh'
+                  ? 'font-medium text-[var(--bark)]'
+                  : 'text-[var(--warm-light)] hover:text-[var(--bark-light)]'
+              }`}
+            >
+              中
+            </button>
+            <span className="text-[var(--warm-light)]">/</span>
+            <button
+              onClick={() => setLocale('en')}
+              className={`rounded-full px-2.5 py-1 transition-colors ${
+                locale === 'en'
+                  ? 'font-medium text-[var(--bark)]'
+                  : 'text-[var(--warm-light)] hover:text-[var(--bark-light)]'
+              }`}
+            >
+              EN
+            </button>
+          </div>
+
+          <a
+            href="#"
+            className="rounded-full bg-[var(--bark)] px-5 py-2.5 text-[0.82rem] font-medium text-[var(--cream)] transition-all hover:bg-[#2d2924] hover:shadow-lg"
+          >
+            {t('nav.cta')}
+          </a>
+        </div>
       </div>
     </motion.nav>
   )
@@ -76,6 +92,7 @@ function Nav() {
    ================================================================ */
 
 function Hero() {
+  const { t } = useLocale()
   const heroRef = useRef<HTMLDivElement>(null)
   const { scrollYProgress } = useScroll({
     target: heroRef,
@@ -109,7 +126,7 @@ function Hero() {
           {/* Badge */}
           <motion.div variants={fadeUp} custom={0}>
             <span className="inline-block rounded-md bg-[var(--cream-dark)] px-4 py-1.5 text-[0.8rem] font-medium text-[var(--bark)]">
-              AI Walkie-Talkie
+              {t('hero.badge')}
             </span>
           </motion.div>
 
@@ -119,10 +136,10 @@ function Hero() {
             custom={1}
             className="mt-8 font-serif text-[clamp(2.8rem,6vw,5.2rem)] leading-[1.05] tracking-tight text-[var(--bark)]"
           >
-            Speak, then{' '}
-            <span className="italic text-[var(--terracotta)]">forget</span>
+            <span className="italic text-[var(--terracotta)]">{t('hero.titleAccent1')}</span>
             <br />
-            about it.
+            {t('hero.titleMid')}
+            <span className="italic text-[var(--terracotta)]">{t('hero.titleAccent2')}</span>
           </motion.h1>
 
           {/* Subtitle */}
@@ -131,50 +148,31 @@ function Hero() {
             custom={2}
             className="mt-6 max-w-md text-[1.05rem] leading-relaxed text-[var(--bark-light)]"
           >
-            你和 AI 智能体之间的直线电话。
+            {t('hero.subtitle')}
             <br />
-            按下按钮，说出指令，松手走人。
-            <span className="mt-1 block text-[0.85rem] tracking-wide uppercase text-[var(--warm)]">
-              Your direct line to AI agents
-            </span>
+            {t('hero.subtitleLine2')}
+            {t('hero.subtitleCaption') && (
+              <span className="mt-1 block text-[0.85rem] tracking-wide uppercase text-[var(--warm)]">
+                {t('hero.subtitleCaption')}
+              </span>
+            )}
           </motion.p>
 
           {/* Price */}
-          <motion.div
-            variants={fadeUp}
-            custom={3}
-            className="mt-8 flex items-baseline gap-2"
-          >
-            <span className="text-3xl font-bold tracking-tight text-[var(--bark)]">¥199</span>
-            <span className="text-lg text-[var(--warm)]">/</span>
-            <span className="text-3xl font-bold tracking-tight text-[var(--bark)]">$99</span>
-            <span className="ml-2 rounded-full border border-[var(--sage)] px-3 py-0.5 text-[0.72rem] font-semibold tracking-wider uppercase text-[var(--sage)]">
-              Early Bird
-            </span>
-          </motion.div>
-
-          {/* CTAs */}
-          <motion.div
-            variants={fadeUp}
-            custom={4}
-            className="mt-10 flex flex-wrap items-center gap-4"
-          >
+          <motion.div variants={fadeUp} custom={3} className="mt-10">
             <a
               href="#"
-              className="rounded-full bg-[var(--bark)] px-8 py-3.5 text-[0.9rem] font-medium text-[var(--cream)] transition-all hover:bg-[#2d2924] hover:shadow-xl"
+              className="inline-flex items-center gap-3 rounded-full bg-[var(--bark)] px-7 py-3.5 font-mono text-[0.85rem] font-bold tracking-wider uppercase text-[var(--cream)] transition-all hover:bg-[#2d2924] hover:shadow-xl"
             >
-              Become a Backer
+              {t('hero.priceCta')}
+              {t('hero.priceOld') && <span className="text-[var(--warm)] line-through">{t('hero.priceOld')}</span>}
             </a>
-            <a
-              href="#problem"
-              className="group flex items-center gap-2.5 rounded-full border border-[var(--warm-light)] px-6 py-3.5 text-[0.9rem] font-medium text-[var(--bark)] transition-all hover:border-[var(--bark)]"
-            >
-              Learn More
-              <span className="flex h-6 w-6 items-center justify-center rounded-full bg-[var(--bark)] text-[var(--cream)] transition-transform group-hover:scale-110">
-                <Play className="h-3 w-3 fill-current" />
-              </span>
-            </a>
+
+            <p className="mt-4 text-[0.9rem] text-[var(--bark-light)]">
+              {t('hero.priceAvail')}
+            </p>
           </motion.div>
+
         </motion.div>
 
         {/* Right: Product image */}
@@ -222,25 +220,12 @@ function Hero() {
    PROBLEM
    ================================================================ */
 
-const problems = [
-  {
-    icon: Smartphone,
-    title: '解锁 → 打开 → 等加载 → 打字',
-    desc: '想给 AI 下个指令？先掏手机，解锁，打开 App，等加载，然后打字输入。五步才能说出你要做的事。',
-  },
-  {
-    icon: Clock,
-    title: '碎片想法，转瞬即逝',
-    desc: '开车时想到的事、散步时的灵感、做饭时的念头——"等下记得买牛奶"，5 分钟后就忘了。',
-  },
-  {
-    icon: Monitor,
-    title: 'AI 被困在屏幕里',
-    desc: '你的 AI 很聪明，但它只在你打开聊天窗口时才知道你在做什么。它缺少一条持续的感知通道。',
-  },
-]
+const PROBLEM_ICONS = [Smartphone, Clock, Monitor] as const
+const PROBLEM_KEYS = ['card1', 'card2', 'card3'] as const
 
 function Problem() {
+  const { t } = useLocale()
+
   return (
     <section id="problem" className="relative py-28 md:py-36">
       {/* Subtle section divider gradient */}
@@ -263,7 +248,7 @@ function Problem() {
           className="mb-4"
         >
           <span className="font-mono text-[0.7rem] tracking-[0.15em] uppercase text-[var(--warm)]">
-            The Problem
+            {t('problem.label')}
           </span>
         </motion.div>
 
@@ -276,9 +261,9 @@ function Problem() {
           custom={1}
           className="mb-16 max-w-lg font-serif text-[clamp(2rem,4.5vw,3.4rem)] leading-[1.15] tracking-tight text-[var(--bark)] md:mb-20"
         >
-          从想法到行动，
+          {t('problem.title')}
           <br />
-          <span className="text-[var(--terracotta)]">路径太长了。</span>
+          <span className="text-[var(--terracotta)]">{t('problem.titleAccent')}</span>
         </motion.h2>
 
         {/* Problem cards */}
@@ -289,24 +274,27 @@ function Problem() {
           variants={stagger}
           className="grid grid-cols-1 gap-6 md:grid-cols-3"
         >
-          {problems.map((p, i) => (
-            <motion.div
-              key={i}
-              variants={fadeUp}
-              custom={i}
-              className="group rounded-2xl border border-[var(--warm-light)] bg-[var(--card)] p-8 transition-all duration-300 hover:-translate-y-1 hover:border-[var(--warm)] hover:shadow-lg"
-            >
-              <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-xl bg-[var(--cream-dark)] text-[var(--terracotta)] transition-colors group-hover:bg-[var(--terracotta)] group-hover:text-white">
-                <p.icon className="h-5 w-5" strokeWidth={1.5} />
-              </div>
-              <h3 className="mb-3 text-[1.05rem] font-semibold leading-snug text-[var(--bark)]">
-                {p.title}
-              </h3>
-              <p className="text-[0.9rem] leading-relaxed text-[var(--bark-light)]">
-                {p.desc}
-              </p>
-            </motion.div>
-          ))}
+          {PROBLEM_KEYS.map((key, i) => {
+            const Icon = PROBLEM_ICONS[i]
+            return (
+              <motion.div
+                key={key}
+                variants={fadeUp}
+                custom={i}
+                className="group rounded-2xl border border-[var(--warm-light)] bg-[var(--card)] p-8 transition-all duration-300 hover:-translate-y-1 hover:border-[var(--warm)] hover:shadow-lg"
+              >
+                <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-xl bg-[var(--cream-dark)] text-[var(--terracotta)] transition-colors group-hover:bg-[var(--terracotta)] group-hover:text-white">
+                  <Icon className="h-5 w-5" strokeWidth={1.5} />
+                </div>
+                <h3 className="mb-3 text-[1.05rem] font-semibold leading-snug text-[var(--bark)]">
+                  {t(`problem.${key}.title`)}
+                </h3>
+                <p className="text-[0.9rem] leading-relaxed text-[var(--bark-light)]">
+                  {t(`problem.${key}.desc`)}
+                </p>
+              </motion.div>
+            )
+          })}
         </motion.div>
       </div>
     </section>

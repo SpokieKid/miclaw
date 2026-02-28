@@ -13,10 +13,12 @@ design tokens only. Warm editorial palette: cream background, terracotta accents
 ## Member List
 
 src/main.tsx: Entry point, mounts React app to DOM #root
-src/App.tsx: Root component, BrowserRouter + route to Home page
+src/App.tsx: Root component, LocaleProvider + BrowserRouter + route to Home page
 src/index.css: Tailwind v4 imports + warm editorial design tokens (cream/terracotta/bark palette)
 src/lib/utils.ts: cn() utility for conditional classname merging
-src/pages/Home.tsx: Landing page — Nav + Hero + Problem sections, framer-motion animations
+src/i18n/translations.ts: Typed ZH/EN translation map (Locale, TranslationKey, translations)
+src/i18n/context.tsx: LocaleProvider + useLocale hook, localStorage persistence
+src/pages/Home.tsx: Landing page — Nav (with ZH/EN toggle) + Hero + Problem, all strings via t()
 src/assets/: Static assets (SVGs)
 src/components/ui/: 30 shadcn/ui primitives (button, card, dialog, form, tabs, etc.)
 src/components/sections/: (empty, reserved for future section extraction)
