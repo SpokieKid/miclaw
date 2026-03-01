@@ -24,6 +24,8 @@ export type TranslationKey =
   | 'problem.card1.title' | 'problem.card1.desc'
   | 'problem.card2.title' | 'problem.card2.desc'
   | 'problem.card3.title' | 'problem.card3.desc'
+  | 'problem.service.badge' | 'problem.service.title' | 'problem.service.desc'
+  | 'problem.service.point1' | 'problem.service.point2' | 'problem.service.point3'
   | 'pay.title' | 'pay.desc'
 
 export const translations: Record<Locale, Record<TranslationKey, string>> = {
@@ -44,22 +46,28 @@ export const translations: Record<Locale, Record<TranslationKey, string>> = {
 
     'demo.title':          '按一下，说一句，',
     'demo.titleLine2':     '任务搞定。',
-    'demo.subtitle':       '不用掏出手机，最小启动成本，捕捉你最细微的冲动与灵感。',
+    'demo.subtitle':       '不用掏出手机，最小启动成本，捕捉你的冲动与灵感。',
 
     'problem.label':       '痛点',
     'battery.title':       '超长待机，',
     'battery.titleLine2':  '离线可用。',
     'battery.subtitle':    '72 小时续航，离线也能录音存储。连上网络自动同步，不漏掉任何一条指令。',
 
-    'problem.title':       '可选一条龙服务，',
-    'problem.titleLine2':  '开箱即用，',
-    'problem.titleAccent': '无需冗长配置。',
+    'problem.title':       '一键部署',
+    'problem.titleLine2':  'OpenClaw',
+    'problem.titleAccent': '',
     'problem.card1.title': '解锁 → 打开 → 等加载 → 打字',
     'problem.card1.desc':  '想给 AI 下个指令？先掏手机，解锁，打开 App，等加载，然后打字输入。五步才能说出你要做的事。',
     'problem.card2.title': '碎片想法，转瞬即逝',
     'problem.card2.desc':  '开车时想到的事、散步时的灵感、做饭时的念头——"等下记得买牛奶"，5 分钟后就忘了。',
     'problem.card3.title': 'AI 被困在屏幕里',
     'problem.card3.desc':  '你的 AI 很聪明，但它只在你打开聊天窗口时才知道你在做什么。它缺少一条持续的感知通道。',
+    'problem.service.badge': '即将上线',
+    'problem.service.title': '我们帮你部署一套自己的 OpenClaw',
+    'problem.service.desc':  '提供完整自部署服务：从机器准备、环境安装到工作流接入一次打通。你只需填写参数，即可一键集成到现有系统。',
+    'problem.service.point1': '一键安装脚本 + 标准化配置模板',
+    'problem.service.point2': '支持私有云 / 本地机房 / 海外节点',
+    'problem.service.point3': '包含监控、日志、回滚与升级支持',
 
     'cases.title':         '真实场景，',
     'cases.titleLine2':    '完整闭环，',
@@ -107,6 +115,12 @@ export const translations: Record<Locale, Record<TranslationKey, string>> = {
     'problem.card2.desc':  'That idea while driving, inspiration on a walk, a thought while cooking — "remember to buy milk" — forgotten in 5 minutes.',
     'problem.card3.title': 'AI is trapped behind a screen',
     'problem.card3.desc':  'Your AI is smart, but it only knows what you\'re doing when you open a chat window. It lacks a persistent channel of perception.',
+    'problem.service.badge': 'Coming Soon',
+    'problem.service.title': 'Deploy your own OpenClaw stack',
+    'problem.service.desc':  'We provide a full self-hosting service: infrastructure prep, environment setup, and workflow wiring in one package. Fill in your params and integrate in one click.',
+    'problem.service.point1': 'One-click installer + standardized config templates',
+    'problem.service.point2': 'Private cloud, on-prem, and overseas nodes supported',
+    'problem.service.point3': 'Monitoring, logs, rollback, and upgrade support included',
 
     'cases.title':         'Real scenarios.',
     'cases.titleLine2':    'End-to-end.',

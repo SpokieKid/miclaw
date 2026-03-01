@@ -7,7 +7,7 @@
 
 import { useRef } from 'react'
 import { motion, useScroll, useTransform } from 'framer-motion'
-import { Smartphone, Clock, Monitor, Sparkles, GitBranch, BookOpen } from 'lucide-react'
+import { Server, Sparkles, GitBranch, BookOpen } from 'lucide-react'
 import { useLocale } from '@/i18n/context'
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog'
 
@@ -409,11 +409,10 @@ function UseCases() {
    PROBLEM
    ================================================================ */
 
-const PROBLEM_ICONS = [Smartphone, Clock, Monitor] as const
-const PROBLEM_KEYS = ['card1', 'card2', 'card3'] as const
-
 function Problem() {
   const { t } = useLocale()
+  const problemTitleLine2 = t('problem.titleLine2')
+  const problemTitleAccent = t('problem.titleAccent')
 
   return (
     <section id="problem" className="relative py-28 md:py-36">
@@ -437,43 +436,59 @@ function Problem() {
           className="max-w-md font-serif text-[clamp(2rem,4.5vw,3.4rem)] leading-[1.15] tracking-tight text-[var(--bark)]"
         >
           {t('problem.title')}
-          <br />
-          {t('problem.titleLine2')}
-          <br />
-          <span className="text-[var(--terracotta)]">{t('problem.titleAccent')}</span>
+          {problemTitleLine2 ? (
+            <>
+              <br />
+              {problemTitleLine2}
+            </>
+          ) : null}
+          {problemTitleAccent ? (
+            <>
+              <br />
+              <span className="text-[var(--terracotta)]">{problemTitleAccent}</span>
+            </>
+          ) : null}
         </motion.h2>
 
-        {/* Right: Stacked cards */}
+        {/* Right: Single service card */}
         <motion.div
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: '-60px' }}
-          variants={stagger}
-          className="flex flex-col gap-4"
+          variants={fadeUp}
+          custom={1}
         >
-          {PROBLEM_KEYS.map((key, i) => {
-            const Icon = PROBLEM_ICONS[i]
-            return (
-              <motion.div
-                key={key}
-                variants={fadeUp}
-                custom={i}
-                className="group flex items-start gap-5 rounded-xl border border-[var(--warm-light)] bg-[var(--card)] px-6 py-5 transition-all duration-300 hover:border-[var(--warm)] hover:shadow-md"
-              >
-                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-[var(--cream-dark)] text-[var(--terracotta)] transition-colors group-hover:bg-[var(--terracotta)] group-hover:text-white">
-                  <Icon className="h-4 w-4" strokeWidth={1.5} />
-                </div>
-                <div>
-                  <h3 className="text-[0.95rem] font-semibold leading-snug text-[var(--bark)]">
-                    {t(`problem.${key}.title`)}
-                  </h3>
-                  <p className="mt-1 text-[0.85rem] leading-relaxed text-[var(--bark-light)]">
-                    {t(`problem.${key}.desc`)}
-                  </p>
-                </div>
-              </motion.div>
-            )
-          })}
+          <div className="rounded-2xl border border-[var(--warm-light)] bg-[var(--card)] p-7 shadow-sm md:p-9">
+            <span className="inline-block rounded-full bg-[var(--cream-dark)] px-3 py-1 text-[0.75rem] font-medium tracking-wider uppercase text-[var(--bark-light)]">
+              {t('problem.service.badge')}
+            </span>
+
+            <div className="mt-5 flex items-start gap-4">
+              <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[var(--cream-dark)] text-[var(--terracotta)]">
+                <Server className="h-5 w-5" strokeWidth={1.6} />
+              </div>
+              <div>
+                <h3 className="text-[1.2rem] font-semibold leading-tight text-[var(--bark)]">
+                  {t('problem.service.title')}
+                </h3>
+                <p className="mt-2 text-[0.96rem] leading-relaxed text-[var(--bark-light)]">
+                  {t('problem.service.desc')}
+                </p>
+              </div>
+            </div>
+
+            <div className="mt-5 space-y-2">
+              <p className="rounded-lg bg-[var(--cream)] px-3 py-2 text-[0.87rem] text-[var(--bark)]">
+                {t('problem.service.point1')}
+              </p>
+              <p className="rounded-lg bg-[var(--cream)] px-3 py-2 text-[0.87rem] text-[var(--bark)]">
+                {t('problem.service.point2')}
+              </p>
+              <p className="rounded-lg bg-[var(--cream)] px-3 py-2 text-[0.87rem] text-[var(--bark)]">
+                {t('problem.service.point3')}
+              </p>
+            </div>
+          </div>
         </motion.div>
       </div>
     </section>
