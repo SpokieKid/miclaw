@@ -16,10 +16,15 @@ export type TranslationKey =
   | 'hero.cta'
   | 'demo.title' | 'demo.titleLine2' | 'demo.subtitle'
   | 'battery.title' | 'battery.titleLine2' | 'battery.subtitle'
+  | 'cases.title' | 'cases.titleLine2' | 'cases.titleAccent'
+  | 'cases.card1.title' | 'cases.card1.desc'
+  | 'cases.card2.title' | 'cases.card2.desc'
+  | 'cases.card3.title' | 'cases.card3.desc'
   | 'problem.label' | 'problem.title' | 'problem.titleLine2' | 'problem.titleAccent'
   | 'problem.card1.title' | 'problem.card1.desc'
   | 'problem.card2.title' | 'problem.card2.desc'
   | 'problem.card3.title' | 'problem.card3.desc'
+  | 'pay.title' | 'pay.desc'
 
 export const translations: Record<Locale, Record<TranslationKey, string>> = {
   zh: {
@@ -39,11 +44,11 @@ export const translations: Record<Locale, Record<TranslationKey, string>> = {
 
     'demo.title':          '按一下，说一句，',
     'demo.titleLine2':     '任务搞定。',
-    'demo.subtitle':       '72 小时使用时长，离线也可以存储音频文件，有网时自动上传，全天候全地点和你的小龙虾不离不弃。',
+    'demo.subtitle':       '不用掏出手机，最小启动成本，捕捉你最细微的冲动与灵感。',
 
     'problem.label':       '痛点',
     'battery.title':       '超长待机，',
-    'battery.titleLine2':  '随时随地。',
+    'battery.titleLine2':  '离线可用。',
     'battery.subtitle':    '72 小时续航，离线也能录音存储。连上网络自动同步，不漏掉任何一条指令。',
 
     'problem.title':       '可选一条龙服务，',
@@ -55,6 +60,16 @@ export const translations: Record<Locale, Record<TranslationKey, string>> = {
     'problem.card2.desc':  '开车时想到的事、散步时的灵感、做饭时的念头——"等下记得买牛奶"，5 分钟后就忘了。',
     'problem.card3.title': 'AI 被困在屏幕里',
     'problem.card3.desc':  '你的 AI 很聪明，但它只在你打开聊天窗口时才知道你在做什么。它缺少一条持续的感知通道。',
+
+    'cases.title':         '真实场景，',
+    'cases.titleLine2':    '完整闭环，',
+    'cases.titleAccent':   '从说话到结果。',
+    'cases.card1.title':   '小红书内容创作',
+    'cases.card1.desc':    '散步时说出选题灵感，OpenClaw 自动整理成大纲、生成文案、配图建议，一条笔记从录音到发布。',
+    'cases.card2.title':   '从 Issue 到 PR',
+    'cases.card2.desc':    '开车时说出 Bug 描述，OpenClaw 自动创建 Issue、分析代码、提交 PR，下车时修复已合并。',
+    'cases.card3.title':   '日记与想法对话',
+    'cases.card3.desc':    '随时说出想法和感受，OpenClaw 帮你记录成日记。回头翻看时，还能和自己的记录对话。',
   },
 
   en: {
@@ -74,7 +89,7 @@ export const translations: Record<Locale, Record<TranslationKey, string>> = {
 
     'demo.title':          'One press. One sentence.',
     'demo.titleLine2':     'Done.',
-    'demo.subtitle':       '72-hour battery life. Stores audio offline, auto-uploads when connected. Your MiClaw stays with you everywhere, all the time.',
+    'demo.subtitle':       'No phone needed. Minimal friction. Capture your most fleeting thoughts and inspirations.',
 
     'problem.label':       'The Problem',
     'battery.title':       'Ultra-long standby,',
@@ -90,5 +105,15 @@ export const translations: Record<Locale, Record<TranslationKey, string>> = {
     'problem.card2.desc':  'That idea while driving, inspiration on a walk, a thought while cooking — "remember to buy milk" — forgotten in 5 minutes.',
     'problem.card3.title': 'AI is trapped behind a screen',
     'problem.card3.desc':  'Your AI is smart, but it only knows what you\'re doing when you open a chat window. It lacks a persistent channel of perception.',
+
+    'cases.title':         'Real scenarios.',
+    'cases.titleLine2':    'End-to-end.',
+    'cases.titleAccent':   'From voice to done.',
+    'cases.card1.title':   'Content Creation',
+    'cases.card1.desc':    'Speak your topic idea on a walk. OpenClaw turns it into an outline, draft, and image suggestions — one post from voice to publish.',
+    'cases.card2.title':   'Issue to Pull Request',
+    'cases.card2.desc':    'Describe a bug while driving. OpenClaw creates the issue, analyzes the code, and submits a PR. Fixed by the time you park.',
+    'cases.card3.title':   'Journal & Reflect',
+    'cases.card3.desc':    'Share thoughts anytime. OpenClaw keeps your journal. Later, have a conversation with your own past reflections.',
   },
 }

@@ -7,7 +7,7 @@
 
 import { useRef } from 'react'
 import { motion, useScroll, useTransform } from 'framer-motion'
-import { Smartphone, Clock, Monitor } from 'lucide-react'
+import { Smartphone, Clock, Monitor, Sparkles, GitBranch, BookOpen } from 'lucide-react'
 import { useLocale } from '@/i18n/context'
 
 /* ================================================================
@@ -239,7 +239,7 @@ function Demo() {
           whileInView="visible"
           viewport={{ once: true, margin: '-80px' }}
           variants={stagger}
-          className="md:pl-16 lg:pl-24"
+          className="md:pl-16 lg:pl-24 md:text-right"
         >
           <motion.h2
             variants={fadeUp}
@@ -313,6 +313,72 @@ function Battery() {
             className="max-w-[320px] drop-shadow-xl"
           />
         </motion.div>
+      </div>
+    </section>
+  )
+}
+
+/* ================================================================
+   USE CASES
+   ================================================================ */
+
+const CASE_ICONS = [Sparkles, GitBranch, BookOpen] as const
+const CASE_KEYS = ['card1', 'card2', 'card3'] as const
+
+function UseCases() {
+  const { t } = useLocale()
+
+  return (
+    <section className="relative py-28 md:py-36">
+      <div className="relative z-10 mx-auto grid max-w-7xl grid-cols-1 items-center gap-12 px-6 md:grid-cols-2 md:gap-16 md:px-10">
+        {/* Left: Stacked cards */}
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: '-60px' }}
+          variants={stagger}
+          className="flex flex-col gap-4"
+        >
+          {CASE_KEYS.map((key, i) => {
+            const Icon = CASE_ICONS[i]
+            return (
+              <motion.div
+                key={key}
+                variants={fadeUp}
+                custom={i}
+                className="group flex items-start gap-5 rounded-xl border border-[var(--warm-light)] bg-[var(--card)] px-6 py-5 transition-all duration-300 hover:border-[var(--warm)] hover:shadow-md"
+              >
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-[var(--cream-dark)] text-[var(--terracotta)] transition-colors group-hover:bg-[var(--terracotta)] group-hover:text-white">
+                  <Icon className="h-4 w-4" strokeWidth={1.5} />
+                </div>
+                <div>
+                  <h3 className="text-[0.95rem] font-semibold leading-snug text-[var(--bark)]">
+                    {t(`cases.${key}.title`)}
+                  </h3>
+                  <p className="mt-1 text-[0.85rem] leading-relaxed text-[var(--bark-light)]">
+                    {t(`cases.${key}.desc`)}
+                  </p>
+                </div>
+              </motion.div>
+            )
+          })}
+        </motion.div>
+
+        {/* Right: Title */}
+        <motion.h2
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: '-80px' }}
+          variants={fadeUp}
+          custom={0}
+          className="max-w-md font-serif text-[clamp(2rem,4.5vw,3.4rem)] leading-[1.15] tracking-tight text-[var(--bark)] md:text-right md:ml-auto"
+        >
+          {t('cases.title')}
+          <br />
+          {t('cases.titleLine2')}
+          <br />
+          <span className="text-[var(--terracotta)]">{t('cases.titleAccent')}</span>
+        </motion.h2>
       </div>
     </section>
   )
@@ -404,6 +470,7 @@ export default function Home() {
       <Hero />
       <Demo />
       <Battery />
+      <UseCases />
       <Problem />
     </>
   )
