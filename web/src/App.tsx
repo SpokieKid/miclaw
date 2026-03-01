@@ -5,6 +5,7 @@
  * [PROTOCOL]: Update this header on changes, then check CLAUDE.md
  */
 
+
 import { BrowserRouter, Routes, Route } from 'react-router'
 import { LocaleProvider } from '@/i18n/context'
 import Home from '@/pages/Home'
