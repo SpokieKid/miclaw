@@ -70,6 +70,8 @@ export const translations: Record<Locale, Record<TranslationKey, string>> = {
     'cases.card2.desc':    '开车时说出 Bug 描述，OpenClaw 自动创建 Issue、分析代码、提交 PR，下车时修复已合并。',
     'cases.card3.title':   '日记与想法对话',
     'cases.card3.desc':    '随时说出想法和感受，OpenClaw 帮你记录成日记。回头翻看时，还能和自己的记录对话。',
+    'pay.title':           '微信支付',
+    'pay.desc':            '请麻烦备注你的微信号，俺们好拉群！如果后面\n没做出来，俺们会原路退回',
   },
 
   en: {
@@ -115,5 +117,7 @@ export const translations: Record<Locale, Record<TranslationKey, string>> = {
     'cases.card2.desc':    'Describe a bug while driving. OpenClaw creates the issue, analyzes the code, and submits a PR. Fixed by the time you park.',
     'cases.card3.title':   'Journal & Reflect',
     'cases.card3.desc':    'Share thoughts anytime. OpenClaw keeps your journal. Later, have a conversation with your own past reflections.',
+    'pay.title':           'WeChat Pay',
+    'pay.desc':            'Please include your WeChat ID in the note so we can add you to the group. If we do not deliver later, we will refund to the original payment method.',
   },
 }

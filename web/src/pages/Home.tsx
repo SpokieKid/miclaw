@@ -9,6 +9,7 @@ import { useRef } from 'react'
 import { motion, useScroll, useTransform } from 'framer-motion'
 import { Smartphone, Clock, Monitor, Sparkles, GitBranch, BookOpen } from 'lucide-react'
 import { useLocale } from '@/i18n/context'
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog'
 
 /* ================================================================
    ANIMATION VARIANTS
@@ -160,13 +161,33 @@ function Hero() {
 
           {/* Price */}
           <motion.div variants={fadeUp} custom={3} className="mt-10">
-            <a
-              href="#"
-              className="inline-flex items-center gap-3 rounded-full bg-[var(--bark)] px-7 py-3.5 font-mono text-[0.85rem] font-bold tracking-wider uppercase text-[var(--cream)] transition-all hover:bg-[#2d2924] hover:shadow-xl"
-            >
-              {t('hero.priceCta')}
-              {t('hero.priceOld') && <span className="text-[var(--warm)] line-through">{t('hero.priceOld')}</span>}
-            </a>
+            <Dialog>
+              <DialogTrigger asChild>
+                <button
+                  type="button"
+                  className="inline-flex items-center gap-3 rounded-full bg-[var(--bark)] px-7 py-3.5 font-mono text-[0.85rem] font-bold tracking-wider uppercase text-[var(--cream)] transition-all hover:bg-[#2d2924] hover:shadow-xl"
+                >
+                  {t('hero.priceCta')}
+                  {t('hero.priceOld') && <span className="text-[var(--warm)] line-through">{t('hero.priceOld')}</span>}
+                </button>
+              </DialogTrigger>
+              <DialogContent className="max-w-[420px] border-[var(--warm-light)] bg-[var(--card)] p-5">
+                <DialogHeader className="text-left">
+                  <DialogTitle className="font-serif text-[1.2rem] text-[var(--bark)]">
+                    {t('pay.title')}
+                  </DialogTitle>
+                </DialogHeader>
+                <img
+                  src="/wechatpay.jpg"
+                  alt="微信支付收款码"
+                  loading="lazy"
+                  className="w-full rounded-xl object-cover"
+                />
+                <p className="whitespace-pre-line text-[0.94rem] leading-relaxed text-[var(--bark)]">
+                  {t('pay.desc')}
+                </p>
+              </DialogContent>
+            </Dialog>
 
             <p className="mt-4 text-[0.9rem] text-[var(--bark-light)]">
               {t('hero.priceAvail')}
@@ -308,8 +329,8 @@ function Battery() {
           className="flex justify-center md:justify-end"
         >
           <img
-            src="/product-white.png"
-            alt="MiClaw device"
+            src="/hero.png"
+            alt="MiClaw hero image"
             className="max-w-[320px] drop-shadow-xl"
           />
         </motion.div>
