@@ -239,13 +239,16 @@ function Demo() {
           whileInView="visible"
           viewport={{ once: true, margin: '-80px' }}
           variants={stagger}
+          className="md:pl-16 lg:pl-24"
         >
           <motion.h2
             variants={fadeUp}
             custom={0}
-            className="font-serif text-[clamp(1.6rem,3vw,2.4rem)] leading-[1.2] tracking-tight text-[var(--bark)]"
+            className="font-serif text-[clamp(2rem,4.5vw,3.4rem)] leading-[1.15] tracking-tight text-[var(--bark)]"
           >
             {t('demo.title')}
+            <br />
+            {t('demo.titleLine2')}
           </motion.h2>
           <motion.p
             variants={fadeUp}
@@ -254,6 +257,61 @@ function Demo() {
           >
             {t('demo.subtitle')}
           </motion.p>
+        </motion.div>
+      </div>
+    </section>
+  )
+}
+
+/* ================================================================
+   BATTERY
+   ================================================================ */
+
+function Battery() {
+  const { t } = useLocale()
+
+  return (
+    <section className="relative py-20 md:py-28">
+      <div className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-12 px-6 md:grid-cols-2 md:gap-16 md:px-10">
+        {/* Left: Title */}
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: '-80px' }}
+          variants={stagger}
+        >
+          <motion.h2
+            variants={fadeUp}
+            custom={0}
+            className="font-serif text-[clamp(2rem,4.5vw,3.4rem)] leading-[1.15] tracking-tight text-[var(--bark)]"
+          >
+            {t('battery.title')}
+            <br />
+            {t('battery.titleLine2')}
+          </motion.h2>
+          <motion.p
+            variants={fadeUp}
+            custom={1}
+            className="mt-5 max-w-md text-[1.05rem] leading-relaxed text-[var(--bark-light)]"
+          >
+            {t('battery.subtitle')}
+          </motion.p>
+        </motion.div>
+
+        {/* Right: Image */}
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: '-80px' }}
+          variants={fadeUp}
+          custom={0}
+          className="flex justify-center md:justify-end"
+        >
+          <img
+            src="/product-white.png"
+            alt="MiClaw device"
+            className="max-w-[320px] drop-shadow-xl"
+          />
         </motion.div>
       </div>
     </section>
@@ -281,28 +339,30 @@ function Problem() {
         }}
       />
 
-      <div className="relative z-10 mx-auto max-w-7xl px-6 md:px-10">
-        {/* Section title */}
+      <div className="relative z-10 mx-auto grid max-w-7xl grid-cols-1 items-center gap-12 px-6 md:grid-cols-2 md:gap-16 md:px-10">
+        {/* Left: Title */}
         <motion.h2
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: '-80px' }}
           variants={fadeUp}
-          custom={1}
-          className="mb-16 max-w-lg font-serif text-[clamp(2rem,4.5vw,3.4rem)] leading-[1.15] tracking-tight text-[var(--bark)] md:mb-20"
+          custom={0}
+          className="max-w-md font-serif text-[clamp(2rem,4.5vw,3.4rem)] leading-[1.15] tracking-tight text-[var(--bark)]"
         >
           {t('problem.title')}
+          <br />
+          {t('problem.titleLine2')}
           <br />
           <span className="text-[var(--terracotta)]">{t('problem.titleAccent')}</span>
         </motion.h2>
 
-        {/* Problem cards */}
+        {/* Right: Stacked cards */}
         <motion.div
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: '-60px' }}
           variants={stagger}
-          className="grid grid-cols-1 gap-6 md:grid-cols-3"
+          className="flex flex-col gap-4"
         >
           {PROBLEM_KEYS.map((key, i) => {
             const Icon = PROBLEM_ICONS[i]
@@ -311,17 +371,19 @@ function Problem() {
                 key={key}
                 variants={fadeUp}
                 custom={i}
-                className="group rounded-2xl border border-[var(--warm-light)] bg-[var(--card)] p-8 transition-all duration-300 hover:-translate-y-1 hover:border-[var(--warm)] hover:shadow-lg"
+                className="group flex items-start gap-5 rounded-xl border border-[var(--warm-light)] bg-[var(--card)] px-6 py-5 transition-all duration-300 hover:border-[var(--warm)] hover:shadow-md"
               >
-                <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-xl bg-[var(--cream-dark)] text-[var(--terracotta)] transition-colors group-hover:bg-[var(--terracotta)] group-hover:text-white">
-                  <Icon className="h-5 w-5" strokeWidth={1.5} />
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-[var(--cream-dark)] text-[var(--terracotta)] transition-colors group-hover:bg-[var(--terracotta)] group-hover:text-white">
+                  <Icon className="h-4 w-4" strokeWidth={1.5} />
                 </div>
-                <h3 className="mb-3 text-[1.05rem] font-semibold leading-snug text-[var(--bark)]">
-                  {t(`problem.${key}.title`)}
-                </h3>
-                <p className="text-[0.9rem] leading-relaxed text-[var(--bark-light)]">
-                  {t(`problem.${key}.desc`)}
-                </p>
+                <div>
+                  <h3 className="text-[0.95rem] font-semibold leading-snug text-[var(--bark)]">
+                    {t(`problem.${key}.title`)}
+                  </h3>
+                  <p className="mt-1 text-[0.85rem] leading-relaxed text-[var(--bark-light)]">
+                    {t(`problem.${key}.desc`)}
+                  </p>
+                </div>
               </motion.div>
             )
           })}
@@ -341,6 +403,7 @@ export default function Home() {
       <Nav />
       <Hero />
       <Demo />
+      <Battery />
       <Problem />
     </>
   )

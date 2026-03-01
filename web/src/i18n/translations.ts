@@ -14,8 +14,9 @@ export type TranslationKey =
   | 'hero.subtitle' | 'hero.subtitleLine2' | 'hero.subtitleCaption'
   | 'hero.priceCta' | 'hero.priceOld' | 'hero.priceAvail'
   | 'hero.cta'
-  | 'demo.title' | 'demo.subtitle'
-  | 'problem.label' | 'problem.title' | 'problem.titleAccent'
+  | 'demo.title' | 'demo.titleLine2' | 'demo.subtitle'
+  | 'battery.title' | 'battery.titleLine2' | 'battery.subtitle'
+  | 'problem.label' | 'problem.title' | 'problem.titleLine2' | 'problem.titleAccent'
   | 'problem.card1.title' | 'problem.card1.desc'
   | 'problem.card2.title' | 'problem.card2.desc'
   | 'problem.card3.title' | 'problem.card3.desc'
@@ -36,12 +37,18 @@ export const translations: Record<Locale, Record<TranslationKey, string>> = {
     'hero.priceAvail':      '开售即抵 ¥50 · 限 100 名',
     'hero.cta':             '锁定早鸟',
 
-    'demo.title':          '按一下，说一句，搞定。',
-    'demo.subtitle':       '不用解锁手机，不用打开 App。对着小龙虾说话，OpenClaw 自动执行。',
+    'demo.title':          '按一下，说一句，',
+    'demo.titleLine2':     '任务搞定。',
+    'demo.subtitle':       '72 小时使用时长，离线也可以存储音频文件，有网时自动上传，全天候全地点和你的小龙虾不离不弃。',
 
     'problem.label':       '痛点',
-    'problem.title':       '从想法到行动，',
-    'problem.titleAccent': '路径太长了。',
+    'battery.title':       '超长待机，',
+    'battery.titleLine2':  '随时随地。',
+    'battery.subtitle':    '72 小时续航，离线也能录音存储。连上网络自动同步，不漏掉任何一条指令。',
+
+    'problem.title':       '可选一条龙服务，',
+    'problem.titleLine2':  '开箱即用，',
+    'problem.titleAccent': '无需冗长配置。',
     'problem.card1.title': '解锁 → 打开 → 等加载 → 打字',
     'problem.card1.desc':  '想给 AI 下个指令？先掏手机，解锁，打开 App，等加载，然后打字输入。五步才能说出你要做的事。',
     'problem.card2.title': '碎片想法，转瞬即逝',
@@ -65,12 +72,18 @@ export const translations: Record<Locale, Record<TranslationKey, string>> = {
     'hero.priceAvail':      '$10 off at launch · 100 spots',
     'hero.cta':             'Reserve Now',
 
-    'demo.title':          'One press. One sentence. Done.',
-    'demo.subtitle':       'No unlocking, no app switching. Speak to MiClaw and OpenClaw handles the rest.',
+    'demo.title':          'One press. One sentence.',
+    'demo.titleLine2':     'Done.',
+    'demo.subtitle':       '72-hour battery life. Stores audio offline, auto-uploads when connected. Your MiClaw stays with you everywhere, all the time.',
 
     'problem.label':       'The Problem',
-    'problem.title':       'From thought to action,',
-    'problem.titleAccent': 'the path is too long.',
+    'battery.title':       'Ultra-long standby,',
+    'battery.titleLine2':  'anywhere, anytime.',
+    'battery.subtitle':    '72-hour battery life. Records audio offline, auto-syncs when connected. Never miss a single command.',
+
+    'problem.title':       'End-to-end.',
+    'problem.titleLine2':  'Out of the box.',
+    'problem.titleAccent': 'No setup hassle.',
     'problem.card1.title': 'Unlock → Open → Wait → Type',
     'problem.card1.desc':  'Want to give AI a command? Pull out your phone, unlock, open the app, wait for it to load, then type. Five steps before you can say what you need.',
     'problem.card2.title': 'Fleeting thoughts, instantly lost',
