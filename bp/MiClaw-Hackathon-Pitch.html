@@ -1,0 +1,1164 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Miclaw - Hackathon Pitch</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500&family=Noto+Serif+SC:wght@400;500;600;700;900&family=Source+Sans+3:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap');
+
+  :root {
+    /* Warm cream palette */
+    --bg-cream: #FFFBF0;
+    --bg-cream-deep: #FFF8E7;
+    --bg-cream-accent: #FEF3C7;
+    --bg-white: #FFFFFF;
+    --bg-warm-light: #FEFCF6;
+
+    /* Accent colors */
+    --amber: #D97706;
+    --amber-deep: #B45309;
+    --amber-light: #F59E0B;
+    --amber-glow: rgba(217, 119, 6, 0.08);
+    --amber-glow-strong: rgba(217, 119, 6, 0.15);
+    --terracotta: #C2410C;
+    --terracotta-light: #EA580C;
+    --terracotta-glow: rgba(194, 65, 12, 0.08);
+
+    /* Text */
+    --text-primary: #1C1917;
+    --text-secondary: #57534E;
+    --text-muted: #78716C;
+    --text-light: #A8A29E;
+
+    /* Greens */
+    --sage: #65A30D;
+    --sage-deep: #4D7C0F;
+    --sage-glow: rgba(101, 163, 13, 0.10);
+
+    /* Blues */
+    --blue: #2563EB;
+    --blue-deep: #1D4ED8;
+    --blue-glow: rgba(37, 99, 235, 0.08);
+
+    /* Borders & shadows */
+    --border: #E7E5E4;
+    --border-light: #F5F5F4;
+    --shadow-soft: 0 2px 16px rgba(28, 25, 23, 0.04);
+    --shadow-card: 0 1px 8px rgba(28, 25, 23, 0.06);
+    --shadow-elevated: 0 4px 24px rgba(28, 25, 23, 0.08);
+
+    /* Gradients */
+    --gradient-warm: linear-gradient(180deg, #FFFBF0 0%, #FFF8E7 100%);
+    --gradient-amber: linear-gradient(135deg, #D97706, #F59E0B);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  @page {
+    size: 1280px 720px;
+    margin: 0;
+  }
+
+  body {
+    font-family: 'Source Sans 3', 'Noto Serif SC', -apple-system, sans-serif;
+    background: #1C1917;
+    color: var(--text-primary);
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+  }
+
+  .slide {
+    width: 1280px;
+    height: 720px;
+    position: relative;
+    overflow: hidden;
+    background: var(--gradient-warm);
+    display: grid;
+    grid-template-columns: 420px 1fr;
+    grid-template-rows: 1fr;
+  }
+
+  /* Subtle warm texture overlay */
+  .slide::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: radial-gradient(ellipse at 15% 30%, rgba(254, 243, 199, 0.6) 0%, transparent 50%),
+                radial-gradient(ellipse at 85% 80%, rgba(217, 119, 6, 0.04) 0%, transparent 40%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ===== LEFT COLUMN — Hero / Identity ===== */
+  .left-col {
+    position: relative;
+    z-index: 1;
+    padding: 44px 40px 48px 48px;
+    display: flex;
+    flex-direction: column;
+    border-right: 1px solid var(--border);
+  }
+
+  .brand-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 6px;
+  }
+
+  .brand-name {
+    font-family: 'Playfair Display', 'Noto Serif SC', serif;
+    font-size: 36px;
+    font-weight: 800;
+    letter-spacing: -1px;
+    color: var(--text-primary);
+  }
+
+  .brand-tag {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    background: var(--amber-glow-strong);
+    color: var(--amber-deep);
+    border: 1px solid rgba(217, 119, 6, 0.25);
+    margin-top: 4px;
+  }
+
+  .tagline-zh {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 22px;
+    font-weight: 700;
+    line-height: 1.35;
+    color: var(--text-primary);
+    margin-bottom: 3px;
+    letter-spacing: 0.5px;
+  }
+
+  .tagline-en {
+    font-size: 12px;
+    color: var(--text-muted);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    font-weight: 500;
+    margin-bottom: 20px;
+  }
+
+  /* Problem → Solution flow */
+  .problem-box {
+    background: rgba(194, 65, 12, 0.05);
+    border: 1px solid rgba(194, 65, 12, 0.15);
+    border-radius: 12px;
+    padding: 14px 16px;
+    margin-bottom: 12px;
+  }
+
+  .problem-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--terracotta);
+    margin-bottom: 6px;
+  }
+
+  .problem-text {
+    font-size: 13.5px;
+    color: var(--text-secondary);
+    line-height: 1.55;
+  }
+
+  .problem-text strong {
+    color: var(--terracotta);
+    font-weight: 700;
+  }
+
+  .flow-arrow-down {
+    display: flex;
+    justify-content: center;
+    margin: 4px 0;
+    color: var(--text-light);
+    font-size: 18px;
+    line-height: 1;
+  }
+
+  .solution-box {
+    background: rgba(217, 119, 6, 0.06);
+    border: 1px solid rgba(217, 119, 6, 0.2);
+    border-radius: 12px;
+    padding: 14px 16px;
+    margin-bottom: 16px;
+  }
+
+  .solution-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--amber);
+    margin-bottom: 6px;
+  }
+
+  .solution-steps {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    margin-bottom: 8px;
+  }
+
+  .step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    flex: 1;
+  }
+
+  .step-circle {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 700;
+    color: white;
+    background: var(--amber);
+    box-shadow: 0 2px 8px rgba(217, 119, 6, 0.3);
+  }
+
+  .step-circle.step-active {
+    background: linear-gradient(135deg, var(--amber), var(--amber-light));
+    width: 36px;
+    height: 36px;
+    font-size: 15px;
+  }
+
+  .step-text {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    white-space: nowrap;
+  }
+
+  .step-arrow {
+    font-size: 14px;
+    color: var(--amber-light);
+    margin: 0 -2px;
+    margin-bottom: 16px;
+  }
+
+  .solution-time {
+    text-align: center;
+    font-size: 12px;
+    color: var(--text-muted);
+    font-weight: 500;
+  }
+
+  .solution-time strong {
+    color: var(--amber-deep);
+    font-weight: 700;
+    font-size: 16px;
+  }
+
+  /* Device visual — real product images */
+  .device-area {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    position: relative;
+    padding: 0 4px;
+  }
+
+  .device-showcase {
+    position: relative;
+    flex-shrink: 0;
+  }
+
+  .device-img-main {
+    width: 110px;
+    height: 110px;
+    object-fit: contain;
+    border-radius: 50%;
+    filter: drop-shadow(0 8px 24px rgba(0,0,0,0.18));
+  }
+
+  .device-pulse-ring {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    border: 1.5px solid rgba(217, 119, 6, 0.12);
+    animation: pulse-out 3s ease-out infinite;
+    pointer-events: none;
+  }
+
+  .device-pulse-ring:nth-child(1) { width: 130px; height: 130px; }
+  .device-pulse-ring:nth-child(2) { width: 152px; height: 152px; animation-delay: 1s; }
+  .device-pulse-ring:nth-child(3) { width: 174px; height: 174px; animation-delay: 2s; }
+
+  @keyframes pulse-out {
+    0% { opacity: 0.5; transform: translate(-50%, -50%) scale(0.95); }
+    100% { opacity: 0; transform: translate(-50%, -50%) scale(1.15); }
+  }
+
+  .device-lifestyle {
+    width: 140px;
+    height: 90px;
+    object-fit: cover;
+    border-radius: 12px;
+    border: 1.5px solid var(--border);
+    box-shadow: var(--shadow-elevated);
+  }
+
+  .device-info {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .device-info-title {
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text-primary);
+  }
+
+  .device-info-specs {
+    font-size: 10.5px;
+    color: var(--text-muted);
+    line-height: 1.6;
+    font-weight: 500;
+  }
+
+  .device-info-specs strong {
+    color: var(--text-secondary);
+    font-weight: 700;
+  }
+
+  .device-bom-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-family: 'Playfair Display', serif;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--amber-deep);
+    background: var(--amber-glow-strong);
+    border: 1px solid rgba(217, 119, 6, 0.2);
+    margin-top: 2px;
+    width: fit-content;
+  }
+
+  .device-bom-label {
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--amber);
+  }
+
+  /* ===== RIGHT COLUMN — Products + Traction + CTA ===== */
+  .right-col {
+    position: relative;
+    z-index: 1;
+    padding: 40px 44px 32px 36px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  /* Channel → Brain flow layout */
+  .flow-section {
+    display: flex;
+    align-items: stretch;
+    gap: 0;
+  }
+
+  .flow-inputs {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex: 1;
+  }
+
+  .flow-inputs-label {
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--terracotta);
+    text-align: center;
+    margin-bottom: -2px;
+  }
+
+  .input-card {
+    background: var(--bg-white);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 12px 14px;
+    box-shadow: var(--shadow-card);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .input-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .input-icon.icon-voice {
+    background: var(--amber-glow-strong);
+    color: var(--amber);
+  }
+
+  .input-icon.icon-visual {
+    background: var(--blue-glow);
+    color: var(--blue);
+  }
+
+  .input-text {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .input-name {
+    font-size: 12.5px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 1px;
+  }
+
+  .input-desc {
+    font-size: 10.5px;
+    color: var(--text-muted);
+    line-height: 1.4;
+  }
+
+  .input-badge {
+    display: inline-block;
+    padding: 2px 7px;
+    border-radius: 10px;
+    font-size: 8.5px;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+    flex-shrink: 0;
+  }
+
+  .badge-live {
+    background: rgba(101, 163, 13, 0.12);
+    color: var(--sage-deep);
+    border: 1px solid rgba(101, 163, 13, 0.2);
+  }
+
+  .badge-proto {
+    background: var(--amber-glow);
+    color: var(--amber-deep);
+    border: 1px solid rgba(217, 119, 6, 0.2);
+  }
+
+  /* Flow connector arrows */
+  .flow-connector {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    flex-shrink: 0;
+    position: relative;
+  }
+
+  .flow-connector-arrows {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .flow-connector-arrow {
+    font-size: 18px;
+    color: var(--amber);
+    line-height: 1;
+  }
+
+  .flow-connector-label {
+    font-size: 7.5px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--text-light);
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    position: absolute;
+    right: -2px;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  /* OpenClaw brain card */
+  .brain-card {
+    flex: 1.1;
+    background: linear-gradient(135deg, rgba(101, 163, 13, 0.06), rgba(101, 163, 13, 0.02));
+    border: 1.5px solid rgba(101, 163, 13, 0.25);
+    border-radius: 14px;
+    padding: 16px;
+    box-shadow: var(--shadow-elevated);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .brain-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 10px;
+  }
+
+  .brain-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: var(--sage-glow);
+    border: 1.5px solid rgba(101, 163, 13, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--sage-deep);
+  }
+
+  .brain-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--sage-deep);
+  }
+
+  .brain-subtitle {
+    font-size: 9.5px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--text-light);
+  }
+
+  .brain-desc {
+    font-size: 11px;
+    color: var(--text-secondary);
+    line-height: 1.55;
+    margin-bottom: 8px;
+  }
+
+  .brain-capabilities {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+
+  .brain-cap-tag {
+    padding: 2px 8px;
+    border-radius: 8px;
+    font-size: 9px;
+    font-weight: 600;
+    color: var(--sage-deep);
+    background: rgba(101, 163, 13, 0.08);
+    border: 1px solid rgba(101, 163, 13, 0.15);
+    letter-spacing: 0.3px;
+  }
+
+  /* Traction Stats */
+  .traction-section {
+    display: flex;
+    align-items: stretch;
+    gap: 10px;
+  }
+
+  .traction-card {
+    flex: 1;
+    background: var(--bg-white);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 14px 14px 12px;
+    box-shadow: var(--shadow-card);
+    text-align: center;
+  }
+
+  .traction-value {
+    font-family: 'Playfair Display', serif;
+    font-size: 30px;
+    font-weight: 700;
+    line-height: 1;
+    margin-bottom: 3px;
+    color: var(--text-primary);
+  }
+
+  .traction-value.amber { color: var(--amber-deep); }
+  .traction-value.sage { color: var(--sage-deep); }
+  .traction-value.terra { color: var(--terracotta); }
+
+  .traction-label {
+    font-size: 10.5px;
+    color: var(--text-muted);
+    font-weight: 500;
+    line-height: 1.3;
+  }
+
+  .traction-note {
+    font-size: 9px;
+    color: var(--text-light);
+    margin-top: 3px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+
+  /* Competitive Edge Row */
+  .edge-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .edge-card {
+    background: var(--bg-white);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 12px 14px;
+    box-shadow: var(--shadow-card);
+  }
+
+  .edge-header {
+    font-size: 9.5px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--text-light);
+    margin-bottom: 8px;
+  }
+
+  .edge-comparison {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .edge-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    color: var(--text-muted);
+  }
+
+  .edge-item.dead {
+    text-decoration: line-through;
+    opacity: 0.5;
+  }
+
+  .edge-item.ours {
+    color: var(--amber-deep);
+    font-weight: 700;
+  }
+
+  .edge-price {
+    font-weight: 700;
+    font-size: 11px;
+    min-width: 48px;
+  }
+
+  .edge-x {
+    color: var(--terracotta);
+    font-size: 10px;
+  }
+
+  .edge-check {
+    color: var(--sage);
+    font-size: 12px;
+  }
+
+  /* Key Insight quote */
+  .insight-card {
+    background: linear-gradient(135deg, rgba(254, 243, 199, 0.5), rgba(255, 251, 240, 0.8));
+    border: 1px solid rgba(217, 119, 6, 0.2);
+    border-radius: 12px;
+    padding: 12px 16px;
+    position: relative;
+  }
+
+  .insight-quote {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-primary);
+    line-height: 1.6;
+    font-style: italic;
+  }
+
+  .insight-quote::before {
+    content: '\201C';
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+    color: var(--amber);
+    position: absolute;
+    top: 4px;
+    left: 10px;
+    line-height: 1;
+    opacity: 0.5;
+  }
+
+  .insight-source {
+    font-size: 10px;
+    color: var(--text-muted);
+    margin-top: 4px;
+    font-weight: 500;
+  }
+
+  /* CTA Bar */
+  .cta-bar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: auto;
+    padding: 10px 14px;
+    background: linear-gradient(135deg, rgba(254, 243, 199, 0.4), rgba(255, 251, 240, 0.7));
+    border: 1px solid rgba(217, 119, 6, 0.15);
+    border-radius: 12px;
+  }
+
+  .cta-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 22px;
+    background: var(--gradient-amber);
+    color: white;
+    border-radius: 100px;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+    box-shadow: 0 4px 16px rgba(217, 119, 6, 0.3);
+    text-decoration: none;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .cta-button svg {
+    width: 14px;
+    height: 14px;
+    fill: currentColor;
+  }
+
+  .cta-crowd {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .cta-crowd-title {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--amber-deep);
+    letter-spacing: 0.3px;
+  }
+
+  .cta-crowd-detail {
+    font-size: 10.5px;
+    color: var(--text-secondary);
+    line-height: 1.4;
+  }
+
+  .cta-crowd-detail strong {
+    color: var(--amber-deep);
+    font-weight: 700;
+  }
+
+  .cta-qr-area {
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+  }
+
+  .qr-placeholder {
+    width: 52px;
+    height: 52px;
+    border: 1.5px solid var(--border);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--bg-white);
+    box-shadow: var(--shadow-card);
+  }
+
+  .qr-placeholder svg {
+    width: 30px;
+    height: 30px;
+    opacity: 0.3;
+  }
+
+  .qr-text {
+    font-size: 8.5px;
+    color: var(--text-muted);
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-align: center;
+  }
+
+  /* Bottom bar */
+  .bottom-bar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 36px;
+    background: rgba(28, 25, 23, 0.04);
+    border-top: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 48px;
+    z-index: 2;
+  }
+
+  .bottom-left {
+    font-size: 10px;
+    color: var(--text-light);
+    font-weight: 500;
+    letter-spacing: 1px;
+  }
+
+  .bottom-right {
+    font-size: 10px;
+    color: var(--text-light);
+    font-weight: 500;
+  }
+
+  /* Business model mini row */
+  .biz-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 8px;
+  }
+
+  .biz-item {
+    background: var(--bg-warm-light);
+    border: 1px solid var(--border-light);
+    border-radius: 8px;
+    padding: 8px 10px;
+    text-align: center;
+  }
+
+  .biz-price {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text-primary);
+    line-height: 1;
+  }
+
+  .biz-desc {
+    font-size: 9px;
+    color: var(--text-muted);
+    margin-top: 2px;
+    font-weight: 500;
+  }
+
+  .biz-highlight {
+    font-size: 9.5px;
+    color: var(--amber-deep);
+    font-weight: 700;
+    margin-top: 2px;
+  }
+</style>
+</head>
+<body>
+
+<div class="slide">
+
+  <!-- ===== LEFT COLUMN ===== -->
+  <div class="left-col">
+
+    <!-- Brand -->
+    <div class="brand-row">
+      <span class="brand-name">Miclaw</span>
+      <span class="brand-tag">AI Hardware</span>
+    </div>
+    <div class="tagline-zh">捕获你遗失的上下文，<br>让 AI 真正替你做事</div>
+    <div class="tagline-en">Capture it, then forget about it</div>
+
+    <!-- Problem -->
+    <div class="problem-box">
+      <div class="problem-label">Problem</div>
+      <div class="problem-text">
+        AI 无比强大，但你和它之间的通道太窄了。<br>
+        解锁手机 → 打开 App → 输入 → 等待 →<br>
+        <strong>7 步, 45 秒+</strong>，才能让 AI 帮你做一件事。
+      </div>
+    </div>
+
+    <div class="flow-arrow-down">
+      <svg width="16" height="20" viewBox="0 0 16 20" fill="none">
+        <path d="M8 0v16M2 11l6 6 6-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+
+    <!-- Solution -->
+    <div class="solution-box">
+      <div class="solution-label">Solution</div>
+      <div class="solution-steps">
+        <div class="step">
+          <div class="step-circle">1</div>
+          <div class="step-text">按下</div>
+        </div>
+        <div class="step-arrow">&#10132;</div>
+        <div class="step">
+          <div class="step-circle step-active">2</div>
+          <div class="step-text">说话</div>
+        </div>
+        <div class="step-arrow">&#10132;</div>
+        <div class="step">
+          <div class="step-circle">3</div>
+          <div class="step-text">松手</div>
+        </div>
+      </div>
+      <div class="solution-time"><strong>3 步, 5 秒</strong> &mdash; AI Agent 在后台搞定一切</div>
+    </div>
+
+    <!-- Device — real product photos -->
+    <div class="device-area">
+      <div class="device-showcase">
+        <div class="device-pulse-ring"></div>
+        <div class="device-pulse-ring"></div>
+        <div class="device-pulse-ring"></div>
+        <img class="device-img-main" src="../web/public/product-device.png" alt="Miclaw Device">
+      </div>
+      <div class="device-info">
+        <img class="device-lifestyle" src="../web/public/product-lifestyle.png" alt="Miclaw Lifestyle">
+        <div class="device-info-title">Miclaw Walkie-Talkie</div>
+        <div class="device-info-specs">
+          圆形鹅卵石设计 &middot; 侧键操控<br>
+          WiFi 连接 &middot; 续航 <strong>3-5 天</strong><br>
+          深圳供应链 &middot; 首批 <strong>500 台</strong>
+        </div>
+        <div class="device-bom-tag">
+          <span class="device-bom-label">BOM</span> $12
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ===== RIGHT COLUMN ===== -->
+  <div class="right-col">
+
+    <!-- Channel → Brain Flow -->
+    <div class="flow-section">
+      <!-- Input channels -->
+      <div class="flow-inputs">
+        <div class="flow-inputs-label">你容易丢失的上下文</div>
+        <div class="input-card">
+          <div class="input-icon icon-visual">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+              <rect x="2" y="3" width="20" height="14" rx="2"/>
+              <line x1="8" y1="21" x2="16" y2="21"/>
+              <line x1="12" y1="17" x2="12" y2="21"/>
+            </svg>
+          </div>
+          <div class="input-text">
+            <div class="input-name">EINKO &mdash; 截图</div>
+            <div class="input-desc">截屏自动导入，AI 理解分类，语义搜索秒找回</div>
+          </div>
+          <span class="input-badge badge-live">App Store</span>
+        </div>
+        <div class="input-card" style="border-color: rgba(217,119,6,0.25); background: linear-gradient(135deg, rgba(254,243,199,0.3), var(--bg-white));">
+          <div class="input-icon icon-voice">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+              <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/>
+              <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
+              <line x1="12" y1="19" x2="12" y2="23"/>
+            </svg>
+          </div>
+          <div class="input-text">
+            <div class="input-name">对讲机 &mdash; 语音</div>
+            <div class="input-desc">按下说话，松手走人。通勤、跑步、做饭时皆可用</div>
+          </div>
+          <span class="input-badge badge-proto">Prototype</span>
+        </div>
+      </div>
+
+      <!-- Arrow connector -->
+      <div class="flow-connector">
+        <div class="flow-connector-arrows">
+          <span class="flow-connector-arrow">&#10132;</span>
+          <span class="flow-connector-arrow">&#10132;</span>
+        </div>
+      </div>
+
+      <!-- OpenClaw Brain -->
+      <div class="brain-card">
+        <div class="brain-header">
+          <div class="brain-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+              <circle cx="12" cy="12" r="10"/>
+              <path d="M12 8v4l2 2"/>
+              <circle cx="12" cy="12" r="3" opacity="0.4"/>
+            </svg>
+          </div>
+          <div>
+            <div class="brain-title">OpenClaw</div>
+            <div class="brain-subtitle">真正能做事的 AI Agent</div>
+          </div>
+        </div>
+        <div class="brain-desc">
+          所有通道汇入同一个大脑。它理解你截的图、说的话，帮你记住、帮你规划、帮你执行 &mdash; 你只管捕获上下文，剩下的交给它。
+        </div>
+        <div class="brain-capabilities">
+          <span class="brain-cap-tag">多模态理解</span>
+          <span class="brain-cap-tag">任务规划</span>
+          <span class="brain-cap-tag">自动执行</span>
+          <span class="brain-cap-tag">长期记忆</span>
+          <span class="brain-cap-tag">自研框架</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Traction -->
+    <div class="traction-section">
+      <div class="traction-card">
+        <div class="traction-value amber">600+</div>
+        <div class="traction-label">活跃用户</div>
+        <div class="traction-note">Zero ad spend</div>
+      </div>
+      <div class="traction-card">
+        <div class="traction-value sage">100+</div>
+        <div class="traction-label">月活用户</div>
+        <div class="traction-note">纯自然增长</div>
+      </div>
+      <div class="traction-card">
+        <div class="traction-value terra">35万</div>
+        <div class="traction-label">总曝光</div>
+        <div class="traction-note">海外 15万+</div>
+      </div>
+      <div class="traction-card">
+        <div class="traction-value" style="color: var(--blue-deep);">10</div>
+        <div class="traction-label">付费用户</div>
+        <div class="traction-note">自然转化</div>
+      </div>
+    </div>
+
+    <!-- Competitive + Business Model -->
+    <div class="edge-row">
+      <!-- VS Competition -->
+      <div class="edge-card">
+        <div class="edge-header">竞品全军覆没 &middot; 我们不一样</div>
+        <div class="edge-comparison">
+          <div class="edge-item dead">
+            <span class="edge-x">&#10005;</span>
+            <span class="edge-price">$699</span>
+            Humane AI Pin &mdash; 已召回
+          </div>
+          <div class="edge-item dead">
+            <span class="edge-x">&#10005;</span>
+            <span class="edge-price">$199</span>
+            Rabbit R1 &mdash; 使用量下滑
+          </div>
+          <div class="edge-item" style="opacity: 0.6;">
+            <span style="color: var(--text-light);">&#8226;</span>
+            <span class="edge-price">$99</span>
+            Limitless &mdash; 仅会议录音
+          </div>
+          <div class="edge-item ours">
+            <span class="edge-check">&#10003;</span>
+            <span class="edge-price">$49-79</span>
+            Miclaw &mdash; 多通道, BOM $12
+          </div>
+        </div>
+      </div>
+
+      <!-- Business Model -->
+      <div class="edge-card">
+        <div class="edge-header">硬件获客 &middot; 订阅变现</div>
+        <div class="biz-row">
+          <div class="biz-item">
+            <div class="biz-price">$99</div>
+            <div class="biz-desc">硬件 + 首年服务</div>
+          </div>
+          <div class="biz-item">
+            <div class="biz-price">$79<span style="font-size:10px;font-family:'Source Sans 3',sans-serif;color:var(--text-muted);">/年</span></div>
+            <div class="biz-desc">续费订阅</div>
+          </div>
+          <div class="biz-item" style="background: var(--amber-glow); border-color: rgba(217,119,6,0.15);">
+            <div class="biz-price" style="color: var(--amber-deep);">$257+</div>
+            <div class="biz-desc">3 年 LTV</div>
+            <div class="biz-highlight">毛利 65-85%</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Key Insight -->
+    <div class="insight-card">
+      <div class="insight-quote" style="padding-left: 14px;">
+        不是 AI 不够聪明，而是人和 AI 之间的通道太窄了。截图和语音，都只是入口 &mdash; OpenClaw 才是真正替你做事的大脑。
+      </div>
+      <div class="insight-source" style="padding-left: 14px;">Capture everything, forget nothing. OpenClaw handles the rest.</div>
+    </div>
+
+    <!-- CTA -->
+    <div class="cta-bar">
+      <a class="cta-button" href="https://miclaw.one" target="_blank">
+        <svg viewBox="0 0 24 24"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+        miclaw.one
+      </a>
+      <div class="cta-crowd">
+        <div class="cta-crowd-title">众筹进行中 &mdash; 限 100 名早鸟</div>
+        <div class="cta-crowd-detail">
+          <strong>¥9</strong> 锁定早鸟资格 &middot; 开售即抵 <strong>¥50</strong> &middot; EINKO 已上架 App Store 可直接体验
+        </div>
+      </div>
+      <div class="cta-qr-area">
+        <div class="qr-placeholder">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M3 3h8v8H3V3zm2 2v4h4V5H5zm8-2h8v8h-8V3zm2 2v4h4V5h-4zM3 13h8v8H3v-8zm2 2v4h4v-4H5zm11-2h2v2h-2v-2zm-4 0h2v2h-2v-2zm8 0h2v2h-2v-2zm-4 4h2v2h-2v-2zm4 0h2v2h-2v-2zm-4 4h2v2h-2v-2zm4 0h2v2h-2v-2z"/>
+          </svg>
+        </div>
+        <div class="qr-text">扫码访问官网</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Bottom bar -->
+  <div class="bottom-bar">
+    <div class="bottom-left">MICLAW &nbsp;&middot;&nbsp; AI HARDWARE &nbsp;&middot;&nbsp; SHENZHEN &nbsp;&middot;&nbsp; miclaw.one &nbsp;&middot;&nbsp; 全栈自研，无外包</div>
+    <div class="bottom-right">BOM $12 &nbsp;&middot;&nbsp; LTV/CAC 10-20x &nbsp;&middot;&nbsp; 硬件获客，订阅变现 &nbsp;&middot;&nbsp; 众筹进行中</div>
+  </div>
+
+</div>
+
+</body>
+</html>

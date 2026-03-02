@@ -5,11 +5,11 @@
  * [PROTOCOL]: Update this header on changes, then check CLAUDE.md
  */
 
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
 import { motion, useScroll, useTransform } from 'framer-motion'
 import { Server, Sparkles, GitBranch, BookOpen } from 'lucide-react'
 import { useLocale } from '@/i18n/context'
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog'
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog'
 
 /* ================================================================
    ANIMATION VARIANTS
@@ -34,7 +34,7 @@ const stagger = {
    NAV
    ================================================================ */
 
-function Nav() {
+function Nav({ onOpenPayment }: { onOpenPayment: () => void }) {
   const { locale, setLocale, t } = useLocale()
 
   return (
@@ -47,7 +47,7 @@ function Nav() {
       <div className="mx-auto flex max-w-7xl items-center justify-between">
         {/* Logo */}
         <a href="#" className="font-serif text-2xl tracking-tight text-[var(--bark)]">
-          MiClaw
+          Miclaw
         </a>
 
         {/* Right: locale toggle + CTA */}
@@ -76,12 +76,13 @@ function Nav() {
             </button>
           </div>
 
-          <a
-            href="#"
+          <button
+            type="button"
+            onClick={onOpenPayment}
             className="rounded-full bg-[var(--bark)] px-5 py-2.5 text-[0.82rem] font-medium text-[var(--cream)] transition-all hover:bg-[#2d2924] hover:shadow-lg"
           >
             {t('nav.cta')}
-          </a>
+          </button>
         </div>
       </div>
     </motion.nav>
@@ -92,7 +93,7 @@ function Nav() {
    HERO
    ================================================================ */
 
-function Hero() {
+function Hero({ paymentOpen, onPaymentOpenChange }: { paymentOpen: boolean; onPaymentOpenChange: (open: boolean) => void }) {
   const { t } = useLocale()
   const heroRef = useRef<HTMLDivElement>(null)
   const { scrollYProgress } = useScroll({
@@ -161,16 +162,16 @@ function Hero() {
 
           {/* Price */}
           <motion.div variants={fadeUp} custom={3} className="mt-10">
-            <Dialog>
-              <DialogTrigger asChild>
-                <button
-                  type="button"
-                  className="inline-flex items-center gap-3 rounded-full bg-[var(--bark)] px-7 py-3.5 font-mono text-[0.85rem] font-bold tracking-wider uppercase text-[var(--cream)] transition-all hover:bg-[#2d2924] hover:shadow-xl"
-                >
-                  {t('hero.priceCta')}
-                  {t('hero.priceOld') && <span className="text-[var(--warm)] line-through">{t('hero.priceOld')}</span>}
-                </button>
-              </DialogTrigger>
+            <button
+              type="button"
+              onClick={() => onPaymentOpenChange(true)}
+              className="inline-flex items-center gap-3 rounded-full bg-[var(--bark)] px-7 py-3.5 font-mono text-[0.85rem] font-bold tracking-wider uppercase text-[var(--cream)] transition-all hover:bg-[#2d2924] hover:shadow-xl"
+            >
+              {t('hero.priceCta')}
+              {t('hero.priceOld') && <span className="text-[var(--warm)] line-through">{t('hero.priceOld')}</span>}
+            </button>
+
+            <Dialog open={paymentOpen} onOpenChange={onPaymentOpenChange}>
               <DialogContent className="max-w-[420px] border-[var(--warm-light)] bg-[var(--card)] p-5">
                 <DialogHeader className="text-left">
                   <DialogTitle className="font-serif text-[1.2rem] text-[var(--bark)]">
@@ -214,7 +215,7 @@ function Hero() {
           />
           <img
             src="/product-white.png"
-            alt="MiClaw device"
+            alt="Miclaw device"
             className="relative z-10 w-full max-w-[420px] drop-shadow-2xl md:max-w-[480px]"
           />
         </motion.div>
@@ -330,7 +331,7 @@ function Battery() {
         >
           <img
             src="/hero.png"
-            alt="MiClaw hero image"
+            alt="Miclaw hero image"
             className="max-w-[320px] drop-shadow-xl"
           />
         </motion.div>
@@ -500,10 +501,12 @@ function Problem() {
    ================================================================ */
 
 export default function Home() {
+  const [paymentOpen, setPaymentOpen] = useState(false)
+
   return (
     <>
-      <Nav />
-      <Hero />
+      <Nav onOpenPayment={() => setPaymentOpen(true)} />
+      <Hero paymentOpen={paymentOpen} onPaymentOpenChange={setPaymentOpen} />
       <Demo />
       <Battery />
       <UseCases />

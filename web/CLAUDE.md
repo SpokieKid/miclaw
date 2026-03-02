@@ -1,7 +1,7 @@
 # web/
 > L2 | Parent: /CLAUDE.md
 
-MiClaw frontend — Vite + React 19 + TypeScript + TailwindCSS v4 + shadcn/ui.
+Miclaw frontend — Vite + React 19 + TypeScript + TailwindCSS v4 + shadcn/ui.
 Warm editorial aesthetic: cream/beige palette, DM Serif Display headlines, Inter body text.
 
 ## DESIGN LAW
@@ -24,8 +24,8 @@ src/components/ui/: 30 shadcn/ui primitives (button, card, dialog, form, tabs, e
 src/components/sections/: (empty, reserved for future section extraction)
 src/hooks/: (empty, reserved for future custom hooks)
 src/styles/: (empty, reserved for future custom stylesheets)
-public/product-white.png: White MiClaw device product photo (hero image)
-public/product-device.png: Dark MiClaw device product photo (unused)
+public/product-white.png: White Miclaw device product photo (hero image)
+public/product-device.png: Dark Miclaw device product photo (unused)
 public/product-lifestyle.png: Lifestyle product photo (unused)
 
 ## Tech Stack

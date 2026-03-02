@@ -1,0 +1,2350 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Miclaw - 商业计划书</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500&family=Noto+Serif+SC:wght@400;500;600;700;900&family=Source+Sans+3:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap');
+
+  :root {
+    /* Warm cream palette */
+    --bg-cream: #FFFBF0;
+    --bg-cream-deep: #FFF8E7;
+    --bg-cream-accent: #FEF3C7;
+    --bg-white: #FFFFFF;
+    --bg-warm-light: #FEFCF6;
+
+    /* Accent colors */
+    --amber: #D97706;
+    --amber-deep: #B45309;
+    --amber-light: #F59E0B;
+    --amber-glow: rgba(217, 119, 6, 0.08);
+    --amber-glow-strong: rgba(217, 119, 6, 0.15);
+    --terracotta: #C2410C;
+    --terracotta-light: #EA580C;
+    --terracotta-glow: rgba(194, 65, 12, 0.08);
+
+    /* Text */
+    --text-primary: #1C1917;
+    --text-secondary: #57534E;
+    --text-muted: #78716C;
+    --text-light: #A8A29E;
+
+    /* Greens */
+    --sage: #65A30D;
+    --sage-deep: #4D7C0F;
+    --sage-glow: rgba(101, 163, 13, 0.10);
+
+    /* Borders & shadows */
+    --border: #E7E5E4;
+    --border-light: #F5F5F4;
+    --shadow-soft: 0 2px 16px rgba(28, 25, 23, 0.04);
+    --shadow-card: 0 1px 8px rgba(28, 25, 23, 0.06);
+    --shadow-elevated: 0 4px 24px rgba(28, 25, 23, 0.08);
+
+    /* Gradients */
+    --gradient-warm: linear-gradient(180deg, #FFFBF0 0%, #FFF8E7 100%);
+    --gradient-cream: linear-gradient(135deg, #FFFBF0 0%, #FEF3C7 100%);
+    --gradient-amber: linear-gradient(135deg, #D97706, #F59E0B);
+    --gradient-sage: linear-gradient(135deg, #65A30D, #84CC16);
+    --gradient-terracotta: linear-gradient(135deg, #C2410C, #EA580C);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  @page {
+    size: landscape;
+    margin: 0;
+  }
+
+  body {
+    font-family: 'Source Sans 3', 'Noto Serif SC', -apple-system, sans-serif;
+    background: var(--bg-cream);
+    color: var(--text-primary);
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+    width: 100%;
+  }
+
+  .slide {
+    width: 100%;
+    height: 100vh;
+    padding: 56px 72px;
+    position: relative;
+    overflow: hidden;
+    page-break-after: always;
+    page-break-inside: avoid;
+    background: var(--gradient-warm);
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Subtle warm texture overlay */
+  .slide::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(ellipse at 80% 20%, rgba(254, 243, 199, 0.4) 0%, transparent 50%);
+    pointer-events: none;
+  }
+
+  /* Page number */
+  .slide-number {
+    position: absolute;
+    bottom: 28px;
+    right: 48px;
+    font-family: 'Playfair Display', serif;
+    font-size: 13px;
+    color: var(--text-light);
+    font-weight: 400;
+    letter-spacing: 1px;
+    font-style: italic;
+  }
+
+  /* Brand watermark */
+  .brand {
+    position: absolute;
+    bottom: 28px;
+    left: 48px;
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 11px;
+    color: var(--text-light);
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+  }
+
+  /* Thin decorative line at bottom */
+  .slide-line {
+    position: absolute;
+    bottom: 52px;
+    left: 48px;
+    right: 48px;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* Typography */
+  h1 {
+    font-family: 'Playfair Display', 'Noto Serif SC', serif;
+    font-size: 44px;
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.5px;
+    color: var(--text-primary);
+    margin-bottom: 12px;
+  }
+
+  h2 {
+    font-family: 'Playfair Display', 'Noto Serif SC', serif;
+    font-size: 32px;
+    font-weight: 600;
+    line-height: 1.25;
+    letter-spacing: -0.3px;
+    color: var(--text-primary);
+    margin-bottom: 10px;
+  }
+
+  h3 {
+    font-family: 'Source Sans 3', 'Noto Serif SC', sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 1.3;
+    color: var(--text-primary);
+    margin-bottom: 8px;
+  }
+
+  .subtitle {
+    font-size: 17px;
+    color: var(--text-secondary);
+    font-weight: 400;
+    line-height: 1.6;
+    max-width: 680px;
+  }
+
+  .label {
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--amber);
+    margin-bottom: 10px;
+  }
+
+  .highlight {
+    color: var(--amber-deep);
+    font-weight: 600;
+  }
+
+  .highlight-green {
+    color: var(--sage-deep);
+    font-weight: 600;
+  }
+
+  /* Layout helpers */
+  .flex { display: flex; }
+  .flex-1 { flex: 1; }
+  .gap-12 { gap: 12px; }
+  .gap-16 { gap: 16px; }
+  .gap-20 { gap: 20px; }
+  .gap-24 { gap: 24px; }
+  .gap-28 { gap: 28px; }
+  .gap-32 { gap: 32px; }
+  .gap-40 { gap: 40px; }
+  .items-center { align-items: center; }
+  .justify-center { justify-content: center; }
+  .content-area { flex: 1; display: flex; flex-direction: column; }
+
+  /* Cards */
+  .card {
+    background: var(--bg-white);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 24px;
+    box-shadow: var(--shadow-soft);
+  }
+
+  .card-sm {
+    background: var(--bg-white);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px 18px;
+    box-shadow: var(--shadow-card);
+  }
+
+  .card-amber {
+    border-color: rgba(217, 119, 6, 0.25);
+    background: linear-gradient(135deg, rgba(254, 243, 199, 0.5), rgba(255, 251, 240, 0.8));
+  }
+
+  .card-sage {
+    border-color: rgba(101, 163, 13, 0.25);
+    background: linear-gradient(135deg, rgba(101, 163, 13, 0.05), rgba(132, 204, 22, 0.03));
+  }
+
+  .card-terracotta {
+    border-color: rgba(194, 65, 12, 0.2);
+    background: linear-gradient(135deg, rgba(194, 65, 12, 0.04), rgba(234, 88, 12, 0.02));
+  }
+
+  /* Table */
+  .table-container {
+    width: 100%;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow-card);
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+  }
+
+  th {
+    background: var(--bg-cream-deep);
+    padding: 10px 14px;
+    text-align: left;
+    font-weight: 600;
+    color: var(--text-muted);
+    font-size: 11px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    border-bottom: 1px solid var(--border);
+  }
+
+  td {
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--border-light);
+    color: var(--text-secondary);
+    line-height: 1.4;
+    background: var(--bg-white);
+  }
+
+  tr:last-child td {
+    border-bottom: none;
+  }
+
+  tr:nth-child(even) td {
+    background: var(--bg-warm-light);
+  }
+
+  /* Tags */
+  .tag {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+  }
+
+  .tag-amber {
+    background: var(--amber-glow);
+    color: var(--amber-deep);
+    border: 1px solid rgba(217, 119, 6, 0.2);
+  }
+
+  .tag-sage {
+    background: var(--sage-glow);
+    color: var(--sage-deep);
+    border: 1px solid rgba(101, 163, 13, 0.2);
+  }
+
+  .tag-terracotta {
+    background: var(--terracotta-glow);
+    color: var(--terracotta);
+    border: 1px solid rgba(194, 65, 12, 0.2);
+  }
+
+  /* Stat blocks */
+  .stat {
+    text-align: center;
+  }
+
+  .stat-value {
+    font-family: 'Playfair Display', serif;
+    font-size: 38px;
+    font-weight: 700;
+    line-height: 1;
+    margin-bottom: 6px;
+    color: var(--text-primary);
+  }
+
+  .stat-label {
+    font-size: 12px;
+    color: var(--text-muted);
+    font-weight: 500;
+  }
+
+  /* Bar chart */
+  .bar-container {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 10px;
+  }
+
+  .bar-label {
+    width: 52px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-align: right;
+  }
+
+  .bar-track {
+    flex: 1;
+    height: 26px;
+    background: var(--bg-cream-deep);
+    border-radius: 8px;
+    overflow: hidden;
+    display: flex;
+    border: 1px solid var(--border);
+  }
+
+  .bar-fill-hw {
+    background: var(--gradient-amber);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    font-weight: 600;
+    color: white;
+    border-radius: 7px 0 0 7px;
+  }
+
+  .bar-fill-sub {
+    background: var(--gradient-sage);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    font-weight: 600;
+    color: white;
+  }
+
+  /* Quote */
+  .quote {
+    font-family: 'Playfair Display', 'Noto Serif SC', serif;
+    font-size: 22px;
+    font-weight: 500;
+    font-style: italic;
+    line-height: 1.5;
+    color: var(--text-primary);
+    border-left: 3px solid var(--amber);
+    padding-left: 24px;
+    margin: 20px 0;
+  }
+
+  /* Grid */
+  .grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+
+  .grid-3 {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 20px;
+  }
+
+  .grid-4 {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 14px;
+  }
+
+  /* Bullet list */
+  .bullet-list {
+    list-style: none;
+    padding: 0;
+  }
+
+  .bullet-list li {
+    padding: 5px 0 5px 20px;
+    position: relative;
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--text-secondary);
+  }
+
+  .bullet-list li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 13px;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--amber);
+  }
+
+  /* Cover special */
+  .cover-slide {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background: linear-gradient(180deg, #FFFBF0 0%, #FEF3C7 50%, #FFF8E7 100%);
+  }
+
+  .cover-slide::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 800px;
+    height: 800px;
+    background: radial-gradient(circle, rgba(217, 119, 6, 0.06) 0%, transparent 60%);
+  }
+
+  .cover-slide h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 72px;
+    font-weight: 700;
+    letter-spacing: -1px;
+    color: var(--text-primary);
+    margin-bottom: 20px;
+  }
+
+  .cover-tagline {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 24px;
+    color: var(--text-secondary);
+    font-weight: 400;
+    margin-bottom: 40px;
+    letter-spacing: 1px;
+  }
+
+  .cover-meta {
+    font-size: 13px;
+    color: var(--text-muted);
+    font-weight: 400;
+    letter-spacing: 0.5px;
+  }
+
+  /* Closing slide */
+  .closing-slide {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background: linear-gradient(180deg, #FEF3C7 0%, #FFFBF0 40%, #FFF8E7 100%);
+  }
+
+  .closing-slide::before {
+    width: 900px;
+    height: 900px;
+    background: radial-gradient(circle, rgba(217, 119, 6, 0.05) 0%, transparent 55%);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  /* Flow diagram */
+  .flow-step {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 4px;
+  }
+
+  .flow-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  .flow-icon-amber {
+    background: var(--amber-glow);
+    color: var(--amber-deep);
+    border: 1px solid rgba(217, 119, 6, 0.2);
+  }
+
+  .flow-icon-sage {
+    background: var(--sage-glow);
+    color: var(--sage-deep);
+    border: 1px solid rgba(101, 163, 13, 0.2);
+  }
+
+  .flow-text {
+    font-size: 13px;
+    line-height: 1.4;
+    color: var(--text-secondary);
+  }
+
+  .flow-connector {
+    width: 2px;
+    height: 8px;
+    background: var(--border);
+    margin-left: 15px;
+    margin-bottom: 4px;
+  }
+
+  /* Timeline */
+  .timeline {
+    display: flex;
+    gap: 0;
+    position: relative;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    top: 20px;
+    left: 40px;
+    right: 40px;
+    height: 2px;
+    background: var(--border);
+    z-index: 0;
+  }
+
+  .timeline-item {
+    flex: 1;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+  }
+
+  .timeline-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    margin: 14px auto 14px;
+    border: 2px solid var(--bg-cream);
+    box-shadow: 0 0 0 2px var(--border);
+  }
+
+  .timeline-dot-amber { background: var(--amber); box-shadow: 0 0 0 2px var(--amber); }
+  .timeline-dot-sage { background: var(--sage); box-shadow: 0 0 0 2px var(--sage); }
+  .timeline-dot-terracotta { background: var(--terracotta); box-shadow: 0 0 0 2px var(--terracotta); }
+
+  .timeline-title {
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 2px;
+  }
+
+  .timeline-desc {
+    font-size: 11px;
+    color: var(--text-muted);
+    line-height: 1.5;
+    padding: 0 6px;
+  }
+
+  /* Progress items */
+  .progress-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 6px 0;
+    font-size: 13px;
+    color: var(--text-secondary);
+  }
+
+  .progress-check {
+    width: 20px;
+    height: 20px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    flex-shrink: 0;
+  }
+
+  .progress-done {
+    background: var(--sage-glow);
+    color: var(--sage-deep);
+    border: 1px solid rgba(101, 163, 13, 0.25);
+  }
+
+  .progress-wip {
+    background: var(--amber-glow);
+    color: var(--amber);
+    border: 1px solid rgba(217, 119, 6, 0.25);
+  }
+
+  /* Comparison highlight */
+  .compare-winner {
+    color: var(--sage-deep);
+    font-weight: 700;
+  }
+
+  /* Divider */
+  .divider {
+    width: 48px;
+    height: 2px;
+    background: var(--gradient-amber);
+    border-radius: 1px;
+    margin: 12px 0;
+  }
+
+  /* Decorative horizontal rule */
+  .ornament {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 16px 0;
+  }
+
+  .ornament::before,
+  .ornament::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  .ornament-dot {
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: var(--amber);
+  }
+
+  /* Number circle for "Why Us" and similar */
+  .icon-circle {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Playfair Display', serif;
+    font-size: 16px;
+    font-weight: 600;
+    margin: 0 auto 12px;
+    color: var(--amber-deep);
+    background: var(--amber-glow-strong);
+    border: 1px solid rgba(217, 119, 6, 0.15);
+  }
+</style>
+</head>
+<body>
+
+<!-- ==================== SLIDE 1: COVER ==================== -->
+<div class="slide cover-slide">
+  <div style="position:relative;z-index:1;">
+    <div class="label" style="margin-bottom:28px;letter-spacing:4px;">商业计划书 2026</div>
+    <h1>Miclaw</h1>
+    <div class="cover-tagline">每一个想法都值得被留住</div>
+    <div style="font-size:16px;color:var(--text-muted);margin-bottom:36px;font-style:italic;letter-spacing:0.3px;">OpenClaw 直通硬件 — 按下按钮，AI 为你行动</div>
+    <div style="display:flex;gap:32px;justify-content:center;margin-bottom:44px;">
+      <span class="tag tag-amber">OpenClaw 硬件</span>
+      <span class="tag tag-sage">EINKO 视觉</span>
+      <span class="tag tag-terracotta">AI 服务</span>
+    </div>
+    <div class="cover-meta">天使轮融资 &middot; 2026 年 3 月</div>
+  </div>
+  <div class="brand">MICLAW</div>
+</div>
+
+<!-- ==================== SLIDE 2: PROBLEM ==================== -->
+<div class="slide">
+  <div class="label">痛点</div>
+  <h2>人每天都在丢失珍贵的上下文</h2>
+  <div class="subtitle" style="margin-bottom:28px;">灵感转瞬即逝，信息碎片散落各处。<br>你明明有一个强大的 AI 助手 — 但你和它之间隔着太多摩擦。</div>
+
+  <div class="content-area justify-center">
+    <div class="grid-2 gap-32">
+      <div>
+        <h3 style="color:var(--terracotta);margin-bottom:14px;">你每天丢失的</h3>
+        <div class="card-sm" style="margin-bottom:10px;">
+          <div style="font-size:13px;color:var(--text-primary);font-weight:500;">开车时冒出的想法</div>
+          <div style="font-size:12px;color:var(--text-muted);margin-top:3px;">5 分钟后就忘了 — 你无法停下来打字</div>
+        </div>
+        <div class="card-sm" style="margin-bottom:10px;">
+          <div style="font-size:13px;color:var(--text-primary);font-weight:500;">截图里的有用信息</div>
+          <div style="font-size:12px;color:var(--text-muted);margin-top:3px;">截完就忘，两周后再也找不到</div>
+        </div>
+        <div class="card-sm" style="margin-bottom:10px;">
+          <div style="font-size:13px;color:var(--text-primary);font-weight:500;">碎片化的任务和灵感</div>
+          <div style="font-size:12px;color:var(--text-muted);margin-top:3px;">明明可以交给 AI，但掏手机太麻烦了</div>
+        </div>
+        <div class="card-sm">
+          <div style="font-size:13px;color:var(--text-primary);font-weight:500;">会议中截的需求变更</div>
+          <div style="font-size:12px;color:var(--text-muted);margin-top:3px;">截图躺在相册里，没人提醒你跟进</div>
+        </div>
+      </div>
+      <div>
+        <h3 style="color:var(--amber-deep);margin-bottom:14px;">问题的本质</h3>
+        <div class="card card-amber" style="padding:22px;margin-bottom:14px;">
+          <div style="font-family:'Playfair Display','Noto Serif SC',serif;font-size:15px;color:var(--text-primary);line-height:1.7;font-style:italic;">
+            不是 AI 不够聪明，<br>而是人和 AI 之间的通道太窄了。
+          </div>
+          <div style="font-size:13px;color:var(--text-secondary);margin-top:14px;line-height:1.6;">
+            你的 AI 有能力帮你发邮件、查信息、做提醒。但你必须解锁手机、打开 App、打字输入 — 7 个步骤、45 秒以上。
+          </div>
+        </div>
+        <div class="card-sm" style="text-align:center;">
+          <div style="font-size:12px;color:var(--text-muted);margin-bottom:8px;">从想法到行动的摩擦</div>
+          <div style="display:flex;justify-content:space-between;align-items:flex-end;padding:0 12px;">
+            <div style="text-align:center;">
+              <div style="font-family:'Playfair Display',serif;font-size:24px;font-weight:700;color:var(--terracotta);">7 步</div>
+              <div style="font-size:11px;color:var(--text-muted);">手机 App</div>
+            </div>
+            <div style="font-family:'Playfair Display',serif;font-size:16px;color:var(--text-light);font-style:italic;">vs</div>
+            <div style="text-align:center;">
+              <div style="font-family:'Playfair Display',serif;font-size:24px;font-weight:700;color:var(--sage-deep);">1 步</div>
+              <div style="font-size:11px;color:var(--text-muted);">Miclaw</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-line"></div>
+  <div class="brand">MICLAW</div>
+  <div class="slide-number">02</div>
+</div>
+
+<!-- ==================== SLIDE 3: SOLUTION ==================== -->
+<div class="slide">
+  <div class="label">我们的解决方案</div>
+  <h2>Miclaw 硬件 — 让 AI 走出手机屏幕</h2>
+  <div class="subtitle" style="margin-bottom:24px;">一个按钮，直通 OpenClaw。按下说话，AI 立刻行动。不用掏手机，不用打字，不用等。</div>
+
+  <div class="content-area justify-center">
+    <div class="grid-2 gap-32">
+      <div>
+        <h3 style="margin-bottom:14px;">核心产品：OpenClaw 直通硬件</h3>
+        <div class="card card-amber" style="padding:20px;margin-bottom:16px;">
+          <div style="font-size:13px;color:var(--text-secondary);line-height:1.9;">
+            <strong style="color:var(--amber-deep);">4G 独立联网</strong> — 无需手机，随时随地可用<br>
+            <strong style="color:var(--amber-deep);">单按钮交互</strong> — 按下说话，松手走人<br>
+            <strong style="color:var(--amber-deep);">OpenClaw 驱动</strong> — 自研 AI 智能体，理解 + 记忆 + 执行<br>
+            <strong style="color:var(--amber-deep);">BOM ¥50</strong> — 深圳供应链，极低试错成本
+          </div>
+        </div>
+
+        <h3 style="margin-bottom:10px;">两种硬件形态（评估中）</h3>
+        <div style="display:flex;gap:12px;">
+          <div class="card-sm" style="flex:1;text-align:center;border-color:rgba(217,119,6,0.25);">
+            <div style="font-size:13px;font-weight:600;color:var(--amber-deep);">对讲机</div>
+            <div style="font-size:11px;color:var(--text-muted);margin-top:2px;">夹在衣领/口袋<br>已有产品原型</div>
+          </div>
+          <div class="card-sm" style="flex:1;text-align:center;border-color:rgba(101,163,13,0.25);">
+            <div style="font-size:13px;font-weight:600;color:var(--sage-deep);">智能手环</div>
+            <div style="font-size:11px;color:var(--text-muted);margin-top:2px;">佩戴在手腕<br>形态探索中</div>
+          </div>
+        </div>
+        <div style="font-size:11px;color:var(--text-muted);margin-top:8px;font-style:italic;">两种形态共享同一套电子方案和 OpenClaw 后端，与工厂评估中。</div>
+      </div>
+      <div>
+        <h3 style="margin-bottom:14px;">从想法到行动：极致缩短路径</h3>
+        <div class="card" style="padding:20px;margin-bottom:16px;">
+          <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px;">
+            <div style="width:8px;height:8px;border-radius:50%;background:var(--terracotta);"></div>
+            <div style="font-size:13px;color:var(--text-secondary);">按下按钮 → 红灯 + 短振动 → 说话</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px;">
+            <div style="width:8px;height:8px;border-radius:50%;background:var(--sage);"></div>
+            <div style="font-size:13px;color:var(--text-secondary);">松手 → 绿灯闪烁 → 4G 直传 OpenClaw</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:12px;">
+            <div style="width:8px;height:8px;border-radius:50%;background:var(--amber);"></div>
+            <div style="font-size:13px;color:var(--text-secondary);">继续你的生活 → AI 自动处理一切</div>
+          </div>
+        </div>
+
+        <div class="card card-amber" style="padding:18px;">
+          <div style="font-size:12px;color:var(--text-muted);margin-bottom:10px;">摩擦对比：给 AI 下达指令</div>
+          <div style="display:flex;justify-content:space-between;align-items:flex-end;">
+            <div style="text-align:center;">
+              <div style="font-family:'Playfair Display',serif;font-size:28px;font-weight:700;color:var(--terracotta);">7 步 / 45秒</div>
+              <div style="font-size:11px;color:var(--text-muted);">手机 App</div>
+            </div>
+            <div style="font-family:'Playfair Display',serif;font-size:18px;color:var(--text-light);font-style:italic;">vs</div>
+            <div style="text-align:center;">
+              <div style="font-family:'Playfair Display',serif;font-size:28px;font-weight:700;color:var(--sage-deep);">1 步 / 5秒</div>
+              <div style="font-size:11px;color:var(--text-muted);">Miclaw 硬件</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="quote" style="margin-top:20px;font-size:18px;">
+      你只管想、只管说 — 剩下的，交给 OpenClaw。
+    </div>
+  </div>
+  <div class="slide-line"></div>
+  <div class="brand">MICLAW</div>
+  <div class="slide-number">03</div>
+</div>
+
+<!-- ==================== SLIDE 4: HARDWARE DEEP DIVE ==================== -->
+<div class="slide">
+  <div class="label">硬件详情</div>
+  <h2>两种形态，一套核心架构</h2>
+  <div class="subtitle" style="margin-bottom:18px;">4G 独立联网，不依赖手机。按下按钮，说，松手走人。与工厂评估中，以最快出样机的方案优先。</div>
+
+  <div class="content-area">
+    <div style="display:flex;gap:20px;flex:1;">
+      <!-- Left: Dual form factors -->
+      <div style="flex:1;">
+        <div style="display:flex;gap:12px;margin-bottom:14px;">
+          <div class="card card-amber" style="flex:1;padding:14px 16px;">
+            <div style="font-size:10px;color:var(--amber-deep);font-weight:600;letter-spacing:1px;margin-bottom:4px;">形态 A</div>
+            <h3 style="font-size:15px;margin-bottom:6px;">对讲机</h3>
+            <div style="font-size:12px;color:var(--text-secondary);line-height:1.7;">
+              夹在衣领 / 口袋<br>
+              按钮触发说话<br>
+              适合通勤 / 工作<br>
+            </div>
+            <div style="font-size:11px;color:var(--amber-deep);font-weight:600;margin-top:6px;">已有产品原型</div>
+          </div>
+          <div class="card card-sage" style="flex:1;padding:14px 16px;">
+            <div style="font-size:10px;color:var(--sage-deep);font-weight:600;letter-spacing:1px;margin-bottom:4px;">形态 B</div>
+            <h3 style="font-size:15px;margin-bottom:6px;">智能手环</h3>
+            <div style="font-size:12px;color:var(--text-secondary);line-height:1.7;">
+              佩戴在手腕<br>
+              触摸 / 双击说话<br>
+              适合运动 / 日常<br>
+            </div>
+            <div style="font-size:11px;color:var(--sage-deep);font-weight:600;margin-top:6px;">形态探索中</div>
+          </div>
+        </div>
+
+        <div class="card" style="padding:14px 18px;margin-bottom:14px;text-align:center;">
+          <div style="font-size:11px;color:var(--text-muted);margin-bottom:6px;">两种形态共享同一套核心架构</div>
+          <div style="display:flex;gap:8px;justify-content:center;">
+            <span class="tag tag-amber">4G Cat.1 模组</span>
+            <span class="tag tag-sage">OpenClaw 后端</span>
+            <span class="tag tag-terracotta">BOM ~50 RMB</span>
+          </div>
+        </div>
+
+        <h3 style="margin-bottom:8px;">交互：极致简单</h3>
+        <div class="card" style="padding:14px 18px;">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
+            <div style="width:8px;height:8px;border-radius:50%;background:var(--terracotta);"></div>
+            <div style="font-size:13px;color:var(--text-secondary);">按下按钮 → 红灯 + 短振动 → 说话</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
+            <div style="width:8px;height:8px;border-radius:50%;background:var(--sage);"></div>
+            <div style="font-size:13px;color:var(--text-secondary);">松手 → 绿灯闪烁 + 双振动 → 4G 直传云端</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;">
+            <div style="width:8px;height:8px;border-radius:50%;background:var(--amber);"></div>
+            <div style="font-size:13px;color:var(--text-secondary);">继续你的生活 → OpenClaw 自动处理</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Specs + comparison -->
+      <div style="flex:1;">
+        <h3 style="margin-bottom:10px;">核心优势：4G 独立联网</h3>
+        <div class="card" style="padding:16px 18px;margin-bottom:14px;">
+          <div style="font-size:13px;color:var(--text-secondary);line-height:1.9;">
+            4G Cat.1 模组，独立联网，无需手机<br>
+            唤醒式联网：按下才开启 4G，低功耗休眠<br>
+            离线录音自动缓存，恢复信号后批量上传<br>
+            续航 2-3 天，USB-C 充电
+          </div>
+          <div style="display:flex;gap:10px;margin-top:12px;">
+            <div class="card-sm" style="flex:1;text-align:center;border-color:rgba(217,119,6,0.25);padding:8px;">
+              <div style="font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:var(--amber-deep);">~¥50</div>
+              <div style="font-size:10px;color:var(--text-muted);">硬件 BOM</div>
+            </div>
+            <div class="card-sm" style="flex:1;text-align:center;border-color:rgba(101,163,13,0.25);padding:8px;">
+              <div style="font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:var(--sage-deep);">4G</div>
+              <div style="font-size:10px;color:var(--text-muted);">独立联网</div>
+            </div>
+            <div class="card-sm" style="flex:1;text-align:center;border-color:rgba(194,65,12,0.2);padding:8px;">
+              <div style="font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:var(--terracotta);">深圳</div>
+              <div style="font-size:10px;color:var(--text-muted);">供应链</div>
+            </div>
+          </div>
+        </div>
+
+        <h3 style="margin-bottom:8px;">核心使用场景</h3>
+        <ul class="bullet-list" style="margin-bottom:14px;">
+          <li>通勤路上 — 委派今日待办</li>
+          <li>散步 / 跑步 — 捕捉灵感和想法</li>
+          <li>做饭 / 家务 — 快速处理琐事</li>
+          <li>会议间隙 — 快速跟进</li>
+        </ul>
+
+        <div class="card card-amber" style="padding:14px 18px;">
+          <div style="font-size:12px;color:var(--text-muted);margin-bottom:8px;">摩擦对比：给 AI 下达指令</div>
+          <div style="display:flex;justify-content:space-between;align-items:flex-end;">
+            <div style="text-align:center;">
+              <div style="font-family:'Playfair Display',serif;font-size:24px;font-weight:700;color:var(--terracotta);">7 步 / 45 秒</div>
+              <div style="font-size:11px;color:var(--text-muted);">手机 App</div>
+            </div>
+            <div style="font-family:'Playfair Display',serif;font-size:16px;color:var(--text-light);font-style:italic;">vs</div>
+            <div style="text-align:center;">
+              <div style="font-family:'Playfair Display',serif;font-size:24px;font-weight:700;color:var(--sage-deep);">1 步 / 5 秒</div>
+              <div style="font-size:11px;color:var(--text-muted);">Miclaw 硬件</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-line"></div>
+  <div class="brand">MICLAW</div>
+  <div class="slide-number">04</div>
+</div>
+
+<!-- ==================== SLIDE 5: OPENCLAW ==================== -->
+<div class="slide">
+  <div class="label">核心技术 · 硬件背后的大脑</div>
+  <h2>OpenClaw：自研 AI 智能体框架</h2>
+  <div class="subtitle" style="margin-bottom:22px;">不只是调用 API — 完整的智能体框架，理解、记忆、执行。已开发完成。</div>
+
+  <div class="content-area justify-center">
+    <div class="grid-2 gap-28">
+      <div>
+        <h3 style="margin-bottom:12px;">核心能力</h3>
+        <div class="card-sm" style="margin-bottom:10px;border-left:3px solid var(--terracotta);">
+          <div style="font-size:13px;font-weight:600;color:var(--text-primary);">多模态内容理解</div>
+          <div style="font-size:12px;color:var(--text-secondary);margin-top:2px;">语音、文字、图片 — 统一理解，统一处理</div>
+        </div>
+        <div class="card-sm" style="margin-bottom:10px;border-left:3px solid var(--terracotta);">
+          <div style="font-size:13px;font-weight:600;color:var(--text-primary);">任务规划与执行</div>
+          <div style="font-size:12px;color:var(--text-secondary);margin-top:2px;">理解意图 → 拆解任务 → 调用工具 → 完成执行</div>
+        </div>
+        <div class="card-sm" style="margin-bottom:10px;border-left:3px solid var(--terracotta);">
+          <div style="font-size:13px;font-weight:600;color:var(--text-primary);">长期记忆系统</div>
+          <div style="font-size:12px;color:var(--text-secondary);margin-top:2px;">越用越懂你 — 积累用户上下文，个性化回应</div>
+        </div>
+        <div class="card-sm" style="border-left:3px solid var(--amber);">
+          <div style="font-size:13px;font-weight:600;color:var(--text-primary);">可扩展工具链</div>
+          <div style="font-size:12px;color:var(--text-secondary);margin-top:2px;">发邮件、查信息、做提醒、管日程 — 能力持续扩展</div>
+        </div>
+      </div>
+      <div>
+        <h3 style="margin-bottom:12px;">从硬件到 OpenClaw 的数据流</h3>
+        <div class="card" style="padding:18px;margin-bottom:16px;">
+          <div class="flow-step">
+            <div class="flow-icon flow-icon-amber">1</div>
+            <div class="flow-text"><strong>硬件捕获</strong> — 用户按下按钮，说出想法</div>
+          </div>
+          <div class="flow-connector"></div>
+          <div class="flow-step">
+            <div class="flow-icon flow-icon-amber">2</div>
+            <div class="flow-text"><strong>4G 上传</strong> — 语音数据直传云端</div>
+          </div>
+          <div class="flow-connector"></div>
+          <div class="flow-step">
+            <div class="flow-icon flow-icon-sage">3</div>
+            <div class="flow-text"><strong>OpenClaw 处理</strong> — 语音转文字 → 意图理解 → 任务执行</div>
+          </div>
+          <div class="flow-connector"></div>
+          <div class="flow-step">
+            <div class="flow-icon flow-icon-sage">4</div>
+            <div class="flow-text"><strong>记忆沉淀</strong> — 每次交互写入长期记忆</div>
+          </div>
+        </div>
+
+        <div style="display:flex;gap:12px;">
+          <div class="card-sm card-terracotta" style="flex:1;text-align:center;padding:12px;">
+            <div style="font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:var(--terracotta);">自研</div>
+            <div style="font-size:10px;color:var(--text-muted);">完整框架</div>
+          </div>
+          <div class="card-sm card-sage" style="flex:1;text-align:center;padding:12px;">
+            <div style="font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:var(--sage-deep);">已完成</div>
+            <div style="font-size:10px;color:var(--text-muted);">核心开发</div>
+          </div>
+          <div class="card-sm card-amber" style="flex:1;text-align:center;padding:12px;">
+            <div style="font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:var(--amber-deep);">可独立</div>
+            <div style="font-size:10px;color:var(--text-muted);">SaaS 潜力</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-line"></div>
+  <div class="brand">MICLAW</div>
+  <div class="slide-number">05</div>
+</div>
+
+<!-- ==================== SLIDE 6: EINKO ==================== -->
+<div class="slide">
+  <div class="label">已验证产品 · 视觉通道</div>
+  <h2>EINKO：你的视觉记忆</h2>
+  <div class="subtitle" style="margin-bottom:22px;">截图、拍照，然后忘掉它。AI 帮你记住、理解、分类。已上架 App Store，600+ 用户。</div>
+
+  <div class="content-area">
+    <div class="grid-2 gap-28" style="flex:1;">
+      <div>
+        <h3 style="margin-bottom:12px;">核心功能</h3>
+        <div class="card-sm" style="margin-bottom:8px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <span style="font-size:13px;color:var(--text-secondary);">截图自动导入</span>
+            <span class="tag tag-sage" style="font-size:10px;">已上线</span>
+          </div>
+        </div>
+        <div class="card-sm" style="margin-bottom:8px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <span style="font-size:13px;color:var(--text-secondary);">AI 内容理解与分类</span>
+            <span class="tag tag-sage" style="font-size:10px;">已上线</span>
+          </div>
+        </div>
+        <div class="card-sm" style="margin-bottom:8px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <span style="font-size:13px;color:var(--text-secondary);">关键词 + 语义搜索</span>
+            <span class="tag tag-sage" style="font-size:10px;">已上线</span>
+          </div>
+        </div>
+        <div class="card-sm" style="margin-bottom:8px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <span style="font-size:13px;color:var(--text-secondary);">手动拍照导入</span>
+            <span class="tag tag-sage" style="font-size:10px;">已上线</span>
+          </div>
+        </div>
+        <div class="card-sm" style="margin-bottom:8px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <span style="font-size:13px;color:var(--text-secondary);">智能提醒 + 信息提取</span>
+            <span class="tag tag-amber" style="font-size:10px;">第二阶段</span>
+          </div>
+        </div>
+        <div class="card-sm">
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <span style="font-size:13px;color:var(--text-secondary);">OpenClaw 智能体联动</span>
+            <span class="tag tag-amber" style="font-size:10px;">第三阶段</span>
+          </div>
+        </div>
+      </div>
+      <div>
+        <h3 style="margin-bottom:12px;">用户旅程</h3>
+        <div class="card" style="padding:20px;">
+          <div class="flow-step">
+            <div class="flow-icon flow-icon-amber">1</div>
+            <div class="flow-text">微信群里看到朋友推荐的餐厅</div>
+          </div>
+          <div class="flow-connector"></div>
+          <div class="flow-step">
+            <div class="flow-icon flow-icon-amber">2</div>
+            <div class="flow-text">截图（已有习惯，零额外操作）</div>
+          </div>
+          <div class="flow-connector"></div>
+          <div class="flow-step">
+            <div class="flow-icon flow-icon-amber">3</div>
+            <div class="flow-text">EINKO 自动导入 + AI 分析内容</div>
+          </div>
+          <div class="flow-connector"></div>
+          <div class="flow-step">
+            <div class="flow-icon flow-icon-amber">4</div>
+            <div class="flow-text">自动归类到"美食"，提取餐厅名+地址</div>
+          </div>
+          <div class="flow-connector"></div>
+          <div class="flow-step">
+            <div class="flow-icon flow-icon-sage">5</div>
+            <div class="flow-text">两周后搜索"朋友推荐的日料" -- 秒找到</div>
+          </div>
+        </div>
+
+        <div style="display:flex;gap:12px;margin-top:14px;">
+          <div class="card-sm" style="flex:1;text-align:center;border-color:rgba(101,163,13,0.25);">
+            <div style="font-family:'Playfair Display',serif;font-size:24px;font-weight:700;color:var(--sage-deep);">600+</div>
+            <div style="font-size:10px;color:var(--text-muted);">活跃用户</div>
+          </div>
+          <div class="card-sm" style="flex:1;text-align:center;border-color:rgba(217,119,6,0.25);">
+            <div style="font-family:'Playfair Display',serif;font-size:24px;font-weight:700;color:var(--amber-deep);">100+</div>
+            <div style="font-size:10px;color:var(--text-muted);">月活用户</div>
+          </div>
+          <div class="card-sm" style="flex:1;text-align:center;border-color:rgba(194,65,12,0.2);">
+            <div style="font-family:'Playfair Display',serif;font-size:24px;font-weight:700;color:var(--terracotta);">10</div>
+            <div style="font-size:10px;color:var(--text-muted);">付费用户</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-line"></div>
+  <div class="brand">MICLAW</div>
+  <div class="slide-number">06</div>
+</div>
+
+<!-- ==================== SLIDE 7: BIGGER PICTURE ==================== -->
+<div class="slide">
+  <div class="label">更大的图景</div>
+  <h2>从工具到伙伴 — 硬件之上的想象空间</h2>
+  <div class="subtitle" style="margin-bottom:20px;">Miclaw 硬件是入口，但故事不止于此。两条延伸路径，打开更大的天花板。</div>
+
+  <div class="content-area justify-center">
+    <div class="grid-2 gap-28">
+      <!-- Column A: AI Companion -->
+      <div>
+        <div style="display:inline-block;padding:3px 10px;background:var(--sage-glow);border:1px solid var(--sage);border-radius:4px;font-size:11px;font-weight:600;color:var(--sage-deep);letter-spacing:0.5px;margin-bottom:12px;">路径 A · 消费级</div>
+        <h3 style="margin-bottom:10px;">新时代拓麻歌子 — AI 伙伴</h3>
+        <div class="card card-sage" style="padding:16px;margin-bottom:14px;">
+          <div style="font-size:13px;color:var(--text-primary);line-height:1.8;">
+            <div style="display:flex;gap:12px;margin-bottom:6px;">
+              <span style="color:var(--text-muted);min-width:70px;font-size:12px;">定位</span>
+              <span>面向年轻人的软硬件一体 AI 伙伴</span>
+            </div>
+            <div style="display:flex;gap:12px;margin-bottom:6px;">
+              <span style="color:var(--text-muted);min-width:70px;font-size:12px;">差异化</span>
+              <span>不是预设脚本，而是真正会成长的 AI — 积累记忆，越用越懂你</span>
+            </div>
+            <div style="display:flex;gap:12px;margin-bottom:6px;">
+              <span style="color:var(--text-muted);min-width:70px;font-size:12px;">形态</span>
+              <span>硬件 + 配套 App + 专属 IP 角色</span>
+            </div>
+            <div style="display:flex;gap:12px;">
+              <span style="color:var(--text-muted);min-width:70px;font-size:12px;">壁垒</span>
+              <span>长期记忆 = 迁移成本 = 天然续费动力</span>
+            </div>
+          </div>
+        </div>
+
+        <h3 style="margin-bottom:8px;">成长机制</h3>
+        <div class="card" style="padding:14px;margin-bottom:14px;">
+          <div class="flow-step">
+            <div class="flow-icon flow-icon-sage">1</div>
+            <div class="flow-text"><strong>初始人格</strong> — 开箱即有基础性格</div>
+          </div>
+          <div class="flow-connector"></div>
+          <div class="flow-step">
+            <div class="flow-icon flow-icon-sage">2</div>
+            <div class="flow-text"><strong>记忆积累</strong> — 每次交互沉淀长期记忆</div>
+          </div>
+          <div class="flow-connector"></div>
+          <div class="flow-step">
+            <div class="flow-icon flow-icon-amber">3</div>
+            <div class="flow-text"><strong>个性化</strong> — 回应越来越贴合你</div>
+          </div>
+          <div class="flow-connector"></div>
+          <div class="flow-step">
+            <div class="flow-icon flow-icon-amber">4</div>
+            <div class="flow-text"><strong>不可替代</strong> — 用户黏性自然形成</div>
+          </div>
+        </div>
+
+        <div style="display:flex;gap:10px;">
+          <div class="card-sm" style="flex:1;text-align:center;padding:10px;">
+            <div style="font-family:'Playfair Display',serif;font-size:16px;font-weight:700;color:var(--sage-deep);">8200万</div>
+            <div style="font-size:10px;color:var(--text-muted);">拓麻歌子全球销量</div>
+          </div>
+          <div class="card-sm" style="flex:1;text-align:center;padding:10px;">
+            <div style="font-family:'Playfair Display',serif;font-size:16px;font-weight:700;color:var(--amber-deep);">$1B+</div>
+            <div style="font-size:10px;color:var(--text-muted);">Character.ai 估值</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Column B: OpenClaw SaaS -->
+      <div>
+        <div style="display:inline-block;padding:3px 10px;background:var(--amber-glow);border:1px solid var(--amber);border-radius:4px;font-size:11px;font-weight:600;color:var(--amber-deep);letter-spacing:0.5px;margin-bottom:12px;">路径 B · 企业级</div>
+        <h3 style="margin-bottom:10px;">OpenClaw As a Service — AI 大脑独立输出</h3>
+        <div class="card card-amber" style="padding:16px;margin-bottom:14px;">
+          <div style="font-size:13px;color:var(--text-primary);line-height:1.8;">
+            <div style="display:flex;gap:12px;margin-bottom:6px;">
+              <span style="color:var(--text-muted);min-width:70px;font-size:12px;">定位</span>
+              <span>把 Miclaw 背后的智能体能力作为独立 SaaS 输出</span>
+            </div>
+            <div style="display:flex;gap:12px;margin-bottom:6px;">
+              <span style="color:var(--text-muted);min-width:70px;font-size:12px;">客户</span>
+              <span>需要 AI 代理能力的中小企业、开发者</span>
+            </div>
+            <div style="display:flex;gap:12px;margin-bottom:6px;">
+              <span style="color:var(--text-muted);min-width:70px;font-size:12px;">能力</span>
+              <span>多模态理解 · 任务规划 · 长期记忆 · 工具调用</span>
+            </div>
+            <div style="display:flex;gap:12px;">
+              <span style="color:var(--text-muted);min-width:70px;font-size:12px;">模式</span>
+              <span>API 调用计费 + 企业订阅，纯软件高毛利</span>
+            </div>
+          </div>
+        </div>
+
+        <h3 style="margin-bottom:8px;">为什么能做</h3>
+        <div class="card-sm" style="margin-bottom:8px;border-left:3px solid var(--amber);">
+          <div style="font-size:13px;font-weight:600;color:var(--text-primary);">技术已验证</div>
+          <div style="font-size:12px;color:var(--text-secondary);margin-top:2px;">OpenClaw 框架已在 EINKO + 硬件产品中跑通全链路</div>
+        </div>
+        <div class="card-sm" style="margin-bottom:8px;border-left:3px solid var(--amber);">
+          <div style="font-size:13px;font-weight:600;color:var(--text-primary);">边际成本趋零</div>
+          <div style="font-size:12px;color:var(--text-secondary);margin-top:2px;">纯软件服务，一次开发多次复用，SaaS 经典模型</div>
+        </div>
+        <div class="card-sm" style="margin-bottom:14px;border-left:3px solid var(--sage);">
+          <div style="font-size:13px;font-weight:600;color:var(--text-primary);">硬件反哺</div>
+          <div style="font-size:12px;color:var(--text-secondary);margin-top:2px;">硬件用户数据持续优化模型，形成飞轮效应</div>
+        </div>
+
+        <div class="quote" style="font-size:15px;margin-top:10px;padding-left:18px;">
+          硬件是入口，AI 伙伴是黏性，SaaS 是天花板。<br>
+          三条线共享一个大脑 — OpenClaw。
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-line"></div>
+  <div class="brand">MICLAW</div>
+  <div class="slide-number">07</div>
+</div>
+
+<!-- ==================== SLIDE 8: MARKET ==================== -->
+<div class="slide">
+  <div class="label">市场机会</div>
+  <h2>市场机会</h2>
+  <div class="subtitle" style="margin-bottom:28px;">AI 硬件 + AI 伙伴 + AI 服务，三条赛道交叉的爆发品类</div>
+
+  <div class="content-area justify-center">
+    <div class="grid-2 gap-32">
+      <div>
+        <h3 style="margin-bottom:16px;">市场规模</h3>
+        <div class="card-sm" style="margin-bottom:10px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <div>
+              <div style="font-size:11px;color:var(--text-muted);letter-spacing:0.5px;">TAM · 全球</div>
+              <div style="font-size:12px;color:var(--text-secondary);margin-top:2px;">AI 助手 + 可穿戴 + 虚拟伙伴经济</div>
+            </div>
+            <div style="font-family:'Playfair Display',serif;font-size:24px;font-weight:700;color:var(--amber-deep);">$80B+</div>
+          </div>
+        </div>
+        <div class="card-sm" style="margin-bottom:10px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <div>
+              <div style="font-size:11px;color:var(--text-muted);letter-spacing:0.5px;">SAM · 可服务</div>
+              <div style="font-size:12px;color:var(--text-secondary);margin-top:2px;">AI 硬件入口 + 伙伴订阅 + AI SaaS</div>
+            </div>
+            <div style="font-family:'Playfair Display',serif;font-size:24px;font-weight:700;color:var(--sage-deep);">$8B</div>
+          </div>
+        </div>
+        <div class="card-sm card-amber">
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <div>
+              <div style="font-size:11px;color:var(--text-muted);letter-spacing:0.5px;">SOM · 初始目标</div>
+              <div style="font-size:12px;color:var(--text-secondary);margin-top:2px;">中国 AI 深度用户 + 年轻人消费群</div>
+            </div>
+            <div style="font-family:'Playfair Display',serif;font-size:24px;font-weight:700;color:var(--amber-deep);">$100-300M</div>
+          </div>
+        </div>
+
+        <h3 style="margin-top:22px;margin-bottom:12px;">为什么是现在</h3>
+        <ul class="bullet-list">
+          <li>AI 智能体能力刚成熟（GPT-4 / Claude 级别）</li>
+          <li>4G IoT 模组白菜价，BOM 仅 ¥50</li>
+          <li>竞品全军覆没，留出窗口期</li>
+          <li>年轻人 AI 伙伴需求刚刚开始爆发</li>
+        </ul>
+      </div>
+      <div>
+        <h3 style="margin-bottom:16px;">两类目标用户</h3>
+        <div class="card card-amber" style="margin-bottom:12px;">
+          <div style="font-size:14px;font-weight:600;margin-bottom:8px;color:var(--amber-deep);">用户群 A：AI 发烧友 → 纯硬件版</div>
+          <div class="table-container">
+            <table>
+              <tr><td style="color:var(--text-muted);width:28%;">年龄</td><td>25-40 岁</td></tr>
+              <tr><td style="color:var(--text-muted);">角色</td><td>开发者、创始人、产品经理、AI 重度用户</td></tr>
+              <tr><td style="color:var(--text-muted);">特征</td><td>每天使用 ChatGPT / Claude，愿意折腾</td></tr>
+              <tr><td style="color:var(--text-muted);">规模</td><td>中国约 500-2000 万人</td></tr>
+            </table>
+          </div>
+        </div>
+        <div class="card card-sage">
+          <div style="font-size:14px;font-weight:600;margin-bottom:8px;color:var(--sage-deep);">用户群 B：年轻人 → AI 伙伴版（拓麻歌子）</div>
+          <div class="table-container">
+            <table>
+              <tr><td style="color:var(--text-muted);width:28%;">年龄</td><td>18-30 岁</td></tr>
+              <tr><td style="color:var(--text-muted);">角色</td><td>学生、职场新人、内容创作者</td></tr>
+              <tr><td style="color:var(--text-muted);">特征</td><td>追求陪伴感、IP 消费、社交分享</td></tr>
+              <tr><td style="color:var(--text-muted);">规模</td><td>中国 Z 世代 + 千禧一代，数亿级</td></tr>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-line"></div>
+  <div class="brand">MICLAW</div>
+  <div class="slide-number">08</div>
+</div>
+
+<!-- ==================== SLIDE 9: COMPETITION ==================== -->
+<div class="slide">
+  <div class="label">竞争格局</div>
+  <h2>最简单 + 最便宜 + 独立联网，只有我们</h2>
+  <div style="height:16px;"></div>
+
+  <div class="content-area justify-center">
+    <div class="table-container" style="margin-bottom:24px;">
+      <table>
+        <thead>
+          <tr>
+            <th>维度</th>
+            <th>Humane AI Pin</th>
+            <th>Rabbit R1</th>
+            <th>Limitless Pendant</th>
+            <th style="color:var(--amber-deep);">Miclaw</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="font-weight:600;color:var(--text-primary);">售价</td>
+            <td>$699</td>
+            <td>$199</td>
+            <td>$99</td>
+            <td class="compare-winner">¥199-699</td>
+          </tr>
+          <tr>
+            <td style="font-weight:600;color:var(--text-primary);">BOM 成本</td>
+            <td>~$200+</td>
+            <td>~$80+</td>
+            <td>~$50+</td>
+            <td class="compare-winner">~$7 (¥50)</td>
+          </tr>
+          <tr>
+            <td style="font-weight:600;color:var(--text-primary);">联网方式</td>
+            <td>eSIM + WiFi</td>
+            <td>WiFi + 蜂窝</td>
+            <td>蓝牙（依赖手机）</td>
+            <td class="compare-winner">4G 独立联网</td>
+          </tr>
+          <tr>
+            <td style="font-weight:600;color:var(--text-primary);">定位</td>
+            <td>取代手机</td>
+            <td>独立 AI 设备</td>
+            <td>会议录音</td>
+            <td class="compare-winner">AI 遥控器 / AI 伙伴</td>
+          </tr>
+          <tr>
+            <td style="font-weight:600;color:var(--text-primary);">交互方式</td>
+            <td>触摸+语音+投影</td>
+            <td>触摸+语音+屏幕</td>
+            <td>被动录音</td>
+            <td class="compare-winner">单按钮对讲</td>
+          </tr>
+          <tr>
+            <td style="font-weight:600;color:var(--text-primary);">AI 伙伴属性</td>
+            <td>无</td>
+            <td>弱</td>
+            <td>无</td>
+            <td class="compare-winner">长期记忆 + 成长</td>
+          </tr>
+          <tr>
+            <td style="font-weight:600;color:var(--text-primary);">复杂度</td>
+            <td>极高</td>
+            <td>高</td>
+            <td>低</td>
+            <td class="compare-winner">极简</td>
+          </tr>
+          <tr>
+            <td style="font-weight:600;color:var(--text-primary);">市场表现</td>
+            <td style="color:var(--terracotta);">召回 / 挣扎中</td>
+            <td style="color:var(--amber);">使用量下滑</td>
+            <td style="color:var(--text-muted);">单一场景</td>
+            <td class="compare-winner">专注，锋利</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="card card-amber" style="padding:18px;">
+      <div style="font-family:'Playfair Display','Noto Serif SC',serif;font-size:15px;font-weight:500;text-align:center;color:var(--text-primary);font-style:italic;">
+        我们不是在造一个新的计算平台，我们造的是一个按钮和一个会成长的伙伴 — <span style="color:var(--amber-deep);font-weight:600;">¥50 的 BOM，竞品 1/10 的试错成本。</span>
+      </div>
+    </div>
+  </div>
+  <div class="slide-line"></div>
+  <div class="brand">MICLAW</div>
+  <div class="slide-number">09</div>
+</div>
+
+<!-- ==================== SLIDE 10: BUSINESS MODEL ==================== -->
+<div class="slide">
+  <div class="label">商业模式</div>
+  <h2>三条收入线，一个核心大脑</h2>
+  <div class="subtitle" style="margin-bottom:18px;">硬件获客 + 伙伴订阅 + OpenClaw SaaS — AI 记忆积累创造天然续费锁定。</div>
+
+  <div class="content-area">
+    <div class="grid-2 gap-24" style="flex:1;">
+      <div>
+        <h3 style="margin-bottom:12px;">产品线与定价</h3>
+        <div class="card-sm card-sage" style="margin-bottom:8px;">
+          <div style="font-size:13px;font-weight:600;margin-bottom:3px;color:var(--sage-deep);">AI Companion 拓麻歌子版（主推）</div>
+          <div style="font-size:12px;color:var(--text-secondary);">硬件 + AI 伙伴服务 + 配套 App + IP</div>
+          <div style="font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:var(--sage-deep);margin-top:4px;">¥499-699 <span style="font-size:11px;font-weight:400;color:var(--text-muted);font-family:'Source Sans 3',sans-serif;">含首年 AI 服务</span></div>
+        </div>
+        <div class="card-sm" style="margin-bottom:8px;">
+          <div style="font-size:13px;font-weight:600;margin-bottom:3px;color:var(--text-primary);">纯硬件版（发烧友）</div>
+          <div style="font-size:12px;color:var(--text-secondary);">面向开发者 / AI 爱好者，自行接入服务</div>
+          <div style="font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:var(--text-primary);margin-top:4px;">¥199-299</div>
+        </div>
+        <div class="card-sm card-terracotta" style="margin-bottom:8px;">
+          <div style="font-size:13px;font-weight:600;margin-bottom:3px;color:var(--terracotta);">OpenClaw As a Service</div>
+          <div style="font-size:12px;color:var(--text-secondary);">不买硬件也能用 — 独立 SaaS / API 服务</div>
+          <div style="font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:var(--terracotta);margin-top:4px;">$9.99/月起 <span style="font-size:11px;font-weight:400;color:var(--text-muted);font-family:'Source Sans 3',sans-serif;">企业版议价</span></div>
+        </div>
+        <div class="card-sm card-amber" style="margin-bottom:8px;">
+          <div style="font-size:13px;font-weight:600;margin-bottom:3px;color:var(--text-primary);">EINKO Premium</div>
+          <div style="font-size:12px;color:var(--text-secondary);">无限处理 + 语义搜索 + 智能提醒</div>
+          <div style="font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:var(--amber-deep);margin-top:4px;">$39.99/年</div>
+        </div>
+        <div class="card-sm">
+          <div style="font-size:13px;font-weight:600;margin-bottom:3px;color:var(--text-primary);">AI 伙伴续费</div>
+          <div style="font-size:12px;color:var(--text-secondary);">记忆积累 = 迁移成本 = 高续费率</div>
+          <div style="font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:var(--text-primary);margin-top:4px;">¥199-299/年</div>
+        </div>
+      </div>
+      <div>
+        <h3 style="margin-bottom:12px;">单位经济（拓麻歌子版）</h3>
+        <div class="grid-2 gap-10" style="margin-bottom:14px;">
+          <div class="card-sm" style="text-align:center;">
+            <div style="font-size:11px;color:var(--text-muted);">硬件 BOM</div>
+            <div style="font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:var(--sage-deep);">~¥50</div>
+          </div>
+          <div class="card-sm" style="text-align:center;">
+            <div style="font-size:11px;color:var(--text-muted);">3 年 LTV</div>
+            <div style="font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:var(--amber-deep);">$160-200</div>
+          </div>
+          <div class="card-sm" style="text-align:center;">
+            <div style="font-size:11px;color:var(--text-muted);">获客成本</div>
+            <div style="font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:var(--text-primary);">$15-30</div>
+          </div>
+          <div class="card-sm" style="text-align:center;border-color:rgba(101,163,13,0.25);">
+            <div style="font-size:11px;color:var(--text-muted);">LTV / CAC</div>
+            <div style="font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:var(--sage-deep);">6-12x</div>
+          </div>
+        </div>
+
+        <h3 style="margin-bottom:8px;">收入结构演变</h3>
+        <div class="bar-container">
+          <div class="bar-label">第 1 年</div>
+          <div class="bar-track">
+            <div class="bar-fill-hw" style="width:45%;">硬件 45%</div>
+            <div class="bar-fill-sub" style="width:30%;">订阅 30%</div>
+            <div style="background:var(--gradient-terracotta);width:25%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:600;color:white;">SaaS 25%</div>
+          </div>
+        </div>
+        <div class="bar-container">
+          <div class="bar-label">第 2 年</div>
+          <div class="bar-track">
+            <div class="bar-fill-hw" style="width:25%;">25%</div>
+            <div class="bar-fill-sub" style="width:40%;">订阅 40%</div>
+            <div style="background:var(--gradient-terracotta);width:35%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:600;color:white;">SaaS 35%</div>
+          </div>
+        </div>
+        <div class="bar-container">
+          <div class="bar-label">第 3 年</div>
+          <div class="bar-track">
+            <div class="bar-fill-hw" style="width:15%;">15%</div>
+            <div class="bar-fill-sub" style="width:45%;">订阅 45%</div>
+            <div style="background:var(--gradient-terracotta);width:40%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:600;color:white;">SaaS 40%</div>
+          </div>
+        </div>
+        <div style="font-size:11px;color:var(--text-muted);margin-top:6px;text-align:center;font-style:italic;">不是硬件公司 — 是用硬件获客的 AI 服务公司。</div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-line"></div>
+  <div class="brand">MICLAW</div>
+  <div class="slide-number">10</div>
+</div>
+
+<!-- ==================== SLIDE 11: HARDWARE COST ==================== -->
+<div class="slide">
+  <div class="label">成本分析</div>
+  <h2>硬件成本深度拆解</h2>
+  <div class="subtitle" style="margin-bottom:16px;">4G Cat.1 模组方案，BOM ¥50 — 首批打样费用 ¥15-20 万（深圳硬件伙伴已确认）</div>
+
+  <div class="content-area justify-center">
+    <div class="grid-2 gap-24">
+      <!-- Left: BOM breakdown -->
+      <div>
+        <h3 style="margin-bottom:8px;">BOM 组件明细 <span style="font-size:11px;color:var(--text-muted);font-weight:400;">(4G Cat.1 方案)</span></h3>
+        <div class="table-container" style="margin-bottom:12px;">
+          <table style="font-size:12px;">
+            <thead>
+              <tr>
+                <th style="padding:6px 10px;">组件</th>
+                <th style="padding:6px 10px;">型号 / 规格</th>
+                <th style="padding:6px 10px;text-align:right;">单价</th>
+                <th style="padding:6px 10px;text-align:right;">占比</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td style="padding:5px 10px;font-weight:600;color:var(--text-primary);">4G Cat.1 模组</td>
+                <td style="padding:5px 10px;">Air780E / EC600N 等（内置 MCU）</td>
+                <td style="padding:5px 10px;text-align:right;font-weight:600;">¥20-25</td>
+                <td style="padding:5px 10px;text-align:right;">40-50%</td>
+              </tr>
+              <tr>
+                <td style="padding:5px 10px;font-weight:600;color:var(--text-primary);">锂电池</td>
+                <td style="padding:5px 10px;">3.7V 500-800mAh</td>
+                <td style="padding:5px 10px;text-align:right;font-weight:600;">¥5-8</td>
+                <td style="padding:5px 10px;text-align:right;">10-16%</td>
+              </tr>
+              <tr>
+                <td style="padding:5px 10px;font-weight:600;color:var(--text-primary);">数字麦克风</td>
+                <td style="padding:5px 10px;">INMP441 I2S</td>
+                <td style="padding:5px 10px;text-align:right;font-weight:600;">¥3-5</td>
+                <td style="padding:5px 10px;text-align:right;">6-10%</td>
+              </tr>
+              <tr>
+                <td style="padding:5px 10px;font-weight:600;color:var(--text-primary);">PCB + 被动元件</td>
+                <td style="padding:5px 10px;">4 层 FR-4</td>
+                <td style="padding:5px 10px;text-align:right;font-weight:600;">¥5-6</td>
+                <td style="padding:5px 10px;text-align:right;">10-12%</td>
+              </tr>
+              <tr>
+                <td style="padding:5px 10px;font-weight:600;color:var(--text-primary);">外壳</td>
+                <td style="padding:5px 10px;">ABS/PC 注塑 + 夹子/表带</td>
+                <td style="padding:5px 10px;text-align:right;font-weight:600;">¥3-5</td>
+                <td style="padding:5px 10px;text-align:right;">6-10%</td>
+              </tr>
+              <tr>
+                <td style="padding:5px 10px;font-weight:600;color:var(--text-primary);">SIM 卡座</td>
+                <td style="padding:5px 10px;">Nano SIM / eSIM</td>
+                <td style="padding:5px 10px;text-align:right;font-weight:600;">¥1-2</td>
+                <td style="padding:5px 10px;text-align:right;">2-4%</td>
+              </tr>
+              <tr>
+                <td style="padding:5px 10px;font-weight:600;color:var(--text-primary);">其他</td>
+                <td style="padding:5px 10px;">马达 / LED / 按钮 / USB-C</td>
+                <td style="padding:5px 10px;text-align:right;font-weight:600;">¥4-6</td>
+                <td style="padding:5px 10px;text-align:right;">8-12%</td>
+              </tr>
+            </tbody>
+            <tfoot>
+              <tr>
+                <td colspan="2" style="padding:7px 10px;font-weight:700;color:var(--amber-deep);background:var(--bg-cream-accent);border-top:2px solid var(--border);">BOM 合计</td>
+                <td style="padding:7px 10px;text-align:right;font-weight:700;color:var(--amber-deep);background:var(--bg-cream-accent);border-top:2px solid var(--border);">~¥50</td>
+                <td style="padding:7px 10px;text-align:right;font-weight:600;background:var(--bg-cream-accent);border-top:2px solid var(--border);">100%</td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+        <div class="card-sm card-amber" style="padding:10px 14px;">
+          <div style="font-size:11px;color:var(--text-secondary);line-height:1.5;">4G Cat.1 模组内置 MCU，简化硬件架构 · 4G IoT SIM 月租 &lt;¥5/用户/月 · 已与深圳硬件伙伴确认方案</div>
+        </div>
+      </div>
+
+      <!-- Right: Scale economics + first batch -->
+      <div>
+        <h3 style="margin-bottom:8px;">规模效应：单位总成本</h3>
+        <div class="table-container" style="margin-bottom:14px;">
+          <table style="font-size:12px;">
+            <thead>
+              <tr>
+                <th style="padding:6px 10px;">成本项</th>
+                <th style="padding:6px 10px;text-align:right;">100 台</th>
+                <th style="padding:6px 10px;text-align:right;">500 台</th>
+                <th style="padding:6px 10px;text-align:right;">5,000 台</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td style="padding:5px 10px;color:var(--text-muted);">BOM 元器件</td>
+                <td style="padding:5px 10px;text-align:right;">¥60</td>
+                <td style="padding:5px 10px;text-align:right;">¥50</td>
+                <td style="padding:5px 10px;text-align:right;color:var(--sage-deep);font-weight:600;">¥38</td>
+              </tr>
+              <tr>
+                <td style="padding:5px 10px;color:var(--text-muted);">SMT + 组装 + 测试</td>
+                <td style="padding:5px 10px;text-align:right;">¥50</td>
+                <td style="padding:5px 10px;text-align:right;">¥30</td>
+                <td style="padding:5px 10px;text-align:right;color:var(--sage-deep);font-weight:600;">¥15</td>
+              </tr>
+              <tr>
+                <td style="padding:5px 10px;color:var(--text-muted);">外壳 (含模具分摊)</td>
+                <td style="padding:5px 10px;text-align:right;">¥45</td>
+                <td style="padding:5px 10px;text-align:right;">¥12</td>
+                <td style="padding:5px 10px;text-align:right;color:var(--sage-deep);font-weight:600;">¥7</td>
+              </tr>
+              <tr>
+                <td style="padding:5px 10px;color:var(--text-muted);">包装 + 质检</td>
+                <td style="padding:5px 10px;text-align:right;">¥18</td>
+                <td style="padding:5px 10px;text-align:right;">¥13</td>
+                <td style="padding:5px 10px;text-align:right;color:var(--sage-deep);font-weight:600;">¥8</td>
+              </tr>
+            </tbody>
+            <tfoot>
+              <tr>
+                <td style="padding:7px 10px;font-weight:700;color:var(--text-primary);background:var(--bg-cream-accent);border-top:2px solid var(--border);">单位总成本</td>
+                <td style="padding:7px 10px;text-align:right;font-weight:700;background:var(--bg-cream-accent);border-top:2px solid var(--border);">¥173</td>
+                <td style="padding:7px 10px;text-align:right;font-weight:700;background:var(--bg-cream-accent);border-top:2px solid var(--border);">¥105</td>
+                <td style="padding:7px 10px;text-align:right;font-weight:700;color:var(--sage-deep);background:var(--bg-cream-accent);border-top:2px solid var(--border);">¥68</td>
+              </tr>
+              <tr>
+                <td style="padding:5px 10px;font-weight:600;color:var(--text-primary);">毛利率 (拓麻歌子版 @¥599)</td>
+                <td style="padding:5px 10px;text-align:right;font-weight:600;">71%</td>
+                <td style="padding:5px 10px;text-align:right;font-weight:600;">82%</td>
+                <td style="padding:5px 10px;text-align:right;font-weight:700;color:var(--sage-deep);">89%</td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+
+        <h3 style="margin-bottom:8px;">首批打样总投入</h3>
+        <div class="card card-amber" style="padding:12px 14px;margin-bottom:10px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <div>
+              <div style="font-size:11px;color:var(--text-secondary);line-height:1.6;">硬件工程设计 + 打样 + 小批量试产<br>深圳硬件伙伴报价，已确认</div>
+            </div>
+            <div style="font-family:'Playfair Display',serif;font-size:24px;font-weight:700;color:var(--amber-deep);white-space:nowrap;margin-left:16px;">¥15-20万</div>
+          </div>
+        </div>
+        <div style="display:flex;gap:8px;">
+          <div class="card-sm" style="flex:1;text-align:center;padding:8px;">
+            <div style="font-size:10px;color:var(--text-muted);">竞品首批投入</div>
+            <div style="font-family:'Playfair Display',serif;font-size:17px;font-weight:700;color:var(--terracotta);">$1-10M+</div>
+          </div>
+          <div class="card-sm card-sage" style="flex:1;text-align:center;padding:8px;">
+            <div style="font-size:10px;color:var(--text-muted);">Miclaw 首批</div>
+            <div style="font-family:'Playfair Display',serif;font-size:17px;font-weight:700;color:var(--sage-deep);">¥15-20万</div>
+          </div>
+          <div class="card-sm" style="flex:1;text-align:center;padding:8px;">
+            <div style="font-size:10px;color:var(--text-muted);">试错成本比</div>
+            <div style="font-family:'Playfair Display',serif;font-size:17px;font-weight:700;color:var(--sage-deep);">1/50</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-line"></div>
+  <div class="brand">MICLAW</div>
+  <div class="slide-number">11</div>
+</div>
+
+<!-- ==================== SLIDE 12: TRACTION ==================== -->
+<div class="slide">
+  <div class="label">数据与里程碑</div>
+  <h2>零营销预算下的自然增长</h2>
+  <div class="subtitle" style="margin-bottom:20px;">零广告投放，纯自然增长 — 产品本身在说话</div>
+
+  <div class="content-area justify-center">
+    <!-- Key metrics row -->
+    <div style="display:flex;gap:16px;margin-bottom:24px;">
+      <div class="card" style="flex:1;text-align:center;padding:18px;">
+        <div style="font-family:'Playfair Display',serif;font-size:36px;font-weight:700;color:var(--sage-deep);">600+</div>
+        <div style="font-size:12px;color:var(--text-muted);margin-top:2px;">活跃用户</div>
+        <div style="font-size:11px;color:var(--text-secondary);margin-top:4px;">至少导入 1 张截图的真实用户</div>
+      </div>
+      <div class="card" style="flex:1;text-align:center;padding:18px;">
+        <div style="font-family:'Playfair Display',serif;font-size:36px;font-weight:700;color:var(--amber-deep);">100+</div>
+        <div style="font-size:12px;color:var(--text-muted);margin-top:2px;">月活用户</div>
+        <div style="font-size:11px;color:var(--text-secondary);margin-top:4px;">近一个月活跃用户</div>
+      </div>
+      <div class="card" style="flex:1;text-align:center;padding:18px;">
+        <div style="font-family:'Playfair Display',serif;font-size:36px;font-weight:700;color:var(--terracotta);">10</div>
+        <div style="font-size:12px;color:var(--text-muted);margin-top:2px;">付费用户</div>
+        <div style="font-size:11px;color:var(--text-secondary);margin-top:4px;">自然转化付费用户</div>
+      </div>
+      <div class="card" style="flex:1;text-align:center;padding:18px;">
+        <div style="font-family:'Playfair Display',serif;font-size:36px;font-weight:700;color:var(--text-primary);">35万</div>
+        <div style="font-size:12px;color:var(--text-muted);margin-top:2px;">总曝光量</div>
+        <div style="font-size:11px;color:var(--text-secondary);margin-top:4px;">海外 15 万 + 国内 20 万</div>
+      </div>
+    </div>
+
+    <div class="grid-2 gap-24">
+      <div>
+        <h3 style="margin-bottom:10px;">转化漏斗</h3>
+        <div class="table-container">
+          <table>
+            <tr>
+              <td style="font-weight:600;color:var(--text-primary);">曝光 → 使用</td>
+              <td style="font-family:'Playfair Display',serif;font-weight:700;color:var(--sage-deep);">0.17%</td>
+              <td style="font-size:11px;color:var(--text-muted);">纯自然流量，零付费获客</td>
+            </tr>
+            <tr>
+              <td style="font-weight:600;color:var(--text-primary);">使用 → 月活</td>
+              <td style="font-family:'Playfair Display',serif;font-weight:700;color:var(--sage-deep);">~17%</td>
+              <td style="font-size:11px;color:var(--text-muted);">工具类 App 健康水平</td>
+            </tr>
+            <tr>
+              <td style="font-weight:600;color:var(--text-primary);">使用 → 付费</td>
+              <td style="font-family:'Playfair Display',serif;font-weight:700;color:var(--sage-deep);">1.7%</td>
+              <td style="font-size:11px;color:var(--text-muted);">无 paywall 优化，自然付费</td>
+            </tr>
+          </table>
+        </div>
+        <div class="card-sm card-amber" style="margin-top:12px;padding:14px;">
+          <div style="font-size:12px;color:var(--text-secondary);line-height:1.6;font-style:italic;">
+            所有数据均在零广告投放、零市场推广预算下获得。验证了产品本身的吸引力 — 加入营销杠杆后增长空间巨大。
+          </div>
+        </div>
+      </div>
+      <div>
+        <h3 style="margin-bottom:10px;">已完成里程碑</h3>
+        <div class="progress-item">
+          <div class="progress-check progress-done">&#10003;</div>
+          <span>EINKO App 上架 App Store</span>
+        </div>
+        <div class="progress-item">
+          <div class="progress-check progress-done">&#10003;</div>
+          <span>600+ 真实使用用户，10 位付费</span>
+        </div>
+        <div class="progress-item">
+          <div class="progress-check progress-done">&#10003;</div>
+          <span>核心功能（AI 分类/搜索）全部上线</span>
+        </div>
+        <div class="progress-item">
+          <div class="progress-check progress-done">&#10003;</div>
+          <span>OpenClaw 智能体框架开发完成</span>
+        </div>
+        <div class="progress-item">
+          <div class="progress-check progress-done">&#10003;</div>
+          <span>深圳硬件伙伴确认 4G 方案 + BOM ¥50</span>
+        </div>
+        <div class="progress-item">
+          <div class="progress-check progress-done">&#10003;</div>
+          <span>miclaw.com 官网上线</span>
+        </div>
+        <div class="progress-item">
+          <div class="progress-check progress-wip">&rarr;</div>
+          <span>4G 硬件原型打样中（对讲机 / 手环评估）</span>
+        </div>
+        <div class="progress-item">
+          <div class="progress-check progress-wip">&rarr;</div>
+          <span>AI Companion 配套 App 开发中</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-line"></div>
+  <div class="brand">MICLAW</div>
+  <div class="slide-number">12</div>
+</div>
+
+<!-- ==================== SLIDE 13: FINANCIALS ==================== -->
+<div class="slide">
+  <div class="label">财务预测</div>
+  <h2>三年展望</h2>
+  <div style="height:16px;"></div>
+
+  <div class="content-area justify-center">
+    <div class="grid-3 gap-20" style="margin-bottom:24px;">
+      <div class="card" style="text-align:center;">
+        <div style="font-size:11px;color:var(--text-muted);letter-spacing:1px;margin-bottom:4px;">第 1 年</div>
+        <div style="font-family:'Playfair Display',serif;font-size:32px;font-weight:700;color:var(--amber-deep);">$40-110K</div>
+        <div style="font-size:12px;color:var(--text-secondary);margin-top:6px;">总收入</div>
+        <div style="height:1px;background:var(--border);margin:10px 0;"></div>
+        <div style="font-size:12px;color:var(--text-muted);">300-600 台硬件出货</div>
+        <div style="font-size:12px;color:var(--text-muted);">200-400 订阅用户</div>
+        <div style="font-size:12px;color:var(--text-muted);">50-200 SaaS 用户</div>
+      </div>
+      <div class="card card-amber" style="text-align:center;">
+        <div style="font-size:11px;color:var(--text-muted);letter-spacing:1px;margin-bottom:4px;">第 2 年</div>
+        <div style="font-family:'Playfair Display',serif;font-size:32px;font-weight:700;color:var(--sage-deep);">$410K-1.25M</div>
+        <div style="font-size:12px;color:var(--text-secondary);margin-top:6px;">总收入</div>
+        <div style="height:1px;background:var(--border);margin:10px 0;"></div>
+        <div style="font-size:12px;color:var(--text-muted);">3,000-8,000 台</div>
+        <div style="font-size:12px;color:var(--text-muted);">2,000-5,000 订阅用户</div>
+        <div style="font-size:12px;color:var(--text-muted);">500-2,000 SaaS 用户</div>
+      </div>
+      <div class="card card-sage" style="text-align:center;">
+        <div style="font-size:11px;color:var(--text-muted);letter-spacing:1px;margin-bottom:4px;">第 3 年</div>
+        <div style="font-family:'Playfair Display',serif;font-size:32px;font-weight:700;color:var(--sage-deep);">$1.65-5.0M</div>
+        <div style="font-size:12px;color:var(--text-secondary);margin-top:6px;">总收入</div>
+        <div style="height:1px;background:var(--border);margin:10px 0;"></div>
+        <div style="font-size:12px;color:var(--text-muted);">15,000-40,000 台</div>
+        <div style="font-size:12px;color:var(--text-muted);">8,000-25,000 订阅用户</div>
+        <div style="font-size:12px;color:var(--text-muted);">2,000-8,000 SaaS 用户</div>
+      </div>
+    </div>
+
+    <div class="grid-2 gap-24">
+      <div>
+        <h3 style="margin-bottom:10px;">核心假设</h3>
+        <div class="table-container">
+          <table>
+            <tr><td style="color:var(--text-muted);">拓麻歌子版 / 纯硬件版</td><td>55% / 45% → 65% / 35%</td></tr>
+            <tr><td style="color:var(--text-muted);">首年续费率</td><td>65-75%</td></tr>
+            <tr><td style="color:var(--text-muted);">EINKO 付费转化</td><td>5-10%</td></tr>
+            <tr><td style="color:var(--text-muted);">获客成本</td><td>&lt; $30</td></tr>
+            <tr><td style="color:var(--text-muted);">4G IoT 月租</td><td>&lt; ¥5/用户/月</td></tr>
+          </table>
+        </div>
+      </div>
+      <div>
+        <h3 style="margin-bottom:10px;">盈亏平衡</h3>
+        <div class="card card-sage" style="padding:18px;">
+          <div style="font-size:13px;color:var(--text-secondary);margin-bottom:10px;">
+            <span style="font-weight:600;color:var(--sage-deep);">单台即盈利</span> — 拓麻歌子版首台销售即正毛利
+          </div>
+          <div style="font-size:13px;color:var(--text-secondary);">
+            <span style="font-weight:600;color:var(--sage-deep);">公司盈亏平衡</span> — 约 1,500-2,500 活跃订阅用户（客单价提升，更快达到）
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-line"></div>
+  <div class="brand">MICLAW</div>
+  <div class="slide-number">13</div>
+</div>
+
+<!-- ==================== SLIDE 14: FINANCIAL MODEL ==================== -->
+<div class="slide">
+  <div class="label">财务详情</div>
+  <h2>逐季度财务模型</h2>
+  <div class="subtitle" style="margin-bottom:14px;">从验证到盈利的清晰路径 — 三条收入线并行增长</div>
+
+  <div class="content-area justify-center">
+    <div class="table-container" style="margin-bottom:16px;">
+      <table style="font-size:12px;">
+        <thead>
+          <tr>
+            <th style="padding:6px 10px;"></th>
+            <th style="padding:6px 10px;text-align:center;">Q1 Y1</th>
+            <th style="padding:6px 10px;text-align:center;">Q2 Y1</th>
+            <th style="padding:6px 10px;text-align:center;">Q3 Y1</th>
+            <th style="padding:6px 10px;text-align:center;">Q4 Y1</th>
+            <th style="padding:6px 10px;text-align:center;color:var(--sage-deep);font-weight:700;">Q1 Y2</th>
+            <th style="padding:6px 10px;text-align:center;color:var(--sage-deep);font-weight:700;">Q2 Y2</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="padding:5px 10px;color:var(--text-muted);">新增出货 (台)</td>
+            <td style="padding:5px 10px;text-align:center;">0</td>
+            <td style="padding:5px 10px;text-align:center;">50</td>
+            <td style="padding:5px 10px;text-align:center;">100</td>
+            <td style="padding:5px 10px;text-align:center;">200</td>
+            <td style="padding:5px 10px;text-align:center;font-weight:600;">400</td>
+            <td style="padding:5px 10px;text-align:center;font-weight:600;">600</td>
+          </tr>
+          <tr>
+            <td style="padding:5px 10px;color:var(--text-muted);">活跃订阅用户</td>
+            <td style="padding:5px 10px;text-align:center;">15</td>
+            <td style="padding:5px 10px;text-align:center;">65</td>
+            <td style="padding:5px 10px;text-align:center;">165</td>
+            <td style="padding:5px 10px;text-align:center;">345</td>
+            <td style="padding:5px 10px;text-align:center;font-weight:600;">630</td>
+            <td style="padding:5px 10px;text-align:center;font-weight:600;">1,050</td>
+          </tr>
+          <tr>
+            <td style="padding:7px 10px;font-weight:600;color:var(--amber-deep);background:var(--bg-cream-accent);">总收入</td>
+            <td style="padding:7px 10px;text-align:center;font-weight:600;background:var(--bg-cream-accent);">$0.6K</td>
+            <td style="padding:7px 10px;text-align:center;font-weight:600;background:var(--bg-cream-accent);">$6.4K</td>
+            <td style="padding:7px 10px;text-align:center;font-weight:600;background:var(--bg-cream-accent);">$13.6K</td>
+            <td style="padding:7px 10px;text-align:center;font-weight:600;background:var(--bg-cream-accent);">$27.0K</td>
+            <td style="padding:7px 10px;text-align:center;font-weight:700;color:var(--sage-deep);background:var(--bg-cream-accent);">$52.5K</td>
+            <td style="padding:7px 10px;text-align:center;font-weight:700;color:var(--sage-deep);background:var(--bg-cream-accent);">$81.4K</td>
+          </tr>
+          <tr>
+            <td style="padding:5px 10px;color:var(--text-muted);">总成本</td>
+            <td style="padding:5px 10px;text-align:center;">$18.5K</td>
+            <td style="padding:5px 10px;text-align:center;">$18.1K</td>
+            <td style="padding:5px 10px;text-align:center;">$23.1K</td>
+            <td style="padding:5px 10px;text-align:center;">$29.2K</td>
+            <td style="padding:5px 10px;text-align:center;">$44.0K</td>
+            <td style="padding:5px 10px;text-align:center;">$57.7K</td>
+          </tr>
+          <tr>
+            <td style="padding:7px 10px;font-weight:600;background:var(--bg-cream-accent);">净利润</td>
+            <td style="padding:7px 10px;text-align:center;color:var(--terracotta);font-weight:600;background:var(--bg-cream-accent);">-$17.9K</td>
+            <td style="padding:7px 10px;text-align:center;color:var(--terracotta);font-weight:600;background:var(--bg-cream-accent);">-$11.6K</td>
+            <td style="padding:7px 10px;text-align:center;color:var(--terracotta);font-weight:600;background:var(--bg-cream-accent);">-$9.6K</td>
+            <td style="padding:7px 10px;text-align:center;color:var(--terracotta);font-weight:600;background:var(--bg-cream-accent);">-$2.2K</td>
+            <td style="padding:7px 10px;text-align:center;color:var(--sage-deep);font-weight:700;background:var(--bg-cream-accent);">+$8.5K</td>
+            <td style="padding:7px 10px;text-align:center;color:var(--sage-deep);font-weight:700;background:var(--bg-cream-accent);">+$23.6K</td>
+          </tr>
+          <tr>
+            <td style="padding:5px 10px;color:var(--text-muted);">混合毛利率</td>
+            <td style="padding:5px 10px;text-align:center;">—</td>
+            <td style="padding:5px 10px;text-align:center;">62%</td>
+            <td style="padding:5px 10px;text-align:center;">64%</td>
+            <td style="padding:5px 10px;text-align:center;">66%</td>
+            <td style="padding:5px 10px;text-align:center;color:var(--sage-deep);font-weight:600;">68%</td>
+            <td style="padding:5px 10px;text-align:center;color:var(--sage-deep);font-weight:600;">70%</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="grid-2 gap-24">
+      <div>
+        <h3 style="margin-bottom:8px;">订阅收入占比演变</h3>
+        <div class="bar-container">
+          <div class="bar-label">Y1</div>
+          <div class="bar-track">
+            <div class="bar-fill-hw" style="width:67%;">硬件 67%</div>
+            <div class="bar-fill-sub" style="width:33%;">订阅 33%</div>
+          </div>
+        </div>
+        <div class="bar-container">
+          <div class="bar-label">Y2</div>
+          <div class="bar-track">
+            <div class="bar-fill-hw" style="width:42%;">硬件 42%</div>
+            <div class="bar-fill-sub" style="width:58%;">订阅 58%</div>
+          </div>
+        </div>
+        <div class="bar-container">
+          <div class="bar-label">Y3</div>
+          <div class="bar-track">
+            <div class="bar-fill-hw" style="width:25%;">25%</div>
+            <div class="bar-fill-sub" style="width:75%;">订阅 75%</div>
+          </div>
+        </div>
+        <div style="font-size:11px;color:var(--text-muted);margin-top:4px;text-align:center;font-style:italic;">不是硬件公司 — 是用硬件获客的 AI 服务公司</div>
+      </div>
+      <div>
+        <h3 style="margin-bottom:8px;">Y1 成本结构</h3>
+        <div style="margin-bottom:10px;">
+          <div style="display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid var(--border-light);">
+            <span style="font-size:12px;color:var(--text-secondary);">人力成本</span>
+            <span style="font-size:12px;font-weight:600;color:var(--text-primary);">$52K (55%)</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid var(--border-light);">
+            <span style="font-size:12px;color:var(--text-secondary);">云服务 (LLM + STT + 服务器)</span>
+            <span style="font-size:12px;font-weight:600;color:var(--text-primary);">$13K (14%)</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid var(--border-light);">
+            <span style="font-size:12px;color:var(--text-secondary);">BOM + 组装 + 包装</span>
+            <span style="font-size:12px;font-weight:600;color:var(--text-primary);">$10K (11%)</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid var(--border-light);">
+            <span style="font-size:12px;color:var(--text-secondary);">4G IoT SIM 月租</span>
+            <span style="font-size:12px;font-weight:600;color:var(--text-primary);">$2K (2%)</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid var(--border-light);">
+            <span style="font-size:12px;color:var(--text-secondary);">营销 + 获客</span>
+            <span style="font-size:12px;font-weight:600;color:var(--text-primary);">$8K (9%)</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;padding:4px 0;">
+            <span style="font-size:12px;color:var(--text-secondary);">其他运营</span>
+            <span style="font-size:12px;font-weight:600;color:var(--text-primary);">$8.5K (9%)</span>
+          </div>
+        </div>
+        <div class="card-sm card-sage" style="text-align:center;padding:10px;">
+          <div style="font-size:10px;color:var(--text-muted);">单用户月云成本（含 4G）</div>
+          <div style="font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:var(--sage-deep);">$3.00-4.00</div>
+          <div style="font-size:10px;color:var(--text-muted);">STT $0.5-1 + LLM $1-2 + 服务器 $0.5 + 4G ¥5</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-line"></div>
+  <div class="brand">MICLAW</div>
+  <div class="slide-number">14</div>
+</div>
+
+<!-- ==================== SLIDE 15: ROADMAP ==================== -->
+<div class="slide">
+  <div class="label">发展路线</div>
+  <h2>开发时间线</h2>
+  <div style="height:20px;"></div>
+
+  <div class="content-area justify-center">
+    <div class="timeline" style="margin-bottom:32px;">
+      <div class="timeline-item">
+        <div class="timeline-title" style="color:var(--amber-deep);">2026 Q1-Q2</div>
+        <div class="timeline-dot timeline-dot-amber"></div>
+        <div class="timeline-desc">
+          <strong>第一阶段：原型 + 形态决策</strong><br>
+          4G 硬件原型完成<br>
+          对讲机 / 手环形态确认<br>
+          端到端链路验证<br>
+          3-5 人内测
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-title" style="color:var(--sage-deep);">2026 Q3-Q4</div>
+        <div class="timeline-dot timeline-dot-sage"></div>
+        <div class="timeline-desc">
+          <strong>第二阶段：拓麻歌子 V1</strong><br>
+          AI Companion App 上线<br>
+          IP 角色设计 V1<br>
+          20-50 名 Beta 用户<br>
+          OpenClaw SaaS Beta
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-title" style="color:var(--terracotta);">2027 上半年</div>
+        <div class="timeline-dot timeline-dot-terracotta"></div>
+        <div class="timeline-desc">
+          <strong>第三阶段：量产 + 双版发售</strong><br>
+          首批量产<br>
+          纯硬件版 + 拓麻歌子版同步开售<br>
+          OpenClaw SaaS 正式上线<br>
+          认证完成
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-title" style="color:var(--text-muted);">2027 下半年+</div>
+        <div class="timeline-dot" style="background:var(--text-light);box-shadow:0 0 0 2px var(--text-light);"></div>
+        <div class="timeline-desc">
+          <strong>规模化</strong><br>
+          月产 1,000+ 台<br>
+          IP 衍生（周边/表情包）<br>
+          国际化<br>
+          A 轮融资
+        </div>
+      </div>
+    </div>
+
+    <h3 style="margin-bottom:12px;">第一阶段详情 — 原型验证 + 形态决策（4-8 周）</h3>
+    <div class="grid-4 gap-12">
+      <div class="card-sm" style="text-align:center;">
+        <div style="font-size:11px;color:var(--amber-deep);font-weight:600;letter-spacing:0.5px;">第 1-2 周</div>
+        <div style="font-size:11px;color:var(--text-secondary);margin-top:4px;line-height:1.5;">4G 模组调试 +<br>基础录音 + 上传</div>
+      </div>
+      <div class="card-sm" style="text-align:center;">
+        <div style="font-size:11px;color:var(--amber-deep);font-weight:600;letter-spacing:0.5px;">第 3-4 周</div>
+        <div style="font-size:11px;color:var(--text-secondary);margin-top:4px;line-height:1.5;">OpenClaw 集成<br>端到端链路打通</div>
+      </div>
+      <div class="card-sm" style="text-align:center;">
+        <div style="font-size:11px;color:var(--amber-deep);font-weight:600;letter-spacing:0.5px;">第 5-6 周</div>
+        <div style="font-size:11px;color:var(--text-secondary);margin-top:4px;line-height:1.5;">工厂沟通形态<br>对讲机 / 手环打样</div>
+      </div>
+      <div class="card-sm" style="text-align:center;">
+        <div style="font-size:11px;color:var(--amber-deep);font-weight:600;letter-spacing:0.5px;">第 7-8 周</div>
+        <div style="font-size:11px;color:var(--text-secondary);margin-top:4px;line-height:1.5;">形态决策 +<br>3-5 名外部用户测试</div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-line"></div>
+  <div class="brand">MICLAW</div>
+  <div class="slide-number">15</div>
+</div>
+
+<!-- ==================== SLIDE 16: THE ASK ==================== -->
+<div class="slide">
+  <div class="label">融资需求</div>
+  <h2>天使轮融资 300-500 万元</h2>
+  <div class="subtitle" style="margin-bottom:22px;">天使轮 · 12-15 个月资金跑道 · 从原型到双版首批交付</div>
+
+  <div class="content-area justify-center">
+    <div class="grid-2 gap-28">
+      <div>
+        <h3 style="margin-bottom:14px;">资金用途</h3>
+        <div style="margin-bottom:16px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--border);">
+            <span style="font-size:13px;color:var(--text-secondary);">硬件研发（PCB / 开模 / 认证 / 首批量产）</span>
+            <span style="font-size:13px;font-weight:700;color:var(--amber-deep);">30%</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--border);">
+            <span style="font-size:13px;color:var(--text-secondary);">团队薪资（12-15 个月）</span>
+            <span style="font-size:13px;font-weight:700;color:var(--amber-deep);">35%</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--border);">
+            <span style="font-size:13px;color:var(--text-secondary);">软件 + 云基础设施</span>
+            <span style="font-size:13px;font-weight:700;color:var(--amber-deep);">12%</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--border);">
+            <span style="font-size:13px;color:var(--text-secondary);">市场推广 + 用户获取</span>
+            <span style="font-size:13px;font-weight:700;color:var(--amber-deep);">10%</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--border);">
+            <span style="font-size:13px;color:var(--text-secondary);">知识产权 + 法务</span>
+            <span style="font-size:13px;font-weight:700;color:var(--amber-deep);">4%</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;">
+            <span style="font-size:13px;color:var(--text-secondary);">运营储备金</span>
+            <span style="font-size:13px;font-weight:700;color:var(--amber-deep);">9%</span>
+          </div>
+        </div>
+      </div>
+      <div>
+        <h3 style="margin-bottom:14px;">解锁的里程碑</h3>
+        <div class="card-sm" style="margin-bottom:8px;border-left:3px solid var(--amber);">
+          <div style="font-size:11px;color:var(--amber-deep);font-weight:600;">+2 个月</div>
+          <div style="font-size:13px;color:var(--text-secondary);">4G 硬件原型 + 形态决策完成</div>
+        </div>
+        <div class="card-sm" style="margin-bottom:8px;border-left:3px solid var(--amber);">
+          <div style="font-size:11px;color:var(--amber-deep);font-weight:600;">+5 个月</div>
+          <div style="font-size:13px;color:var(--text-secondary);">拓麻歌子 V1 + App 上线，Beta 用户</div>
+        </div>
+        <div class="card-sm" style="margin-bottom:8px;border-left:3px solid var(--sage);">
+          <div style="font-size:11px;color:var(--sage-deep);font-weight:600;">+8 个月</div>
+          <div style="font-size:13px;color:var(--text-secondary);">双版首批交付 + OpenClaw SaaS Beta</div>
+        </div>
+        <div class="card-sm" style="border-left:3px solid var(--sage);">
+          <div style="font-size:11px;color:var(--sage-deep);font-weight:600;">+12 个月</div>
+          <div style="font-size:13px;color:var(--text-secondary);">三条收入线验证完成，具备 A 轮条件</div>
+        </div>
+
+        <div class="card card-amber" style="margin-top:16px;padding:14px;text-align:center;">
+          <div style="font-size:12px;color:var(--text-muted);">预估估值区间</div>
+          <div style="font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:var(--amber-deep);margin-top:4px;">RMB 15-25M</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-line"></div>
+  <div class="brand">MICLAW</div>
+  <div class="slide-number">16</div>
+</div>
+
+<!-- ==================== SLIDE 17: FUNDING SCENARIOS ==================== -->
+<div class="slide">
+  <div class="label">融资场景</div>
+  <h2>融资场景详解</h2>
+  <div class="subtitle" style="margin-bottom:16px;">300 万够活，500 万够赢 — 两种场景都能跑到 A 轮，500 万多了拓麻歌子版的从容</div>
+
+  <div class="content-area justify-center">
+    <div class="grid-2 gap-24">
+      <!-- Left: Comparison table -->
+      <div>
+        <h3 style="margin-bottom:8px;">300 万 vs 500 万场景对比</h3>
+        <div class="table-container">
+          <table style="font-size:12px;">
+            <thead>
+              <tr>
+                <th style="padding:6px 10px;">维度</th>
+                <th style="padding:6px 10px;text-align:center;">300 万 (保守)</th>
+                <th style="padding:6px 10px;text-align:center;color:var(--sage-deep);">500 万 (充裕)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td style="padding:5px 10px;font-weight:600;color:var(--text-primary);">资金跑道</td>
+                <td style="padding:5px 10px;text-align:center;">12 个月</td>
+                <td style="padding:5px 10px;text-align:center;font-weight:600;color:var(--sage-deep);">15 个月</td>
+              </tr>
+              <tr>
+                <td style="padding:5px 10px;font-weight:600;color:var(--text-primary);">月均 Burn Rate</td>
+                <td style="padding:5px 10px;text-align:center;">¥25 万</td>
+                <td style="padding:5px 10px;text-align:center;">¥33 万</td>
+              </tr>
+              <tr>
+                <td style="padding:5px 10px;font-weight:600;color:var(--text-primary);">团队规模</td>
+                <td style="padding:5px 10px;text-align:center;">2-3 人</td>
+                <td style="padding:5px 10px;text-align:center;font-weight:600;color:var(--sage-deep);">3-5 人</td>
+              </tr>
+              <tr>
+                <td style="padding:5px 10px;font-weight:600;color:var(--text-primary);">硬件量产</td>
+                <td style="padding:5px 10px;text-align:center;">首批 300 台</td>
+                <td style="padding:5px 10px;text-align:center;font-weight:600;color:var(--sage-deep);">500 + 追加 500</td>
+              </tr>
+              <tr>
+                <td style="padding:5px 10px;font-weight:600;color:var(--text-primary);">对讲机出货</td>
+                <td style="padding:5px 10px;text-align:center;">250-300 台</td>
+                <td style="padding:5px 10px;text-align:center;font-weight:600;color:var(--sage-deep);">500-800 台</td>
+              </tr>
+              <tr>
+                <td style="padding:5px 10px;font-weight:600;color:var(--text-primary);">托管订阅用户</td>
+                <td style="padding:5px 10px;text-align:center;">150-200</td>
+                <td style="padding:5px 10px;text-align:center;font-weight:600;color:var(--sage-deep);">350-500</td>
+              </tr>
+              <tr>
+                <td style="padding:5px 10px;font-weight:600;color:var(--text-primary);">Y1 预估收入</td>
+                <td style="padding:5px 10px;text-align:center;">$43-65K</td>
+                <td style="padding:5px 10px;text-align:center;font-weight:600;color:var(--sage-deep);">$70-99K</td>
+              </tr>
+              <tr>
+                <td style="padding:5px 10px;font-weight:600;color:var(--text-primary);">A 轮就绪</td>
+                <td style="padding:5px 10px;text-align:center;">+12 月 (紧凑)</td>
+                <td style="padding:5px 10px;text-align:center;font-weight:600;color:var(--sage-deep);">+12-15 月 (从容)</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Right: Cash flow waterfall -->
+      <div>
+        <h3 style="margin-bottom:8px;">现金流关键节点 <span style="font-size:11px;color:var(--text-muted);font-weight:400;">(300 万场景)</span></h3>
+        <div style="margin-bottom:12px;">
+          <div class="card-sm" style="margin-bottom:5px;border-left:3px solid var(--amber);padding:7px 14px;">
+            <div style="display:flex;justify-content:space-between;align-items:center;">
+              <div>
+                <span style="font-size:11px;font-weight:600;color:var(--amber-deep);">M0 到账</span>
+                <span style="font-size:11px;color:var(--text-muted);margin-left:8px;">团队组建，启动开发</span>
+              </div>
+              <div style="font-family:'Playfair Display',serif;font-size:15px;font-weight:700;color:var(--sage-deep);">¥300万</div>
+            </div>
+          </div>
+          <div class="card-sm" style="margin-bottom:5px;border-left:3px solid var(--amber);padding:7px 14px;">
+            <div style="display:flex;justify-content:space-between;align-items:center;">
+              <div>
+                <span style="font-size:11px;font-weight:600;color:var(--amber-deep);">M3 原型验证</span>
+                <span style="font-size:11px;color:var(--text-muted);margin-left:8px;">开模启动，Beta 招募</span>
+              </div>
+              <div style="font-family:'Playfair Display',serif;font-size:15px;font-weight:700;color:var(--text-primary);">¥237万</div>
+            </div>
+          </div>
+          <div class="card-sm" style="margin-bottom:5px;border-left:3px solid var(--amber);padding:7px 14px;">
+            <div style="display:flex;justify-content:space-between;align-items:center;">
+              <div>
+                <span style="font-size:11px;font-weight:600;color:var(--amber-deep);">M6 认证+采购</span>
+                <span style="font-size:11px;color:var(--text-muted);margin-left:8px;">支出高峰期</span>
+              </div>
+              <div style="font-family:'Playfair Display',serif;font-size:15px;font-weight:700;color:var(--text-primary);">¥157万</div>
+            </div>
+          </div>
+          <div class="card-sm" style="margin-bottom:5px;border-left:3px solid var(--sage);padding:7px 14px;">
+            <div style="display:flex;justify-content:space-between;align-items:center;">
+              <div>
+                <span style="font-size:11px;font-weight:600;color:var(--sage-deep);">M8 首批出货</span>
+                <span style="font-size:11px;color:var(--text-muted);margin-left:8px;">收入开始增长</span>
+              </div>
+              <div style="font-family:'Playfair Display',serif;font-size:15px;font-weight:700;color:var(--text-primary);">¥108万</div>
+            </div>
+          </div>
+          <div class="card-sm" style="margin-bottom:5px;border-left:3px solid var(--sage);padding:7px 14px;">
+            <div style="display:flex;justify-content:space-between;align-items:center;">
+              <div>
+                <span style="font-size:11px;font-weight:600;color:var(--sage-deep);">M10 续费验证</span>
+                <span style="font-size:11px;color:var(--text-muted);margin-left:8px;">商业模式确认</span>
+              </div>
+              <div style="font-family:'Playfair Display',serif;font-size:15px;font-weight:700;color:var(--text-primary);">¥73万</div>
+            </div>
+          </div>
+          <div class="card-sm" style="border-left:3px solid var(--sage);padding:7px 14px;">
+            <div style="display:flex;justify-content:space-between;align-items:center;">
+              <div>
+                <span style="font-size:11px;font-weight:600;color:var(--sage-deep);">M12 A 轮窗口</span>
+                <span style="font-size:11px;color:var(--text-muted);margin-left:8px;">约 2 月缓冲</span>
+              </div>
+              <div style="font-family:'Playfair Display',serif;font-size:15px;font-weight:700;color:var(--amber-deep);">¥49万</div>
+            </div>
+          </div>
+        </div>
+        <div class="card card-sage" style="padding:10px 14px;text-align:center;">
+          <div style="font-size:12px;color:var(--text-secondary);font-style:italic;">500 万场景：M15 仍剩余 ¥55万，支撑二次迭代和追加量产</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-line"></div>
+  <div class="brand">MICLAW</div>
+  <div class="slide-number">17</div>
+</div>
+
+<!-- ==================== SLIDE 18: WHY US ==================== -->
+<div class="slide">
+  <div class="label">为什么是我们</div>
+  <h2>我们为什么会赢</h2>
+  <div style="height:20px;"></div>
+
+  <div class="content-area justify-center">
+    <div class="grid-3 gap-20" style="margin-bottom:28px;">
+      <div class="card" style="text-align:center;padding:24px 18px;">
+        <div class="icon-circle">I</div>
+        <h3 style="font-size:15px;margin-bottom:6px;">全栈执行力</h3>
+        <div style="font-size:12px;color:var(--text-secondary);line-height:1.6;">iOS App + 硬件 + OpenClaw 框架 + 配套 App — 全部自研，开发速度极快。</div>
+      </div>
+      <div class="card" style="text-align:center;padding:24px 18px;">
+        <div class="icon-circle">II</div>
+        <h3 style="font-size:15px;margin-bottom:6px;">产品已验证</h3>
+        <div style="font-size:12px;color:var(--text-secondary);line-height:1.6;">EINKO 600+ 用户 · 10 位付费 · 零营销 — 深圳硬件伙伴已确认 4G 方案。</div>
+      </div>
+      <div class="card" style="text-align:center;padding:24px 18px;">
+        <div class="icon-circle">III</div>
+        <h3 style="font-size:15px;margin-bottom:6px;">跨界交叉点</h3>
+        <div style="font-size:12px;color:var(--text-secondary);line-height:1.6;">拓麻歌子 + AI Agent + 4G 硬件 — 三个赛道交叉，竞品看不到这个位置。</div>
+      </div>
+    </div>
+
+    <div class="grid-2 gap-20" style="margin-bottom:24px;">
+      <div class="card" style="text-align:center;padding:20px 18px;">
+        <div class="icon-circle">IV</div>
+        <h3 style="font-size:15px;margin-bottom:6px;">¥50 BOM，风险极低</h3>
+        <div style="font-size:12px;color:var(--text-secondary);line-height:1.6;">4G 独立联网，深圳供应链直接对接。两种形态都打样，试错成本 = 竞品的 1/50。</div>
+      </div>
+      <div class="card" style="text-align:center;padding:20px 18px;">
+        <div class="icon-circle">V</div>
+        <h3 style="font-size:15px;margin-bottom:6px;">记忆飞轮 = 护城河</h3>
+        <div style="font-size:12px;color:var(--text-secondary);line-height:1.6;">OpenClaw 长期记忆越用越懂你 — 迁移成本 = 天然续费率 = 用户数据飞轮。</div>
+      </div>
+    </div>
+
+    <div class="quote" style="font-size:18px;">
+      从工具到伙伴 — 不只是让 AI 帮你做事，更是让 AI 陪你成长。
+    </div>
+  </div>
+  <div class="slide-line"></div>
+  <div class="brand">MICLAW</div>
+  <div class="slide-number">18</div>
+</div>
+
+<!-- ==================== SLIDE 19: CLOSING ==================== -->
+<div class="slide closing-slide">
+  <div style="position:relative;z-index:1;">
+    <div class="label" style="margin-bottom:24px;letter-spacing:4px;">MICLAW</div>
+    <h1 style="font-family:'Playfair Display','Noto Serif SC',serif;font-size:46px;font-weight:700;color:var(--text-primary);margin-bottom:16px;">
+      每一个想法都值得被留住
+    </h1>
+    <div style="font-family:'Playfair Display','Noto Serif SC',serif;font-size:20px;color:var(--text-secondary);margin-bottom:8px;font-style:italic;">
+      OpenClaw 直通硬件 — 按下按钮，AI 为你行动。
+    </div>
+    <div style="font-size:15px;color:var(--text-muted);margin-bottom:40px;">
+      硬件是入口，AI 伙伴是黏性，SaaS 是天花板。
+    </div>
+
+    <div style="display:flex;gap:40px;justify-content:center;margin-bottom:44px;">
+      <div class="stat">
+        <div class="stat-value" style="color:var(--sage-deep);">600+</div>
+        <div class="stat-label">活跃用户</div>
+      </div>
+      <div class="stat">
+        <div class="stat-value" style="color:var(--amber-deep);">10</div>
+        <div class="stat-label">付费用户</div>
+      </div>
+      <div class="stat">
+        <div class="stat-value" style="color:var(--terracotta);">35万</div>
+        <div class="stat-label">总曝光</div>
+      </div>
+      <div class="stat">
+        <div class="stat-value">¥50</div>
+        <div class="stat-label">硬件 BOM</div>
+      </div>
+      <div class="stat">
+        <div class="stat-value" style="color:var(--sage-deep);">6-12x</div>
+        <div class="stat-label">LTV / CAC</div>
+      </div>
+    </div>
+
+    <div style="font-size:13px;color:var(--text-light);letter-spacing:0.5px;">
+      miclaw.com  /  EINKO on App Store
+    </div>
+  </div>
+  <div class="brand">MICLAW</div>
+</div>
+
+</body>
+</html>

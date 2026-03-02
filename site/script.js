@@ -1,5 +1,5 @@
 /* ========================================
-   MiClaw — Product Page Scripts
+   Miclaw — Product Page Scripts
    Vanilla JS, no dependencies
    ======================================== */
 
