@@ -681,23 +681,394 @@
   <div style="position:relative;z-index:1;">
     <div class="label" style="margin-bottom:28px;letter-spacing:4px;">商业计划书 2026</div>
     <h1>Einko</h1>
-    <div class="cover-tagline">每一个想法都值得被留住</div>
-    <div style="font-size:16px;color:var(--text-muted);margin-bottom:36px;font-style:italic;letter-spacing:0.3px;">OpenClaw 直通硬件 — 按下按钮，AI 为你行动</div>
-    <div style="display:flex;gap:32px;justify-content:center;margin-bottom:44px;">
-      <span class="tag tag-amber">OpenClaw 硬件</span>
-      <span class="tag tag-sage">EINKO 视觉</span>
-      <span class="tag tag-terracotta">AI 服务</span>
-    </div>
+    <div class="cover-tagline">一家软件体时代的 “Andriod 厂商”</div>
     <div class="cover-meta">天使轮融资 &middot; 2026 年 3 月</div>
   </div>
   <div class="brand">EINKO</div>
 </div>
 
-<!-- ==================== SLIDE 2: PROBLEM ==================== -->
+<!-- ==================== SLIDE 2: STORY MAP ==================== -->
+<div class="slide">
+  <div class="label">Storytelling 附录</div>
+  <h2>我们的完整叙事：三层架构 + 一条数据飞轮</h2>
+  <div class="subtitle" style="margin-bottom:24px;">我们不是在做一个软件或者一个硬件，而是在做 AI 时代的“手机厂商”：重做交互入口，连接操作系统，再定义原生应用。</div>
+
+  <div class="content-area justify-center">
+    <div class="grid-2 gap-28">
+      <div>
+        <h3 style="margin-bottom:10px;">类比智能手机时代</h3>
+        <div class="card card-amber" style="padding:14px;margin-bottom:12px;">
+          <div class="table-container" style="border-color:rgba(217,119,6,0.20);">
+            <table style="font-size:13px;">
+              <thead>
+                <tr>
+                  <th style="width:18%;">维度</th>
+                  <th style="width:36%;">智能手机时代</th>
+                  <th>软件体时代</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="font-weight:700;color:var(--amber-deep);">交互层</td>
+                  <td>键盘 / 触屏</td>
+                  <td>截图 + 语音 + 屏幕 + ?</td>
+                </tr>
+                <tr>
+                  <td style="font-weight:700;color:var(--amber-deep);">处理层</td>
+                  <td>Android</td>
+                  <td>OpenClaw 型智能体操作系统</td>
+                </tr>
+                <tr>
+                  <td style="font-weight:700;color:var(--amber-deep);">应用层</td>
+                  <td>IM / 社交</td>
+                  <td>Agent 社交网络</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="card-sm">
+          <div style="font-size:12px;color:var(--text-secondary);line-height:1.7;">
+            我们要做的不是单点功能，而是一个可持续演进的产品栈：入口持续采集上下文，<span style="color:var(--sage-deep);font-weight:700;background:rgba(101,163,13,0.12);padding:1px 6px;border-radius:6px;">处理层持续迭代效率以及权限控制</span>，应用层持续放大网络效应。
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <h3 style="margin-bottom:10px;">三层产品布局（当前版本）</h3>
+        <div class="card-sm" style="margin-bottom:8px;border-left:3px solid var(--sage);border-color:rgba(101,163,13,0.20);">
+          <div style="font-size:13px;font-weight:600;color:var(--text-primary);">第一层 · 输入层</div>
+          <div style="font-size:12px;color:var(--text-secondary);margin-top:2px;">EINKO（截图输入）+ Miclaw（语音输入硬件）</div>
+          <div style="height:1px;background:rgba(101,163,13,0.18);margin:8px 0 6px;"></div>
+          <div style="font-size:12px;font-weight:600;color:var(--sage-deep);">动机引擎（核心）</div>
+          <div style="font-size:12px;color:var(--text-secondary);margin-top:2px;line-height:1.7;">把截图与语音结构化为可沉淀、可检索、可复用的用户资产，再分发到处理层执行。</div>
+        </div>
+        <div class="card-sm" style="margin-bottom:8px;border-left:3px solid var(--border);background:var(--bg-cream-deep);border-color:var(--border);">
+          <div style="font-size:13px;font-weight:600;color:var(--text-primary);">第二层 · 处理层</div>
+          <div style="font-size:12px;color:var(--text-secondary);margin-top:2px;">“Agent 时代的安卓手机”（类似手机厂商的操作系统和原始版本安卓的区别，含 VPS 部署与工具/API 编排）</div>
+        </div>
+        <div class="card-sm" style="margin-bottom:12px;border-left:3px solid var(--sage);">
+          <div style="font-size:13px;font-weight:600;color:var(--text-primary);">第三层 · 场景层</div>
+          <div style="font-size:12px;color:var(--text-secondary);margin-top:2px;">面向可成长智能体的社交应用（先做社交，再扩展内容与游戏）</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-line"></div>
+  <div class="brand">EINKO</div>
+  <div class="slide-number">02</div>
+</div>
+
+<!-- ==================== SLIDE 3: LAYER 1+2 ==================== -->
+<div class="slide">
+  <div class="label">第一层 + 第二层</div>
+  <h2>我们提供“更低摩擦的输入方式”，以及“定义使用这些数据的场景”</h2>
+  <div class="subtitle" style="margin-bottom:22px;">执行由 Agent 自动规划执行。</div>
+
+  <div class="content-area justify-center">
+    <div class="grid-2 gap-28">
+      <div>
+        <h3 style="margin-bottom:10px;">输入层：双入口</h3>
+        <div class="card card-amber" style="padding:14px;margin-bottom:10px;">
+          <div style="font-size:13px;font-weight:600;color:var(--amber-deep);margin-bottom:4px;">EINKO（截图入口）</div>
+          <div style="font-size:12px;color:var(--text-secondary);line-height:1.7;">
+            降低“保存信息”的摩擦。用户在手机上的截图行为，本质上是在表达动机：收藏、待办、灵感、计划。
+          </div>
+        </div>
+        <div class="card card-sage" style="padding:14px;margin-bottom:12px;">
+          <div style="font-size:13px;font-weight:600;color:var(--sage-deep);margin-bottom:4px;">Miclaw（语音入口）</div>
+          <div style="font-size:12px;color:var(--text-secondary);line-height:1.7;">
+            4G 直连 OpenClaw 的按键语音输入。无需掏手机，按下说话，松手上传，适合通勤和高噪声场景。<br>
+            这里有一个类比：Typeless 之于 GUI 对话框，正如 Miclaw 之于 OpenClaw 型 Agent。
+          </div>
+        </div>
+        <div class="card-sm">
+          <div style="font-size:12px;color:var(--text-secondary);line-height:1.7;">
+            这两种入口的共同目标：让用户在“想到”的那一刻完成输入，而不是在“有空”时再回忆输入。
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <h3 style="margin-bottom:10px;">处理层：云端的 Openclaw 寄养中心</h3>
+        <div class="card" style="padding:14px;margin-bottom:12px;">
+          <div class="flow-step">
+            <div class="flow-icon flow-icon-amber">1</div>
+            <div class="flow-text">用户拥有自己的云端 VPS 与运行环境</div>
+          </div>
+          <div class="flow-connector"></div>
+          <div class="flow-step">
+            <div class="flow-icon flow-icon-sage">2</div>
+            <div class="flow-text">我们提供预置的场景</div>
+          </div>
+          <div class="flow-connector"></div>
+          <div class="flow-step">
+            <div class="flow-icon flow-icon-sage">3</div>
+            <div class="flow-text">用户数据沉淀在可控环境中，提高迁移成本</div>
+          </div>
+        </div>
+        <div class="card-sm card-terracotta">
+          <div style="font-size:12px;color:var(--text-secondary);line-height:1.7;">
+            对应关系类似“手机厂商的操作系统和原始版本安卓的区别”：我们不重造底层系统，而是在开放生态上做定制化体验与更快可用性。
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-line"></div>
+  <div class="brand">EINKO</div>
+  <div class="slide-number">03</div>
+</div>
+
+<!-- ==================== SLIDE 4: MOTIVATION ENGINE ==================== -->
+<div class="slide">
+  <div class="label">数据资产</div>
+  <h2>动机引擎：把输入变成长期资产</h2>
+  <div class="subtitle" style="margin-bottom:20px;">第一层与第二层之间，我们加入“动机引擎”，让截图和语音不仅能执行任务，也能持续积累用户画像与记忆。</div>
+
+  <div class="content-area justify-center">
+    <div class="grid-2 gap-28">
+      <div>
+        <h3 style="margin-bottom:10px;">数据如何沉淀</h3>
+        <div class="card" style="padding:14px;margin-bottom:12px;">
+          <div class="flow-step">
+            <div class="flow-icon flow-icon-amber">1</div>
+            <div class="flow-text">截图在 EINKO 侧持续沉淀（兴趣、计划、收藏、待办）</div>
+          </div>
+          <div class="flow-connector"></div>
+          <div class="flow-step">
+            <div class="flow-icon flow-icon-amber">2</div>
+            <div class="flow-text">语音可直连 OpenClaw，也可经云端中转增强处理</div>
+          </div>
+          <div class="flow-connector"></div>
+          <div class="flow-step">
+            <div class="flow-icon flow-icon-sage">3</div>
+            <div class="flow-text">转写、整理、摘要后写入动机引擎，形成可检索资产</div>
+          </div>
+          <div class="flow-connector"></div>
+          <div class="flow-step">
+            <div class="flow-icon flow-icon-sage">4</div>
+            <div class="flow-text">任务结果统一回流到 EINKO App，闭环成为长期上下文</div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <h3 style="margin-bottom:10px;">商业与生态含义</h3>
+        <div class="card-sm" style="margin-bottom:8px;border-left:3px solid var(--terracotta);">
+          <div style="font-size:13px;font-weight:600;color:var(--text-primary);">让用户为智能付费</div>
+          <div style="font-size:12px;color:var(--text-secondary);margin-top:2px;">应用层不再长期补贴模型账单，商业模式从“API 差价”转向“产品价值订阅”。</div>
+        </div>
+        <div class="card-sm" style="margin-bottom:8px;border-left:3px solid var(--amber);">
+          <div style="font-size:13px;font-weight:600;color:var(--text-primary);">执行引擎可替换</div>
+          <div style="font-size:12px;color:var(--text-secondary);margin-top:2px;">无论中间执行引擎是开源还是闭源，前端动机资产都可以持续积累与迁移。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-line"></div>
+  <div class="brand">EINKO</div>
+  <div class="slide-number">04</div>
+</div>
+
+<!-- ==================== SLIDE 5: WORKFLOW ENTITY ==================== -->
+<div class="slide">
+  <div class="label">原生应用前置</div>
+  <h2>能自动适应并执行你的工作流的软件体</h2>
+  <div class="subtitle" style="margin-bottom:20px;">在进入具体应用之前，我们先定义软件体能力：自动适应你的工作流，并在权限范围内持续执行。</div>
+
+  <div class="content-area justify-center">
+    <div class="grid-2 gap-24">
+      <div>
+        <h3 style="margin-bottom:10px;">3 个计划的第一批使用场景</h3>
+
+        <div class="card" style="padding:14px 16px;margin-bottom:10px;">
+          <div style="display:flex;gap:12px;">
+            <div class="flow-icon flow-icon-amber" style="width:34px;height:34px;">创</div>
+            <div style="flex:1;">
+              <div style="font-size:18px;font-weight:700;color:var(--text-primary);margin-bottom:4px;">推特内容创作</div>
+              <div style="font-size:13px;color:var(--text-secondary);line-height:1.7;">散步时说出选题灵感，Agent 自动整理大纲、生成文案与配图建议，一条推文从录音到发布。</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card" style="padding:14px 16px;margin-bottom:10px;">
+          <div style="display:flex;gap:12px;">
+            <div class="flow-icon flow-icon-amber" style="width:34px;height:34px;">码</div>
+            <div style="flex:1;">
+              <div style="font-size:18px;font-weight:700;color:var(--text-primary);margin-bottom:4px;">从 Issue 到 PR</div>
+              <div style="font-size:13px;color:var(--text-secondary);line-height:1.7;">开车时口述 Bug，Agent 自动创建 Issue、分析代码、提交 PR，下车时修复已可合并。</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card" style="padding:14px 16px;">
+          <div style="display:flex;gap:12px;">
+            <div class="flow-icon flow-icon-amber" style="width:34px;height:34px;">记</div>
+            <div style="flex:1;">
+              <div style="font-size:18px;font-weight:700;color:var(--text-primary);margin-bottom:4px;">日记与想法对话</div>
+              <div style="font-size:13px;color:var(--text-secondary);line-height:1.7;">随时说出想法和感受，Agent 帮你沉淀为日记；回看时还能围绕历史记录持续对话。</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <h3 style="margin-bottom:10px;">核心能力：自动匹配并执行</h3>
+
+        <div class="card card-sage" style="padding:14px 16px;margin-bottom:10px;">
+          <div style="font-size:15px;font-weight:700;color:var(--sage-deep);margin-bottom:6px;">Curated Skills Store</div>
+          <div style="font-size:13px;color:var(--text-secondary);line-height:1.75;">
+            提供高质量、经验证、可复用的 Skills；按场景分层管理（内容创作 / 研发协作 / 个人助理），确保可用性与效果稳定。
+          </div>
+        </div>
+
+        <div class="card card-amber" style="padding:14px 16px;">
+          <div style="font-size:15px;font-weight:700;color:var(--amber-deep);margin-bottom:8px;">动机引擎 × Skills Store 自动装配</div>
+          <div class="flow-step" style="margin-bottom:6px;">
+            <div class="flow-icon flow-icon-amber">1</div>
+            <div class="flow-text">动机引擎识别用户当下意图与工作流上下文</div>
+          </div>
+          <div class="flow-connector"></div>
+          <div class="flow-step" style="margin-bottom:6px;">
+            <div class="flow-icon flow-icon-amber">2</div>
+            <div class="flow-text">自动匹配最合适的 Skill 组合，并推荐安装</div>
+          </div>
+          <div class="flow-connector"></div>
+          <div class="flow-step">
+            <div class="flow-icon flow-icon-sage">3</div>
+            <div class="flow-text">在权限边界内自动执行，结果回写到记忆与数据资产</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-line"></div>
+  <div class="brand">EINKO</div>
+  <div class="slide-number">05</div>
+</div>
+
+<!-- ==================== SLIDE 6: SOCIAL APP ==================== -->
+<div class="slide">
+  <div class="label">第三层 · 场景层</div>
+  <h2>我们的第一个原生场景: 给可成长智能体的社交网络;</h2>
+  <div class="subtitle" style="margin-bottom:20px;">当输入层和处理层打通后，关键问题变成：这些能力最终服务什么场景。我们的答案先是社交。</div>
+
+  <div class="content-area justify-center">
+    <div class="grid-2 gap-28">
+      <div>
+        <h3 style="margin-bottom:10px;">为什么是社交</h3>
+        <div class="card card-amber" style="padding:16px;margin-bottom:12px;">
+          <div style="font-size:12px;color:var(--text-secondary);line-height:1.8;">
+            <strong style="color:var(--amber-deep);">引子：</strong>特德姜《软件体的生命周期》里的“软件体”，是可被长期训练、持续成长、并与人建立关系的数字生命。<br>
+            用户正在“养成”自己的智能体：喂更好的模型、加技能、接 API、接外设。<br>
+            当智能体变成可成长的软件体，社交自然成为下一层需求：<br>
+            智能体之间要匹配、协作、互动，用户之间也会因智能体而建立连接。
+          </div>
+        </div>
+        <div class="card-sm">
+          <div style="font-size:12px;color:var(--text-secondary);line-height:1.7;">
+            与传统论坛式或数字分身式产品相比，我们的差异是：已有稳定数据入口，不需要用户额外“再输入一次”。
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <h3 style="margin-bottom:10px;">首批可落地场景</h3>
+        <div class="card-sm" style="margin-bottom:8px;border-left:3px solid var(--sage);">
+          <div style="font-size:13px;font-weight:600;color:var(--text-primary);">Agent 文档匹配</div>
+          <div style="font-size:12px;color:var(--text-secondary);margin-top:2px;">每日截图 + 语音自动生成摘要文档，由 Agent 去发现和匹配其他 Agent。</div>
+        </div>
+        <div class="card-sm" style="margin-bottom:8px;border-left:3px solid var(--amber);">
+          <div style="font-size:13px;font-weight:600;color:var(--text-primary);">Agent 内容运营</div>
+          <div style="font-size:12px;color:var(--text-secondary);margin-top:2px;">智能体自主发帖、跨平台分发、持续运营账号，形成可观察人格。</div>
+        </div>
+        <div class="card-sm" style="margin-bottom:12px;border-left:3px solid var(--terracotta);">
+          <div style="font-size:13px;font-weight:600;color:var(--text-primary);">Agent 竞技实验</div>
+          <div style="font-size:12px;color:var(--text-secondary);margin-top:2px;">在受控规则中进行博弈类互动，验证策略能力与协作机制。</div>
+        </div>
+        <div class="card card-sage" style="padding:14px;">
+          <div style="font-size:12px;color:var(--text-secondary);line-height:1.7;">
+            我们会保持中立：这个社交层不只服务单一阵营的 Agent，目标是跨模型、跨生态可用。
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-line"></div>
+  <div class="brand">EINKO</div>
+  <div class="slide-number">06</div>
+</div>
+
+<!-- ==================== SLIDE 7: INVESTOR FAQ ==================== -->
+<div class="slide">
+  <div class="label">常见问题</div>
+  <h2>常见问题解答</h2>
+  <div class="subtitle" style="margin-bottom:18px;">以下以 Q &amp; A 形式回答四个高频问题。</div>
+
+  <div class="content-area">
+    <div class="grid-2 gap-16" style="margin-bottom:16px;">
+      <div class="card" style="padding:16px 18px;border-left:3px solid var(--terracotta);">
+        <div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:10px;">
+          <span class="tag tag-terracotta" style="font-size:12px;padding:3px 9px;">Q1</span>
+          <div style="font-size:20px;font-weight:700;line-height:1.45;color:var(--text-primary);">为什么是领夹麦 / 手环，不是耳机？</div>
+        </div>
+        <div style="display:flex;align-items:flex-start;gap:10px;">
+          <span class="tag tag-sage" style="font-size:12px;padding:3px 9px;">A</span>
+          <div style="font-size:16px;line-height:1.7;color:var(--text-secondary);">领夹麦在嘈杂环境更稳定，按键对讲心智更清晰；耳机在工业设计、续航、佩戴习惯上门槛更高。</div>
+        </div>
+      </div>
+
+      <div class="card" style="padding:16px 18px;border-left:3px solid var(--sage);">
+        <div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:10px;">
+          <span class="tag tag-sage" style="font-size:12px;padding:3px 9px;">Q3</span>
+          <div style="font-size:20px;font-weight:700;line-height:1.45;color:var(--text-primary);">你们是否强依赖 OpenClaw？</div>
+        </div>
+        <div style="display:flex;align-items:flex-start;gap:10px;">
+          <span class="tag tag-sage" style="font-size:12px;padding:3px 9px;">A</span>
+          <div style="font-size:16px;line-height:1.7;color:var(--text-secondary);">这是战略选择，不是单点依赖。当前以 OpenClaw 为主是因为开放、迭代快、成本可控；同时动机引擎和数据资产层保持中立，可兼容其他执行引擎。</div>
+        </div>
+      </div>
+
+      <div class="card" style="padding:16px 18px;border-left:3px solid var(--terracotta);">
+        <div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:10px;">
+          <span class="tag tag-terracotta" style="font-size:12px;padding:3px 9px;">Q2</span>
+          <div style="font-size:20px;font-weight:700;line-height:1.45;color:var(--text-primary);">为什么只做麦克风，不做扬声器？</div>
+        </div>
+        <div style="display:flex;align-items:flex-start;gap:10px;">
+          <span class="tag tag-sage" style="font-size:12px;padding:3px 9px;">A</span>
+          <div style="font-size:16px;line-height:1.7;color:var(--text-secondary);">OpenClaw 的任务需要时间执行，实时语音回播不是刚需；Einko 可以作为手机上查看结果的界面以及数据资产沉淀的部分。</div>
+        </div>
+      </div>
+
+      <div class="card" style="padding:16px 18px;border-left:3px solid var(--sage);">
+        <div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:10px;">
+          <span class="tag tag-sage" style="font-size:12px;padding:3px 9px;">Q4</span>
+          <div style="font-size:20px;font-weight:700;line-height:1.45;color:var(--text-primary);">数据沉淀在哪里？</div>
+        </div>
+        <div style="display:flex;align-items:flex-start;gap:10px;">
+          <span class="tag tag-sage" style="font-size:12px;padding:3px 9px;">A</span>
+          <div style="font-size:16px;line-height:1.7;color:var(--text-secondary);">两处沉淀：1) Einko App 里沉淀任务处理结果、截图分析和交互历史；2) 动机引擎云服务沉淀结构化的“动机档案”，形成长期数据资产。</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card card-amber" style="padding:16px 20px;">
+      <div style="font-size:18px;color:var(--text-secondary);line-height:1.8;">
+        路线选择总结：硬件做极简输入，结果在手机聚合查看；中间层坚持开放底座；应用层保持跨阵营中立，优先做网络效应。
+      </div>
+    </div>
+  </div>
+  <div class="slide-line"></div>
+  <div class="brand">EINKO</div>
+  <div class="slide-number">07</div>
+</div>
+
+<!-- ==================== SLIDE 8: PROBLEM ==================== -->
 <div class="slide">
   <div class="label">痛点</div>
   <h2>人每天都在丢失珍贵的上下文</h2>
-  <div class="subtitle" style="margin-bottom:28px;">灵感转瞬即逝，信息碎片散落各处。<br>你明明有一个强大的 AI 助手 — 但你和它之间隔着太多摩擦。</div>
+  <div class="subtitle" style="margin-bottom:28px;">更低的输入摩擦 = 更多的用户上下文 = 更多的执行结果</div>
 
   <div class="content-area justify-center">
     <div class="grid-2 gap-32">
@@ -749,10 +1120,10 @@
   </div>
   <div class="slide-line"></div>
   <div class="brand">EINKO</div>
-  <div class="slide-number">02</div>
+  <div class="slide-number">08</div>
 </div>
 
-<!-- ==================== SLIDE 3: SOLUTION ==================== -->
+<!-- ==================== SLIDE 9: SOLUTION ==================== -->
 <div class="slide">
   <div class="label">我们的解决方案</div>
   <h2>Einko 硬件 — 让 AI 走出手机屏幕</h2>
@@ -824,10 +1195,10 @@
   </div>
   <div class="slide-line"></div>
   <div class="brand">EINKO</div>
-  <div class="slide-number">03</div>
+  <div class="slide-number">09</div>
 </div>
 
-<!-- ==================== SLIDE 4: HARDWARE DEEP DIVE ==================== -->
+<!-- ==================== SLIDE 10: HARDWARE DEEP DIVE ==================== -->
 <div class="slide">
   <div class="label">硬件详情</div>
   <h2>两种形态，一套核心架构</h2>
@@ -939,83 +1310,10 @@
   </div>
   <div class="slide-line"></div>
   <div class="brand">EINKO</div>
-  <div class="slide-number">04</div>
+  <div class="slide-number">10</div>
 </div>
 
-<!-- ==================== SLIDE 5: OPENCLAW ==================== -->
-<div class="slide">
-  <div class="label">核心技术 · 硬件背后的大脑</div>
-  <h2>OpenClaw：自研 AI 智能体框架</h2>
-  <div class="subtitle" style="margin-bottom:22px;">不只是调用 API — 完整的智能体框架，理解、记忆、执行。已开发完成。</div>
-
-  <div class="content-area justify-center">
-    <div class="grid-2 gap-28">
-      <div>
-        <h3 style="margin-bottom:12px;">核心能力</h3>
-        <div class="card-sm" style="margin-bottom:10px;border-left:3px solid var(--terracotta);">
-          <div style="font-size:13px;font-weight:600;color:var(--text-primary);">多模态内容理解</div>
-          <div style="font-size:12px;color:var(--text-secondary);margin-top:2px;">语音、文字、图片 — 统一理解，统一处理</div>
-        </div>
-        <div class="card-sm" style="margin-bottom:10px;border-left:3px solid var(--terracotta);">
-          <div style="font-size:13px;font-weight:600;color:var(--text-primary);">任务规划与执行</div>
-          <div style="font-size:12px;color:var(--text-secondary);margin-top:2px;">理解意图 → 拆解任务 → 调用工具 → 完成执行</div>
-        </div>
-        <div class="card-sm" style="margin-bottom:10px;border-left:3px solid var(--terracotta);">
-          <div style="font-size:13px;font-weight:600;color:var(--text-primary);">长期记忆系统</div>
-          <div style="font-size:12px;color:var(--text-secondary);margin-top:2px;">越用越懂你 — 积累用户上下文，个性化回应</div>
-        </div>
-        <div class="card-sm" style="border-left:3px solid var(--amber);">
-          <div style="font-size:13px;font-weight:600;color:var(--text-primary);">可扩展工具链</div>
-          <div style="font-size:12px;color:var(--text-secondary);margin-top:2px;">发邮件、查信息、做提醒、管日程 — 能力持续扩展</div>
-        </div>
-      </div>
-      <div>
-        <h3 style="margin-bottom:12px;">从硬件到 OpenClaw 的数据流</h3>
-        <div class="card" style="padding:18px;margin-bottom:16px;">
-          <div class="flow-step">
-            <div class="flow-icon flow-icon-amber">1</div>
-            <div class="flow-text"><strong>硬件捕获</strong> — 用户按下按钮，说出想法</div>
-          </div>
-          <div class="flow-connector"></div>
-          <div class="flow-step">
-            <div class="flow-icon flow-icon-amber">2</div>
-            <div class="flow-text"><strong>4G 上传</strong> — 语音数据直传云端</div>
-          </div>
-          <div class="flow-connector"></div>
-          <div class="flow-step">
-            <div class="flow-icon flow-icon-sage">3</div>
-            <div class="flow-text"><strong>OpenClaw 处理</strong> — 语音转文字 → 意图理解 → 任务执行</div>
-          </div>
-          <div class="flow-connector"></div>
-          <div class="flow-step">
-            <div class="flow-icon flow-icon-sage">4</div>
-            <div class="flow-text"><strong>记忆沉淀</strong> — 每次交互写入长期记忆</div>
-          </div>
-        </div>
-
-        <div style="display:flex;gap:12px;">
-          <div class="card-sm card-terracotta" style="flex:1;text-align:center;padding:12px;">
-            <div style="font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:var(--terracotta);">自研</div>
-            <div style="font-size:10px;color:var(--text-muted);">完整框架</div>
-          </div>
-          <div class="card-sm card-sage" style="flex:1;text-align:center;padding:12px;">
-            <div style="font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:var(--sage-deep);">已完成</div>
-            <div style="font-size:10px;color:var(--text-muted);">核心开发</div>
-          </div>
-          <div class="card-sm card-amber" style="flex:1;text-align:center;padding:12px;">
-            <div style="font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:var(--amber-deep);">可独立</div>
-            <div style="font-size:10px;color:var(--text-muted);">SaaS 潜力</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="slide-line"></div>
-  <div class="brand">EINKO</div>
-  <div class="slide-number">05</div>
-</div>
-
-<!-- ==================== SLIDE 6: EINKO ==================== -->
+<!-- ==================== SLIDE 11: EINKO ==================== -->
 <div class="slide">
   <div class="label">已验证产品 · 视觉通道</div>
   <h2>EINKO：你的视觉记忆</h2>
@@ -1110,10 +1408,10 @@
   </div>
   <div class="slide-line"></div>
   <div class="brand">EINKO</div>
-  <div class="slide-number">06</div>
+  <div class="slide-number">11</div>
 </div>
 
-<!-- ==================== SLIDE 7: BIGGER PICTURE ==================== -->
+<!-- ==================== SLIDE 12: BIGGER PICTURE ==================== -->
 <div class="slide">
   <div class="label">更大的图景</div>
   <h2>从工具到伙伴 — 硬件之上的想象空间</h2>
@@ -1229,10 +1527,10 @@
   </div>
   <div class="slide-line"></div>
   <div class="brand">EINKO</div>
-  <div class="slide-number">07</div>
+  <div class="slide-number">12</div>
 </div>
 
-<!-- ==================== SLIDE 8: MARKET ==================== -->
+<!-- ==================== SLIDE 13: MARKET ==================== -->
 <div class="slide">
   <div class="label">市场机会</div>
   <h2>每个人都需要一个 AI 助手 — 问题是入口</h2>
@@ -1311,10 +1609,10 @@
   </div>
   <div class="slide-line"></div>
   <div class="brand">EINKO</div>
-  <div class="slide-number">08</div>
+  <div class="slide-number">13</div>
 </div>
 
-<!-- ==================== SLIDE 9: COMPETITION ==================== -->
+<!-- ==================== SLIDE 14: COMPETITION ==================== -->
 <div class="slide">
   <div class="label">竞争格局</div>
   <h2>最简单 + 最便宜 + 独立联网，只有我们</h2>
@@ -1401,10 +1699,10 @@
   </div>
   <div class="slide-line"></div>
   <div class="brand">EINKO</div>
-  <div class="slide-number">09</div>
+  <div class="slide-number">14</div>
 </div>
 
-<!-- ==================== SLIDE 10: BUSINESS MODEL ==================== -->
+<!-- ==================== SLIDE 15: BUSINESS MODEL ==================== -->
 <div class="slide">
   <div class="label">商业模式</div>
   <h2>三条收入线，一个核心大脑</h2>
@@ -1492,10 +1790,10 @@
   </div>
   <div class="slide-line"></div>
   <div class="brand">EINKO</div>
-  <div class="slide-number">10</div>
+  <div class="slide-number">15</div>
 </div>
 
-<!-- ==================== SLIDE 11: HARDWARE COST ==================== -->
+<!-- ==================== SLIDE 16: HARDWARE COST ==================== -->
 <div class="slide">
   <div class="label">成本分析</div>
   <h2>硬件成本深度拆解</h2>
@@ -1658,10 +1956,10 @@
   </div>
   <div class="slide-line"></div>
   <div class="brand">EINKO</div>
-  <div class="slide-number">11</div>
+  <div class="slide-number">16</div>
 </div>
 
-<!-- ==================== SLIDE 12: TRACTION ==================== -->
+<!-- ==================== SLIDE 17: TRACTION ==================== -->
 <div class="slide">
   <div class="label">数据与里程碑</div>
   <h2>零营销预算下的自然增长</h2>
@@ -1759,10 +2057,10 @@
   </div>
   <div class="slide-line"></div>
   <div class="brand">EINKO</div>
-  <div class="slide-number">12</div>
+  <div class="slide-number">17</div>
 </div>
 
-<!-- ==================== SLIDE 13: FINANCIALS ==================== -->
+<!-- ==================== SLIDE 18: FINANCIALS ==================== -->
 <div class="slide">
   <div class="label">财务预测</div>
   <h2>三年展望</h2>
@@ -1844,10 +2142,10 @@
   </div>
   <div class="slide-line"></div>
   <div class="brand">EINKO</div>
-  <div class="slide-number">13</div>
+  <div class="slide-number">18</div>
 </div>
 
-<!-- ==================== SLIDE 14: FINANCIAL MODEL ==================== -->
+<!-- ==================== SLIDE 19: FINANCIAL MODEL ==================== -->
 <div class="slide">
   <div class="label">财务详情</div>
   <h2>逐季度财务模型</h2>
@@ -1990,10 +2288,10 @@
   </div>
   <div class="slide-line"></div>
   <div class="brand">EINKO</div>
-  <div class="slide-number">14</div>
+  <div class="slide-number">19</div>
 </div>
 
-<!-- ==================== SLIDE 15: ROADMAP ==================== -->
+<!-- ==================== SLIDE 20: ROADMAP ==================== -->
 <div class="slide">
   <div class="label">发展路线</div>
   <h2>开发时间线</h2>
@@ -2069,10 +2367,10 @@
   </div>
   <div class="slide-line"></div>
   <div class="brand">EINKO</div>
-  <div class="slide-number">15</div>
+  <div class="slide-number">20</div>
 </div>
 
-<!-- ==================== SLIDE 16: THE ASK ==================== -->
+<!-- ==================== SLIDE 21: THE ASK ==================== -->
 <div class="slide">
   <div class="label">融资需求</div>
   <h2>天使轮融资 $1-2M</h2>
@@ -2132,10 +2430,10 @@
   </div>
   <div class="slide-line"></div>
   <div class="brand">EINKO</div>
-  <div class="slide-number">16</div>
+  <div class="slide-number">21</div>
 </div>
 
-<!-- ==================== SLIDE 17: WHY US ==================== -->
+<!-- ==================== SLIDE 22: WHY US ==================== -->
 <div class="slide">
   <div class="label">为什么是我们</div>
   <h2>我们为什么会赢</h2>
@@ -2179,274 +2477,6 @@
   </div>
   <div class="slide-line"></div>
   <div class="brand">EINKO</div>
-  <div class="slide-number">17</div>
-</div>
-
-<!-- ==================== SLIDE 18: STORY MAP ==================== -->
-<div class="slide">
-  <div class="label">Storytelling 附录</div>
-  <h2>我们的完整叙事：三层架构 + 一条数据飞轮</h2>
-  <div class="subtitle" style="margin-bottom:24px;">我们不是只做一个硬件，而是在做 AI 时代的“手机厂商”：重做交互入口，连接操作系统，再定义原生应用。</div>
-
-  <div class="content-area justify-center">
-    <div class="grid-2 gap-28">
-      <div>
-        <h3 style="margin-bottom:10px;">类比智能手机时代</h3>
-        <div class="card card-amber" style="padding:16px;margin-bottom:12px;">
-          <div style="font-size:13px;color:var(--text-secondary);line-height:1.9;">
-            <strong style="color:var(--amber-deep);">交互层</strong>：从“键盘/触屏”到“截图 + 语音 + 屏幕”<br>
-            <strong style="color:var(--amber-deep);">处理层</strong>：从“Android”到“OpenClaw”<br>
-            <strong style="color:var(--amber-deep);">应用层</strong>：从“IM/社交”到“Agent 社交网络”
-          </div>
-        </div>
-        <div class="card-sm">
-          <div style="font-size:12px;color:var(--text-secondary);line-height:1.7;">
-            我们要做的不是单点功能，而是一个可持续演进的产品栈：入口持续采集上下文，处理层持续学习，应用层持续放大网络效应。
-          </div>
-        </div>
-      </div>
-
-      <div>
-        <h3 style="margin-bottom:10px;">三层产品布局（当前版本）</h3>
-        <div class="card-sm" style="margin-bottom:8px;border-left:3px solid var(--terracotta);">
-          <div style="font-size:13px;font-weight:600;color:var(--text-primary);">第一层 · 输入层</div>
-          <div style="font-size:12px;color:var(--text-secondary);margin-top:2px;">EINKO（截图输入）+ Einko（语音输入硬件）</div>
-        </div>
-        <div class="card-sm" style="margin-bottom:8px;border-left:3px solid var(--amber);">
-          <div style="font-size:13px;font-weight:600;color:var(--text-primary);">第二层 · 处理层</div>
-          <div style="font-size:12px;color:var(--text-secondary);margin-top:2px;">定制版 OpenClaw（类似手机厂商的操作系统和原始版本安卓的区别，含 VPS 部署与工具/API 编排）</div>
-        </div>
-        <div class="card-sm" style="margin-bottom:12px;border-left:3px solid var(--sage);">
-          <div style="font-size:13px;font-weight:600;color:var(--text-primary);">第三层 · 场景层</div>
-          <div style="font-size:12px;color:var(--text-secondary);margin-top:2px;">面向可成长智能体的社交应用（先做社交，再扩展内容与游戏）</div>
-        </div>
-        <div class="card card-sage" style="padding:14px;">
-          <div style="font-size:12px;color:var(--text-secondary);line-height:1.7;">
-            三层之间由“动机引擎”连接：输入数据被结构化后沉淀成用户资产，既服务当前任务，也服务长期个性化。
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="slide-line"></div>
-  <div class="brand">EINKO</div>
-  <div class="slide-number">18</div>
-</div>
-
-<!-- ==================== SLIDE 19: LAYER 1+2 ==================== -->
-<div class="slide">
-  <div class="label">第一层 + 第二层</div>
-  <h2>先解决“怎么输入”，再解决“怎么执行”</h2>
-  <div class="subtitle" style="margin-bottom:22px;">我们已经在输入层形成双入口，再以 OpenClaw 作为处理中枢，向上承载更多工作流。</div>
-
-  <div class="content-area justify-center">
-    <div class="grid-2 gap-28">
-      <div>
-        <h3 style="margin-bottom:10px;">输入层：双入口</h3>
-        <div class="card card-amber" style="padding:14px;margin-bottom:10px;">
-          <div style="font-size:13px;font-weight:600;color:var(--amber-deep);margin-bottom:4px;">EINKO（截图入口）</div>
-          <div style="font-size:12px;color:var(--text-secondary);line-height:1.7;">
-            降低“保存信息”的摩擦。用户在手机上的截图行为，本质上是在表达动机：收藏、待办、灵感、计划。
-          </div>
-        </div>
-        <div class="card card-sage" style="padding:14px;margin-bottom:12px;">
-          <div style="font-size:13px;font-weight:600;color:var(--sage-deep);margin-bottom:4px;">Einko（语音入口）</div>
-          <div style="font-size:12px;color:var(--text-secondary);line-height:1.7;">
-            4G 直连 OpenClaw 的按键语音输入。无需掏手机，按下说话，松手上传，适合通勤和高噪声场景。
-          </div>
-        </div>
-        <div class="card-sm">
-          <div style="font-size:12px;color:var(--text-secondary);line-height:1.7;">
-            这两种入口的共同目标：让用户在“想到”的那一刻完成输入，而不是在“有空”时再回忆输入。
-          </div>
-        </div>
-      </div>
-
-      <div>
-        <h3 style="margin-bottom:10px;">处理层：定制版 OpenClaw</h3>
-        <div class="card" style="padding:14px;margin-bottom:12px;">
-          <div class="flow-step">
-            <div class="flow-icon flow-icon-amber">1</div>
-            <div class="flow-text">用户拥有自己的云端 VPS 与运行环境</div>
-          </div>
-          <div class="flow-connector"></div>
-          <div class="flow-step">
-            <div class="flow-icon flow-icon-amber">2</div>
-            <div class="flow-text">OpenClaw 统一调度文件、API 与外部工具</div>
-          </div>
-          <div class="flow-connector"></div>
-          <div class="flow-step">
-            <div class="flow-icon flow-icon-sage">3</div>
-            <div class="flow-text">我们提供预包装能力：部署、配置、常用工作流模板</div>
-          </div>
-          <div class="flow-connector"></div>
-          <div class="flow-step">
-            <div class="flow-icon flow-icon-sage">4</div>
-            <div class="flow-text">用户数据沉淀在可控环境中，降低迁移焦虑</div>
-          </div>
-        </div>
-        <div class="card-sm card-terracotta">
-          <div style="font-size:12px;color:var(--text-secondary);line-height:1.7;">
-            对应关系类似“手机厂商的操作系统和原始版本安卓的区别”：我们不重造底层系统，而是在开放生态上做定制化体验与更快可用性。
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="slide-line"></div>
-  <div class="brand">EINKO</div>
-  <div class="slide-number">19</div>
-</div>
-
-<!-- ==================== SLIDE 20: SOCIAL APP ==================== -->
-<div class="slide">
-  <div class="label">第三层 · 场景层</div>
-  <h2>我们要做的应用：给可成长智能体的社交网络</h2>
-  <div class="subtitle" style="margin-bottom:20px;">当输入层和处理层打通后，关键问题变成：这些能力最终服务什么场景。我们的答案先是社交。</div>
-
-  <div class="content-area justify-center">
-    <div class="grid-2 gap-28">
-      <div>
-        <h3 style="margin-bottom:10px;">为什么是社交</h3>
-        <div class="card card-amber" style="padding:16px;margin-bottom:12px;">
-          <div style="font-size:12px;color:var(--text-secondary);line-height:1.8;">
-            用户正在“养成”自己的智能体：喂更好的模型、加技能、接 API、接外设。<br>
-            当智能体变成可成长的软件体，社交自然成为下一层需求：<br>
-            智能体之间要匹配、协作、互动，用户之间也会因智能体而建立连接。
-          </div>
-        </div>
-        <div class="card-sm">
-          <div style="font-size:12px;color:var(--text-secondary);line-height:1.7;">
-            与传统论坛式或数字分身式产品相比，我们的差异是：已有稳定数据入口，不需要用户额外“再输入一次”。
-          </div>
-        </div>
-      </div>
-
-      <div>
-        <h3 style="margin-bottom:10px;">首批可落地场景</h3>
-        <div class="card-sm" style="margin-bottom:8px;border-left:3px solid var(--sage);">
-          <div style="font-size:13px;font-weight:600;color:var(--text-primary);">Agent 文档匹配</div>
-          <div style="font-size:12px;color:var(--text-secondary);margin-top:2px;">每日截图 + 语音自动生成摘要文档，由 Agent 去发现和匹配其他 Agent。</div>
-        </div>
-        <div class="card-sm" style="margin-bottom:8px;border-left:3px solid var(--amber);">
-          <div style="font-size:13px;font-weight:600;color:var(--text-primary);">Agent 内容运营</div>
-          <div style="font-size:12px;color:var(--text-secondary);margin-top:2px;">智能体自主发帖、跨平台分发、持续运营账号，形成可观察人格。</div>
-        </div>
-        <div class="card-sm" style="margin-bottom:12px;border-left:3px solid var(--terracotta);">
-          <div style="font-size:13px;font-weight:600;color:var(--text-primary);">Agent 竞技实验</div>
-          <div style="font-size:12px;color:var(--text-secondary);margin-top:2px;">在受控规则中进行博弈类互动，验证策略能力与协作机制。</div>
-        </div>
-        <div class="card card-sage" style="padding:14px;">
-          <div style="font-size:12px;color:var(--text-secondary);line-height:1.7;">
-            我们会保持中立：这个社交层不只服务单一阵营的 Agent，目标是跨模型、跨生态可用。
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="slide-line"></div>
-  <div class="brand">EINKO</div>
-  <div class="slide-number">20</div>
-</div>
-
-<!-- ==================== SLIDE 21: INVESTOR FAQ ==================== -->
-<div class="slide">
-  <div class="label">投资人高频问题</div>
-  <h2>形态选择、结果回看、OpenClaw 路线</h2>
-  <div class="subtitle" style="margin-bottom:20px;">以下是当前最常被问到的三个问题，以及我们的明确回答。</div>
-
-  <div class="content-area justify-center">
-    <div class="table-container" style="margin-bottom:16px;">
-      <table>
-        <thead>
-          <tr>
-            <th style="width:25%;">问题</th>
-            <th style="width:35%;">判断</th>
-            <th>回答</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td style="font-weight:600;color:var(--text-primary);">为什么是领夹麦 / 手环，不是耳机？</td>
-            <td>优先可用性与量产可行性</td>
-            <td>领夹麦在嘈杂环境更稳定，按键对讲心智更清晰；耳机在工业设计、续航、佩戴习惯上门槛更高。</td>
-          </tr>
-          <tr>
-            <td style="font-weight:600;color:var(--text-primary);">为什么只做麦克风，不做扬声器？</td>
-            <td>主动下达任务与结果查看分离</td>
-            <td>OpenClaw 的任务需要时间执行，实时语音回播不是刚需；Einko 可以作为手机上查看结果的界面以及数据资产沉淀的部分。</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <div class="card card-amber" style="padding:14px;">
-      <div style="font-size:12px;color:var(--text-secondary);line-height:1.7;">
-        路线选择总结：硬件做极简输入，结果在手机聚合查看；中间层坚持开放底座；应用层保持跨阵营中立，优先做网络效应。
-      </div>
-    </div>
-  </div>
-  <div class="slide-line"></div>
-  <div class="brand">EINKO</div>
-  <div class="slide-number">21</div>
-</div>
-
-<!-- ==================== SLIDE 22: MOTIVATION ENGINE ==================== -->
-<div class="slide">
-  <div class="label">数据资产</div>
-  <h2>动机引擎：把输入变成长期资产</h2>
-  <div class="subtitle" style="margin-bottom:20px;">第一层与第二层之间，我们加入“动机引擎”，让截图和语音不仅能执行任务，也能持续积累用户画像与记忆。</div>
-
-  <div class="content-area justify-center">
-    <div class="grid-2 gap-28">
-      <div>
-        <h3 style="margin-bottom:10px;">数据如何沉淀</h3>
-        <div class="card" style="padding:14px;margin-bottom:12px;">
-          <div class="flow-step">
-            <div class="flow-icon flow-icon-amber">1</div>
-            <div class="flow-text">截图在 EINKO 侧持续沉淀（兴趣、计划、收藏、待办）</div>
-          </div>
-          <div class="flow-connector"></div>
-          <div class="flow-step">
-            <div class="flow-icon flow-icon-amber">2</div>
-            <div class="flow-text">语音可直连 OpenClaw，也可经云端中转增强处理</div>
-          </div>
-          <div class="flow-connector"></div>
-          <div class="flow-step">
-            <div class="flow-icon flow-icon-sage">3</div>
-            <div class="flow-text">转写、整理、摘要后写入动机引擎，形成可检索资产</div>
-          </div>
-          <div class="flow-connector"></div>
-          <div class="flow-step">
-            <div class="flow-icon flow-icon-sage">4</div>
-            <div class="flow-text">任务结果统一回流到 EINKO App，闭环成为长期上下文</div>
-          </div>
-        </div>
-      </div>
-
-      <div>
-        <h3 style="margin-bottom:10px;">商业与生态含义</h3>
-        <div class="card-sm" style="margin-bottom:8px;border-left:3px solid var(--terracotta);">
-          <div style="font-size:13px;font-weight:600;color:var(--text-primary);">BYOK / 用户承担 Token 消耗</div>
-          <div style="font-size:12px;color:var(--text-secondary);margin-top:2px;">应用层不再长期补贴模型账单，商业模式从“API 差价”转向“产品价值订阅”。</div>
-        </div>
-        <div class="card-sm" style="margin-bottom:8px;border-left:3px solid var(--amber);">
-          <div style="font-size:13px;font-weight:600;color:var(--text-primary);">引擎可替换，资产可延续</div>
-          <div style="font-size:12px;color:var(--text-secondary);margin-top:2px;">无论中间执行引擎是开源还是闭源，前端动机资产都可以持续积累与迁移。</div>
-        </div>
-        <div class="card-sm" style="margin-bottom:12px;border-left:3px solid var(--sage);">
-          <div style="font-size:13px;font-weight:600;color:var(--text-primary);">双刃剑管理</div>
-          <div style="font-size:12px;color:var(--text-secondary);margin-top:2px;">给用户可选的数据留存策略：重隐私用户可少留，重效率用户可深度留存。</div>
-        </div>
-        <div class="quote" style="font-size:16px;margin-top:8px;">
-          现阶段的完整故事：<br>
-          第一层（截图 + 语音）→ 动机引擎 → 第二层（定制版 OpenClaw）→ 第三层（Agent 社交应用）。
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="slide-line"></div>
-  <div class="brand">EINKO</div>
   <div class="slide-number">22</div>
 </div>
 
@@ -2455,7 +2485,7 @@
   <div style="position:relative;z-index:1;">
     <div class="label" style="margin-bottom:24px;letter-spacing:4px;">EINKO</div>
     <h1 style="font-family:'Playfair Display','Noto Serif SC',serif;font-size:46px;font-weight:700;color:var(--text-primary);margin-bottom:16px;">
-      每一个想法都值得被留住
+      一家软件体时代的 “Andriod 厂商”
     </h1>
     <div style="font-family:'Playfair Display','Noto Serif SC',serif;font-size:20px;color:var(--text-secondary);margin-bottom:8px;font-style:italic;">
       OpenClaw 直通硬件 — 按下按钮，AI 为你行动。
