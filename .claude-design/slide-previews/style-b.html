@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Style B: Neon Cyber</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap');
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { width: 100vw; height: 100vh; overflow: hidden; background: #060b14; }
+
+/* === ANIMATED GRID BACKGROUND === */
+.grid-bg {
+    position: fixed; inset: 0;
+    background-image:
+        linear-gradient(rgba(0,255,200,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,255,200,0.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+    animation: gridPulse 4s ease-in-out infinite alternate;
+}
+@keyframes gridPulse {
+    from { opacity: 0.5; }
+    to   { opacity: 1; }
+}
+
+/* === CORNER BRACKETS === */
+.bracket {
+    position: fixed;
+    width: 40px; height: 40px;
+    border-color: rgba(0,255,200,0.4);
+    border-style: solid;
+    border-width: 0;
+}
+.bracket.tl { top: 24px; left: 24px; border-top-width: 2px; border-left-width: 2px; }
+.bracket.tr { top: 24px; right: 24px; border-top-width: 2px; border-right-width: 2px; }
+.bracket.bl { bottom: 24px; left: 24px; border-bottom-width: 2px; border-left-width: 2px; }
+.bracket.br { bottom: 24px; right: 24px; border-bottom-width: 2px; border-right-width: 2px; }
+
+/* === SLIDE === */
+.slide {
+    width: 100vw; height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    gap: clamp(0.6rem, 2vw, 1.5rem);
+    padding: clamp(2rem, 5vw, 5rem);
+}
+
+/* Cyan glow orb */
+.slide::before {
+    content: '';
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: min(60vw, 500px); height: min(60vh, 400px);
+    background: radial-gradient(ellipse, rgba(0,255,200,0.06) 0%, transparent 70%);
+    pointer-events: none;
+}
+
+.sys-label {
+    font-family: 'Space Grotesk', 'PingFang SC', monospace;
+    font-size: clamp(0.55rem, 0.85vw, 0.72rem);
+    color: #00ffc8;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    opacity: 0.7;
+    animation: blink 2s step-end infinite;
+}
+@keyframes blink { 0%,100% { opacity: 0.7; } 50% { opacity: 0.3; } }
+
+h1 {
+    font-family: 'Space Grotesk', 'PingFang SC', 'Noto Sans SC', sans-serif;
+    font-size: clamp(2.5rem, 8vw, 6.5rem);
+    font-weight: 700;
+    color: #ffffff;
+    text-align: center;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    animation: glitchReveal 0.8s cubic-bezier(0.22,1,0.36,1) 0.3s both;
+}
+
+/* Neon cyan highlight */
+h1 .highlight {
+    color: #00ffc8;
+    text-shadow: 0 0 20px rgba(0,255,200,0.5), 0 0 60px rgba(0,255,200,0.2);
+}
+
+.divider {
+    width: clamp(60px, 10vw, 120px);
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #00ffc8, transparent);
+    animation: expandLine 0.8s 0.6s both;
+}
+@keyframes expandLine {
+    from { width: 0; opacity: 0; }
+    to { width: clamp(60px, 10vw, 120px); opacity: 1; }
+}
+
+.sub {
+    font-family: 'Space Grotesk', 'PingFang SC', sans-serif;
+    font-size: clamp(0.75rem, 1.4vw, 1.05rem);
+    color: rgba(255,255,255,0.4);
+    text-align: center;
+    line-height: 1.7;
+    max-width: 600px;
+    animation: fadeUp 0.6s 0.8s both;
+}
+
+/* === THREE LAYER BADGES === */
+.layer-row {
+    display: flex;
+    gap: clamp(0.6rem, 1.5vw, 1.2rem);
+    animation: fadeUp 0.6s 1s both;
+}
+
+.layer-badge {
+    background: rgba(0,255,200,0.06);
+    border: 1px solid rgba(0,255,200,0.2);
+    color: #00ffc8;
+    font-family: 'Space Grotesk', monospace;
+    font-size: clamp(0.5rem, 0.8vw, 0.68rem);
+    font-weight: 500;
+    padding: 0.4em 1em;
+    border-radius: 3px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+/* Magenta accent badge */
+.layer-badge.accent {
+    border-color: rgba(255,0,170,0.4);
+    color: #ff55cc;
+    background: rgba(255,0,170,0.06);
+}
+
+/* === STATUS BAR === */
+.status-bar {
+    position: fixed; bottom: 20px; left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 1.5em;
+    font-family: 'Space Grotesk', monospace;
+    font-size: clamp(0.45rem, 0.7vw, 0.6rem);
+    color: rgba(0,255,200,0.4);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+}
+
+@keyframes glitchReveal {
+    from { opacity: 0; transform: translateY(24px) skewX(-2deg); }
+    to   { opacity: 1; transform: translateY(0) skewX(0); }
+}
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+</style>
+</head>
+<body>
+<div class="grid-bg"></div>
+<div class="bracket tl"></div>
+<div class="bracket tr"></div>
+<div class="bracket bl"></div>
+<div class="bracket br"></div>
+
+<div class="slide">
+    <div class="sys-label">SYS_BOOT · EINKO × MICLAW · 2026</div>
+
+    <h1>我们在为<br><span class="highlight">智能体时代</span><br>构建手机</h1>
+
+    <div class="divider"></div>
+
+    <p class="sub">
+        输入层 · 处理引擎 · 社交应用<br>
+        从硬件到网络，一个完整的 AI 生态
+    </p>
+
+    <div class="layer-row">
+        <div class="layer-badge">L1 · 输入层</div>
+        <div class="layer-badge accent">L2 · 处理引擎</div>
+        <div class="layer-badge">L3 · 社交应用</div>
+    </div>
+</div>
+
+<div class="status-bar">
+    <span>SIGNAL ████████░░</span>
+    <span>OPENCLAW CONNECTED</span>
+    <span>AGENT ONLINE</span>
+</div>
+</body>
+</html>

@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Style C: Kinetic Ink</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,700;0,900;1,700&family=Barlow:wght@400;500&display=swap');
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { width: 100vw; height: 100vh; overflow: hidden; background: #f5f0e8; }
+
+/* === BACKGROUND GEOMETRY === */
+.bg-shape {
+    position: fixed;
+    top: -10%; right: -5%;
+    width: 55vw; height: 110vh;
+    background: #1a1a1a;
+    clip-path: polygon(15% 0%, 100% 0%, 100% 100%, 0% 100%);
+}
+
+/* Orange diagonal stripe */
+.bg-stripe {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    pointer-events: none;
+}
+.bg-stripe::before {
+    content: '';
+    position: absolute;
+    top: 50%; left: 30%;
+    width: 8px; height: 120vh;
+    background: #ff4500;
+    transform: translateY(-50%) rotate(-12deg);
+}
+
+/* === SLIDE === */
+.slide {
+    width: 100vw; height: 100vh;
+    display: grid;
+    grid-template-columns: 50% 50%;
+    position: relative;
+}
+
+/* === LEFT: LIGHT PANEL === */
+.left {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: clamp(1.5rem, 4.5vw, 4rem);
+    position: relative;
+    z-index: 2;
+}
+
+.eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 0.6em;
+    font-family: 'Barlow', sans-serif;
+    font-size: clamp(0.55rem, 0.85vw, 0.72rem);
+    font-weight: 500;
+    color: #1a1a1a;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    opacity: 0.5;
+    animation: fadeIn 0.5s 0.1s both;
+}
+.eyebrow::before {
+    content: '';
+    width: 20px; height: 2px;
+    background: #ff4500;
+    display: inline-block;
+}
+
+.main-title {
+    font-family: 'Barlow Condensed', 'PingFang SC', 'Noto Sans SC', sans-serif;
+    font-size: clamp(2.8rem, 9vw, 7.5rem);
+    font-weight: 900;
+    color: #1a1a1a;
+    line-height: 0.92;
+    letter-spacing: -0.01em;
+    text-transform: uppercase;
+    animation: stampIn 0.6s cubic-bezier(0.36, 0, 0.66, -0.56) 0.2s both;
+}
+.main-title .orange { color: #ff4500; }
+
+.bottom-info {
+    animation: fadeIn 0.5s 0.6s both;
+}
+.company {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: clamp(1.2rem, 2.5vw, 2rem);
+    font-weight: 700;
+    color: #1a1a1a;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.3em;
+}
+.tagline {
+    font-family: 'Barlow', sans-serif;
+    font-size: clamp(0.65rem, 1vw, 0.85rem);
+    color: rgba(26,26,26,0.5);
+    letter-spacing: 0.05em;
+}
+
+/* === RIGHT: DARK PANEL === */
+.right {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: clamp(2rem, 5vw, 5rem) clamp(2rem, 5vw, 5rem) clamp(2rem, 5vw, 5rem) clamp(3rem, 7vw, 6rem);
+    position: relative;
+    z-index: 2;
+}
+
+.layer-stack {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(0.6rem, 1.5vh, 1.2rem);
+    animation: fadeUp 0.6s 0.5s both;
+}
+
+.layer-item {
+    display: flex;
+    align-items: baseline;
+    gap: 1em;
+}
+
+.layer-num {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: clamp(0.6rem, 1vw, 0.85rem);
+    font-weight: 700;
+    color: #ff4500;
+    letter-spacing: 0.1em;
+    min-width: 2.5em;
+    text-transform: uppercase;
+}
+
+.layer-name {
+    font-family: 'Barlow Condensed', 'PingFang SC', 'Noto Sans SC', sans-serif;
+    font-size: clamp(1.4rem, 3.5vw, 2.8rem);
+    font-weight: 700;
+    color: #ffffff;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    line-height: 1;
+}
+
+.layer-desc {
+    font-family: 'Barlow', 'PingFang SC', sans-serif;
+    font-size: clamp(0.6rem, 0.9vw, 0.78rem);
+    color: rgba(255,255,255,0.35);
+    margin-top: clamp(0.15rem, 0.5vh, 0.4rem);
+    padding-left: calc(2.5em + 1em);
+    letter-spacing: 0.04em;
+}
+
+/* Separator line */
+.layer-item + .layer-item {
+    border-top: 1px solid rgba(255,255,255,0.08);
+    padding-top: clamp(0.6rem, 1.5vh, 1.2rem);
+}
+
+/* Year stamp */
+.year-stamp {
+    position: fixed;
+    bottom: clamp(1rem, 3vw, 2.5rem);
+    right: clamp(1.5rem, 4vw, 3.5rem);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: clamp(0.55rem, 0.85vw, 0.72rem);
+    font-weight: 700;
+    color: rgba(255,255,255,0.25);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    z-index: 3;
+}
+
+/* === ANIMATIONS === */
+@keyframes stampIn {
+    from { opacity: 0; transform: scale(1.08) translateY(-10px); }
+    to   { opacity: 1; transform: scale(1) translateY(0); }
+}
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+</style>
+</head>
+<body>
+<div class="bg-shape"></div>
+<div class="bg-stripe"></div>
+
+<div class="slide">
+    <div class="left">
+        <div class="eyebrow">投资人路演 · 2026</div>
+
+        <div class="main-title">
+            智<br>能<br>体<br><span class="orange">时代</span>
+        </div>
+
+        <div class="bottom-info">
+            <div class="company">Einko × Miclaw</div>
+            <div class="tagline">我们在为 AI 时代重新造一部手机</div>
+        </div>
+    </div>
+
+    <div class="right">
+        <div class="layer-stack">
+            <div class="layer-item">
+                <div>
+                    <div style="display:flex; align-items:baseline; gap:1em;">
+                        <span class="layer-num">L1</span>
+                        <span class="layer-name">输入层</span>
+                    </div>
+                    <div class="layer-desc">Einko 截图 · Macclaw 语音对讲机</div>
+                </div>
+            </div>
+            <div class="layer-item">
+                <div>
+                    <div style="display:flex; align-items:baseline; gap:1em;">
+                        <span class="layer-num">L2</span>
+                        <span class="layer-name">处理引擎</span>
+                    </div>
+                    <div class="layer-desc">动机引擎 · OpenClaw 套壳 VPS</div>
+                </div>
+            </div>
+            <div class="layer-item">
+                <div>
+                    <div style="display:flex; align-items:baseline; gap:1em;">
+                        <span class="layer-num">L3</span>
+                        <span class="layer-name">社交应用</span>
+                    </div>
+                    <div class="layer-desc">智能体游乐园 · Agent 社交网络</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="year-stamp">PITCH DECK 2026</div>
+</body>
+</html>

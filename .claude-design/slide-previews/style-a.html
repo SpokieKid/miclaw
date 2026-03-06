@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Style A: Creative Voltage</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { width: 100vw; height: 100vh; overflow: hidden; }
+
+.slide {
+    width: 100vw; height: 100vh;
+    display: grid;
+    grid-template-columns: 40% 60%;
+    background: #0d0d1a;
+}
+
+/* === LEFT PANEL === */
+.left {
+    background: #0055ee;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: clamp(1.5rem, 4vw, 3.5rem);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Halftone dot texture */
+.left::after {
+    content: '';
+    position: absolute;
+    bottom: -10px; left: -10px;
+    width: 60%; height: 45%;
+    background-image: radial-gradient(circle, rgba(212,255,0,0.5) 2px, transparent 2px);
+    background-size: 18px 18px;
+    pointer-events: none;
+}
+
+.label-top {
+    font-family: 'Space Mono', monospace;
+    font-size: clamp(0.55rem, 0.9vw, 0.75rem);
+    color: #d4ff00;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    animation: fadeIn 0.5s 0.1s both;
+}
+
+.big-word {
+    font-family: 'Syne', 'PingFang SC', 'Noto Sans SC', sans-serif;
+    font-size: clamp(4rem, 14vw, 11rem);
+    font-weight: 800;
+    color: #d4ff00;
+    line-height: 0.85;
+    letter-spacing: -0.02em;
+    animation: slideInLeft 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.2s both;
+}
+
+.label-bottom {
+    font-family: 'Space Mono', monospace;
+    font-size: clamp(0.55rem, 0.9vw, 0.75rem);
+    color: rgba(255,255,255,0.5);
+    letter-spacing: 0.15em;
+    animation: fadeIn 0.5s 0.4s both;
+}
+
+/* === RIGHT PANEL === */
+.right {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: clamp(2rem, 5vw, 5rem);
+    gap: clamp(0.8rem, 2vw, 1.5rem);
+}
+
+.badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5em;
+    background: #d4ff00;
+    color: #0d0d1a;
+    font-family: 'Space Mono', monospace;
+    font-size: clamp(0.5rem, 0.8vw, 0.7rem);
+    font-weight: 700;
+    padding: 0.35em 0.85em;
+    border-radius: 2px;
+    letter-spacing: 0.12em;
+    width: fit-content;
+    animation: fadeIn 0.5s 0.4s both;
+}
+
+h1 {
+    font-family: 'Syne', 'PingFang SC', 'Noto Sans SC', sans-serif;
+    font-size: clamp(1.8rem, 4.5vw, 3.8rem);
+    font-weight: 800;
+    color: #ffffff;
+    line-height: 1.05;
+    letter-spacing: -0.01em;
+    animation: fadeUp 0.6s 0.5s both;
+}
+
+h1 span { color: #d4ff00; }
+
+.subtitle {
+    font-family: 'Space Mono', monospace;
+    font-size: clamp(0.65rem, 1.1vw, 0.9rem);
+    color: rgba(255,255,255,0.45);
+    line-height: 1.7;
+    animation: fadeUp 0.6s 0.7s both;
+}
+
+.tag-row {
+    display: flex;
+    gap: 0.6em;
+    flex-wrap: wrap;
+    animation: fadeUp 0.6s 0.9s both;
+}
+
+.tag {
+    border: 1px solid rgba(255,255,255,0.2);
+    color: rgba(255,255,255,0.6);
+    font-family: 'Space Mono', monospace;
+    font-size: clamp(0.5rem, 0.75vw, 0.65rem);
+    padding: 0.3em 0.7em;
+    border-radius: 2px;
+    letter-spacing: 0.08em;
+}
+
+/* === ANIMATIONS === */
+@keyframes slideInLeft {
+    from { opacity: 0; transform: translateX(-40px); }
+    to   { opacity: 1; transform: translateX(0); }
+}
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(18px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+</style>
+</head>
+<body>
+<div class="slide">
+    <div class="left">
+        <div class="label-top">EINKO · MICLAW</div>
+        <div class="big-word">三<br>层</div>
+        <div class="label-bottom">PITCH · 2026</div>
+    </div>
+    <div class="right">
+        <div class="badge">▶ INVESTOR DECK</div>
+        <h1>我们在为<br><span>智能体时代</span><br>构建手机</h1>
+        <p class="subtitle">
+            输入层 · 处理引擎 · 社交应用<br>
+            从硬件到网络，一个完整的 AI 生态
+        </p>
+        <div class="tag-row">
+            <span class="tag">EINKO 截图</span>
+            <span class="tag">MACCLAW 硬件</span>
+            <span class="tag">OPENCLAW</span>
+            <span class="tag">AGENT SOCIAL</span>
+        </div>
+    </div>
+</div>
+</body>
+</html>
