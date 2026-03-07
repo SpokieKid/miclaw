@@ -368,6 +368,72 @@ html, body {
 }
 
 /* ═══════════════════════════════════════════
+   CONTACT SECTION
+   ═══════════════════════════════════════════ */
+.contacts {
+  display: flex;
+  justify-content: center;
+  gap: 4rem;
+  margin: 1.5rem 0;
+}
+
+.person {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.person__avatar {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid rgba(245, 240, 234, 0.15);
+}
+
+.person__name {
+  font-family: var(--font-serif);
+  font-size: 1.2rem;
+  color: var(--cream);
+}
+
+.person__x {
+  font-size: 0.8rem;
+  opacity: 0.4;
+  letter-spacing: 0.05em;
+}
+
+.person__qrs {
+  display: flex;
+  gap: 1rem;
+  margin-top: 0.3rem;
+}
+
+.qr-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.qr-item__img {
+  width: 140px;
+  height: 140px;
+  border-radius: 0.5rem;
+  background: #fff;
+  padding: 4px;
+  object-fit: contain;
+}
+
+.qr-item__label {
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  opacity: 0.35;
+}
+
+/* ═══════════════════════════════════════════
    PROGRESS BAR & COUNTER
    ═══════════════════════════════════════════ */
 .progress-bar {
@@ -784,33 +850,8 @@ html, body {
       <p class="reveal t-caption muted-cream" style="--i:0">第二部分</p>
       <div class="spacer"></div>
       <h2 class="reveal t-title" style="--i:1">
-        我们的养虾计划
+        我们的被迫养虾心路历程
       </h2>
-    </div>
-  </section>
-
-  <!-- ══════════════════════════════════════
-       SLIDE 17 — SOFTWARE ENTITY
-       ══════════════════════════════════════ -->
-  <section class="slide slide--light">
-    <div class="slide__inner">
-      <p class="reveal t-caption muted" style="--i:0">一个类比</p>
-      <div class="spacer-lg"></div>
-      <h2 class="reveal t-title" style="--i:1">
-        OpenClaw 是特德&middot;姜笔下的<span class="accent">软件体</span>
-      </h2>
-      <div class="spacer"></div>
-      <div class="reveal tags" style="--i:2">
-        <span class="tag">自主</span>
-        <span class="tag">进化</span>
-        <span class="tag">学习</span>
-        <span class="tag">社交</span>
-        <span class="tag">陪伴</span>
-      </div>
-      <div class="spacer"></div>
-      <p class="reveal t-subtitle muted" style="--i:3">
-        未来每个人都会有一个，就像智能手机一样
-      </p>
     </div>
   </section>
 
@@ -979,6 +1020,31 @@ html, body {
   </section>
 
   <!-- ══════════════════════════════════════
+       SLIDE — SOFTWARE ENTITY
+       ══════════════════════════════════════ -->
+  <section class="slide slide--light">
+    <div class="slide__inner">
+      <p class="reveal t-caption muted" style="--i:0">一个类比</p>
+      <div class="spacer-lg"></div>
+      <h2 class="reveal t-title" style="--i:1">
+        OpenClaw 是特德&middot;姜笔下的<span class="accent">软件体</span>
+      </h2>
+      <div class="spacer"></div>
+      <div class="reveal tags" style="--i:2">
+        <span class="tag">自主</span>
+        <span class="tag">进化</span>
+        <span class="tag">学习</span>
+        <span class="tag">社交</span>
+        <span class="tag">陪伴</span>
+      </div>
+      <div class="spacer"></div>
+      <p class="reveal t-subtitle muted" style="--i:3">
+        未来每个人都会有一个，就像智能手机一样
+      </p>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════
        SLIDE — RAISING LOBSTERS
        ══════════════════════════════════════ -->
   <section class="slide slide--light">
@@ -1009,17 +1075,44 @@ html, body {
        ══════════════════════════════════════ -->
   <section class="slide slide--dark" data-dark>
     <div class="slide__inner">
-      <h1 class="reveal t-hero" style="--i:0">EINCLAW</h1>
+      <h1 class="reveal t-hero" style="--i:0">einclaw.cn</h1>
       <div class="reveal divider" style="--i:1"></div>
-      <p class="reveal t-subtitle" style="--i:2">
-        从想法到结果的高速路
-      </p>
-      <div class="spacer-lg"></div>
-      <p class="reveal t-body" style="--i:3; opacity: 0.6;">
-        预售已开启，感兴趣的可以看看
+      <p class="reveal t-subtitle" style="--i:2;">
+        众筹进行中，求个支持！
       </p>
       <div class="spacer"></div>
-      <p class="reveal cta-url" style="--i:4">einclaw.com</p>
+      <div class="reveal contacts" style="--i:4">
+        <div class="person">
+          <img class="person__avatar" src="arvin-avatar.jpg" alt="Arvin">
+          <span class="person__name">Arvin 阿问</span>
+          <span class="person__x">X: @arvinatwild</span>
+          <div class="person__qrs">
+            <div class="qr-item">
+              <img class="qr-item__img" src="arvin-wechat.png" alt="Arvin WeChat">
+              <span class="qr-item__label">微信</span>
+            </div>
+            <div class="qr-item">
+              <img class="qr-item__img" src="arvin-xhs.png" alt="Arvin 小红书">
+              <span class="qr-item__label">小红书</span>
+            </div>
+          </div>
+        </div>
+        <div class="person">
+          <img class="person__avatar" src="affe-avatar.jpg" alt="Affe">
+          <span class="person__name">Affe 阿霏</span>
+          <span class="person__x">X: @affe_z</span>
+          <div class="person__qrs">
+            <div class="qr-item">
+              <img class="qr-item__img" src="affe-wechat.png" alt="Affe WeChat">
+              <span class="qr-item__label">微信</span>
+            </div>
+            <div class="qr-item">
+              <img class="qr-item__img" src="affe-xhs.png" alt="Affe 小红书">
+              <span class="qr-item__label">小红书</span>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
