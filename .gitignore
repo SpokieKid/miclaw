@@ -1,4 +1,5 @@
 /llmsrc
+.DS_Store
 
 sync_mic.sh
 .env.payments.local
