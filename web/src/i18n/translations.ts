@@ -39,9 +39,9 @@ export const translations: Record<Locale, Record<TranslationKey, string>> = {
     'hero.subtitle':        '按下按钮，说出指令，松手走人，让 OpenClaw 帮你干活。',
     'hero.subtitleLine2':   '4G 直连 OpenClaw，无需手机。',
     'hero.subtitleCaption': '',
-    'hero.priceCta':        '¥9 锁定早鸟资格',
+    'hero.priceCta':        '¥199 预定 Demo 样机',
     'hero.priceOld':        '',
-    'hero.priceAvail':      '开售即抵 ¥50 · 限 100 名',
+    'hero.priceAvail':      'Demo 样机 · 限量发售',
     'hero.cta':             '锁定早鸟',
 
     'demo.title':          '按一下，说一句，',
@@ -92,9 +92,9 @@ export const translations: Record<Locale, Record<TranslationKey, string>> = {
     'hero.subtitle':        'Press the button, speak your command, release and go. Let OpenClaw do the work.',
     'hero.subtitleLine2':   '4G direct to OpenClaw, no phone needed.',
     'hero.subtitleCaption': '',
-    'hero.priceCta':        '$1 VIP RESERVATION',
+    'hero.priceCta':        '$199 Demo Unit Pre-order',
     'hero.priceOld':        '',
-    'hero.priceAvail':      '$10 off at launch · 100 spots',
+    'hero.priceAvail':      'Demo unit · Limited release',
     'hero.cta':             'Reserve Now',
 
     'demo.title':          'One press. One sentence.',
