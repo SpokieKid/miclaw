@@ -9,6 +9,7 @@
   font-display: swap;
 }
 
+
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
@@ -51,7 +52,7 @@
     --color-sidebar-border: var(--sidebar-border);
     --color-sidebar-ring: var(--sidebar-ring);
 
-    /* ---- Miclaw warm editorial palette ---- */
+    /* ---- MiClaw warm editorial palette ---- */
     --color-cream: var(--cream);
     --color-cream-dark: var(--cream-dark);
     --color-warm: var(--warm);

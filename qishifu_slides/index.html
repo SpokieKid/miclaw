@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EinClaw — 言出法随</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500;600&family=Noto+Serif+SC:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════
+   DESIGN TOKENS
+   ═══════════════════════════════════════════ */
+:root {
+  --cream: #f5f0ea;
+  --cream-dark: #ebe4db;
+  --bark: #1a1714;
+  --bark-light: #8a7e72;
+  --terracotta: #e8634a;
+  --warm: #c4b5a3;
+  --warm-light: #ddd5ca;
+
+  --font-serif: 'DM Serif Display', 'Noto Serif SC', Georgia, serif;
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'PingFang SC', sans-serif;
+
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* ═══════════════════════════════════════════
+   RESET & BASE
+   ═══════════════════════════════════════════ */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+html, body {
+  width: 100%; height: 100%;
+  overflow: hidden;
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  background: var(--cream);
+  color: var(--bark);
+}
+
+/* ═══════════════════════════════════════════
+   SLIDE STRUCTURE
+   ═══════════════════════════════════════════ */
+.deck { position: relative; width: 100%; height: 100%; }
+
+.slide {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 2rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.6s var(--ease);
+}
+
+.slide.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.slide--dark {
+  background: var(--bark);
+  color: var(--cream);
+}
+
+.slide--light {
+  background: var(--cream);
+  color: var(--bark);
+}
+
+.slide__inner {
+  max-width: 960px;
+  width: 100%;
+  text-align: center;
+}
+
+/* ═══════════════════════════════════════════
+   REVEAL ANIMATIONS
+   ═══════════════════════════════════════════ */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
+  transition-delay: calc(var(--i, 0) * 0.13s + 0.15s);
+}
+
+.slide.active .reveal {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.slide:not(.active) .reveal {
+  transition: none;
+}
+
+/* ═══════════════════════════════════════════
+   TYPOGRAPHY
+   ═══════════════════════════════════════════ */
+.t-hero {
+  font-family: var(--font-serif);
+  font-size: clamp(4rem, 10vw, 8rem);
+  letter-spacing: 0.12em;
+  line-height: 1;
+  font-weight: 400;
+}
+
+.t-title {
+  font-family: var(--font-serif);
+  font-size: clamp(2rem, 5vw, 3.8rem);
+  line-height: 1.25;
+  font-weight: 400;
+}
+
+.t-subtitle {
+  font-size: clamp(1.1rem, 2.5vw, 1.6rem);
+  line-height: 1.6;
+  font-weight: 300;
+}
+
+.t-body {
+  font-size: clamp(1rem, 2vw, 1.3rem);
+  line-height: 1.7;
+  font-weight: 300;
+}
+
+.t-caption {
+  font-size: clamp(0.8rem, 1.5vw, 1rem);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+.t-number {
+  font-family: var(--font-serif);
+  font-size: clamp(3rem, 8vw, 6rem);
+  line-height: 1;
+  font-weight: 400;
+}
+
+/* ═══════════════════════════════════════════
+   UTILITY CLASSES
+   ═══════════════════════════════════════════ */
+.accent { color: var(--terracotta); }
+.muted { color: var(--bark-light); }
+.muted-cream { opacity: 0.5; }
+
+.divider {
+  width: 5rem;
+  height: 1px;
+  background: var(--warm);
+  margin: 1.5rem auto;
+}
+
+.slide--dark .divider { background: rgba(245, 240, 234, 0.25); }
+.slide--dark .muted { color: rgba(245, 240, 234, 0.5); }
+
+.spacer { height: 1.5rem; }
+.spacer-lg { height: 2.5rem; }
+
+.mt-1 { margin-top: 0.5rem; }
+.mt-2 { margin-top: 1rem; }
+.mt-3 { margin-top: 1.5rem; }
+.mt-4 { margin-top: 2rem; }
+
+/* ═══════════════════════════════════════════
+   STEP CHAIN (Friction Slide)
+   ═══════════════════════════════════════════ */
+.step-chain {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 2.5rem 0 2rem;
+}
+
+.step-chain__item {
+  padding: 0.6rem 1.2rem;
+  border-radius: 2rem;
+  background: var(--cream-dark);
+  font-size: clamp(0.8rem, 1.5vw, 1rem);
+  white-space: nowrap;
+  font-weight: 400;
+}
+
+.step-chain__arrow {
+  color: var(--warm);
+  font-size: 1.2rem;
+}
+
+/* ═══════════════════════════════════════════
+   HOW-IT-WORKS STEPS
+   ═══════════════════════════════════════════ */
+.steps {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 2.5rem;
+  margin: 2.5rem 0;
+}
+
+.step {
+  flex: 1;
+  max-width: 260px;
+  text-align: center;
+}
+
+.step__num {
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1rem;
+  font-family: var(--font-serif);
+  font-size: 1.4rem;
+  background: var(--cream-dark);
+  color: var(--bark);
+}
+
+.step__title {
+  font-weight: 600;
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+}
+
+.step__desc {
+  font-size: 0.95rem;
+  color: var(--bark-light);
+  line-height: 1.5;
+}
+
+/* ═══════════════════════════════════════════
+   TWO COLUMNS (Metaphor Slide)
+   ═══════════════════════════════════════════ */
+.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2.5rem;
+  text-align: left;
+  margin: 2.5rem 0;
+}
+
+.col-card {
+  padding: 2rem;
+  border-radius: 1rem;
+  background: var(--cream-dark);
+}
+
+.col-card__label {
+  font-size: 0.8rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--terracotta);
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.col-card__text {
+  font-size: clamp(0.95rem, 1.8vw, 1.15rem);
+  line-height: 1.7;
+  color: var(--bark);
+}
+
+/* ═══════════════════════════════════════════
+   VERSUS LAYOUT
+   ═══════════════════════════════════════════ */
+.versus {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3rem;
+  margin: 2rem 0;
+}
+
+.versus__side { text-align: center; }
+
+.versus__num {
+  font-family: var(--font-serif);
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  line-height: 1;
+}
+
+.versus__label {
+  font-size: clamp(0.85rem, 1.5vw, 1rem);
+  color: var(--bark-light);
+  margin-top: 0.5rem;
+}
+
+.versus__vs {
+  font-size: 1.2rem;
+  color: var(--warm);
+  font-weight: 300;
+}
+
+/* ═══════════════════════════════════════════
+   QUOTE BLOCK
+   ═══════════════════════════════════════════ */
+.quote-block {
+  background: var(--cream-dark);
+  border-left: 3px solid var(--terracotta);
+  padding: 1.5rem 2rem;
+  border-radius: 0 0.75rem 0.75rem 0;
+  text-align: left;
+  margin: 2rem auto;
+  max-width: 700px;
+  font-size: clamp(1rem, 2vw, 1.2rem);
+  line-height: 1.6;
+  color: var(--bark);
+}
+
+/* ═══════════════════════════════════════════
+   FEATURE TAGS
+   ═══════════════════════════════════════════ */
+.tags {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin: 2rem 0;
+}
+
+.tag {
+  padding: 0.7rem 1.5rem;
+  border-radius: 2rem;
+  font-size: 1rem;
+  font-weight: 500;
+  border: 1px solid var(--warm-light);
+  background: transparent;
+}
+
+.slide--dark .tag {
+  border-color: rgba(245, 240, 234, 0.2);
+  color: var(--cream);
+}
+
+/* ═══════════════════════════════════════════
+   CTA LINK
+   ═══════════════════════════════════════════ */
+.cta-link {
+  display: inline-block;
+  padding: 0.9rem 2.5rem;
+  border-radius: 3rem;
+  background: var(--terracotta);
+  color: #fff;
+  text-decoration: none;
+  font-size: 1.1rem;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  transition: transform 0.3s var(--ease), box-shadow 0.3s ease;
+}
+
+.cta-link:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(232, 99, 74, 0.25);
+}
+
+.cta-url {
+  font-family: var(--font-sans);
+  font-size: clamp(1rem, 2vw, 1.3rem);
+  letter-spacing: 0.08em;
+  opacity: 0.5;
+}
+
+/* ═══════════════════════════════════════════
+   PROGRESS BAR & COUNTER
+   ═══════════════════════════════════════════ */
+.progress-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  height: 3px;
+  background: var(--terracotta);
+  transition: width 0.5s var(--ease);
+  z-index: 100;
+}
+
+.counter {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 2rem;
+  font-size: 0.85rem;
+  font-weight: 300;
+  z-index: 100;
+  transition: color 0.5s ease;
+}
+
+.counter--dark { color: rgba(245, 240, 234, 0.35); }
+.counter--light { color: rgba(26, 23, 20, 0.3); }
+
+/* ═══════════════════════════════════════════
+   KEYBOARD HINT
+   ═══════════════════════════════════════════ */
+.hint {
+  position: fixed;
+  bottom: 1.5rem;
+  left: 2rem;
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  z-index: 100;
+  transition: opacity 1s ease, color 0.5s ease;
+}
+
+.hint--dark { color: rgba(245, 240, 234, 0.25); }
+.hint--light { color: rgba(26, 23, 20, 0.2); }
+
+/* ═══════════════════════════════════════════
+   RESPONSIVE
+   ═══════════════════════════════════════════ */
+@media (max-width: 768px) {
+  .slide { padding: 2rem 1.5rem; }
+  .two-col { grid-template-columns: 1fr; gap: 1.5rem; }
+  .steps { flex-direction: column; align-items: center; }
+  .versus { gap: 1.5rem; }
+  .step-chain { gap: 0.3rem; }
+  .step-chain__item { padding: 0.4rem 0.8rem; font-size: 0.75rem; }
+}
+</style>
+</head>
+<body>
+
+<div class="deck">
+
+  <!-- ══════════════════════════════════════
+       SLIDE 0 — TITLE
+       ══════════════════════════════════════ -->
+  <section class="slide slide--dark active" data-dark>
+    <div class="slide__inner">
+      <p class="reveal t-caption muted-cream" style="--i:0">OpenClaw 社区分享</p>
+      <div class="spacer"></div>
+      <h1 class="reveal t-hero" style="--i:1">EINCLAW</h1>
+      <div class="reveal divider" style="--i:2"></div>
+      <p class="reveal t-subtitle" style="--i:3; letter-spacing: 0.08em;">
+        从想法到结果的高速路
+      </p>
+      <p class="reveal t-body mt-2" style="--i:4; opacity: 0.5;">
+        说话，忘记，看结果。
+      </p>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════
+       SLIDE 1 — HOOK: OPENCLAW FRICTION
+       ══════════════════════════════════════ -->
+  <section class="slide slide--light">
+    <div class="slide__inner">
+      <p class="reveal t-caption muted" style="--i:0">先聊个问题</p>
+      <div class="spacer-lg"></div>
+      <h2 class="reveal t-title" style="--i:1">
+        你上一次<span class="accent">顺畅地</span>让 OpenClaw<br>做一件事，花了<span class="accent">几步</span>？
+      </h2>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════
+       SLIDE 2 — HOOK: NOTE APP CHAOS
+       ══════════════════════════════════════ -->
+  <section class="slide slide--light">
+    <div class="slide__inner">
+      <p class="reveal t-caption muted" style="--i:0">再聊个问题</p>
+      <div class="spacer-lg"></div>
+      <h2 class="reveal t-title" style="--i:1">
+        你手机里有<span class="accent">几个</span>笔记 APP？
+      </h2>
+      <div class="spacer"></div>
+      <p class="reveal t-subtitle muted" style="--i:2">
+        每一个，都是你对「记录」这件事的一次妥协
+      </p>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════
+       SLIDE 3 — THE REAL PROBLEM
+       ══════════════════════════════════════ -->
+  <section class="slide slide--light">
+    <div class="slide__inner">
+      <p class="reveal t-caption muted" style="--i:0">一个观察</p>
+      <div class="spacer-lg"></div>
+      <h2 class="reveal t-title" style="--i:1">
+        灵感的半衰期是 <span class="accent">30 秒</span>
+      </h2>
+      <div class="spacer"></div>
+      <p class="reveal t-subtitle muted" style="--i:2">
+        从念头到执行，中间隔了太多步
+      </p>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════
+       SLIDE 4 — THE GAP
+       ══════════════════════════════════════ -->
+  <section class="slide slide--light">
+    <div class="slide__inner">
+      <h2 class="reveal t-title" style="--i:0">
+        OpenClaw 让每一个想法<br><span class="accent">零成本验证、零成本执行</span>
+      </h2>
+      <div class="reveal divider" style="--i:1"></div>
+      <h2 class="reveal t-title" style="--i:2">
+        但<span class="accent">捕捉</span>呢？
+      </h2>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════
+       SLIDE 5 — MARKET SOLUTIONS
+       ══════════════════════════════════════ -->
+  <section class="slide slide--light">
+    <div class="slide__inner">
+      <p class="reveal t-caption muted" style="--i:0">看看现有方案</p>
+      <div class="spacer-lg"></div>
+      <h2 class="reveal t-title" style="--i:1">它们有一个共同的问题</h2>
+      <div class="reveal tags" style="--i:2">
+        <span class="tag">机器人</span>
+        <span class="tag">带屏开发板</span>
+        <span class="tag">手机 APP</span>
+      </div>
+      <p class="reveal t-subtitle" style="--i:3">
+        都要求你<span class="accent">立刻、当下</span>看到结果
+      </p>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════
+       SLIDE 6 — GTD INBOX
+       ══════════════════════════════════════ -->
+  <section class="slide slide--light">
+    <div class="slide__inner">
+      <p class="reveal t-caption muted" style="--i:0">一个思路</p>
+      <div class="spacer-lg"></div>
+      <h2 class="reveal t-title" style="--i:1">
+        <span class="accent">先收集，再处理</span>
+      </h2>
+      <div class="spacer"></div>
+      <p class="reveal t-subtitle muted" style="--i:2">
+        GTD 里的 inbox 概念 —— 先把想法记录下来<br>之后再处理，不需要立刻执行
+      </p>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════
+       SLIDE 7 — DJI MIC 3 DISCOVERY
+       ══════════════════════════════════════ -->
+  <section class="slide slide--light">
+    <div class="slide__inner">
+      <p class="reveal t-caption muted" style="--i:0">我的一个发现</p>
+      <div class="spacer"></div>
+      <h2 class="reveal t-title" style="--i:1">大疆麦克风的启发</h2>
+      <div class="spacer"></div>
+      <div class="reveal versus" style="--i:2">
+        <div class="versus__side">
+          <div class="versus__num accent">&yen;2,000</div>
+          <p class="versus__label">DJI Mic 3</p>
+        </div>
+        <span class="versus__vs">vs</span>
+        <div class="versus__side">
+          <div class="versus__num">&yen;200</div>
+          <p class="versus__label">DJI Mic Mini</p>
+        </div>
+      </div>
+      <p class="reveal t-subtitle mt-3" style="--i:3">
+        差价 10 倍 = <span class="accent">32GB 独立存储</span>
+      </p>
+      <p class="reveal t-body muted mt-3" style="--i:4; font-style: italic;">
+        朋友买了便宜款，一下午的音频全丢了 —— 以为连上了，其实没有。
+      </p>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════
+       SLIDE 8 — INDEPENDENT DEVICE
+       ══════════════════════════════════════ -->
+  <section class="slide slide--light">
+    <div class="slide__inner">
+      <p class="reveal t-caption muted" style="--i:0">关键体验</p>
+      <div class="spacer-lg"></div>
+      <h2 class="reveal t-title" style="--i:0">
+        独立于手机，独立于任何设备
+      </h2>
+      <div class="spacer"></div>
+      <p class="reveal t-subtitle muted" style="--i:1">
+        按下录音，看到红灯，你就安心了
+      </p>
+      <div class="spacer"></div>
+      <p class="reveal t-body muted" style="--i:2">
+        体积小巧，磁吸式设计 —— 放在任何地方随手就能用
+      </p>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════
+       SLIDE 9 — FRICTION: THE 7 STEPS
+       ══════════════════════════════════════ -->
+  <section class="slide slide--light">
+    <div class="slide__inner">
+      <p class="reveal t-caption muted" style="--i:0">但问题来了</p>
+      <div class="spacer"></div>
+      <h2 class="reveal t-title" style="--i:1">从念头到 OpenClaw</h2>
+      <div class="reveal step-chain" style="--i:2">
+        <span class="step-chain__item">掏手机</span>
+        <span class="step-chain__arrow">&rarr;</span>
+        <span class="step-chain__item">解锁</span>
+        <span class="step-chain__arrow">&rarr;</span>
+        <span class="step-chain__item">找 APP</span>
+        <span class="step-chain__arrow">&rarr;</span>
+        <span class="step-chain__item">打开备忘录</span>
+        <span class="step-chain__arrow">&rarr;</span>
+        <span class="step-chain__item">语音输入</span>
+        <span class="step-chain__arrow">&rarr;</span>
+        <span class="step-chain__item">复制</span>
+        <span class="step-chain__arrow">&rarr;</span>
+        <span class="step-chain__item">粘贴到龙虾</span>
+      </div>
+      <div class="reveal" style="--i:3">
+        <span class="t-number accent">7</span>
+        <span class="t-subtitle"> 步。</span>
+        <span class="t-subtitle muted">念头早跑了。</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════
+       SLIDE 10 — EINCLAW: WHAT I BUILT
+       ══════════════════════════════════════ -->
+  <section class="slide slide--light">
+    <div class="slide__inner">
+      <p class="reveal t-caption muted" style="--i:0">所以我做了个东西</p>
+      <div class="spacer"></div>
+      <h1 class="reveal t-title" style="--i:1; font-size: clamp(3rem, 7vw, 5.5rem); letter-spacing: 0.08em;">
+        EINCLAW
+      </h1>
+      <p class="reveal t-subtitle mt-2 muted" style="--i:2">
+        Ein &times; Claw &mdash; 一个语音对讲机，直连你的 OpenClaw
+      </p>
+      <div class="reveal divider" style="--i:3"></div>
+      <p class="reveal t-subtitle" style="--i:4">
+        你只管说，剩下的交给 Claw
+      </p>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════
+       SLIDE 11 — HOW IT WORKS
+       ══════════════════════════════════════ -->
+  <section class="slide slide--light">
+    <div class="slide__inner">
+      <p class="reveal t-caption muted" style="--i:0">具体怎么用</p>
+      <div class="spacer"></div>
+      <h2 class="reveal t-title" style="--i:1">三步，从念头到执行</h2>
+      <div class="reveal steps" style="--i:2">
+        <div class="step">
+          <div class="step__num">1</div>
+          <div class="step__title">按下，说话</div>
+          <div class="step__desc">按下 EinClaw 按钮<br>说出你的想法或指令</div>
+        </div>
+        <div class="step">
+          <div class="step__num">2</div>
+          <div class="step__title">插上电脑</div>
+          <div class="step__desc">回到家<br>把 EinClaw 连接电脑</div>
+        </div>
+        <div class="step">
+          <div class="step__num">3</div>
+          <div class="step__title">自动执行</div>
+          <div class="step__desc">脚本自动上传到 OpenClaw<br>根据关键词分发工作流</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════
+       SLIDE 12 — DEMO USE CASE
+       ══════════════════════════════════════ -->
+  <section class="slide slide--light">
+    <div class="slide__inner">
+      <p class="reveal t-caption muted" style="--i:0">举个真实的例子</p>
+      <div class="spacer"></div>
+      <h2 class="reveal t-title" style="--i:1">走在路上，按下 EinClaw</h2>
+      <div class="reveal quote-block" style="--i:2">
+        「选题记录：灵记是大家生活中每天都在丢失的，非常宝贵的 context」
+      </div>
+      <p class="reveal t-subtitle" style="--i:3">
+        松手，继续走路<br>
+        回到家 &rarr; 插上电脑 &rarr; OpenClaw 自动归档到<span class="accent">选题数据库</span>
+      </p>
+      <div class="spacer"></div>
+      <p class="reveal t-body muted" style="--i:4; font-style: italic;">
+        这不是畅想，这是我上周二的下午。
+      </p>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════
+       SLIDE 13 — WHAT CHANGED
+       ══════════════════════════════════════ -->
+  <section class="slide slide--light">
+    <div class="slide__inner">
+      <p class="reveal t-caption muted" style="--i:0">用下来最大的感受</p>
+      <div class="spacer-lg"></div>
+      <h2 class="reveal t-title" style="--i:1">
+        以前：想到 &rarr; 记住 &rarr; 找时间 &rarr; 打开工具 &rarr; 操作
+      </h2>
+      <div class="spacer"></div>
+      <h2 class="reveal t-title" style="--i:2">
+        现在：想到 &rarr; <span class="accent">说出来</span>。没了。
+      </h2>
+      <div class="spacer"></div>
+      <p class="reveal t-subtitle muted" style="--i:3">
+        我愿称之为 literally 的<span class="accent">言出法随</span>
+      </p>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════
+       SLIDE 14 — TWO METAPHORS
+       ══════════════════════════════════════ -->
+  <section class="slide slide--light">
+    <div class="slide__inner">
+      <p class="reveal t-caption muted" style="--i:0">换个角度理解</p>
+      <div class="spacer"></div>
+      <h2 class="reveal t-title" style="--i:1">你不需要知道后端发生了什么</h2>
+      <div class="reveal two-col" style="--i:2">
+        <div class="col-card">
+          <div class="col-card__label">场景 A &mdash; 会议室</div>
+          <p class="col-card__text">
+            你是决策者。告诉助理去做。<br>
+            <span class="accent">你不关心怎么做，只看结果。</span>
+          </p>
+        </div>
+        <div class="col-card">
+          <div class="col-card__label">场景 B &mdash; 战场</div>
+          <p class="col-card__text">
+            拿起对讲机，给坐标，呼叫空中支援。<br>
+            <span class="accent">你只给指令，后端调度一切。</span>
+          </p>
+        </div>
+      </div>
+      <p class="reveal t-subtitle" style="--i:3">
+        你只需要 <span class="accent">verify</span> 结果
+      </p>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════
+       SLIDE 15 — FUTURE VISION
+       ══════════════════════════════════════ -->
+  <section class="slide slide--light">
+    <div class="slide__inner">
+      <p class="reveal t-caption muted" style="--i:0">下一步计划</p>
+      <div class="spacer-lg"></div>
+      <h2 class="reveal t-title" style="--i:1">
+        剪断最后一根线
+      </h2>
+      <div class="spacer"></div>
+      <div class="reveal tags" style="--i:2">
+        <span class="tag"><strong>4G 直连</strong></span>
+        <span class="tag"><strong>独立运转</strong></span>
+        <span class="tag"><strong>零心智负担</strong></span>
+      </div>
+      <div class="spacer"></div>
+      <p class="reveal t-subtitle muted" style="--i:3">
+        不需要手机，不需要 WiFi，不需要蓝牙<br>
+        你和 OpenClaw 之间，不应该隔着任何东西
+      </p>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════
+       SLIDE 16 — END
+       ══════════════════════════════════════ -->
+  <section class="slide slide--dark" data-dark>
+    <div class="slide__inner">
+      <h1 class="reveal t-hero" style="--i:0">EINCLAW</h1>
+      <div class="reveal divider" style="--i:1"></div>
+      <p class="reveal t-subtitle" style="--i:2">
+        从想法到结果的高速路
+      </p>
+      <div class="spacer-lg"></div>
+      <p class="reveal t-body" style="--i:3; opacity: 0.6;">
+        预售已开启，感兴趣的可以看看
+      </p>
+      <div class="spacer"></div>
+      <p class="reveal cta-url" style="--i:4">einclaw.com</p>
+    </div>
+  </section>
+
+</div>
+
+<!-- Chrome -->
+<div class="progress-bar" id="progress"></div>
+<div class="counter" id="counter"></div>
+<div class="hint" id="hint">&larr; &rarr; / Space</div>
+
+<script>
+(function () {
+  var slides = Array.from(document.querySelectorAll('.slide'));
+  var total = slides.length;
+  var progress = document.getElementById('progress');
+  var counter = document.getElementById('counter');
+  var hint = document.getElementById('hint');
+  var current = 0;
+  var touchStartX = 0;
+
+  function go(index) {
+    if (index < 0 || index >= total) return;
+    slides[current].classList.remove('active');
+    current = index;
+    slides[current].classList.add('active');
+
+    progress.style.width = ((current + 1) / total * 100) + '%';
+    counter.textContent = (current + 1) + ' / ' + total;
+
+    var isDark = slides[current].hasAttribute('data-dark');
+    counter.className = 'counter ' + (isDark ? 'counter--dark' : 'counter--light');
+    hint.className = 'hint ' + (isDark ? 'hint--dark' : 'hint--light');
+
+    if (current > 0) hint.style.opacity = '0';
+  }
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'Enter') {
+      e.preventDefault();
+      go(current + 1);
+    } else if (e.key === 'ArrowLeft' || e.key === 'Backspace') {
+      e.preventDefault();
+      go(current - 1);
+    } else if (e.key === 'Home') {
+      e.preventDefault();
+      go(0);
+    } else if (e.key === 'End') {
+      e.preventDefault();
+      go(total - 1);
+    } else if (e.key === 'f' || e.key === 'F') {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen();
+      } else {
+        document.exitFullscreen();
+      }
+    }
+  });
+
+  document.addEventListener('click', function (e) {
+    if (e.target.closest('a, button')) return;
+    var x = e.clientX / window.innerWidth;
+    go(current + (x < 0.3 ? -1 : 1));
+  });
+
+  document.addEventListener('touchstart', function (e) {
+    touchStartX = e.touches[0].clientX;
+  }, { passive: true });
+
+  document.addEventListener('touchend', function (e) {
+    var diff = touchStartX - e.changedTouches[0].clientX;
+    if (Math.abs(diff) > 50) {
+      go(current + (diff > 0 ? 1 : -1));
+    }
+  }, { passive: true });
+
+  go(0);
+})();
+</script>
+</body>
+</html>
