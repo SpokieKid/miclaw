@@ -5,11 +5,11 @@
  * [PROTOCOL]: Update this header on changes, then check CLAUDE.md
  */
 
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { motion, useScroll, useTransform } from 'framer-motion'
 import { Server, Sparkles, GitBranch, BookOpen } from 'lucide-react'
 import { useLocale } from '@/i18n/context'
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog'
+import { PaymentDialog, type PaymentProvider } from '@/components/payment/PaymentDialog'
 
 /* ================================================================
    ANIMATION VARIANTS
@@ -47,7 +47,7 @@ function Nav({ onOpenPayment }: { onOpenPayment: () => void }) {
       <div className="mx-auto flex max-w-7xl items-center justify-between">
         {/* Logo */}
         <a href="#" className="font-serif text-2xl tracking-tight text-[var(--bark)]">
-          Miclaw
+          EinClaw
         </a>
 
         {/* Right: locale toggle + CTA */}
@@ -93,7 +93,7 @@ function Nav({ onOpenPayment }: { onOpenPayment: () => void }) {
    HERO
    ================================================================ */
 
-function Hero({ paymentOpen, onPaymentOpenChange }: { paymentOpen: boolean; onPaymentOpenChange: (open: boolean) => void }) {
+function Hero({ onOpenPayment }: { onOpenPayment: () => void }) {
   const { t } = useLocale()
   const heroRef = useRef<HTMLDivElement>(null)
   const { scrollYProgress } = useScroll({
@@ -164,31 +164,12 @@ function Hero({ paymentOpen, onPaymentOpenChange }: { paymentOpen: boolean; onPa
           <motion.div variants={fadeUp} custom={3} className="mt-10">
             <button
               type="button"
-              onClick={() => onPaymentOpenChange(true)}
+              onClick={onOpenPayment}
               className="inline-flex items-center gap-3 rounded-full bg-[var(--bark)] px-7 py-3.5 font-mono text-[0.85rem] font-bold tracking-wider uppercase text-[var(--cream)] transition-all hover:bg-[#2d2924] hover:shadow-xl"
             >
               {t('hero.priceCta')}
               {t('hero.priceOld') && <span className="text-[var(--warm)] line-through">{t('hero.priceOld')}</span>}
             </button>
-
-            <Dialog open={paymentOpen} onOpenChange={onPaymentOpenChange}>
-              <DialogContent className="max-w-[420px] border-[var(--warm-light)] bg-[var(--card)] p-5">
-                <DialogHeader className="text-left">
-                  <DialogTitle className="font-serif text-[1.2rem] text-[var(--bark)]">
-                    {t('pay.title')}
-                  </DialogTitle>
-                </DialogHeader>
-                <img
-                  src="/wechatpay.jpg"
-                  alt="微信支付收款码"
-                  loading="lazy"
-                  className="w-full rounded-xl object-cover"
-                />
-                <p className="whitespace-pre-line text-[0.94rem] leading-relaxed text-[var(--bark)]">
-                  {t('pay.desc')}
-                </p>
-              </DialogContent>
-            </Dialog>
 
             <p className="mt-4 text-[0.9rem] text-[var(--bark-light)]">
               {t('hero.priceAvail')}
@@ -215,7 +196,7 @@ function Hero({ paymentOpen, onPaymentOpenChange }: { paymentOpen: boolean; onPa
           />
           <img
             src="/product-white.png"
-            alt="Miclaw device"
+            alt="EinClaw device"
             className="relative z-10 w-full max-w-[420px] drop-shadow-2xl md:max-w-[480px]"
           />
         </motion.div>
@@ -331,7 +312,7 @@ function Battery() {
         >
           <img
             src="/hero.png"
-            alt="Miclaw hero image"
+            alt="EinClaw hero image"
             className="max-w-[320px] drop-shadow-xl"
           />
         </motion.div>
@@ -502,11 +483,31 @@ function Problem() {
 
 export default function Home() {
   const [paymentOpen, setPaymentOpen] = useState(false)
+  const [paymentProvider, setPaymentProvider] = useState<PaymentProvider>('wechat')
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search)
+    const payResult = params.get('pay_result')
+    if (payResult === 'wechat' || payResult === 'alipay') {
+      setPaymentProvider(payResult)
+      setPaymentOpen(true)
+      params.delete('pay_result')
+      const nextQuery = params.toString()
+      const nextUrl = `${window.location.pathname}${nextQuery ? `?${nextQuery}` : ''}${window.location.hash}`
+      window.history.replaceState({}, '', nextUrl)
+    }
+  }, [])
 
   return (
     <>
       <Nav onOpenPayment={() => setPaymentOpen(true)} />
-      <Hero paymentOpen={paymentOpen} onPaymentOpenChange={setPaymentOpen} />
+      <Hero onOpenPayment={() => setPaymentOpen(true)} />
+      <PaymentDialog
+        open={paymentOpen}
+        onOpenChange={setPaymentOpen}
+        provider={paymentProvider}
+        onProviderChange={setPaymentProvider}
+      />
       <Demo />
       <Battery />
       <UseCases />

@@ -27,6 +27,18 @@ export type TranslationKey =
   | 'problem.service.badge' | 'problem.service.title' | 'problem.service.desc'
   | 'problem.service.point1' | 'problem.service.point2' | 'problem.service.point3'
   | 'pay.title' | 'pay.desc'
+  | 'pay.methodLabel' | 'pay.methodWechat' | 'pay.methodAlipay'
+  | 'pay.contactLabel' | 'pay.contactPlaceholder' | 'pay.contactHint'
+  | 'pay.create' | 'pay.createWechat' | 'pay.createAlipay' | 'pay.creating'
+  | 'pay.orderLabel' | 'pay.amountLabel' | 'pay.statusLabel'
+  | 'pay.desktopHint' | 'pay.mobileHint' | 'pay.wechatHint'
+  | 'pay.wechatDesc' | 'pay.alipayDesc'
+  | 'pay.wechatDesktopHint' | 'pay.wechatMobileHint' | 'pay.wechatBrowserHint'
+  | 'pay.alipayDesktopHint' | 'pay.alipayMobileHint' | 'pay.openAlipay'
+  | 'pay.status.notpay' | 'pay.status.userpaying' | 'pay.status.success'
+  | 'pay.status.waitBuyerPay' | 'pay.status.tradeSuccess' | 'pay.status.tradeFinished' | 'pay.status.tradeClosed'
+  | 'pay.status.closed' | 'pay.status.failed' | 'pay.status.refund'
+  | 'pay.successHint' | 'pay.errorGeneric' | 'pay.retry'
 
 export const translations: Record<Locale, Record<TranslationKey, string>> = {
   zh: {
@@ -78,8 +90,45 @@ export const translations: Record<Locale, Record<TranslationKey, string>> = {
     'cases.card2.desc':    '开车时说出 Bug 描述，OpenClaw 自动创建 Issue、分析代码、提交 PR，下车时修复已合并。',
     'cases.card3.title':   '日记与想法对话',
     'cases.card3.desc':    '随时说出想法和感受，OpenClaw 帮你记录成日记。回头翻看时，还能和自己的记录对话。',
-    'pay.title':           '微信支付',
-    'pay.desc':            '请麻烦备注你的微信号，俺们好拉群！',
+    'pay.title':              '支付',
+    'pay.desc':               '下单前请填写微信号或手机号。这样支付成功后，我们能知道是谁付的款。',
+    'pay.methodLabel':        '支付方式',
+    'pay.methodWechat':       '微信支付',
+    'pay.methodAlipay':       '支付宝',
+    'pay.contactLabel':       '联系信息',
+    'pay.contactPlaceholder': '请输入微信号或手机号',
+    'pay.contactHint':        '请先填写微信号或手机号',
+    'pay.create':             '创建支付订单',
+    'pay.createWechat':       '创建微信支付订单',
+    'pay.createAlipay':       '前往支付宝支付',
+    'pay.creating':           '正在创建订单...',
+    'pay.orderLabel':         '订单号',
+    'pay.amountLabel':        '支付金额',
+    'pay.statusLabel':        '支付状态',
+    'pay.desktopHint':        '请使用微信扫一扫完成支付。每次打开都会生成新的商户订单。',
+    'pay.mobileHint':         '已创建移动端支付订单。如果没有自动跳转，请重新发起一次支付。',
+    'pay.wechatHint':         '当前是微信内打开。第一版先支持桌面扫码和系统浏览器 H5 支付；如果你要微信内直付，我再给你补 JSAPI。',
+    'pay.wechatDesc':         '微信支持桌面扫码 Native，手机系统浏览器走 H5(MWEB)。',
+    'pay.alipayDesc':         '支付宝支持电脑网站支付和手机网站支付，都会跳转到支付宝官方收银台。',
+    'pay.wechatDesktopHint':  '请使用微信扫一扫完成支付。每次打开都会生成新的商户订单。',
+    'pay.wechatMobileHint':   '已创建微信移动端支付订单。如果没有自动跳转，请重新发起一次支付。',
+    'pay.wechatBrowserHint':  '当前是微信内打开。第一版先支持桌面扫码和系统浏览器 H5 支付；如果你要微信内直付，我再给你补 JSAPI。',
+    'pay.alipayDesktopHint':  '即将跳转到支付宝官方收银台。支付完成后会回到当前页面，并继续查单。',
+    'pay.alipayMobileHint':   '即将拉起支付宝或跳转支付宝 H5 收银台。支付完成后会自动回到当前页面。',
+    'pay.openAlipay':         '前往支付宝继续支付',
+    'pay.status.notpay':      '待支付',
+    'pay.status.userpaying':  '支付中',
+    'pay.status.success':     '支付成功',
+    'pay.status.waitBuyerPay': '待买家付款',
+    'pay.status.tradeSuccess': '交易成功',
+    'pay.status.tradeFinished': '交易结束',
+    'pay.status.tradeClosed': '交易关闭',
+    'pay.status.closed':      '已关闭',
+    'pay.status.failed':      '支付失败',
+    'pay.status.refund':      '已退款',
+    'pay.successHint':        '付款成功。我们已经能根据订单号和你填写的联系信息识别这笔付款。',
+    'pay.errorGeneric':       '支付服务暂时不可用，请稍后重试',
+    'pay.retry':              '重新发起支付',
   },
 
   en: {
@@ -131,7 +180,44 @@ export const translations: Record<Locale, Record<TranslationKey, string>> = {
     'cases.card2.desc':    'Describe a bug while driving. OpenClaw creates the issue, analyzes the code, and submits a PR. Fixed by the time you park.',
     'cases.card3.title':   'Journal & Reflect',
     'cases.card3.desc':    'Share thoughts anytime. OpenClaw keeps your journal. Later, have a conversation with your own past reflections.',
-    'pay.title':           'WeChat Pay',
-    'pay.desc':            'Please include your WeChat ID in the note so we can add you to the group!',
+    'pay.title':              'Payment',
+    'pay.desc':               'Please enter your WeChat ID or phone number before payment so we can identify your order after you pay.',
+    'pay.methodLabel':        'Payment Method',
+    'pay.methodWechat':       'WeChat Pay',
+    'pay.methodAlipay':       'Alipay',
+    'pay.contactLabel':       'Contact',
+    'pay.contactPlaceholder': 'Enter your WeChat ID or phone number',
+    'pay.contactHint':        'Please enter your WeChat ID or phone number first',
+    'pay.create':             'Create payment order',
+    'pay.createWechat':       'Create WeChat order',
+    'pay.createAlipay':       'Go to Alipay',
+    'pay.creating':           'Creating order...',
+    'pay.orderLabel':         'Order No.',
+    'pay.amountLabel':        'Amount',
+    'pay.statusLabel':        'Status',
+    'pay.desktopHint':        'Scan this QR code with WeChat. Each attempt creates a real merchant order.',
+    'pay.mobileHint':         'A mobile payment order has been created. If WeChat did not open automatically, start a new payment attempt.',
+    'pay.wechatHint':         'This page is opened inside WeChat. This first version supports desktop QR and system-browser H5 payment; JSAPI can be added next.',
+    'pay.wechatDesc':         'WeChat supports desktop Native QR and mobile H5(MWEB) checkout.',
+    'pay.alipayDesc':         'Alipay supports both desktop website checkout and mobile web checkout through the official cashier page.',
+    'pay.wechatDesktopHint':  'Scan this QR code with WeChat. Each attempt creates a real merchant order.',
+    'pay.wechatMobileHint':   'A mobile WeChat order has been created. If WeChat did not open automatically, start a new payment attempt.',
+    'pay.wechatBrowserHint':  'This page is opened inside WeChat. This first version supports desktop QR and system-browser H5 payment; JSAPI can be added next.',
+    'pay.alipayDesktopHint':  'You will be redirected to Alipay’s official cashier page. After payment, you will be sent back here and the order will be rechecked.',
+    'pay.alipayMobileHint':   'Alipay app or Alipay H5 checkout will open next. After payment, you will be sent back here automatically.',
+    'pay.openAlipay':         'Continue with Alipay',
+    'pay.status.notpay':      'Pending',
+    'pay.status.userpaying':  'Paying',
+    'pay.status.success':     'Paid',
+    'pay.status.waitBuyerPay': 'Awaiting payment',
+    'pay.status.tradeSuccess': 'Trade successful',
+    'pay.status.tradeFinished': 'Trade finished',
+    'pay.status.tradeClosed': 'Trade closed',
+    'pay.status.closed':      'Closed',
+    'pay.status.failed':      'Failed',
+    'pay.status.refund':      'Refunded',
+    'pay.successHint':        'Payment succeeded. We can now match this payment using the order number and the contact you entered.',
+    'pay.errorGeneric':       'Payment service is temporarily unavailable. Please try again later.',
+    'pay.retry':              'Start a new payment',
   },
 }

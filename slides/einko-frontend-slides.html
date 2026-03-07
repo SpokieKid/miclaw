@@ -743,6 +743,40 @@
       margin-inline: auto;
     }
 
+    .intro-slide .slide-content {
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      gap: clamp(0.9rem, 2vw, 1.4rem);
+    }
+
+    .intro-slide .slide-index {
+      position: absolute;
+      top: clamp(1rem, 2vw, 1.6rem);
+      right: clamp(1rem, 2vw, 1.8rem);
+    }
+
+    .intro-slide .quote-box {
+      width: min(72rem, 88vw);
+      border-left: 0;
+      border-top: 2px solid var(--accent);
+      border-radius: 1rem;
+      background:
+        linear-gradient(180deg, rgba(10, 24, 40, 0.92) 0%, rgba(7, 17, 30, 0.84) 100%);
+      padding: clamp(1.2rem, 2.6vw, 2rem);
+      box-shadow: 0 24px 80px rgba(0, 0, 0, 0.28);
+    }
+
+    .intro-slide .quote-box p {
+      font-size: clamp(1.2rem, 2.6vw, 2rem);
+      line-height: 1.45;
+    }
+
+    .intro-slide .lede {
+      text-align: center;
+      max-width: min(64ch, 82vw);
+    }
+
     /* ===========================================
        MOBILE ADJUSTMENTS
        =========================================== */
@@ -799,7 +833,22 @@
   <div class="corner bottom-right"></div>
 
   <!-- ===========================================
-       SLIDE 1: COVER
+       SLIDE 1: TED CHIANG INTRO
+       =========================================== -->
+  <section class="slide intro-slide">
+    <div class="slide-content">
+      <div class="slide-index reveal">01 / 09</div>
+      <div class="eyebrow reveal">Prologue / Ted Chiang</div>
+      <div class="quote-box reveal-scale">
+        <p>特德姜《软件体的生命周期》写的，不只是一个科幻概念，而是一种关系：<span class="highlight">数字生命会被长期训练、持续成长，并逐渐成为人的延伸。</span></p>
+      </div>
+      <div class="accent-bar reveal"></div>
+      <p class="lede reveal">我们相信，通用智能体接下来的产品形态，不会只是一个对话框，而会变成一个可被喂养、可被训练、也可替你行动的软件体。Einko 要做的，就是这类软件体的输入层、处理层和第一个原生场景。</p>
+    </div>
+  </section>
+
+  <!-- ===========================================
+       SLIDE 2: COVER
        =========================================== -->
   <section class="slide cover-slide">
     <div class="orb decorative"></div>
@@ -854,7 +903,7 @@
   </section>
 
   <!-- ===========================================
-       SLIDE 2: THREE LAYERS
+       SLIDE 3: THREE LAYERS
        =========================================== -->
   <section class="slide">
     <div class="slide-content">
@@ -863,7 +912,7 @@
           <div class="eyebrow reveal">Framework</div>
           <h2 class="reveal">任何 AI 产品，最终都离不开三层</h2>
         </div>
-        <div class="slide-index reveal">02 / 09</div>
+        <div class="slide-index reveal">03 / 09</div>
       </div>
       <p class="lede reveal">不是哪一层更重要，而是三层缺一不可。输入定义摩擦，处理定义能力，应用定义价值。</p>
       <div class="split" style="margin-top: clamp(1rem, 2vh, 1.4rem);">
@@ -926,7 +975,7 @@
   </section>
 
   <!-- ===========================================
-       SLIDE 3: INPUT LAYER
+       SLIDE 4: INPUT LAYER
        =========================================== -->
   <section class="slide">
     <div class="slide-content">
@@ -935,7 +984,7 @@
           <div class="eyebrow reveal">Layer 1</div>
           <h2 class="reveal">两个产品，一个使命：以最低摩擦捕获人类意图</h2>
         </div>
-        <div class="slide-index reveal">03 / 09</div>
+        <div class="slide-index reveal">04 / 09</div>
       </div>
       <div class="dual-cards" style="margin-top: clamp(1rem, 2vh, 1.4rem);">
         <div class="card reveal-left">
@@ -964,7 +1013,7 @@
   </section>
 
   <!-- ===========================================
-       SLIDE 4: MOTIVATION ENGINE
+       SLIDE 5: MOTIVATION ENGINE
        =========================================== -->
   <section class="slide">
     <div class="slide-content">
@@ -973,7 +1022,7 @@
           <div class="eyebrow reveal">Moat</div>
           <h2 class="reveal">输入层和处理层之间，是动机引擎</h2>
         </div>
-        <div class="slide-index reveal">04 / 09</div>
+        <div class="slide-index reveal">05 / 09</div>
       </div>
       <div class="split" style="margin-top: clamp(1rem, 2vh, 1.4rem);">
         <div class="card reveal-left">
@@ -1017,7 +1066,7 @@
   </section>
 
   <!-- ===========================================
-       SLIDE 5: PROCESSING ENGINE
+       SLIDE 6: PROCESSING ENGINE
        =========================================== -->
   <section class="slide">
     <div class="slide-content">
@@ -1026,7 +1075,7 @@
           <div class="eyebrow reveal">Layer 2</div>
           <h2 class="reveal">我们在做一个预包装的 OpenClaw 部署</h2>
         </div>
-        <div class="slide-index reveal">05 / 09</div>
+        <div class="slide-index reveal">06 / 09</div>
       </div>
       <div class="split" style="margin-top: clamp(1rem, 2vh, 1.4rem);">
         <div class="card reveal-left">
@@ -1069,7 +1118,7 @@
   </section>
 
   <!-- ===========================================
-       SLIDE 6: SOFTWARE ENTITY + SOCIAL
+       SLIDE 7: SOFTWARE ENTITY + SOCIAL
        =========================================== -->
   <section class="slide">
     <div class="slide-content">
@@ -1078,7 +1127,7 @@
           <div class="eyebrow reveal">Layer 3</div>
           <h2 class="reveal">如果你的 AI 智能体能去公园交朋友，会发生什么？</h2>
         </div>
-        <div class="slide-index reveal">06 / 09</div>
+        <div class="slide-index reveal">07 / 09</div>
       </div>
       <div class="split" style="margin-top: clamp(1rem, 2vh, 1.4rem);">
         <div class="stack">
@@ -1110,7 +1159,7 @@
   </section>
 
   <!-- ===========================================
-       SLIDE 7: FULL STACK
+       SLIDE 8: FULL STACK
        =========================================== -->
   <section class="slide">
     <div class="slide-content">
@@ -1119,7 +1168,7 @@
           <div class="eyebrow reveal">System View</div>
           <h2 class="reveal">完整技术栈叙事</h2>
         </div>
-        <div class="slide-index reveal">07 / 09</div>
+        <div class="slide-index reveal">08 / 09</div>
       </div>
       <div class="split" style="margin-top: clamp(1rem, 2vh, 1.4rem);">
         <div class="card reveal-left">
@@ -1151,55 +1200,6 @@ Einko（截图）       Macclaw（语音）
           <div class="quote-box reveal-scale">
             <p>我们不是在做一个 APP。我们在做一部手机，以及这部手机出厂自带的第一个 APP。</p>
           </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===========================================
-       SLIDE 8: WHY NOW
-       =========================================== -->
-  <section class="slide">
-    <div class="slide-content">
-      <div class="slide-head">
-        <div>
-          <div class="eyebrow reveal">Timing</div>
-          <h2 class="reveal">为什么是现在，为什么是我们</h2>
-        </div>
-        <div class="slide-index reveal">08 / 09</div>
-      </div>
-      <div class="dual-cards" style="margin-top: clamp(1rem, 2vh, 1.4rem);">
-        <div class="card reveal-left">
-          <h3>为什么是现在</h3>
-          <div class="accent-bar"></div>
-          <ul class="bullet-list">
-            <li>OpenClaw 势头是真实的，开源 agent 底座正在形成。</li>
-            <li>后 AirPods 时代，用户已经适应可穿戴音频设备。</li>
-            <li>Token 成本终于能被合理转移给用户，开发者模型可持续。</li>
-          </ul>
-        </div>
-        <div class="card reveal">
-          <h3>为什么是我们</h3>
-          <div class="accent-bar"></div>
-          <ul class="bullet-list">
-            <li>Einko 已经在做截图输入层。</li>
-            <li>DIS 黑客松已经完成 Macclaw 硬件原型。</li>
-            <li>我们不是从“模型能力”出发，而是从“输入冷启动”这个真问题出发。</li>
-          </ul>
-        </div>
-      </div>
-      <div class="metric-grid reveal-scale" style="margin-top: clamp(0.8rem, 1.6vh, 1rem);">
-        <div class="metric">
-          <strong>Input</strong>
-          <p>截图 + 语音双入口</p>
-        </div>
-        <div class="metric">
-          <strong>Moat</strong>
-          <p>动机档案持续沉淀</p>
-        </div>
-        <div class="metric">
-          <strong>Network</strong>
-          <p>智能体社交先发位</p>
         </div>
       </div>
     </div>

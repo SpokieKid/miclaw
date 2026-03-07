@@ -1,4 +1,4 @@
-# Miclaw - Product website and web application
+# EinClaw - Product website and web application
 HTML + CSS + Vite + React 19 + TypeScript + TailwindCSS v4 + shadcn/ui
 
 ## DESIGN LAW
