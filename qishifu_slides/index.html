@@ -881,14 +881,6 @@ html, body {
     </div>
   </section>
 
-  <!-- ══════════════════════════════════════
-       SLIDE — ARVIN REDNOTE
-       ══════════════════════════════════════ -->
-  <section class="slide slide--dark" data-dark>
-    <div class="slide__inner">
-      <img class="reveal demo-video" style="--i:0" src="arvin-rednote.png" alt="Arvin RedNote">
-    </div>
-  </section>
 
   <!-- ══════════════════════════════════════
        SLIDE 15 — LIVE DEMO OUTLINE
@@ -960,20 +952,6 @@ html, body {
     </div>
   </section>
 
-  <!-- ══════════════════════════════════════
-       SLIDE — XHS CONVERSION
-       ══════════════════════════════════════ -->
-  <section class="slide slide--light">
-    <div class="slide__inner">
-      <p class="reveal t-caption muted" style="--i:0">不只是数据，还有转化</p>
-      <div class="spacer"></div>
-      <h2 class="reveal t-title" style="--i:1">从一篇笔记到<span class="accent">付费产品</span></h2>
-      <div class="reveal screenshot-gallery" style="--i:2">
-        <img class="screenshot-gallery__img screenshot-gallery__img--lg" src="xhs_note_data/截屏 2026-03-08 12.07.25.png" alt="灵记产品">
-        <img class="screenshot-gallery__img screenshot-gallery__img--lg" src="xhs_note_data/fufei.png" alt="付费转化">
-      </div>
-    </div>
-  </section>
 
   <!-- ══════════════════════════════════════
        SLIDE 16 — TRANSITION: SOFTWARE VISION
@@ -1319,13 +1297,25 @@ html, body {
     hint.className = 'hint ' + (isDark ? 'hint--dark' : 'hint--light');
 
     if (current > 0) hint.style.opacity = '0';
+
+    // Auto-play video on slide enter, pause on leave
+    slides.forEach(function (s, i) {
+      var vid = s.querySelector('video');
+      if (!vid) return;
+      if (i === current) {
+        vid.currentTime = 0;
+        vid.play().catch(function () {});
+      } else {
+        vid.pause();
+      }
+    });
   }
 
   document.addEventListener('keydown', function (e) {
-    if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'Enter') {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ' || e.key === 'Enter' || e.key === 'PageDown') {
       e.preventDefault();
       go(current + 1);
-    } else if (e.key === 'ArrowLeft' || e.key === 'Backspace') {
+    } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp' || e.key === 'Backspace' || e.key === 'PageUp') {
       e.preventDefault();
       go(current - 1);
     } else if (e.key === 'Home') {
