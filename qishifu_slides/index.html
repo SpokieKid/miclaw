@@ -340,6 +340,51 @@ html, body {
 }
 
 /* ═══════════════════════════════════════════
+   SCREENSHOT GALLERY
+   ═══════════════════════════════════════════ */
+.screenshot-gallery {
+  display: flex;
+  justify-content: center;
+  gap: 1.2rem;
+  margin: 2rem 0;
+}
+
+.screenshot-gallery__img {
+  height: 420px;
+  border-radius: 0.75rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  object-fit: contain;
+}
+
+.metrics-row {
+  display: flex;
+  justify-content: center;
+  gap: 3rem;
+  margin: 1.5rem 0;
+}
+
+.metric {
+  text-align: center;
+}
+
+.metric__value {
+  font-family: var(--font-serif);
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  line-height: 1;
+  color: var(--terracotta);
+}
+
+.metric__label {
+  font-size: 0.85rem;
+  color: var(--bark-light);
+  margin-top: 0.4rem;
+}
+
+.screenshot-gallery__img--lg {
+  height: 580px;
+}
+
+/* ═══════════════════════════════════════════
    CTA LINK
    ═══════════════════════════════════════════ */
 .cta-link {
@@ -878,6 +923,55 @@ html, body {
       <p class="reveal t-subtitle muted" style="--i:3">
         全程直连 OpenClaw &mdash; 这也是我们最想做这个硬件的冲动来源
       </p>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════
+       SLIDE — XHS NOTE DATA
+       ══════════════════════════════════════ -->
+  <section class="slide slide--light">
+    <div class="slide__inner">
+      <p class="reveal t-caption muted" style="--i:0">真实数据</p>
+      <div class="spacer"></div>
+      <h2 class="reveal t-title" style="--i:1">这篇笔记就是这样做出来的</h2>
+      <div class="reveal screenshot-gallery" style="--i:2">
+        <img class="screenshot-gallery__img" src="xhs_note_data/截屏 2026-03-08 12.06.11 2.png" alt="小红书笔记">
+        <img class="screenshot-gallery__img" src="xhs_note_data/IMG_1660.PNG" alt="笔记数据概览">
+        <img class="screenshot-gallery__img" src="xhs_note_data/IMG_1661.PNG" alt="流量分析">
+      </div>
+      <div class="reveal metrics-row" style="--i:3">
+        <div class="metric">
+          <div class="metric__value">53w+</div>
+          <div class="metric__label">曝光数</div>
+        </div>
+        <div class="metric">
+          <div class="metric__value">9w+</div>
+          <div class="metric__label">观看数</div>
+        </div>
+        <div class="metric">
+          <div class="metric__value">17.5%</div>
+          <div class="metric__label">封面点击率</div>
+        </div>
+        <div class="metric">
+          <div class="metric__value">5775</div>
+          <div class="metric__label">点赞</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════
+       SLIDE — XHS CONVERSION
+       ══════════════════════════════════════ -->
+  <section class="slide slide--light">
+    <div class="slide__inner">
+      <p class="reveal t-caption muted" style="--i:0">不只是数据，还有转化</p>
+      <div class="spacer"></div>
+      <h2 class="reveal t-title" style="--i:1">从一篇笔记到<span class="accent">付费产品</span></h2>
+      <div class="reveal screenshot-gallery" style="--i:2">
+        <img class="screenshot-gallery__img screenshot-gallery__img--lg" src="xhs_note_data/截屏 2026-03-08 12.07.25.png" alt="灵记产品">
+        <img class="screenshot-gallery__img screenshot-gallery__img--lg" src="xhs_note_data/fufei.png" alt="付费转化">
+      </div>
     </div>
   </section>
 
