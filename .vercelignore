@@ -1,0 +1,15 @@
+# Large files at root
+/*.zip
+/*.png
+/*.jpg
+/*.mp4
+
+# Unrelated directories
+qishifu_slides/
+slides/
+bp/
+docs/
+llmsrc/
+api/
+sync_history.log
+sync_mic.sh
