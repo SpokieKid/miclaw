@@ -3,3 +3,4 @@
 
 sync_mic.sh
 .env.payments.local
+*.zip
