@@ -8,7 +8,14 @@
 export type Locale = 'zh' | 'en'
 
 export type TranslationKey =
-  | 'nav.cta'
+  | 'nav.cta' | 'nav.about' | 'nav.einko' | 'nav.products'
+  | 'about.heroTitle' | 'about.heroSubtitle'
+  | 'about.missionTitle' | 'about.missionDesc'
+  | 'about.product1.name' | 'about.product1.desc' | 'about.product1.status'
+  | 'about.product2.name' | 'about.product2.desc' | 'about.product2.status'
+  | 'about.product3.name' | 'about.product3.desc' | 'about.product3.status'
+  | 'about.product4.name' | 'about.product4.desc' | 'about.product4.status'
+  | 'about.contactTitle' | 'about.contactDesc'
   | 'hero.badge'
   | 'hero.titleAccent1' | 'hero.titleMid' | 'hero.titleAccent2'
   | 'hero.subtitle' | 'hero.subtitleLine2' | 'hero.subtitleCaption'
@@ -43,6 +50,28 @@ export type TranslationKey =
 export const translations: Record<Locale, Record<TranslationKey, string>> = {
   zh: {
     'nav.cta':        '锁定早鸟',
+    'nav.about':      '关于我们',
+    'nav.einko':      'Einko App',
+    'nav.products':   '产品',
+
+    'about.heroTitle':      '让 AI 走出屏幕，融入生活',
+    'about.heroSubtitle':   '我们构建连接人与 AI 的硬件与平台，让智能无处不在。',
+    'about.missionTitle':   '我们的使命',
+    'about.missionDesc':    '我们相信 AI 不应被困在聊天窗口里。通过专用硬件和开放平台，我们让每个人都能用最自然的方式——说话——来驱动 AI 完成真实世界的任务。从语音输入到任务闭环，我们打通了从人到 AI 再到结果的最短路径。',
+    'about.product1.name':  'EinClaw Mic',
+    'about.product1.desc':  '一键语音输入硬件，4G 直连 OpenClaw 平台。按下说话，松手走人，AI 帮你干活。72 小时续航，离线录音，联网自动同步。',
+    'about.product1.status': '',
+    'about.product2.name':  'Einko App',
+    'about.product2.desc':  'AI 截图整理助手——自动识别、分类和管理你的截图，让信息不再散落。',
+    'about.product2.status': '',
+    'about.product3.name':  'EinClaw',
+    'about.product3.desc':  '云端托管的 OpenClaw 服务，开箱即用。无需自建服务器，一键接入 AI 工作流。',
+    'about.product3.status': '即将上线',
+    'about.product4.name':  'EinClaw Park',
+    'about.product4.desc':  'Agent 交友网站——让你的 AI Agent 在这里相遇、协作、组队完成任务。',
+    'about.product4.status': '即将上线',
+    'about.contactTitle':   '联系我们',
+    'about.contactDesc':    '合作咨询、商务合作或产品反馈，欢迎随时联系。',
 
     'hero.badge':           '直连 OpenClaw 的语音输入硬件',
     'hero.titleAccent1':    '对小龙虾说话，',
@@ -133,6 +162,28 @@ export const translations: Record<Locale, Record<TranslationKey, string>> = {
 
   en: {
     'nav.cta':        'Reserve Now',
+    'nav.about':      'About',
+    'nav.einko':      'Einko App',
+    'nav.products':   'Products',
+
+    'about.heroTitle':      'Bringing AI Beyond the Screen',
+    'about.heroSubtitle':   'We build hardware and platforms that connect people with AI — making intelligence ambient.',
+    'about.missionTitle':   'Our Mission',
+    'about.missionDesc':    'We believe AI shouldn\'t be trapped behind a chat window. Through dedicated hardware and an open platform, we let everyone use the most natural interface — their voice — to drive AI for real-world tasks. From voice input to task completion, we\'ve built the shortest path from human intent to AI action to tangible results.',
+    'about.product1.name':  'EinClaw Mic',
+    'about.product1.desc':  'One-click voice input hardware, 4G direct to OpenClaw. Press, speak, release, walk away — AI does the rest. 72-hour battery, offline recording, auto-sync when connected.',
+    'about.product1.status': '',
+    'about.product2.name':  'Einko App',
+    'about.product2.desc':  'AI screenshot organizer — automatically recognizes, categorizes, and manages your screenshots so nothing gets lost.',
+    'about.product2.status': '',
+    'about.product3.name':  'EinClaw',
+    'about.product3.desc':  'Cloud-hosted OpenClaw service, ready out of the box. No self-hosting needed — one-click access to AI workflows.',
+    'about.product3.status': 'Coming Soon',
+    'about.product4.name':  'EinClaw Park',
+    'about.product4.desc':  'An Agent social network — where your AI Agents meet, collaborate, and team up to get things done.',
+    'about.product4.status': 'Coming Soon',
+    'about.contactTitle':   'Get in Touch',
+    'about.contactDesc':    'For partnerships, business inquiries, or product feedback — reach out anytime.',
 
     'hero.badge':           'OpenClaw\'s direct voice input',
     'hero.titleAccent1':    'Speak,',

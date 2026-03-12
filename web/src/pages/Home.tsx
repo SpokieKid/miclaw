@@ -7,7 +7,14 @@
 
 import { useEffect, useRef, useState } from 'react'
 import { motion, useScroll, useTransform } from 'framer-motion'
-import { Server, Sparkles, GitBranch, BookOpen } from 'lucide-react'
+import { Server, Sparkles, GitBranch, BookOpen, ExternalLink, ChevronDown } from 'lucide-react'
+import { Link } from 'react-router'
+import {
+  DropdownMenu,
+  DropdownMenuTrigger,
+  DropdownMenuContent,
+  DropdownMenuItem,
+} from '@/components/ui/dropdown-menu'
 import { useLocale } from '@/i18n/context'
 import { PaymentDialog, type PaymentProvider } from '@/components/payment/PaymentDialog'
 
@@ -44,11 +51,43 @@ function Nav({ onOpenPayment }: { onOpenPayment: () => void }) {
       transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
       className="fixed top-0 left-0 right-0 z-50 bg-[var(--cream)] px-6 py-5 md:px-10"
     >
-      <div className="mx-auto flex max-w-7xl items-center justify-between">
+      <div className="relative mx-auto flex max-w-7xl items-center justify-between">
         {/* Logo */}
-        <a href="#" className="font-serif text-2xl tracking-tight text-[var(--bark)]">
+        <Link to="/" className="font-serif text-2xl tracking-tight text-[var(--bark)]">
           EinClaw
-        </a>
+        </Link>
+
+        {/* Center: nav links — absolute so position is independent of siblings */}
+        <div className="absolute left-1/2 flex -translate-x-1/2 items-center gap-6">
+          <Link
+            to="/about"
+            className="text-[0.85rem] text-[var(--bark-light)] transition-colors hover:text-[var(--bark)]"
+          >
+            {t('nav.about')}
+          </Link>
+          <DropdownMenu>
+            <DropdownMenuTrigger className="flex items-center gap-1 text-[0.85rem] text-[var(--bark-light)] transition-colors hover:text-[var(--bark)] outline-none">
+              {t('nav.products')}
+              <ChevronDown className="h-3 w-3" />
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="center" className="min-w-[200px]">
+              <DropdownMenuItem asChild>
+                <a href="https://einko.app" target="_blank" rel="noopener noreferrer" className="flex items-center justify-between">
+                  Einko App
+                  <ExternalLink className="h-3 w-3 text-[var(--bark-light)]" />
+                </a>
+              </DropdownMenuItem>
+              <DropdownMenuItem disabled className="flex items-center justify-between opacity-60">
+                EinClaw
+                <span className="text-[0.7rem] text-[var(--bark-light)]">Coming Soon</span>
+              </DropdownMenuItem>
+              <DropdownMenuItem disabled className="flex items-center justify-between opacity-60">
+                EinClaw Park
+                <span className="text-[0.7rem] text-[var(--bark-light)]">Coming Soon</span>
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </div>
 
         {/* Right: locale toggle + CTA */}
         <div className="flex items-center gap-5">
@@ -196,7 +235,7 @@ function Hero({ onOpenPayment }: { onOpenPayment: () => void }) {
           />
           <img
             src="/product-white.png"
-            alt="EinClaw device"
+            alt="EinClaw Mic device"
             className="relative z-10 w-full max-w-[420px] drop-shadow-2xl md:max-w-[480px]"
           />
         </motion.div>
