@@ -6,7 +6,8 @@
  */
 
 import { motion } from 'framer-motion'
-import { ArrowLeft, ExternalLink, Mic, Image, Cloud, Globe, ChevronDown } from 'lucide-react'
+import { ArrowLeft, ExternalLink, Mic, Image, Cloud, Globe, ChevronDown, Mail } from 'lucide-react'
+import { SiX, SiXiaohongshu } from 'react-icons/si'
 import { Link } from 'react-router'
 import {
   DropdownMenu,
@@ -41,6 +42,8 @@ const stagger = {
 
 export default function About() {
   const { locale, setLocale, t } = useLocale()
+  const xHandle = locale === 'zh' ? '@affe_is_me' : '@affe_z'
+  const xUrl = locale === 'zh' ? 'https://x.com/affe_is_me' : 'https://x.com/affe_z'
 
   return (
     <div className="min-h-screen bg-[var(--cream)]">
@@ -257,6 +260,23 @@ export default function About() {
             >
               {t('about.contactDesc')}
             </motion.p>
+
+            <motion.div variants={fadeUp} custom={2} className="mt-8 space-y-3 text-[0.95rem] text-[var(--bark-light)]">
+              <a href="mailto:affeisme@gmail.com" className="flex items-center gap-2.5 transition-colors hover:text-[var(--bark)]">
+                <Mail className="h-4 w-4" /> affeisme@gmail.com
+              </a>
+              <a href="mailto:arvinchen98@outlook.com" className="flex items-center gap-2.5 transition-colors hover:text-[var(--bark)]">
+                <Mail className="h-4 w-4" /> arvinchen98@outlook.com
+              </a>
+              <a href={xUrl} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2.5 transition-colors hover:text-[var(--bark)]">
+                <SiX className="h-4 w-4" /> {xHandle}
+              </a>
+              {locale === 'zh' && (
+                <a href="https://www.xiaohongshu.com/user/profile/Gnahzeffa" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2.5 transition-colors hover:text-[var(--bark)]">
+                  <SiXiaohongshu className="h-4 w-4" /> Gnahzeffa
+                </a>
+              )}
+            </motion.div>
           </motion.div>
         </div>
       </section>

@@ -7,7 +7,8 @@
 
 import { useEffect, useRef, useState } from 'react'
 import { motion, useScroll, useTransform } from 'framer-motion'
-import { Server, Sparkles, GitBranch, BookOpen, ExternalLink, ChevronDown } from 'lucide-react'
+import { Server, Sparkles, GitBranch, BookOpen, ExternalLink, ChevronDown, Mail } from 'lucide-react'
+import { SiX, SiXiaohongshu } from 'react-icons/si'
 import { Link } from 'react-router'
 import {
   DropdownMenu,
@@ -517,6 +518,91 @@ function Problem() {
 }
 
 /* ================================================================
+   FOOTER
+   ================================================================ */
+
+function Footer() {
+  const { locale, t } = useLocale()
+
+  return (
+    <footer className="border-t border-[var(--warm-light)] bg-[var(--cream)] py-16">
+      <div className="mx-auto grid max-w-7xl grid-cols-1 gap-12 px-6 md:grid-cols-4 md:px-10">
+        {/* Brand */}
+        <div>
+          <Link to="/" className="font-serif text-xl tracking-tight text-[var(--bark)]">
+            EinClaw
+          </Link>
+        </div>
+
+        {/* Products */}
+        <div>
+          <h4 className="text-[0.8rem] font-medium tracking-wider uppercase text-[var(--bark)]">
+            {t('footer.products')}
+          </h4>
+          <ul className="mt-4 space-y-2.5 text-[0.85rem] text-[var(--bark-light)]">
+            <li>
+              <a href="https://einko.app" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 transition-colors hover:text-[var(--bark)]">
+                Einko App <ExternalLink className="h-3 w-3" />
+              </a>
+            </li>
+            <li><Link to="/" className="transition-colors hover:text-[var(--bark)]">EinClaw Mic</Link></li>
+            <li className="opacity-50">EinClaw <span className="text-[0.75rem]">· Coming Soon</span></li>
+            <li className="opacity-50">EinClaw Park <span className="text-[0.75rem]">· Coming Soon</span></li>
+          </ul>
+        </div>
+
+        {/* Contact */}
+        <div>
+          <h4 className="text-[0.8rem] font-medium tracking-wider uppercase text-[var(--bark)]">
+            {t('footer.contact')}
+          </h4>
+          <ul className="mt-4 space-y-2.5 text-[0.85rem] text-[var(--bark-light)]">
+            <li>
+              <a href="mailto:affeisme@gmail.com" className="inline-flex items-center gap-2 transition-colors hover:text-[var(--bark)]">
+                <Mail className="h-3.5 w-3.5" /> affeisme@gmail.com
+              </a>
+            </li>
+            <li>
+              <a href="mailto:arvinchen98@outlook.com" className="inline-flex items-center gap-2 transition-colors hover:text-[var(--bark)]">
+                <Mail className="h-3.5 w-3.5" /> arvinchen98@outlook.com
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        {/* Social */}
+        <div>
+          <h4 className="text-[0.8rem] font-medium tracking-wider uppercase text-[var(--bark)]">
+            {t('footer.social')}
+          </h4>
+          <ul className="mt-4 space-y-2.5 text-[0.85rem] text-[var(--bark-light)]">
+            <li>
+              <a href={locale === 'zh' ? 'https://x.com/affe_is_me' : 'https://x.com/affe_z'} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 transition-colors hover:text-[var(--bark)]">
+                <SiX className="h-3.5 w-3.5" /> {locale === 'zh' ? '@affe_is_me' : '@affe_z'}
+              </a>
+            </li>
+            {locale === 'zh' && (
+              <li>
+                <a href="https://www.xiaohongshu.com/user/profile/Gnahzeffa" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 transition-colors hover:text-[var(--bark)]">
+                  <SiXiaohongshu className="h-3.5 w-3.5" /> Gnahzeffa
+                </a>
+              </li>
+            )}
+          </ul>
+        </div>
+      </div>
+
+      {/* Copyright */}
+      <div className="mx-auto mt-12 max-w-7xl border-t border-[var(--warm-light)] px-6 pt-6 md:px-10">
+        <p className="text-[0.8rem] text-[var(--bark-light)]">
+          {t('footer.copyright')}
+        </p>
+      </div>
+    </footer>
+  )
+}
+
+/* ================================================================
    HOME PAGE
    ================================================================ */
 
@@ -551,6 +637,7 @@ export default function Home() {
       <Battery />
       <UseCases />
       <Problem />
+      <Footer />
     </>
   )
 }

@@ -16,6 +16,7 @@ export type TranslationKey =
   | 'about.product3.name' | 'about.product3.desc' | 'about.product3.status'
   | 'about.product4.name' | 'about.product4.desc' | 'about.product4.status'
   | 'about.contactTitle' | 'about.contactDesc'
+  | 'footer.products' | 'footer.contact' | 'footer.social' | 'footer.copyright'
   | 'hero.badge'
   | 'hero.titleAccent1' | 'hero.titleMid' | 'hero.titleAccent2'
   | 'hero.subtitle' | 'hero.subtitleLine2' | 'hero.subtitleCaption'
@@ -72,6 +73,10 @@ export const translations: Record<Locale, Record<TranslationKey, string>> = {
     'about.product4.status': '即将上线',
     'about.contactTitle':   '联系我们',
     'about.contactDesc':    '合作咨询、商务合作或产品反馈，欢迎随时联系。',
+    'footer.products':      '产品',
+    'footer.contact':       '联系我们',
+    'footer.social':        '社交媒体',
+    'footer.copyright':     '© 2025 杭州市时之轨迹信息技术有限责任公司. All rights reserved.',
 
     'hero.badge':           '直连 OpenClaw 的语音输入硬件',
     'hero.titleAccent1':    '对小龙虾说话，',
@@ -184,6 +189,10 @@ export const translations: Record<Locale, Record<TranslationKey, string>> = {
     'about.product4.status': 'Coming Soon',
     'about.contactTitle':   'Get in Touch',
     'about.contactDesc':    'For partnerships, business inquiries, or product feedback — reach out anytime.',
+    'footer.products':      'Products',
+    'footer.contact':       'Contact',
+    'footer.social':        'Social',
+    'footer.copyright':     '© 2025 Hangzhou Chronotrack Information Technology Co., Ltd. All rights reserved.',
 
     'hero.badge':           'OpenClaw\'s direct voice input',
     'hero.titleAccent1':    'Speak,',
