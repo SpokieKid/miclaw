@@ -85,7 +85,7 @@ export const translations: Record<Locale, Record<TranslationKey, string>> = {
     'hero.subtitle':        '按下按钮，说出指令，松手走人，让 OpenClaw 帮你干活。',
     'hero.subtitleLine2':   '4G 直连 OpenClaw，无需手机。',
     'hero.subtitleCaption': '',
-    'hero.priceCta':        '¥199 预定 Demo 样机',
+    'hero.priceCta':        '¥299 预定 Demo 样机',
     'hero.priceOld':        '',
     'hero.priceAvail':      'Demo 样机 · 限量发售',
     'hero.cta':             '锁定早鸟',
