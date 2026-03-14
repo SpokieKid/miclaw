@@ -523,6 +523,30 @@ html, body {
 }
 
 /* ═══════════════════════════════════════════
+   HARDWARE GALLERY
+   ═══════════════════════════════════════════ */
+.hardware-gallery {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  margin: 1.5rem 0;
+}
+
+.hardware-gallery__img {
+  height: 180px;
+  border-radius: 0.75rem;
+  object-fit: contain;
+}
+
+.hardware-gallery__img--lifestyle {
+  height: 160px;
+  border-radius: 0.75rem;
+  object-fit: cover;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* ═══════════════════════════════════════════
    RESPONSIVE
    ═══════════════════════════════════════════ */
 @media (max-width: 768px) {
@@ -676,6 +700,7 @@ html, body {
       <p class="reveal t-caption muted" style="--i:0">这篇笔记就是这样做出来的</p>
       <div class="spacer"></div>
       <div class="reveal screenshot-gallery" style="--i:1">
+        <img class="screenshot-gallery__img" src="xhs_note_data/einclaw-xhs.png" alt="EinClaw 小红书笔记">
         <img class="screenshot-gallery__img" src="xhs_note_data/截屏 2026-03-08 12.06.11 2.png" alt="小红书笔记">
         <img class="screenshot-gallery__img" src="xhs_note_data/IMG_1660.PNG" alt="笔记数据概览">
         <img class="screenshot-gallery__img" src="xhs_note_data/IMG_1661.PNG" alt="流量分析">
@@ -808,11 +833,16 @@ html, body {
         众筹进行中
       </p>
       <div class="spacer"></div>
-      <p class="reveal t-title mt-2" style="--i:3; font-size: clamp(1.5rem, 3.5vw, 2.5rem);">
+      <div class="reveal hardware-gallery" style="--i:3">
+        <img class="hardware-gallery__img" src="product-device.png" alt="EinClaw Mic 深色版">
+        <img class="hardware-gallery__img--lifestyle" src="product-lifestyle.png" alt="EinClaw Mic 佩戴效果">
+        <img class="hardware-gallery__img" src="product-white.png" alt="EinClaw Mic 浅色版">
+      </div>
+      <p class="reveal t-title mt-2" style="--i:4; font-size: clamp(1.5rem, 3.5vw, 2.5rem);">
         每一个想法都值得被留住
       </p>
       <div class="spacer-lg"></div>
-      <div class="reveal contacts" style="--i:4">
+      <div class="reveal contacts" style="--i:5">
         <div class="person">
           <img class="person__avatar" src="arvin-avatar.jpg" alt="Arvin">
           <span class="person__name">Arvin 阿问</span>
