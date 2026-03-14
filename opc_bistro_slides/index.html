@@ -193,50 +193,7 @@ html, body {
 }
 
 /* ═══════════════════════════════════════════
-   HOW-IT-WORKS STEPS
-   ═══════════════════════════════════════════ */
-.steps {
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
-  gap: 2.5rem;
-  margin: 2.5rem 0;
-}
-
-.step {
-  flex: 1;
-  max-width: 260px;
-  text-align: center;
-}
-
-.step__num {
-  width: 3.5rem;
-  height: 3.5rem;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0 auto 1rem;
-  font-family: var(--font-serif);
-  font-size: 1.4rem;
-  background: var(--cream-dark);
-  color: var(--bark);
-}
-
-.step__title {
-  font-weight: 600;
-  font-size: 1.1rem;
-  margin-bottom: 0.5rem;
-}
-
-.step__desc {
-  font-size: 0.95rem;
-  color: var(--bark-light);
-  line-height: 1.5;
-}
-
-/* ═══════════════════════════════════════════
-   TWO COLUMNS (Metaphor Slide)
+   TWO COLUMNS
    ═══════════════════════════════════════════ */
 .two-col {
   display: grid;
@@ -380,38 +337,6 @@ html, body {
   margin-top: 0.4rem;
 }
 
-.screenshot-gallery__img--lg {
-  height: 580px;
-}
-
-/* ═══════════════════════════════════════════
-   CTA LINK
-   ═══════════════════════════════════════════ */
-.cta-link {
-  display: inline-block;
-  padding: 0.9rem 2.5rem;
-  border-radius: 3rem;
-  background: var(--terracotta);
-  color: #fff;
-  text-decoration: none;
-  font-size: 1.1rem;
-  font-weight: 500;
-  letter-spacing: 0.05em;
-  transition: transform 0.3s var(--ease), box-shadow 0.3s ease;
-}
-
-.cta-link:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 30px rgba(232, 99, 74, 0.25);
-}
-
-.cta-url {
-  font-family: var(--font-sans);
-  font-size: clamp(1rem, 2vw, 1.3rem);
-  letter-spacing: 0.08em;
-  opacity: 0.5;
-}
-
 /* ═══════════════════════════════════════════
    DEMO VIDEO
    ═══════════════════════════════════════════ */
@@ -531,15 +456,82 @@ html, body {
 .hint--light { color: rgba(26, 23, 20, 0.2); }
 
 /* ═══════════════════════════════════════════
+   KILLED NUMBER (competitor contrast)
+   ═══════════════════════════════════════════ */
+.killed {
+  text-decoration: line-through;
+  opacity: 0.35;
+}
+
+/* ═══════════════════════════════════════════
+   DUAL CHANNEL VISUAL
+   ═══════════════════════════════════════════ */
+.channel-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  margin: 2rem 0;
+}
+
+.channel-box {
+  padding: 1.5rem 2rem;
+  border-radius: 1rem;
+  background: var(--cream-dark);
+  text-align: center;
+  flex: 0 1 220px;
+}
+
+.channel-box__icon {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.channel-box__title {
+  font-family: var(--font-serif);
+  font-size: 1.3rem;
+  margin-bottom: 0.3rem;
+}
+
+.channel-box__desc {
+  font-size: 0.9rem;
+  color: var(--bark-light);
+}
+
+.channel-arrow {
+  font-size: 1.5rem;
+  color: var(--warm);
+}
+
+.channel-brain {
+  padding: 1.5rem 2rem;
+  border-radius: 1rem;
+  background: var(--terracotta);
+  color: #fff;
+  text-align: center;
+  flex: 0 1 200px;
+}
+
+.channel-brain__icon {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.channel-brain__title {
+  font-family: var(--font-serif);
+  font-size: 1.3rem;
+}
+
+/* ═══════════════════════════════════════════
    RESPONSIVE
    ═══════════════════════════════════════════ */
 @media (max-width: 768px) {
   .slide { padding: 2rem 1.5rem; }
   .two-col { grid-template-columns: 1fr; gap: 1.5rem; }
-  .steps { flex-direction: column; align-items: center; }
   .versus { gap: 1.5rem; }
   .step-chain { gap: 0.3rem; }
   .step-chain__item { padding: 0.4rem 0.8rem; font-size: 0.75rem; }
+  .channel-row { flex-direction: column; gap: 1rem; }
 }
 </style>
 </head>
@@ -548,180 +540,42 @@ html, body {
 <div class="deck">
 
   <!-- ══════════════════════════════════════
-       SLIDE 0 — TITLE
+       SLIDE 1 — THE HOOK (15s)
        ══════════════════════════════════════ -->
   <section class="slide slide--dark active" data-dark>
     <div class="slide__inner">
-      <p class="reveal t-caption muted-cream" style="--i:0">OPC Bistro 分享</p>
+      <p class="reveal t-caption muted-cream" style="--i:0">OPC Bistro</p>
       <div class="spacer"></div>
-      <h1 class="reveal t-hero" style="--i:1">Einclaw Mic</h1>
-      <div class="reveal divider" style="--i:2"></div>
-      <p class="reveal t-subtitle" style="--i:3; letter-spacing: 0.08em;">
-        从想法到结果的高速路
-      </p>
-      <p class="reveal t-body mt-2" style="--i:4; opacity: 0.5;">
-        说话，忘记，看结果。
-      </p>
-    </div>
-  </section>
-
-  <!-- ══════════════════════════════════════
-       SLIDE 1 — HOOK: NOTE APPS
-       ══════════════════════════════════════ -->
-  <section class="slide slide--light">
-    <div class="slide__inner">
-      <p class="reveal t-caption muted" style="--i:0">先聊个问题</p>
-      <div class="spacer-lg"></div>
       <h2 class="reveal t-title" style="--i:1">
-        你手机里有<span class="accent">几个</span>笔记 APP？
+        从大脑到 AI
       </h2>
-      <div class="spacer"></div>
-      <p class="reveal t-subtitle muted" style="--i:2">
-        每一个，都是你对「记录」这件事的一次妥协
-      </p>
-    </div>
-  </section>
-
-  <!-- ══════════════════════════════════════
-       SLIDE 2 — HOOK: LOST IDEAS
-       ══════════════════════════════════════ -->
-  <section class="slide slide--light">
-    <div class="slide__inner">
-      <p class="reveal t-caption muted" style="--i:0">再想想</p>
-      <div class="spacer-lg"></div>
-      <h2 class="reveal t-title" style="--i:1">
-        走在路上、洗澡、快睡着的时候<br>
-        你丢掉过<span class="accent">多少个</span>好想法？
-      </h2>
-      <div class="spacer"></div>
-      <p class="reveal t-subtitle muted" style="--i:2">
-        不是你没灵感，是灵感来的时候你没地方放
-      </p>
-    </div>
-  </section>
-
-  <!-- ══════════════════════════════════════
-       SLIDE 3 — HOOK: OPENCLAW FRICTION
-       ══════════════════════════════════════ -->
-  <section class="slide slide--light">
-    <div class="slide__inner">
-      <p class="reveal t-caption muted" style="--i:0">最后一个问题</p>
-      <div class="spacer-lg"></div>
-      <h2 class="reveal t-title" style="--i:1">
-        你上一次<span class="accent">顺畅地</span>让 OpenClaw<br>做一件事，花了<span class="accent">几步</span>？
-      </h2>
-    </div>
-  </section>
-
-  <!-- ══════════════════════════════════════
-       SLIDE 4 — THE GAP
-       ══════════════════════════════════════ -->
-  <section class="slide slide--light">
-    <div class="slide__inner">
-      <h2 class="reveal t-title" style="--i:0">
-        OpenClaw 让每一个想法<br><span class="accent">零成本验证、零成本执行</span>
-      </h2>
-      <div class="reveal divider" style="--i:1"></div>
-      <h2 class="reveal t-title" style="--i:2">
-        但<span class="accent">捕捉</span>呢？
-      </h2>
-    </div>
-  </section>
-
-  <!-- ══════════════════════════════════════
-       SLIDE 5 — MARKET SOLUTIONS
-       ══════════════════════════════════════ -->
-  <section class="slide slide--light">
-    <div class="slide__inner">
-      <p class="reveal t-caption muted" style="--i:0">看看现有方案</p>
-      <div class="spacer-lg"></div>
-      <h2 class="reveal t-title" style="--i:1">它们有一个共同的问题</h2>
-      <div class="reveal tags" style="--i:2">
-        <span class="tag">机器人</span>
-        <span class="tag">带屏开发板</span>
-        <span class="tag">手机 APP</span>
-      </div>
-      <p class="reveal t-subtitle" style="--i:3">
-        都要求你<span class="accent">立刻、当下</span>看到结果
-      </p>
-    </div>
-  </section>
-
-  <!-- ══════════════════════════════════════
-       SLIDE 6 — GTD INBOX
-       ══════════════════════════════════════ -->
-  <section class="slide slide--light">
-    <div class="slide__inner">
-      <p class="reveal t-caption muted" style="--i:0">一个思路</p>
-      <div class="spacer-lg"></div>
-      <h2 class="reveal t-title" style="--i:1">
-        <span class="accent">先收集，再处理</span>
-      </h2>
-      <div class="spacer"></div>
-      <p class="reveal t-subtitle muted" style="--i:2">
-        GTD 里的 inbox 概念 —— 先把想法记录下来<br>之后再处理，不需要立刻执行
-      </p>
-    </div>
-  </section>
-
-  <!-- ══════════════════════════════════════
-       SLIDE 7 — DJI MIC 3 DISCOVERY
-       ══════════════════════════════════════ -->
-  <section class="slide slide--light">
-    <div class="slide__inner">
-      <p class="reveal t-caption muted" style="--i:0">我的一个发现</p>
-      <div class="spacer"></div>
-      <h2 class="reveal t-title" style="--i:1">大疆麦克风的启发</h2>
       <div class="spacer"></div>
       <div class="reveal versus" style="--i:2">
         <div class="versus__side">
-          <div class="versus__num accent">&yen;2,000</div>
-          <p class="versus__label">DJI Mic 3</p>
+          <div class="versus__num" style="color: rgba(245,240,234,0.35);">7 步</div>
+          <p class="versus__label" style="color: rgba(245,240,234,0.3);">45 秒</p>
         </div>
-        <span class="versus__vs">vs</span>
+        <span class="versus__vs">&rarr;</span>
         <div class="versus__side">
-          <div class="versus__num">&yen;200</div>
-          <p class="versus__label">DJI Mic Mini</p>
+          <div class="versus__num accent">1 步</div>
+          <p class="versus__label" style="color: var(--terracotta); opacity: 0.7;">5 秒</p>
         </div>
       </div>
-      <p class="reveal t-subtitle mt-3" style="--i:3">
-        差价 10 倍 = <span class="accent">32GB 独立存储</span>
-      </p>
-      <p class="reveal t-body muted mt-3" style="--i:4; font-style: italic;">
-        朋友买了便宜款，一下午的音频全丢了 —— 以为连上了，其实没有。
+      <div class="spacer"></div>
+      <p class="reveal t-subtitle muted-cream" style="--i:3; opacity: 0.5;">
+        我们做了一个东西，把这件事变成了现实。
       </p>
     </div>
   </section>
 
   <!-- ══════════════════════════════════════
-       SLIDE 8 — INDEPENDENT DEVICE
+       SLIDE 2 — THE PROBLEM (20s)
        ══════════════════════════════════════ -->
   <section class="slide slide--light">
     <div class="slide__inner">
-      <p class="reveal t-caption muted" style="--i:0">关键体验</p>
-      <div class="spacer-lg"></div>
-      <h2 class="reveal t-title" style="--i:0">
-        独立于手机，独立于任何设备
-      </h2>
+      <p class="reveal t-caption muted" style="--i:0">每天都在发生的事</p>
       <div class="spacer"></div>
-      <p class="reveal t-subtitle muted" style="--i:1">
-        按下录音，看到红灯，你就安心了
-      </p>
-      <div class="spacer"></div>
-      <p class="reveal t-body muted" style="--i:2">
-        体积小巧，磁吸式设计 —— 放在任何地方随手就能用
-      </p>
-    </div>
-  </section>
-
-  <!-- ══════════════════════════════════════
-       SLIDE 9 — FRICTION: THE 7 STEPS
-       ══════════════════════════════════════ -->
-  <section class="slide slide--light">
-    <div class="slide__inner">
-      <p class="reveal t-caption muted" style="--i:0">但问题来了</p>
-      <div class="spacer"></div>
-      <h2 class="reveal t-title" style="--i:1">从念头到 OpenClaw</h2>
+      <h2 class="reveal t-title" style="--i:1">从「我有个想法」到「AI 开始干活」</h2>
       <div class="reveal step-chain" style="--i:2">
         <span class="step-chain__item">掏手机</span>
         <span class="step-chain__arrow">&rarr;</span>
@@ -729,7 +583,7 @@ html, body {
         <span class="step-chain__arrow">&rarr;</span>
         <span class="step-chain__item">找 APP</span>
         <span class="step-chain__arrow">&rarr;</span>
-        <span class="step-chain__item">打开备忘录</span>
+        <span class="step-chain__item">打开</span>
         <span class="step-chain__arrow">&rarr;</span>
         <span class="step-chain__item">语音输入</span>
         <span class="step-chain__arrow">&rarr;</span>
@@ -746,172 +600,87 @@ html, body {
   </section>
 
   <!-- ══════════════════════════════════════
-       SLIDE 10 — Einclaw: WHAT I BUILT
+       SLIDE 3 — DJI MIC INSIGHT (15s)
        ══════════════════════════════════════ -->
   <section class="slide slide--light">
     <div class="slide__inner">
-      <p class="reveal t-caption muted" style="--i:0">所以我们打算做个东西</p>
+      <p class="reveal t-caption muted" style="--i:0">一个启发</p>
       <div class="spacer"></div>
-      <h1 class="reveal t-title" style="--i:1; font-size: clamp(3rem, 7vw, 5.5rem); letter-spacing: 0.08em;">
-        Einclaw
-      </h1>
-      <p class="reveal t-subtitle mt-2 muted" style="--i:2">
-        Ein &times; Claw &mdash; 一个语音对讲机，直连你的 OpenClaw
-      </p>
-      <div class="reveal divider" style="--i:3"></div>
-      <p class="reveal t-subtitle" style="--i:4">
-        你只管说，剩下的交给 Claw
-      </p>
-    </div>
-  </section>
-
-  <!-- ══════════════════════════════════════
-       SLIDE 11 — HOW IT WORKS
-       ══════════════════════════════════════ -->
-  <section class="slide slide--light">
-    <div class="slide__inner">
-      <p class="reveal t-caption muted" style="--i:0">具体怎么用</p>
-      <div class="spacer"></div>
-      <h2 class="reveal t-title" style="--i:1">两步，从念头到执行</h2>
-      <div class="reveal steps" style="--i:2">
-        <div class="step">
-          <div class="step__num">1</div>
-          <div class="step__title">按下，说话</div>
-          <div class="step__desc">按下 EinClaw 按钮<br>说出你的想法或指令</div>
+      <h2 class="reveal t-title" style="--i:1">大疆麦克风的教训</h2>
+      <div class="reveal versus" style="--i:2">
+        <div class="versus__side">
+          <div class="versus__num accent">&yen;2,000</div>
+          <p class="versus__label">DJI Mic 3<br><span style="font-size: 0.75rem;">32GB 独立存储</span></p>
         </div>
-        <div class="step">
-          <div class="step__num">2</div>
-          <div class="step__title">自动执行</div>
-          <div class="step__desc">EinClaw 直连 OpenClaw 服务器<br>根据关键词自动分发工作流</div>
+        <span class="versus__vs">vs</span>
+        <div class="versus__side">
+          <div class="versus__num">&yen;200</div>
+          <p class="versus__label">DJI Mic Mini<br><span style="font-size: 0.75rem;">无存储</span></p>
         </div>
       </div>
+      <div class="spacer"></div>
+      <p class="reveal t-body muted" style="--i:3; font-style: italic;">
+        朋友买了便宜款，一下午的音频全丢了 &mdash; 以为连上了，其实没有。
+      </p>
+      <div class="spacer"></div>
+      <p class="reveal t-subtitle" style="--i:4">
+        设备必须<span class="accent">独立于手机</span>，按下录音，看到红灯，你就安心了。
+      </p>
     </div>
   </section>
 
   <!-- ══════════════════════════════════════
-       SLIDE 12 — DEMO USE CASE
+       SLIDE 4 — THE METAPHOR: 言出法随 (15s)
        ══════════════════════════════════════ -->
   <section class="slide slide--light">
     <div class="slide__inner">
-      <p class="reveal t-caption muted" style="--i:0">举个真实的例子</p>
+      <div class="spacer-lg"></div>
+      <h1 class="reveal t-title" style="--i:0; font-size: clamp(3rem, 7vw, 5.5rem); letter-spacing: 0.08em;">
+        <span class="accent">言出法随</span>
+      </h1>
+      <div class="reveal divider" style="--i:1"></div>
+      <p class="reveal t-subtitle" style="--i:2">
+        一部对讲机，另一头接的是你的 AI agent
+      </p>
+      <div class="spacer"></div>
+      <p class="reveal t-body muted" style="--i:3">
+        按下按钮，说话，松手走人。
+      </p>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════
+       SLIDE 4 — LIVE DEMO (45s)
+       真实演示场景
+       ══════════════════════════════════════ -->
+  <section class="slide slide--light">
+    <div class="slide__inner">
+      <p class="reveal t-caption accent" style="--i:0">实际演示</p>
       <div class="spacer"></div>
       <h2 class="reveal t-title" style="--i:1">走在路上，按下 EinClaw</h2>
       <div class="reveal quote-block" style="--i:2">
-        「选题记录：Einclaw Mic 能捕捉大家生活中每天都在丢失的，非常宝贵的 context」
+        「选题记录：EinClaw Mic 能捕捉大家生活中每天都在丢失的，非常宝贵的 context」
       </div>
       <p class="reveal t-subtitle" style="--i:3">
         松手，继续走路<br>
-        OpenClaw 已经自动归档到你的<span class="accent">选题数据库</span>里了
-      </p>
-      <div class="spacer"></div>
-      <p class="reveal t-body muted" style="--i:4; font-style: italic;">
-        这不是畅想，这是我上周二的下午。
+        OpenClaw 已经自动归档到<span class="accent">选题数据库</span>里了
       </p>
     </div>
   </section>
 
   <!-- ══════════════════════════════════════
-       SLIDE 13 — WHAT CHANGED
+       SLIDE 5 — DEMO: SCREENSHOTS (XHS data)
        ══════════════════════════════════════ -->
   <section class="slide slide--light">
     <div class="slide__inner">
-      <p class="reveal t-caption muted" style="--i:0">用下来最大的感受</p>
-      <div class="spacer-lg"></div>
-      <h2 class="reveal t-title" style="--i:1">
-        以前：想到 &rarr; 记住 &rarr; 找时间 &rarr; 打开工具 &rarr; 操作
-      </h2>
+      <p class="reveal t-caption muted" style="--i:0">这篇笔记就是这样做出来的</p>
       <div class="spacer"></div>
-      <h2 class="reveal t-title" style="--i:2">
-        现在：想到 &rarr; <span class="accent">说出来</span>。没了。
-      </h2>
-      <div class="spacer"></div>
-      <p class="reveal t-subtitle muted" style="--i:3">
-        我愿称之为 literally 的<span class="accent">言出法随</span>
-      </p>
-    </div>
-  </section>
-
-  <!-- ══════════════════════════════════════
-       SLIDE 14 — TWO METAPHORS
-       ══════════════════════════════════════ -->
-  <section class="slide slide--light">
-    <div class="slide__inner">
-      <p class="reveal t-caption muted" style="--i:0">换个角度理解</p>
-      <div class="spacer"></div>
-      <h2 class="reveal t-title" style="--i:1">你不需要知道后端发生了什么</h2>
-      <div class="reveal two-col" style="--i:2">
-        <div class="col-card">
-          <div class="col-card__label">场景 A &mdash; 会议室</div>
-          <p class="col-card__text">
-            你是决策者。告诉助理去做。<br>
-            <span class="accent">你不关心怎么做，只看结果。</span>
-          </p>
-        </div>
-        <div class="col-card">
-          <div class="col-card__label">场景 B &mdash; 战场</div>
-          <p class="col-card__text">
-            拿起对讲机，给坐标，呼叫空中支援。<br>
-            <span class="accent">你只给指令，后端调度一切。</span>
-          </p>
-        </div>
-      </div>
-      <p class="reveal t-subtitle" style="--i:3">
-        你只需要 <span class="accent">verify</span> 结果
-      </p>
-    </div>
-  </section>
-
-
-  <!-- ══════════════════════════════════════
-       SLIDE 15 — LIVE DEMO OUTLINE
-       ══════════════════════════════════════ -->
-  <section class="slide slide--light">
-    <div class="slide__inner">
-      <p class="reveal t-caption accent" style="--i:0">接下来看个视频</p>
-      <div class="spacer"></div>
-      <h2 class="reveal t-title" style="--i:1">实际演示</h2>
-      <div class="spacer"></div>
-      <div class="reveal two-col" style="--i:2">
-        <div class="col-card">
-          <div class="col-card__label">场景一 &mdash; 内容创作</div>
-          <p class="col-card__text">
-            <span class="accent">a. 选题捕捉</span><br>
-            走在路上，按下 EinClaw，记录选题灵感<br><br>
-            <span class="accent">b. 选题深化</span><br>
-            进一步细化，自动生成一篇小红书笔记
-          </p>
-        </div>
-        <div class="col-card">
-          <div class="col-card__label">场景二 &mdash; 自动化流程</div>
-          <p class="col-card__text">
-            <span class="accent">a. 自动化开发</span><br>
-            说一句话，让 OpenClaw 开发一个 iOS App<br><br>
-            <span class="accent">b. 自动化测试</span><br>
-            说一句话，触发自动测试流程
-          </p>
-        </div>
-      </div>
-      <div class="spacer"></div>
-      <p class="reveal t-subtitle muted" style="--i:3">
-        全程直连 OpenClaw &mdash; 这也是我们最想做这个硬件的冲动来源
-      </p>
-    </div>
-  </section>
-
-  <!-- ══════════════════════════════════════
-       SLIDE — XHS NOTE DATA
-       ══════════════════════════════════════ -->
-  <section class="slide slide--light">
-    <div class="slide__inner">
-      <p class="reveal t-caption muted" style="--i:0">真实数据</p>
-      <div class="spacer"></div>
-      <h2 class="reveal t-title" style="--i:1">这篇笔记就是这样做出来的</h2>
-      <div class="reveal screenshot-gallery" style="--i:2">
+      <div class="reveal screenshot-gallery" style="--i:1">
         <img class="screenshot-gallery__img" src="xhs_note_data/截屏 2026-03-08 12.06.11 2.png" alt="小红书笔记">
         <img class="screenshot-gallery__img" src="xhs_note_data/IMG_1660.PNG" alt="笔记数据概览">
         <img class="screenshot-gallery__img" src="xhs_note_data/IMG_1661.PNG" alt="流量分析">
       </div>
-      <div class="reveal metrics-row" style="--i:3">
+      <div class="reveal metrics-row" style="--i:2">
         <div class="metric">
           <div class="metric__value">53w+</div>
           <div class="metric__label">曝光数</div>
@@ -932,271 +701,117 @@ html, body {
     </div>
   </section>
 
-
   <!-- ══════════════════════════════════════
-       SLIDE 16 — TRANSITION: SOFTWARE VISION
+       SLIDE 6 — HOW IT WORKS (15s)
        ══════════════════════════════════════ -->
-  <section class="slide slide--dark" data-dark>
+  <section class="slide slide--light">
     <div class="slide__inner">
-      <p class="reveal t-caption muted-cream" style="--i:0">第二部分</p>
+      <p class="reveal t-caption muted" style="--i:0">怎么做到的</p>
       <div class="spacer"></div>
-      <h2 class="reveal t-title" style="--i:1">
-        我们的「被迫」养虾心路历程
-      </h2>
+      <h2 class="reveal t-title" style="--i:1">先收集，再处理</h2>
+      <div class="spacer"></div>
+      <div class="reveal channel-row" style="--i:2">
+        <div class="channel-box">
+          <div class="channel-box__icon">📸</div>
+          <div class="channel-box__title">Einko</div>
+          <div class="channel-box__desc">截图 &rarr; 忘掉它<br>AI 帮你记</div>
+        </div>
+        <span class="channel-arrow">&rarr;</span>
+        <div class="channel-box">
+          <div class="channel-box__icon">🎙</div>
+          <div class="channel-box__title">EinClaw</div>
+          <div class="channel-box__desc">说话 &rarr; 忘掉它<br>AI 帮你做</div>
+        </div>
+        <span class="channel-arrow">&rarr;</span>
+        <div class="channel-brain">
+          <div class="channel-brain__icon">🧠</div>
+          <div class="channel-brain__title">OpenClaw</div>
+        </div>
+      </div>
+      <div class="spacer"></div>
+      <p class="reveal t-body muted" style="--i:3; font-style: italic;">
+        两个通道汇入同一个 AI 大脑。你只管输入，不用管过程。
+      </p>
     </div>
   </section>
 
   <!-- ══════════════════════════════════════
-       SLIDE 18 — ORIGIN: EINKO
+       SLIDE 7 — WHY WE WIN: THE CONTRAST (15s)
        ══════════════════════════════════════ -->
   <section class="slide slide--light">
     <div class="slide__inner">
-      <p class="reveal t-caption muted" style="--i:0">我们的起点</p>
-      <div class="spacer-lg"></div>
-      <h2 class="reveal t-title" style="--i:1">
-        我们先做了 <span class="accent">Einko</span>
-      </h2>
+      <p class="reveal t-caption muted" style="--i:0">为什么我们能赢</p>
+      <div class="spacer"></div>
+      <div class="reveal versus" style="--i:1">
+        <div class="versus__side">
+          <div class="versus__num killed">$699</div>
+          <p class="versus__label">Humane AI Pin<br><span style="font-size: 0.75rem; color: var(--terracotta);">已召回</span></p>
+        </div>
+        <span class="versus__vs">vs</span>
+        <div class="versus__side">
+          <div class="versus__num killed">$199</div>
+          <p class="versus__label">Rabbit R1<br><span style="font-size: 0.75rem; color: var(--terracotta);">使用量下滑</span></p>
+        </div>
+        <span class="versus__vs">vs</span>
+        <div class="versus__side">
+          <div class="versus__num accent">$49</div>
+          <p class="versus__label">EinClaw Mic<br><span style="font-size: 0.75rem;">BOM $12</span></p>
+        </div>
+      </div>
       <div class="spacer"></div>
       <p class="reveal t-subtitle" style="--i:2">
-        截图智能助手 &mdash; 截图自动变日历、笔记、书签
-      </p>
-      <div class="spacer"></div>
-      <p class="reveal t-body muted" style="--i:3">
-        类似 ColorOS「小布记忆」
+        产品越简单，<span class="accent">越不容易死</span>。
       </p>
     </div>
   </section>
 
   <!-- ══════════════════════════════════════
-       SLIDE — EINKO DEMO VIDEO
-       ══════════════════════════════════════ -->
-  <section class="slide slide--dark" data-dark>
-    <div class="slide__inner">
-      <video class="reveal demo-video" style="--i:0" src="demo.mp4" controls playsinline></video>
-    </div>
-  </section>
-
-  <!-- ══════════════════════════════════════
-       SLIDE 18.5 — SCREENSHOT INSIGHT
+       SLIDE 8 — TRACTION (15s)
        ══════════════════════════════════════ -->
   <section class="slide slide--light">
     <div class="slide__inner">
-      <div class="spacer-lg"></div>
-      <h2 class="reveal t-subtitle" style="--i:0">
-        截图这个交互<span class="accent">还行</span>
-      </h2>
+      <p class="reveal t-caption muted" style="--i:0">目前的进展</p>
       <div class="spacer"></div>
-      <p class="reveal t-title" style="--i:1">
-        但能做的场景<span class="accent">太多了</span>
-      </p>
-    </div>
-  </section>
-
-  <!-- ══════════════════════════════════════
-       SLIDE 19 — EINKO CHALLENGES
-       ══════════════════════════════════════ -->
-  <section class="slide slide--light">
-    <div class="slide__inner">
-      <div class="spacer-lg"></div>
-      <p class="reveal t-subtitle muted" style="--i:1">
-        我们想加的场景越多，就越像一个<span class="accent">通用处理引擎</span>
-      </p>
-      <div class="spacer"></div>
-      <h2 class="reveal t-title" style="--i:2">
-        哪有精力去做<span class="accent">通用处理引擎</span>
-      </h2>
-    </div>
-  </section>
-
-  <!-- ══════════════════════════════════════
-       SLIDE 21 — OPENCLAW EMERGENCE
-       ══════════════════════════════════════ -->
-  <section class="slide slide--dark" data-dark>
-    <div class="slide__inner">
-      <p class="reveal t-caption muted-cream" style="--i:0">然后 OpenClaw 出现了</p>
-      <div class="spacer-lg"></div>
-      <h2 class="reveal t-title" style="--i:1">
-        可算等到 Openclaw 了 <br>
-        给所有人<span class="accent">通用执行引擎</span>
-      </h2>
-      <div class="spacer"></div>
-    </div>
-  </section>
-
-  <!-- ══════════════════════════════════════
-       SLIDE 22 — THREE KEY FEATURES
-       ══════════════════════════════════════ -->
-  <section class="slide slide--light">
-    <div class="slide__inner">
-      <p class="reveal t-caption muted" style="--i:0">为什么 OpenClaw 适合应用开发者</p>
-      <div class="spacer-lg"></div>
-      <h2 class="reveal t-title" style="--i:1">
-        <span class="accent">按 Token 量付费</span> 成为默认设置
-      </h2>
-    </div>
-  </section>
-
-  <section class="slide slide--light">
-    <div class="slide__inner">
-      <p class="reveal t-caption muted" style="--i:0">为什么 OpenClaw 适合应用开发者</p>
-      <div class="spacer-lg"></div>
-      <h2 class="reveal t-title" style="--i:1">
-        开发者有机会访问用户<span class="accent">自然积累的上下文</span>
-      </h2>
-    </div>
-  </section>
-
-  <!-- ══════════════════════════════════════
-       SLIDE 23 — THREE MISSIONS
-       ══════════════════════════════════════ -->
-  <section class="slide slide--light">
-    <div class="slide__inner">
-      <p class="reveal t-subtitle muted" style="--i:0">所以我们想通了，我们要做的就三件事</p>
-      <div class="spacer-lg"></div>
-      <div class="reveal" style="--i:1; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1.5rem; text-align: left;">
-        <div class="col-card" style="padding: 2rem 1.5rem;">
-          <div class="col-card__label">一</div>
-          <p class="col-card__text" style="font-size: clamp(1rem, 1.8vw, 1.2rem);">
-            降低用户和 Agent 之间的<span class="accent">交互成本</span>
-          </p>
+      <div class="reveal metrics-row" style="--i:1">
+        <div class="metric">
+          <div class="metric__value">600+</div>
+          <div class="metric__label">Einko 用户</div>
         </div>
-        <div class="col-card" style="padding: 2rem 1.5rem;">
-          <div class="col-card__label">二</div>
-          <p class="col-card__text" style="font-size: clamp(1rem, 1.8vw, 1.2rem);">
-            开发各种高价值的<span class="accent">小龙虾 Skills</span>
-          </p>
+        <div class="metric">
+          <div class="metric__value">10</div>
+          <div class="metric__label">自然付费用户</div>
         </div>
-        <div class="col-card" style="padding: 2rem 1.5rem;">
-          <div class="col-card__label">三</div>
-          <p class="col-card__text" style="font-size: clamp(1rem, 1.8vw, 1.2rem);">
-            为用户自然积累的数据<span class="accent">推荐</span>最合适的 Skills<br>
-            &mdash; 我们叫它<span class="accent">动机引擎</span>
-          </p>
+        <div class="metric">
+          <div class="metric__value">35w</div>
+          <div class="metric__label">曝光量</div>
         </div>
       </div>
-    </div>
-  </section>
-
-  <!-- ══════════════════════════════════════
-       SLIDE — DEMO: LINEAR & PR
-       ══════════════════════════════════════ -->
-  <section class="slide slide--dark" data-dark>
-    <div class="slide__inner">
-      <p class="reveal t-caption muted-cream" style="--i:0">演示</p>
-      <div class="spacer-lg"></div>
-      <h2 class="reveal t-title" style="--i:1">
-        <span class="accent">Linear</span> &times; 软件开发 <span class="accent">PR</span>
-      </h2>
       <div class="spacer"></div>
-      <p class="reveal t-subtitle muted-cream" style="--i:2; opacity: 0.6;">
-        发消息 &rarr; 意图识别 &rarr; 自动创建 Issue &rarr; 自动提交 PR
+      <p class="reveal t-subtitle" style="--i:2">
+        零广告、零市场预算
+      </p>
+      <div class="spacer"></div>
+      <p class="reveal t-body muted" style="--i:3; font-style: italic;">
+        硬件获客，订阅变现。对讲机离开云服务就是一块砖 &mdash; 天然的订阅锁定。
       </p>
     </div>
   </section>
 
   <!-- ══════════════════════════════════════
-       SLIDE — LINEAR SCREENSHOT
-       ══════════════════════════════════════ -->
-  <section class="slide slide--dark" data-dark>
-    <div class="slide__inner">
-      <p class="reveal t-caption muted-cream" style="--i:0">发消息 &rarr; Linear 记录</p>
-      <div class="spacer"></div>
-      <img class="reveal demo-video" style="--i:1" src="linear.png" alt="Linear demo">
-    </div>
-  </section>
-
-  <!-- ══════════════════════════════════════
-       SLIDE — GITHUB SCREENSHOT
-       ══════════════════════════════════════ -->
-  <section class="slide slide--dark" data-dark>
-    <div class="slide__inner">
-      <p class="reveal t-caption muted-cream" style="--i:0">Codex / Claude Code 执行 &rarr; 提交 PR</p>
-      <div class="spacer"></div>
-      <img class="reveal demo-video" style="--i:1" src="github.png" alt="GitHub demo">
-    </div>
-  </section>
-
-  <!-- ══════════════════════════════════════
-       SLIDE — TELEGRAM SCREENSHOT
-       ══════════════════════════════════════ -->
-  <section class="slide slide--dark" data-dark>
-    <div class="slide__inner">
-      <p class="reveal t-caption muted-cream" style="--i:0">自动验证 &rarr; 完成</p>
-      <div class="spacer"></div>
-      <img class="reveal demo-video" style="--i:1" src="telegram.png" alt="Telegram demo">
-    </div>
-  </section>
-
-  <!-- ══════════════════════════════════════
-       SLIDE — LINTENHUB 1
-       ══════════════════════════════════════ -->
-  <section class="slide slide--dark" data-dark>
-    <div class="slide__inner">
-      <p class="reveal t-caption muted-cream" style="--i:0">自动识别意图</p>
-      <div class="spacer"></div>
-      <img class="reveal demo-video" style="--i:1" src="listenhub1.png" alt="ListenHub 意图识别">
-    </div>
-  </section>
-
-  <!-- ══════════════════════════════════════
-       SLIDE — LINTENHUB 2
-       ══════════════════════════════════════ -->
-  <section class="slide slide--dark" data-dark>
-    <div class="slide__inner">
-      <p class="reveal t-caption muted-cream" style="--i:0">安装 Skills</p>
-      <div class="spacer"></div>
-      <img class="reveal demo-video" style="--i:1" src="listenhub2.png" alt="ListenHub 安装 Skills">
-    </div>
-  </section>
-
-  <!-- ══════════════════════════════════════
-       SLIDE — SOFTWARE ENTITY
-       ══════════════════════════════════════ -->
-  <section class="slide slide--light">
-    <div class="slide__inner">
-      <p class="reveal t-caption muted" style="--i:0">一个类比</p>
-      <div class="spacer-lg"></div>
-      <h2 class="reveal t-title" style="--i:1">
-        OpenClaw 是特德&middot;姜笔下的<span class="accent">软件体</span>
-      </h2>
-      <div class="spacer"></div>
-      <div class="reveal tags" style="--i:2">
-        <span class="tag">自主</span>
-        <span class="tag">进化</span>
-        <span class="tag">学习</span>
-        <span class="tag">社交</span>
-        <span class="tag">陪伴</span>
-      </div>
-      <div class="spacer"></div>
-      <p class="reveal t-subtitle muted" style="--i:3">
-        未来每个人都会有一个，就像智能手机一样
-      </p>
-    </div>
-  </section>
-
-  <!-- ══════════════════════════════════════
-       SLIDE — RAISING LOBSTERS
-       ══════════════════════════════════════ -->
-  <section class="slide slide--light">
-    <div class="slide__inner">
-      <div class="spacer-lg"></div>
-      <h2 class="reveal t-title" style="--i:0">
-        养育小龙虾的过程<br>本身就是一种<span class="accent">体验</span>
-      </h2>
-    </div>
-  </section>
-
-  <!-- ══════════════════════════════════════
-       SLIDE 32 — END
+       SLIDE 9 — CLOSE (10s)
        ══════════════════════════════════════ -->
   <section class="slide slide--dark" data-dark>
     <div class="slide__inner">
       <h1 class="reveal t-hero" style="--i:0">einclaw.cn</h1>
       <div class="reveal divider" style="--i:1"></div>
-      <p class="reveal t-subtitle" style="--i:2;">
-        众筹进行中，求个支持！
+      <p class="reveal t-subtitle" style="--i:2">
+        众筹进行中
       </p>
       <div class="spacer"></div>
+      <p class="reveal t-title mt-2" style="--i:3; font-size: clamp(1.5rem, 3.5vw, 2.5rem);">
+        每一个想法都值得被留住
+      </p>
+      <div class="spacer-lg"></div>
       <div class="reveal contacts" style="--i:4">
         <div class="person">
           <img class="person__avatar" src="arvin-avatar.jpg" alt="Arvin">
