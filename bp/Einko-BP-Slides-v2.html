@@ -1,0 +1,1907 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Einko - 商业计划书</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500&family=Noto+Serif+SC:wght@400;500;600;700;900&family=Source+Sans+3:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap');
+
+  :root {
+    /* Warm cream palette */
+    --bg-cream: #FFFBF0;
+    --bg-cream-deep: #FFF8E7;
+    --bg-cream-accent: #FEF3C7;
+    --bg-white: #FFFFFF;
+    --bg-warm-light: #FEFCF6;
+
+    /* Accent colors */
+    --amber: #D97706;
+    --amber-deep: #B45309;
+    --amber-light: #F59E0B;
+    --amber-glow: rgba(217, 119, 6, 0.08);
+    --amber-glow-strong: rgba(217, 119, 6, 0.15);
+    --terracotta: #C2410C;
+    --terracotta-light: #EA580C;
+    --terracotta-glow: rgba(194, 65, 12, 0.08);
+
+    /* Text */
+    --text-primary: #1C1917;
+    --text-secondary: #57534E;
+    --text-muted: #78716C;
+    --text-light: #A8A29E;
+
+    /* Greens */
+    --sage: #65A30D;
+    --sage-deep: #4D7C0F;
+    --sage-glow: rgba(101, 163, 13, 0.10);
+
+    /* Borders & shadows */
+    --border: #E7E5E4;
+    --border-light: #F5F5F4;
+    --shadow-soft: 0 2px 16px rgba(28, 25, 23, 0.04);
+    --shadow-card: 0 1px 8px rgba(28, 25, 23, 0.06);
+    --shadow-elevated: 0 4px 24px rgba(28, 25, 23, 0.08);
+
+    /* Gradients */
+    --gradient-warm: linear-gradient(180deg, #FFFBF0 0%, #FFF8E7 100%);
+    --gradient-cream: linear-gradient(135deg, #FFFBF0 0%, #FEF3C7 100%);
+    --gradient-amber: linear-gradient(135deg, #D97706, #F59E0B);
+    --gradient-sage: linear-gradient(135deg, #65A30D, #84CC16);
+    --gradient-terracotta: linear-gradient(135deg, #C2410C, #EA580C);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  @page {
+    size: landscape;
+    margin: 0;
+  }
+
+  body {
+    font-family: 'Source Sans 3', 'Noto Serif SC', -apple-system, sans-serif;
+    background: var(--bg-cream);
+    color: var(--text-primary);
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+    width: 100%;
+  }
+
+  .slide {
+    width: 100%;
+    height: 100vh;
+    padding: 56px 72px;
+    position: relative;
+    overflow: hidden;
+    page-break-after: always;
+    page-break-inside: avoid;
+    background: var(--gradient-warm);
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Subtle warm texture overlay */
+  .slide::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(ellipse at 80% 20%, rgba(254, 243, 199, 0.4) 0%, transparent 50%);
+    pointer-events: none;
+  }
+
+  /* Page number */
+  .slide-number {
+    position: absolute;
+    bottom: 28px;
+    right: 48px;
+    font-family: 'Playfair Display', serif;
+    font-size: 13px;
+    color: var(--text-light);
+    font-weight: 400;
+    letter-spacing: 1px;
+    font-style: italic;
+  }
+
+  /* Brand watermark */
+  .brand {
+    position: absolute;
+    bottom: 28px;
+    left: 48px;
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 11px;
+    color: var(--text-light);
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+  }
+
+  /* Thin decorative line at bottom */
+  .slide-line {
+    position: absolute;
+    bottom: 52px;
+    left: 48px;
+    right: 48px;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* Typography */
+  h1 {
+    font-family: 'Playfair Display', 'Noto Serif SC', serif;
+    font-size: 44px;
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.5px;
+    color: var(--text-primary);
+    margin-bottom: 12px;
+  }
+
+  h2 {
+    font-family: 'Playfair Display', 'Noto Serif SC', serif;
+    font-size: 32px;
+    font-weight: 600;
+    line-height: 1.25;
+    letter-spacing: -0.3px;
+    color: var(--text-primary);
+    margin-bottom: 10px;
+  }
+
+  h3 {
+    font-family: 'Source Sans 3', 'Noto Serif SC', sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 1.3;
+    color: var(--text-primary);
+    margin-bottom: 8px;
+  }
+
+  .subtitle {
+    font-size: 17px;
+    color: var(--text-secondary);
+    font-weight: 400;
+    line-height: 1.6;
+    max-width: 680px;
+  }
+
+  .label {
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--amber);
+    margin-bottom: 10px;
+  }
+
+  .highlight {
+    color: var(--amber-deep);
+    font-weight: 600;
+  }
+
+  .highlight-green {
+    color: var(--sage-deep);
+    font-weight: 600;
+  }
+
+  /* Layout helpers */
+  .flex { display: flex; }
+  .flex-1 { flex: 1; }
+  .gap-12 { gap: 12px; }
+  .gap-16 { gap: 16px; }
+  .gap-20 { gap: 20px; }
+  .gap-24 { gap: 24px; }
+  .gap-28 { gap: 28px; }
+  .gap-32 { gap: 32px; }
+  .gap-40 { gap: 40px; }
+  .items-center { align-items: center; }
+  .justify-center { justify-content: center; }
+  .content-area { flex: 1; display: flex; flex-direction: column; }
+
+  /* Cards */
+  .card {
+    background: var(--bg-white);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 24px;
+    box-shadow: var(--shadow-soft);
+  }
+
+  .card-sm {
+    background: var(--bg-white);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px 18px;
+    box-shadow: var(--shadow-card);
+  }
+
+  .card-amber {
+    border-color: rgba(217, 119, 6, 0.25);
+    background: linear-gradient(135deg, rgba(254, 243, 199, 0.5), rgba(255, 251, 240, 0.8));
+  }
+
+  .card-sage {
+    border-color: rgba(101, 163, 13, 0.25);
+    background: linear-gradient(135deg, rgba(101, 163, 13, 0.05), rgba(132, 204, 22, 0.03));
+  }
+
+  .card-terracotta {
+    border-color: rgba(194, 65, 12, 0.2);
+    background: linear-gradient(135deg, rgba(194, 65, 12, 0.04), rgba(234, 88, 12, 0.02));
+  }
+
+  /* Table */
+  .table-container {
+    width: 100%;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow-card);
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+  }
+
+  th {
+    background: var(--bg-cream-deep);
+    padding: 10px 14px;
+    text-align: left;
+    font-weight: 600;
+    color: var(--text-muted);
+    font-size: 11px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    border-bottom: 1px solid var(--border);
+  }
+
+  td {
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--border-light);
+    color: var(--text-secondary);
+    line-height: 1.4;
+    background: var(--bg-white);
+  }
+
+  tr:last-child td {
+    border-bottom: none;
+  }
+
+  tr:nth-child(even) td {
+    background: var(--bg-warm-light);
+  }
+
+  /* Tags */
+  .tag {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+  }
+
+  .tag-amber {
+    background: var(--amber-glow);
+    color: var(--amber-deep);
+    border: 1px solid rgba(217, 119, 6, 0.2);
+  }
+
+  .tag-sage {
+    background: var(--sage-glow);
+    color: var(--sage-deep);
+    border: 1px solid rgba(101, 163, 13, 0.2);
+  }
+
+  .tag-terracotta {
+    background: var(--terracotta-glow);
+    color: var(--terracotta);
+    border: 1px solid rgba(194, 65, 12, 0.2);
+  }
+
+  /* Stat blocks */
+  .stat {
+    text-align: center;
+  }
+
+  .stat-value {
+    font-family: 'Playfair Display', serif;
+    font-size: 38px;
+    font-weight: 700;
+    line-height: 1;
+    margin-bottom: 6px;
+    color: var(--text-primary);
+  }
+
+  .stat-label {
+    font-size: 12px;
+    color: var(--text-muted);
+    font-weight: 500;
+  }
+
+  /* Bar chart */
+  .bar-container {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 10px;
+  }
+
+  .bar-label {
+    width: 52px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-align: right;
+  }
+
+  .bar-track {
+    flex: 1;
+    height: 26px;
+    background: var(--bg-cream-deep);
+    border-radius: 8px;
+    overflow: hidden;
+    display: flex;
+    border: 1px solid var(--border);
+  }
+
+  .bar-fill-hw {
+    background: var(--gradient-amber);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    font-weight: 600;
+    color: white;
+    border-radius: 7px 0 0 7px;
+  }
+
+  .bar-fill-sub {
+    background: var(--gradient-sage);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    font-weight: 600;
+    color: white;
+  }
+
+  /* Quote */
+  .quote {
+    font-family: 'Playfair Display', 'Noto Serif SC', serif;
+    font-size: 22px;
+    font-weight: 500;
+    font-style: italic;
+    line-height: 1.5;
+    color: var(--text-primary);
+    border-left: 3px solid var(--amber);
+    padding-left: 24px;
+    margin: 20px 0;
+  }
+
+  /* Grid */
+  .grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+
+  .grid-3 {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 20px;
+  }
+
+  .grid-4 {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 14px;
+  }
+
+  /* Bullet list */
+  .bullet-list {
+    list-style: none;
+    padding: 0;
+  }
+
+  .bullet-list li {
+    padding: 5px 0 5px 20px;
+    position: relative;
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--text-secondary);
+  }
+
+  .bullet-list li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 13px;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--amber);
+  }
+
+  /* Cover special */
+  .cover-slide {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background: linear-gradient(180deg, #FFFBF0 0%, #FEF3C7 50%, #FFF8E7 100%);
+  }
+
+  .cover-slide::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 800px;
+    height: 800px;
+    background: radial-gradient(circle, rgba(217, 119, 6, 0.06) 0%, transparent 60%);
+  }
+
+  .cover-slide h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 72px;
+    font-weight: 700;
+    letter-spacing: -1px;
+    color: var(--text-primary);
+    margin-bottom: 20px;
+  }
+
+  .cover-tagline {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 24px;
+    color: var(--text-secondary);
+    font-weight: 400;
+    margin-bottom: 40px;
+    letter-spacing: 1px;
+  }
+
+  .cover-meta {
+    font-size: 13px;
+    color: var(--text-muted);
+    font-weight: 400;
+    letter-spacing: 0.5px;
+  }
+
+  /* Closing slide */
+  .closing-slide {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background: linear-gradient(180deg, #FEF3C7 0%, #FFFBF0 40%, #FFF8E7 100%);
+  }
+
+  .closing-slide::before {
+    width: 900px;
+    height: 900px;
+    background: radial-gradient(circle, rgba(217, 119, 6, 0.05) 0%, transparent 55%);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  /* Flow diagram */
+  .flow-step {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 4px;
+  }
+
+  .flow-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  .flow-icon-amber {
+    background: var(--amber-glow);
+    color: var(--amber-deep);
+    border: 1px solid rgba(217, 119, 6, 0.2);
+  }
+
+  .flow-icon-sage {
+    background: var(--sage-glow);
+    color: var(--sage-deep);
+    border: 1px solid rgba(101, 163, 13, 0.2);
+  }
+
+  .flow-text {
+    font-size: 13px;
+    line-height: 1.4;
+    color: var(--text-secondary);
+  }
+
+  .flow-connector {
+    width: 2px;
+    height: 8px;
+    background: var(--border);
+    margin-left: 15px;
+    margin-bottom: 4px;
+  }
+
+  /* Timeline */
+  .timeline {
+    display: flex;
+    gap: 0;
+    position: relative;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    top: 20px;
+    left: 40px;
+    right: 40px;
+    height: 2px;
+    background: var(--border);
+    z-index: 0;
+  }
+
+  .timeline-item {
+    flex: 1;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+  }
+
+  .timeline-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    margin: 14px auto 14px;
+    border: 2px solid var(--bg-cream);
+    box-shadow: 0 0 0 2px var(--border);
+  }
+
+  .timeline-dot-amber { background: var(--amber); box-shadow: 0 0 0 2px var(--amber); }
+  .timeline-dot-sage { background: var(--sage); box-shadow: 0 0 0 2px var(--sage); }
+  .timeline-dot-terracotta { background: var(--terracotta); box-shadow: 0 0 0 2px var(--terracotta); }
+
+  .timeline-title {
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 2px;
+  }
+
+  .timeline-desc {
+    font-size: 11px;
+    color: var(--text-muted);
+    line-height: 1.5;
+    padding: 0 6px;
+  }
+
+  /* Progress items */
+  .progress-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 6px 0;
+    font-size: 13px;
+    color: var(--text-secondary);
+  }
+
+  .progress-check {
+    width: 20px;
+    height: 20px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    flex-shrink: 0;
+  }
+
+  .progress-done {
+    background: var(--sage-glow);
+    color: var(--sage-deep);
+    border: 1px solid rgba(101, 163, 13, 0.25);
+  }
+
+  .progress-wip {
+    background: var(--amber-glow);
+    color: var(--amber);
+    border: 1px solid rgba(217, 119, 6, 0.25);
+  }
+
+  /* Comparison highlight */
+  .compare-winner {
+    color: var(--sage-deep);
+    font-weight: 700;
+  }
+
+  /* Divider */
+  .divider {
+    width: 48px;
+    height: 2px;
+    background: var(--gradient-amber);
+    border-radius: 1px;
+    margin: 12px 0;
+  }
+
+  /* Decorative horizontal rule */
+  .ornament {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 16px 0;
+  }
+
+  .ornament::before,
+  .ornament::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  .ornament-dot {
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: var(--amber);
+  }
+
+  /* Number circle for "Why Us" and similar */
+  .icon-circle {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Playfair Display', serif;
+    font-size: 16px;
+    font-weight: 600;
+    margin: 0 auto 12px;
+    color: var(--amber-deep);
+    background: var(--amber-glow-strong);
+    border: 1px solid rgba(217, 119, 6, 0.15);
+  }
+</style>
+</head>
+<body>
+
+<!-- ==================== SLIDE 1: COVER ==================== -->
+<div class="slide cover-slide">
+  <div style="position:relative;z-index:1;">
+    <div class="label" style="margin-bottom:28px;letter-spacing:4px;">商业计划书 2026</div>
+    <h1>Einko</h1>
+    <div class=”cover-tagline”>多模态上下文平台 &middot; 软件体时代的 “Android 厂商”</div>
+    <div class=”cover-meta”>天使轮融资 &middot; 2026 年 3 月</div>
+  </div>
+  <div class="brand">EINKO</div>
+</div>
+
+<!-- ==================== SLIDE 2: STORY MAP ==================== -->
+<div class="slide">
+  <div class="label">Storytelling 附录</div>
+  <h2>你说的、看到的、拍下的 — 都是 Agent 的上下文</h2>
+  <div class=”subtitle” style=”margin-bottom:24px;”>我们不是在做一个软件或者一个硬件，而是在做 AI 时代的”手机厂商”：采集语音、截图、图像等多模态上下文，连接操作系统，再定义原生应用。</div>
+
+  <div class="content-area justify-center">
+    <div class="grid-2 gap-28">
+      <div>
+        <h3 style="margin-bottom:10px;">类比智能手机时代</h3>
+        <div class="card card-amber" style="padding:14px;margin-bottom:12px;">
+          <div class="table-container" style="border-color:rgba(217,119,6,0.20);">
+            <table style="font-size:13px;">
+              <thead>
+                <tr>
+                  <th style="width:18%;">维度</th>
+                  <th style="width:36%;">智能手机时代</th>
+                  <th>软件体时代</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="font-weight:700;color:var(--amber-deep);">交互层</td>
+                  <td>键盘 / 触屏</td>
+                  <td>语音 + 截图 + 图像 + 屏幕 + ...</td>
+                </tr>
+                <tr>
+                  <td style="font-weight:700;color:var(--amber-deep);">处理层</td>
+                  <td>Android</td>
+                  <td>OpenClaw 型智能体操作系统</td>
+                </tr>
+                <tr>
+                  <td style="font-weight:700;color:var(--amber-deep);">应用层</td>
+                  <td>IM / 社交</td>
+                  <td>Agent 社交网络</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="card-sm">
+          <div style="font-size:12px;color:var(--text-secondary);line-height:1.7;">
+            我们要做的不是单点功能，而是一个承载和处理多模态用户信息的平台：多模态入口持续采集上下文（语音、截图、图像），处理层持续迭代效率以及权限控制，应用层（未来的应用市场）持续放大网络效应。各种场景都会由我们和用户一起去定义。
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <h3 style="margin-bottom:10px;">三层产品布局（当前版本）</h3>
+        <div class="card-sm" style="margin-bottom:8px;border-left:3px solid var(--sage);border-color:rgba(101,163,13,0.20);">
+          <div style="font-size:13px;font-weight:600;color:var(--text-primary);">第一层 · 多模态采集层</div>
+          <div style="font-size:12px;color:var(--text-secondary);margin-top:2px;">EinClaw（语音输入硬件）+ EINKO App（截图 + 拍照 + 图像输入）</div>
+          <div style="height:1px;background:rgba(101,163,13,0.18);margin:8px 0 6px;"></div>
+          <div style="font-size:12px;font-weight:600;color:var(--sage-deep);">动机引擎（核心）</div>
+          <div style="font-size:12px;color:var(--text-secondary);margin-top:2px;line-height:1.7;">把语音、截图、拍照等多模态信息结构化为可沉淀、可检索、可复用的用户资产，再分发到处理层执行。</div>
+        </div>
+        <div class="card-sm" style="margin-bottom:8px;border-left:3px solid var(--border);background:var(--bg-cream-deep);border-color:var(--border);">
+          <div style="font-size:13px;font-weight:600;color:var(--text-primary);">第二层 · 处理层</div>
+          <div style="font-size:12px;color:var(--text-secondary);margin-top:2px;">“Agent 时代的安卓手机”（类似手机厂商的操作系统和原始版本安卓的区别，含 VPS 部署与工具/API 编排）</div>
+        </div>
+        <div class="card-sm" style="margin-bottom:12px;border-left:3px solid var(--sage);">
+          <div style="font-size:13px;font-weight:600;color:var(--text-primary);">第三层 · 场景层</div>
+          <div style="font-size:12px;color:var(--text-secondary);margin-top:2px;">面向可成长智能体的社交应用（先做社交，再扩展内容与游戏）</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-line"></div>
+  <div class="brand">EINKO</div>
+  <div class="slide-number">02</div>
+</div>
+
+<!-- ==================== SLIDE 3: SOFTWARE ENTITY INTRO ==================== -->
+<div class="slide">
+  <div class="label">概念引子</div>
+  <h2>什么是“软件体”（特德姜的小说《软件体的生命周期》）？</h2>
+  <div class="subtitle" style="margin-bottom:24px;">特德姜《软件体的生命周期》里的“软件体”，是能被长期训练、持续成长、并与人建立关系的数字生命。</div>
+
+</div>
+
+<!-- ==================== SLIDE 4: LAYER 1+2 ==================== -->
+<div class="slide">
+  <div class=”label”>第一层 + 第二层</div>
+  <h2>收集多模态的用户上下文，并定义处理这些数据的场景</h2>
+  <div class=”subtitle” style=”margin-bottom:22px;”>专业的设备干专业的事：语音用专属硬件快速捕获，图像用手机的高像素摄像头。平台统一处理一切。</div>
+
+  <div class="content-area justify-center">
+    <div class="grid-2 gap-28">
+      <div>
+        <h3 style=”margin-bottom:10px;”>多模态采集层：三大入口</h3>
+        <div class=”card card-sage” style=”padding:14px;margin-bottom:8px;”>
+          <div style=”font-size:13px;font-weight:600;color:var(--sage-deep);margin-bottom:4px;”>EinClaw（语音入口 · 专属硬件）</div>
+          <div style=”font-size:12px;color:var(--text-secondary);line-height:1.7;”>
+            4G 直连 OpenClaw 的按键语音输入。无需掏手机，按下说话，松手上传。语音就用一个单独的设备，快速捕获想法。
+          </div>
+        </div>
+        <div class=”card card-amber” style=”padding:14px;margin-bottom:8px;”>
+          <div style=”font-size:13px;font-weight:600;color:var(--amber-deep);margin-bottom:4px;”>EINKO App（截图 + 图像入口 · 手机）</div>
+          <div style=”font-size:12px;color:var(--text-secondary);line-height:1.7;”>
+            截图、拍照、各种图像输入。我们已有一套非常成熟和完整的图像工作流。基于 OpenClaw，所有过去的工作流都可以用脚本快速迭代。
+          </div>
+        </div>
+        <div class=”card card-terracotta” style=”padding:14px;margin-bottom:10px;”>
+          <div style=”font-size:13px;font-weight:600;color:var(--terracotta);margin-bottom:4px;”>为什么硬件不加摄像头？</div>
+          <div style=”font-size:12px;color:var(--text-secondary);line-height:1.7;”>
+            在可穿戴设备中加摄像头：1) 像素模糊，信息密度低；2) 影响续航和重量。手机的摄像头才是最好的图像采集工具。专业的设备干专业的事。
+          </div>
+        </div>
+        <div class=”card-sm”>
+          <div style=”font-size:12px;color:var(--text-secondary);line-height:1.7;”>
+            所有入口的共同目标：让用户在”想到”的那一刻完成多模态输入 — 语音、截图、拍照 — 而不是在”有空”时再回忆输入。
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <h3 style="margin-bottom:10px;">处理层：云端的 Openclaw 寄养中心</h3>
+        <div class="card" style="padding:14px;margin-bottom:12px;">
+          <div class="flow-step">
+            <div class="flow-icon flow-icon-amber">1</div>
+            <div class="flow-text">用户拥有自己的云端 VPS 与运行环境</div>
+          </div>
+          <div class="flow-connector"></div>
+          <div class="flow-step">
+            <div class="flow-icon flow-icon-sage">2</div>
+            <div class="flow-text">我们提供预置的场景</div>
+          </div>
+          <div class="flow-connector"></div>
+          <div class="flow-step">
+            <div class="flow-icon flow-icon-sage">3</div>
+            <div class="flow-text">用户数据沉淀在可控环境中，提高迁移成本</div>
+          </div>
+        </div>
+        <div class="card-sm card-terracotta">
+          <div style="font-size:12px;color:var(--text-secondary);line-height:1.7;">
+            对应关系类似“手机厂商的操作系统和原始版本安卓的区别”：我们不重造底层系统，而是在开放生态上做定制化体验与更快可用性。
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-line"></div>
+  <div class="brand">EINKO</div>
+  <div class="slide-number">04</div>
+</div>
+
+<!-- ==================== SLIDE 5: MOTIVATION ENGINE ==================== -->
+<div class="slide">
+  <div class="label">数据资产</div>
+  <h2>动机引擎：把多模态输入变成长期资产</h2>
+  <div class=”subtitle” style=”margin-bottom:20px;”>第一层与第二层之间，我们加入”动机引擎”，让语音、截图、图像等多模态数据不仅能执行任务，也能持续积累用户画像与记忆。</div>
+
+  <div class="content-area justify-center">
+    <div class="grid-2 gap-28">
+      <div>
+        <h3 style="margin-bottom:10px;">数据如何沉淀</h3>
+        <div class="card" style="padding:14px;margin-bottom:12px;">
+          <div class="flow-step">
+            <div class="flow-icon flow-icon-amber">1</div>
+            <div class="flow-text">截图 + 拍照 + 图像在 EINKO 侧持续沉淀（兴趣、计划、收藏、待办）</div>
+          </div>
+          <div class="flow-connector"></div>
+          <div class="flow-step">
+            <div class="flow-icon flow-icon-amber">2</div>
+            <div class="flow-text">语音通过 EinClaw 直连 OpenClaw，也可经云端中转增强处理</div>
+          </div>
+          <div class="flow-connector"></div>
+          <div class="flow-step">
+            <div class="flow-icon flow-icon-sage">3</div>
+            <div class="flow-text">多模态数据经转写、整理、摘要后写入动机引擎，形成可检索资产</div>
+          </div>
+          <div class="flow-connector"></div>
+          <div class="flow-step">
+            <div class="flow-icon flow-icon-sage">4</div>
+            <div class="flow-text">任务结果统一回流到 EINKO App，闭环成为长期上下文</div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <h3 style="margin-bottom:10px;">商业与生态含义</h3>
+        <div class="card-sm" style="margin-bottom:8px;border-left:3px solid var(--terracotta);">
+          <div style="font-size:13px;font-weight:600;color:var(--text-primary);">让用户为智能付费</div>
+          <div style="font-size:12px;color:var(--text-secondary);margin-top:2px;">应用层不再长期补贴模型账单，商业模式从“API 差价”转向“产品价值订阅”。</div>
+        </div>
+        <div class="card-sm" style="margin-bottom:8px;border-left:3px solid var(--amber);">
+          <div style="font-size:13px;font-weight:600;color:var(--text-primary);">执行引擎可替换</div>
+          <div style="font-size:12px;color:var(--text-secondary);margin-top:2px;">无论中间执行引擎是开源还是闭源，前端动机资产都可以持续积累与迁移。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-line"></div>
+  <div class="brand">EINKO</div>
+  <div class="slide-number">05</div>
+</div>
+
+<!-- ==================== SLIDE 6: WORKFLOW ENTITY ==================== -->
+<div class="slide">
+  <div class="label">原生应用前置</div>
+  <h2>能自动适应并执行你的工作流的软件体</h2>
+  <div class="subtitle" style="margin-bottom:20px;">在进入具体应用之前，我们先定义软件体能力：自动适应你的工作流，并在权限范围内持续执行。</div>
+
+  <div class="content-area justify-center">
+    <div class="grid-2 gap-24">
+      <div>
+        <h3 style="margin-bottom:10px;">3 个计划的第一批使用场景</h3>
+
+        <div class="card" style="padding:14px 16px;margin-bottom:10px;">
+          <div style="display:flex;gap:12px;">
+            <div class="flow-icon flow-icon-amber" style="width:34px;height:34px;">创</div>
+            <div style="flex:1;">
+              <div style="font-size:18px;font-weight:700;color:var(--text-primary);margin-bottom:4px;">推特内容创作</div>
+              <div style="font-size:13px;color:var(--text-secondary);line-height:1.7;">散步时说出选题灵感，Agent 自动整理大纲、生成文案与配图建议，一条推文从录音到发布。</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card" style="padding:14px 16px;margin-bottom:10px;">
+          <div style="display:flex;gap:12px;">
+            <div class="flow-icon flow-icon-amber" style="width:34px;height:34px;">码</div>
+            <div style="flex:1;">
+              <div style="font-size:18px;font-weight:700;color:var(--text-primary);margin-bottom:4px;">从 Issue 到 PR</div>
+              <div style="font-size:13px;color:var(--text-secondary);line-height:1.7;">开车时口述 Bug，Agent 自动创建 Issue、分析代码、提交 PR，下车时修复已可合并。</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card" style="padding:14px 16px;">
+          <div style="display:flex;gap:12px;">
+            <div class="flow-icon flow-icon-amber" style="width:34px;height:34px;">记</div>
+            <div style="flex:1;">
+              <div style="font-size:18px;font-weight:700;color:var(--text-primary);margin-bottom:4px;">日记与想法对话</div>
+              <div style="font-size:13px;color:var(--text-secondary);line-height:1.7;">随时说出想法和感受，Agent 帮你沉淀为日记；回看时还能围绕历史记录持续对话。</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <h3 style="margin-bottom:10px;">核心能力：自动匹配并执行</h3>
+
+        <div class="card card-sage" style="padding:14px 16px;margin-bottom:10px;">
+          <div style="font-size:15px;font-weight:700;color:var(--sage-deep);margin-bottom:6px;">未来的应用市场 (Skills Store)</div>
+          <div style="font-size:13px;color:var(--text-secondary);line-height:1.75;">
+            提供处理多模态数据的各种应用和工作流；各种场景都会由我们和用户一起去定义。基于 OpenClaw，所有工作流都可以用脚本快速迭代。想象空间巨大。
+          </div>
+        </div>
+
+        <div class="card card-amber" style="padding:14px 16px;">
+          <div style="font-size:15px;font-weight:700;color:var(--amber-deep);margin-bottom:8px;">动机引擎 × Skills Store 自动装配</div>
+          <div class="flow-step" style="margin-bottom:6px;">
+            <div class="flow-icon flow-icon-amber">1</div>
+            <div class="flow-text">动机引擎识别用户当下意图与工作流上下文</div>
+          </div>
+          <div class="flow-connector"></div>
+          <div class="flow-step" style="margin-bottom:6px;">
+            <div class="flow-icon flow-icon-amber">2</div>
+            <div class="flow-text">自动匹配最合适的 Skill 组合，并推荐安装</div>
+          </div>
+          <div class="flow-connector"></div>
+          <div class="flow-step">
+            <div class="flow-icon flow-icon-sage">3</div>
+            <div class="flow-text">在权限边界内自动执行，结果回写到记忆与数据资产</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-line"></div>
+  <div class="brand">EINKO</div>
+  <div class="slide-number">06</div>
+</div>
+
+<!-- ==================== SLIDE 7: SOCIAL APP ==================== -->
+<div class="slide">
+  <div class="label">第三层 · 场景层</div>
+  <h2>我们的第一个原生场景: 给可成长智能体的社交网络;</h2>
+  <div class="subtitle" style="margin-bottom:20px;">当输入层和处理层打通后，关键问题变成：这些能力最终服务什么场景。我们的答案先是社交。</div>
+
+  <div class="content-area justify-center">
+    <div class="grid-2 gap-28">
+      <div>
+        <h3 style="margin-bottom:10px;">为什么是社交</h3>
+        <div class="card card-amber" style="padding:16px;margin-bottom:12px;">
+          <div style="font-size:12px;color:var(--text-secondary);line-height:1.8;">
+            <strong style="color:var(--amber-deep);">引子：</strong>特德姜《软件体的生命周期》里的“软件体”，是可被长期训练、持续成长、并与人建立关系的数字生命。<br>
+            用户正在“养成”自己的智能体：喂更好的模型、加技能、接 API、接外设。<br>
+            当智能体变成可成长的软件体，社交自然成为下一层需求：<br>
+            智能体之间要匹配、协作、互动，用户之间也会因智能体而建立连接。
+          </div>
+        </div>
+        <div class="card-sm">
+          <div style="font-size:12px;color:var(--text-secondary);line-height:1.7;">
+            与传统论坛式或数字分身式产品相比，我们的差异是：已有稳定数据入口，不需要用户额外“再输入一次”。
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <h3 style="margin-bottom:10px;">首批可落地场景</h3>
+        <div class="card-sm" style="margin-bottom:8px;border-left:3px solid var(--sage);">
+          <div style="font-size:13px;font-weight:600;color:var(--text-primary);">Agent 文档匹配</div>
+          <div style="font-size:12px;color:var(--text-secondary);margin-top:2px;">每日截图 + 语音自动生成摘要文档，由 Agent 去发现和匹配其他 Agent。</div>
+        </div>
+        <div class="card-sm" style="margin-bottom:8px;border-left:3px solid var(--amber);">
+          <div style="font-size:13px;font-weight:600;color:var(--text-primary);">Agent 内容运营</div>
+          <div style="font-size:12px;color:var(--text-secondary);margin-top:2px;">智能体自主发帖、跨平台分发、持续运营账号，形成可观察人格。</div>
+        </div>
+        <div class="card-sm" style="margin-bottom:12px;border-left:3px solid var(--terracotta);">
+          <div style="font-size:13px;font-weight:600;color:var(--text-primary);">Agent 竞技实验</div>
+          <div style="font-size:12px;color:var(--text-secondary);margin-top:2px;">在受控规则中进行博弈类互动，验证策略能力与协作机制。</div>
+        </div>
+        <div class="card card-sage" style="padding:14px;">
+          <div style="font-size:12px;color:var(--text-secondary);line-height:1.7;">
+            我们会保持中立：这个社交层不只服务单一阵营的 Agent，目标是跨模型、跨生态可用。
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-line"></div>
+  <div class="brand">EINKO</div>
+  <div class="slide-number">07</div>
+</div>
+
+<!-- ==================== SLIDE 8: INVESTOR FAQ ==================== -->
+<div class="slide">
+  <div class="label">常见问题</div>
+  <h2>常见问题解答</h2>
+  <div class="subtitle" style="margin-bottom:18px;">以下以 Q &amp; A 形式回答四个高频问题。</div>
+
+  <div class="content-area">
+    <div class="grid-2 gap-16" style="margin-bottom:16px;">
+      <div class="card" style="padding:16px 18px;border-left:3px solid var(--terracotta);">
+        <div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:10px;">
+          <span class="tag tag-terracotta" style="font-size:12px;padding:3px 9px;">Q1</span>
+          <div style="font-size:20px;font-weight:700;line-height:1.45;color:var(--text-primary);">为什么只做语音输入，不做图像输入？</div>
+        </div>
+        <div style="display:flex;align-items:flex-start;gap:10px;">
+          <span class="tag tag-sage" style="font-size:12px;padding:3px 9px;">A</span>
+          <div style="font-size:16px;line-height:1.7;color:var(--text-secondary);">我们不是只做语音 — 图像处理我们已有一套非常成熟和完整的工作流（截图、拍照、各种图像）。硬件不加摄像头是因为：可穿戴设备的像素模糊、信息密度低，且影响续航和重量。专业的设备干专业的事：语音用专属硬件，图像用手机。我们是一个多模态上下文平台，不是一个单模态硬件。</div>
+        </div>
+      </div>
+
+      <div class="card" style="padding:16px 18px;border-left:3px solid var(--sage);">
+        <div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:10px;">
+          <span class="tag tag-sage" style="font-size:12px;padding:3px 9px;">Q3</span>
+          <div style="font-size:20px;font-weight:700;line-height:1.45;color:var(--text-primary);">你们是否强依赖 OpenClaw？</div>
+        </div>
+        <div style="display:flex;align-items:flex-start;gap:10px;">
+          <span class="tag tag-sage" style="font-size:12px;padding:3px 9px;">A</span>
+          <div style="font-size:16px;line-height:1.7;color:var(--text-secondary);">这是战略选择，不是单点依赖。当前以 OpenClaw 为主是因为开放、迭代快、成本可控；同时动机引擎和数据资产层保持中立，可兼容其他执行引擎。</div>
+        </div>
+      </div>
+
+      <div class="card" style="padding:16px 18px;border-left:3px solid var(--terracotta);">
+        <div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:10px;">
+          <span class="tag tag-terracotta" style="font-size:12px;padding:3px 9px;">Q2</span>
+          <div style="font-size:20px;font-weight:700;line-height:1.45;color:var(--text-primary);">为什么是领夹麦 / 手环，不是耳机？</div>
+        </div>
+        <div style="display:flex;align-items:flex-start;gap:10px;">
+          <span class="tag tag-sage" style="font-size:12px;padding:3px 9px;">A</span>
+          <div style="font-size:16px;line-height:1.7;color:var(--text-secondary);">领夹麦在嘈杂环境更稳定，按键对讲心智更清晰；耳机在工业设计、续航、佩戴习惯上门槛更高。</div>
+        </div>
+      </div>
+
+      <div class="card" style="padding:16px 18px;border-left:3px solid var(--sage);">
+        <div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:10px;">
+          <span class="tag tag-sage" style="font-size:12px;padding:3px 9px;">Q4</span>
+          <div style="font-size:20px;font-weight:700;line-height:1.45;color:var(--text-primary);">数据沉淀在哪里？</div>
+        </div>
+        <div style="display:flex;align-items:flex-start;gap:10px;">
+          <span class="tag tag-sage" style="font-size:12px;padding:3px 9px;">A</span>
+          <div style="font-size:16px;line-height:1.7;color:var(--text-secondary);">两处沉淀：1) Einko App 里沉淀任务处理结果、截图分析和交互历史；2) 动机引擎云服务沉淀结构化的“动机档案”，形成长期数据资产。</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card card-amber" style="padding:16px 20px;">
+      <div style="font-size:18px;color:var(--text-secondary);line-height:1.8;">
+        路线选择总结：我们是多模态上下文平台 — 语音用专属硬件极简采集，图像用手机高质量采集，OpenClaw 统一处理。中间层坚持开放底座，应用层（未来的应用市场）保持跨阵营中立，各种场景由我们和用户一起定义。
+      </div>
+    </div>
+  </div>
+  <div class="slide-line"></div>
+  <div class="brand">EINKO</div>
+  <div class="slide-number">08</div>
+</div>
+
+<!-- ==================== SLIDE 9: PROBLEM ==================== -->
+<div class="slide">
+  <div class="label">痛点</div>
+  <h2>人每天都在丢失珍贵的上下文</h2>
+  <div class="subtitle" style="margin-bottom:28px;">更低的输入摩擦 = 更多的用户上下文 = 更多的执行结果</div>
+
+  <div class="content-area justify-center">
+    <div class="grid-2 gap-32">
+      <div>
+        <h3 style="color:var(--terracotta);margin-bottom:14px;">你每天丢失的</h3>
+        <div class="card-sm" style="margin-bottom:10px;">
+          <div style="font-size:13px;color:var(--text-primary);font-weight:500;">开车时冒出的想法</div>
+          <div style="font-size:12px;color:var(--text-muted);margin-top:3px;">5 分钟后就忘了 — 你无法停下来打字</div>
+        </div>
+        <div class="card-sm" style="margin-bottom:10px;">
+          <div style="font-size:13px;color:var(--text-primary);font-weight:500;">截图里的有用信息</div>
+          <div style="font-size:12px;color:var(--text-muted);margin-top:3px;">截完就忘，两周后再也找不到</div>
+        </div>
+        <div class="card-sm" style="margin-bottom:10px;">
+          <div style="font-size:13px;color:var(--text-primary);font-weight:500;">碎片化的任务和灵感</div>
+          <div style="font-size:12px;color:var(--text-muted);margin-top:3px;">明明可以交给 AI，但掏手机太麻烦了</div>
+        </div>
+        <div class="card-sm">
+          <div style="font-size:13px;color:var(--text-primary);font-weight:500;">会议中截的需求变更</div>
+          <div style="font-size:12px;color:var(--text-muted);margin-top:3px;">截图躺在相册里，没人提醒你跟进</div>
+        </div>
+      </div>
+      <div>
+        <h3 style="color:var(--amber-deep);margin-bottom:14px;">问题的本质</h3>
+        <div class="card card-amber" style="padding:22px;margin-bottom:14px;">
+          <div style="font-family:'Playfair Display','Noto Serif SC',serif;font-size:15px;color:var(--text-primary);line-height:1.7;font-style:italic;">
+            不是 AI 不够聪明，<br>而是人和 AI 之间的通道太窄了。
+          </div>
+          <div style="font-size:13px;color:var(--text-secondary);margin-top:14px;line-height:1.6;">
+            你的 AI 有能力帮你发邮件、查信息、做提醒。但你必须解锁手机、打开 App、打字输入 — 7 个步骤、45 秒以上。
+          </div>
+        </div>
+        <div class="card-sm" style="text-align:center;">
+          <div style="font-size:12px;color:var(--text-muted);margin-bottom:8px;">从想法到行动的摩擦</div>
+          <div style="display:flex;justify-content:space-between;align-items:flex-end;padding:0 12px;">
+            <div style="text-align:center;">
+              <div style="font-family:'Playfair Display',serif;font-size:24px;font-weight:700;color:var(--terracotta);">7 步</div>
+              <div style="font-size:11px;color:var(--text-muted);">手机 App</div>
+            </div>
+            <div style="font-family:'Playfair Display',serif;font-size:16px;color:var(--text-light);font-style:italic;">vs</div>
+            <div style="text-align:center;">
+              <div style="font-family:'Playfair Display',serif;font-size:24px;font-weight:700;color:var(--sage-deep);">1 步</div>
+              <div style="font-size:11px;color:var(--text-muted);">Einko</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-line"></div>
+  <div class="brand">EINKO</div>
+  <div class="slide-number">09</div>
+</div>
+
+<!-- ==================== SLIDE 10: SOLUTION ==================== -->
+<div class="slide">
+  <div class="label">我们的解决方案</div>
+  <h2>Einko — 多模态上下文平台，让 AI 走出手机屏幕</h2>
+  <div class="subtitle" style="margin-bottom:24px;">语音用专属硬件按下即说，图像用手机截图拍照。OpenClaw 统一处理，Agent 自动执行。</div>
+
+  <div class="content-area justify-center">
+    <div class="grid-2 gap-32">
+      <div>
+        <h3 style="margin-bottom:14px;">核心产品：OpenClaw 直通硬件</h3>
+        <div class="card card-amber" style="padding:20px;margin-bottom:16px;">
+          <div style="font-size:13px;color:var(--text-secondary);line-height:1.9;">
+            <strong style="color:var(--amber-deep);">4G 独立联网</strong> — 无需手机，随时随地可用<br>
+            <strong style="color:var(--amber-deep);">单按钮交互</strong> — 按下说话，松手走人<br>
+            <strong style="color:var(--amber-deep);">OpenClaw 驱动</strong> — 自研 AI 智能体，理解 + 记忆 + 执行<br>
+            <strong style="color:var(--amber-deep);">BOM ¥50</strong> — 深圳供应链，极低试错成本
+          </div>
+        </div>
+
+        <h3 style="margin-bottom:10px;">两种硬件形态（评估中）</h3>
+        <div style="display:flex;gap:12px;">
+          <div class="card-sm" style="flex:1;text-align:center;border-color:rgba(217,119,6,0.25);">
+            <div style="font-size:13px;font-weight:600;color:var(--amber-deep);">对讲机</div>
+            <div style="font-size:11px;color:var(--text-muted);margin-top:2px;">夹在衣领/口袋<br>已有产品原型</div>
+          </div>
+          <div class="card-sm" style="flex:1;text-align:center;border-color:rgba(101,163,13,0.25);">
+            <div style="font-size:13px;font-weight:600;color:var(--sage-deep);">智能手环</div>
+            <div style="font-size:11px;color:var(--text-muted);margin-top:2px;">佩戴在手腕<br>形态探索中</div>
+          </div>
+        </div>
+        <div style="font-size:11px;color:var(--text-muted);margin-top:8px;font-style:italic;">两种形态共享同一套电子方案和 OpenClaw 后端，与工厂评估中。</div>
+      </div>
+      <div>
+        <h3 style="margin-bottom:14px;">从想法到行动：极致缩短路径</h3>
+        <div class="card" style="padding:20px;margin-bottom:16px;">
+          <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px;">
+            <div style="width:8px;height:8px;border-radius:50%;background:var(--terracotta);"></div>
+            <div style="font-size:13px;color:var(--text-secondary);">按下按钮 → 红灯 + 短振动 → 说话</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px;">
+            <div style="width:8px;height:8px;border-radius:50%;background:var(--sage);"></div>
+            <div style="font-size:13px;color:var(--text-secondary);">松手 → 绿灯闪烁 → 4G 直传 OpenClaw</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:12px;">
+            <div style="width:8px;height:8px;border-radius:50%;background:var(--amber);"></div>
+            <div style="font-size:13px;color:var(--text-secondary);">继续你的生活 → AI 自动处理一切</div>
+          </div>
+        </div>
+
+        <div class="card card-amber" style="padding:18px;">
+          <div style="font-size:12px;color:var(--text-muted);margin-bottom:10px;">摩擦对比：给 AI 下达指令</div>
+          <div style="display:flex;justify-content:space-between;align-items:flex-end;">
+            <div style="text-align:center;">
+              <div style="font-family:'Playfair Display',serif;font-size:28px;font-weight:700;color:var(--terracotta);">7 步 / 45秒</div>
+              <div style="font-size:11px;color:var(--text-muted);">手机 App</div>
+            </div>
+            <div style="font-family:'Playfair Display',serif;font-size:18px;color:var(--text-light);font-style:italic;">vs</div>
+            <div style="text-align:center;">
+              <div style="font-family:'Playfair Display',serif;font-size:28px;font-weight:700;color:var(--sage-deep);">1 步 / 5秒</div>
+              <div style="font-size:11px;color:var(--text-muted);">Einko 硬件</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="quote" style="margin-top:20px;font-size:18px;">
+      你只管想、只管说 — 剩下的，交给 OpenClaw。
+    </div>
+  </div>
+  <div class="slide-line"></div>
+  <div class="brand">EINKO</div>
+  <div class="slide-number">10</div>
+</div>
+
+<!-- ==================== SLIDE 11: HARDWARE DEEP DIVE ==================== -->
+<div class="slide">
+  <div class="label">硬件详情</div>
+  <h2>两种形态，一套核心架构</h2>
+  <div class="subtitle" style="margin-bottom:18px;">4G 独立联网，不依赖手机。按下按钮，说，松手走人。与工厂评估中，以最快出样机的方案优先。</div>
+
+  <div class="content-area">
+    <div style="display:flex;gap:20px;flex:1;">
+      <!-- Left: Dual form factors -->
+      <div style="flex:1;">
+        <div style="display:flex;gap:12px;margin-bottom:14px;">
+          <div class="card card-amber" style="flex:1;padding:14px 16px;">
+            <div style="font-size:10px;color:var(--amber-deep);font-weight:600;letter-spacing:1px;margin-bottom:4px;">形态 A</div>
+            <h3 style="font-size:15px;margin-bottom:6px;">对讲机</h3>
+            <div style="font-size:12px;color:var(--text-secondary);line-height:1.7;">
+              夹在衣领 / 口袋<br>
+              按钮触发说话<br>
+              适合通勤 / 工作<br>
+            </div>
+            <div style="font-size:11px;color:var(--amber-deep);font-weight:600;margin-top:6px;">已有产品原型</div>
+          </div>
+          <div class="card card-sage" style="flex:1;padding:14px 16px;">
+            <div style="font-size:10px;color:var(--sage-deep);font-weight:600;letter-spacing:1px;margin-bottom:4px;">形态 B</div>
+            <h3 style="font-size:15px;margin-bottom:6px;">智能手环</h3>
+            <div style="font-size:12px;color:var(--text-secondary);line-height:1.7;">
+              佩戴在手腕<br>
+              触摸 / 双击说话<br>
+              适合运动 / 日常<br>
+            </div>
+            <div style="font-size:11px;color:var(--sage-deep);font-weight:600;margin-top:6px;">形态探索中</div>
+          </div>
+        </div>
+
+        <div class="card" style="padding:14px 18px;margin-bottom:14px;text-align:center;">
+          <div style="font-size:11px;color:var(--text-muted);margin-bottom:6px;">两种形态共享同一套核心架构</div>
+          <div style="display:flex;gap:8px;justify-content:center;">
+            <span class="tag tag-amber">4G Cat.1 模组</span>
+            <span class="tag tag-sage">OpenClaw 后端</span>
+            <span class="tag tag-terracotta">BOM ~50 RMB</span>
+          </div>
+        </div>
+
+        <h3 style="margin-bottom:8px;">交互：极致简单</h3>
+        <div class="card" style="padding:14px 18px;">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
+            <div style="width:8px;height:8px;border-radius:50%;background:var(--terracotta);"></div>
+            <div style="font-size:13px;color:var(--text-secondary);">按下按钮 → 红灯 + 短振动 → 说话</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
+            <div style="width:8px;height:8px;border-radius:50%;background:var(--sage);"></div>
+            <div style="font-size:13px;color:var(--text-secondary);">松手 → 绿灯闪烁 + 双振动 → 4G 直传云端</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;">
+            <div style="width:8px;height:8px;border-radius:50%;background:var(--amber);"></div>
+            <div style="font-size:13px;color:var(--text-secondary);">继续你的生活 → OpenClaw 自动处理</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Specs + comparison -->
+      <div style="flex:1;">
+        <h3 style="margin-bottom:10px;">核心优势：4G 独立联网</h3>
+        <div class="card" style="padding:16px 18px;margin-bottom:14px;">
+          <div style="font-size:13px;color:var(--text-secondary);line-height:1.9;">
+            4G Cat.1 模组，独立联网，无需手机<br>
+            唤醒式联网：按下才开启 4G，低功耗休眠<br>
+            离线录音自动缓存，恢复信号后批量上传<br>
+            续航 2-3 天，USB-C 充电
+          </div>
+          <div style="display:flex;gap:10px;margin-top:12px;">
+            <div class="card-sm" style="flex:1;text-align:center;border-color:rgba(217,119,6,0.25);padding:8px;">
+              <div style="font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:var(--amber-deep);">~¥50</div>
+              <div style="font-size:10px;color:var(--text-muted);">硬件 BOM</div>
+            </div>
+            <div class="card-sm" style="flex:1;text-align:center;border-color:rgba(101,163,13,0.25);padding:8px;">
+              <div style="font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:var(--sage-deep);">4G</div>
+              <div style="font-size:10px;color:var(--text-muted);">独立联网</div>
+            </div>
+            <div class="card-sm" style="flex:1;text-align:center;border-color:rgba(194,65,12,0.2);padding:8px;">
+              <div style="font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:var(--terracotta);">深圳</div>
+              <div style="font-size:10px;color:var(--text-muted);">供应链</div>
+            </div>
+          </div>
+        </div>
+
+        <h3 style="margin-bottom:8px;">核心使用场景</h3>
+        <ul class="bullet-list" style="margin-bottom:14px;">
+          <li>通勤路上 — 委派今日待办</li>
+          <li>散步 / 跑步 — 捕捉灵感和想法</li>
+          <li>做饭 / 家务 — 快速处理琐事</li>
+          <li>会议间隙 — 快速跟进</li>
+        </ul>
+
+        <div class="card card-amber" style="padding:14px 18px;">
+          <div style="font-size:12px;color:var(--text-muted);margin-bottom:8px;">摩擦对比：给 AI 下达指令</div>
+          <div style="display:flex;justify-content:space-between;align-items:flex-end;">
+            <div style="text-align:center;">
+              <div style="font-family:'Playfair Display',serif;font-size:24px;font-weight:700;color:var(--terracotta);">7 步 / 45 秒</div>
+              <div style="font-size:11px;color:var(--text-muted);">手机 App</div>
+            </div>
+            <div style="font-family:'Playfair Display',serif;font-size:16px;color:var(--text-light);font-style:italic;">vs</div>
+            <div style="text-align:center;">
+              <div style="font-family:'Playfair Display',serif;font-size:24px;font-weight:700;color:var(--sage-deep);">1 步 / 5 秒</div>
+              <div style="font-size:11px;color:var(--text-muted);">Einko 硬件</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-line"></div>
+  <div class="brand">EINKO</div>
+  <div class="slide-number">11</div>
+</div>
+
+<!-- ==================== SLIDE 12: EINKO ==================== -->
+<div class="slide">
+  <div class="label">已验证产品 · 视觉通道</div>
+  <h2>Einko APP：你的多模态视觉记忆</h2>
+  <div class="subtitle" style="margin-bottom:22px;">截图、拍照、各种图像输入 — 一套成熟完整的图像工作流。AI 帮你记住、理解、分类。已上架 App Store，600+ 用户。</div>
+
+  <div class="content-area">
+    <div class="grid-2 gap-28" style="flex:1;">
+      <div>
+        <h3 style="margin-bottom:12px;">核心功能</h3>
+        <div class="card-sm" style="margin-bottom:8px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <span style="font-size:13px;color:var(--text-secondary);">截图自动导入</span>
+            <span class="tag tag-sage" style="font-size:10px;">已上线</span>
+          </div>
+        </div>
+        <div class="card-sm" style="margin-bottom:8px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <span style="font-size:13px;color:var(--text-secondary);">AI 内容理解与分类</span>
+            <span class="tag tag-sage" style="font-size:10px;">已上线</span>
+          </div>
+        </div>
+        <div class="card-sm" style="margin-bottom:8px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <span style="font-size:13px;color:var(--text-secondary);">关键词 + 语义搜索</span>
+            <span class="tag tag-sage" style="font-size:10px;">已上线</span>
+          </div>
+        </div>
+        <div class="card-sm" style="margin-bottom:8px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <span style="font-size:13px;color:var(--text-secondary);">手动拍照导入</span>
+            <span class="tag tag-sage" style="font-size:10px;">已上线</span>
+          </div>
+        </div>
+        <div class="card-sm">
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <span style="font-size:13px;color:var(--text-secondary);">OpenClaw 智能体联动</span>
+            <span class="tag tag-amber" style="font-size:10px;">第三阶段</span>
+          </div>
+        </div>
+      </div>
+      <div>
+        <h3 style="margin-bottom:12px;">用户旅程</h3>
+        <div class="card" style="padding:20px;">
+          <div class="flow-step">
+            <div class="flow-icon flow-icon-amber">1</div>
+            <div class="flow-text">微信群里看到朋友推荐的餐厅</div>
+          </div>
+          <div class="flow-connector"></div>
+          <div class="flow-step">
+            <div class="flow-icon flow-icon-amber">2</div>
+            <div class="flow-text">截图（已有习惯，零额外操作）</div>
+          </div>
+          <div class="flow-connector"></div>
+          <div class="flow-step">
+            <div class="flow-icon flow-icon-amber">3</div>
+            <div class="flow-text">EINKO 自动导入 + AI 分析内容</div>
+          </div>
+          <div class="flow-connector"></div>
+          <div class="flow-step">
+            <div class="flow-icon flow-icon-amber">4</div>
+            <div class="flow-text">自动归类到"美食"，提取餐厅名+地址</div>
+          </div>
+          <div class="flow-connector"></div>
+          <div class="flow-step">
+            <div class="flow-icon flow-icon-sage">5</div>
+            <div class="flow-text">两周后搜索"朋友推荐的日料" -- 秒找到</div>
+          </div>
+          <div class="flow-connector"></div>
+          <div class="flow-step">
+            <div class="flow-icon flow-icon-sage">6</div>
+            <div class="flow-text">实机演示</div>
+          </div>
+        </div>
+
+        <div style="display:flex;gap:12px;margin-top:14px;">
+          <div class="card-sm" style="flex:1;text-align:center;border-color:rgba(101,163,13,0.25);">
+            <div style="font-family:'Playfair Display',serif;font-size:24px;font-weight:700;color:var(--sage-deep);">600+</div>
+            <div style="font-size:10px;color:var(--text-muted);">活跃用户</div>
+          </div>
+          <div class="card-sm" style="flex:1;text-align:center;border-color:rgba(217,119,6,0.25);">
+            <div style="font-family:'Playfair Display',serif;font-size:24px;font-weight:700;color:var(--amber-deep);">100+</div>
+            <div style="font-size:10px;color:var(--text-muted);">月活用户</div>
+          </div>
+          <div class="card-sm" style="flex:1;text-align:center;border-color:rgba(194,65,12,0.2);">
+            <div style="font-family:'Playfair Display',serif;font-size:24px;font-weight:700;color:var(--terracotta);">10</div>
+            <div style="font-size:10px;color:var(--text-muted);">付费用户</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-line"></div>
+  <div class="brand">EINKO</div>
+  <div class="slide-number">12</div>
+</div>
+
+<!-- ==================== SLIDE 13: MARKET ==================== -->
+<div class="slide">
+  <div class="label">市场机会</div>
+  <h2>每个人都需要一个 AI 助手 — 问题是入口</h2>
+  <div class="subtitle" style="margin-bottom:28px;">手机重新定义了个人计算，Einko 重新定义 AI 的入口。对标智能手机 + 宠物经济 + AI 服务三重赛道。</div>
+
+  <div class="content-area justify-center">
+    <div class="grid-2 gap-32">
+      <div>
+        <h3 style="margin-bottom:16px;">市场规模</h3>
+        <div class="card-sm" style="margin-bottom:10px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <div>
+              <div style="font-size:11px;color:var(--text-muted);letter-spacing:0.5px;">TAM · 全球</div>
+              <div style="font-size:12px;color:var(--text-secondary);margin-top:2px;">个人 AI 助手 + AI 伙伴经济 + 宠物陪伴经济</div>
+            </div>
+            <div style="font-family:'Playfair Display',serif;font-size:24px;font-weight:700;color:var(--amber-deep);">$500B+</div>
+          </div>
+        </div>
+        <div class="card-sm" style="margin-bottom:10px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <div>
+              <div style="font-size:11px;color:var(--text-muted);letter-spacing:0.5px;">SAM · 可服务</div>
+              <div style="font-size:12px;color:var(--text-secondary);margin-top:2px;">AI 硬件入口 + 伙伴订阅 + AI SaaS（亚太）</div>
+            </div>
+            <div style="font-family:'Playfair Display',serif;font-size:24px;font-weight:700;color:var(--sage-deep);">$50B</div>
+          </div>
+        </div>
+        <div class="card-sm card-amber">
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <div>
+              <div style="font-size:11px;color:var(--text-muted);letter-spacing:0.5px;">SOM · 初始目标</div>
+              <div style="font-size:12px;color:var(--text-secondary);margin-top:2px;">中国 AI 发烧友 + 年轻人 + 海外早期市场</div>
+            </div>
+            <div style="font-family:'Playfair Display',serif;font-size:24px;font-weight:700;color:var(--amber-deep);">$500M-1B</div>
+          </div>
+        </div>
+
+        <h3 style="margin-top:22px;margin-bottom:12px;">为什么是现在</h3>
+        <ul class="bullet-list">
+          <li>AI 智能体能力刚成熟（GPT-4 / Claude 级别）</li>
+          <li>4G IoT 模组白菜价，BOM 仅 ¥50</li>
+          <li>竞品全军覆没（Humane / Rabbit），留出窗口期</li>
+          <li>宠物经济 + AI 伙伴需求正在交叉爆发</li>
+        </ul>
+      </div>
+      <div>
+        <h3 style="margin-bottom:16px;">用户拓展路径</h3>
+        <div class="card card-amber" style="margin-bottom:10px;">
+          <div style="font-size:14px;font-weight:600;margin-bottom:8px;color:var(--amber-deep);">第一圈：OpenClaw 发烧友（首批）</div>
+          <div class="table-container">
+            <table>
+              <tr><td style="color:var(--text-muted);width:28%;">画像</td><td>开发者、创始人、产品经理、AI 重度用户</td></tr>
+              <tr><td style="color:var(--text-muted);">特征</td><td>每天使用 ChatGPT / Claude，愿意折腾新硬件</td></tr>
+              <tr><td style="color:var(--text-muted);">规模</td><td>中国 500-2000 万，全球 5000 万+</td></tr>
+            </table>
+          </div>
+        </div>
+        <div class="card card-sage" style="margin-bottom:10px;">
+          <div style="font-size:14px;font-weight:600;margin-bottom:8px;color:var(--sage-deep);">第二圈：对新技术 / 宠物陪伴感兴趣的年轻人</div>
+          <div class="table-container">
+            <table>
+              <tr><td style="color:var(--text-muted);width:28%;">画像</td><td>学生、职场新人、内容创作者</td></tr>
+              <tr><td style="color:var(--text-muted);">特征</td><td>追求陪伴感、IP 消费、社交分享</td></tr>
+              <tr><td style="color:var(--text-muted);">规模</td><td>中国 Z 世代 + 千禧一代，数亿级</td></tr>
+            </table>
+          </div>
+        </div>
+        <div class="card card-terracotta">
+          <div style="font-size:14px;font-weight:600;margin-bottom:6px;color:var(--terracotta);">终局：每个人的 AI 助手</div>
+          <div style="font-size:13px;color:var(--text-secondary);line-height:1.6;">
+            手机让每个人连上了互联网。<br>Einko 让每个人随时连上 AI — <strong>无摩擦、无屏幕、按下即用。</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-line"></div>
+  <div class="brand">EINKO</div>
+  <div class="slide-number">13</div>
+</div>
+
+<!-- ==================== SLIDE 14: COMPETITION ==================== -->
+<div class="slide">
+  <div class="label">竞争格局</div>
+  <h2>最简单 + 最便宜 + 独立联网，对比</h2>
+  <div style="height:16px;"></div>
+
+  <div class="content-area justify-center">
+    <div class="table-container" style="margin-bottom:24px;">
+      <table>
+        <thead>
+          <tr>
+            <th>维度</th>
+            <th>Humane AI Pin</th>
+            <th>Rabbit R1</th>
+            <th>Limitless Pendant</th>
+            <th style="color:var(--amber-deep);">Einko</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="font-weight:600;color:var(--text-primary);">售价</td>
+            <td>$699</td>
+            <td>$199</td>
+            <td>$99</td>
+            <td class="compare-winner">¥199-699</td>
+          </tr>
+          <tr>
+            <td style="font-weight:600;color:var(--text-primary);">BOM 成本</td>
+            <td>~$200+</td>
+            <td>~$80+</td>
+            <td>~$50+</td>
+            <td class="compare-winner">~$7 (¥50)</td>
+          </tr>
+          <tr>
+            <td style="font-weight:600;color:var(--text-primary);">联网方式</td>
+            <td>eSIM + WiFi</td>
+            <td>WiFi + 蜂窝</td>
+            <td>蓝牙（依赖手机）</td>
+            <td class="compare-winner">4G 独立联网</td>
+          </tr>
+          <tr>
+            <td style="font-weight:600;color:var(--text-primary);">定位</td>
+            <td>取代手机</td>
+            <td>独立 AI 设备</td>
+            <td>会议录音</td>
+            <td class="compare-winner">AI 遥控器 / AI 伙伴</td>
+          </tr>
+          <tr>
+            <td style="font-weight:600;color:var(--text-primary);">交互方式</td>
+            <td>触摸+语音+投影</td>
+            <td>触摸+语音+屏幕</td>
+            <td>被动录音</td>
+            <td class="compare-winner">单按钮对讲</td>
+          </tr>
+          <tr>
+            <td style="font-weight:600;color:var(--text-primary);">输入模态</td>
+            <td>语音+低像素相机</td>
+            <td>语音+低像素相机</td>
+            <td>仅录音</td>
+            <td class="compare-winner">语音+截图+拍照+图像</td>
+          </tr>
+          <tr>
+            <td style="font-weight:600;color:var(--text-primary);">图像质量</td>
+            <td style="color:var(--terracotta);">低像素机载相机</td>
+            <td style="color:var(--terracotta);">低像素机载相机</td>
+            <td>无</td>
+            <td class="compare-winner">手机相机（最优画质）</td>
+          </tr>
+          <tr>
+            <td style="font-weight:600;color:var(--text-primary);">AI 伙伴属性</td>
+            <td>无</td>
+            <td>弱</td>
+            <td>无</td>
+            <td class="compare-winner">长期记忆 + 成长</td>
+          </tr>
+          <tr>
+            <td style="font-weight:600;color:var(--text-primary);">复杂度</td>
+            <td>极高</td>
+            <td>高</td>
+            <td>低</td>
+            <td class="compare-winner">极简</td>
+          </tr>
+          <tr>
+            <td style="font-weight:600;color:var(--text-primary);">市场表现</td>
+            <td style="color:var(--terracotta);">召回 / 挣扎中</td>
+            <td style="color:var(--amber);">使用量下滑</td>
+            <td style="color:var(--text-muted);">单一场景</td>
+            <td class="compare-winner">专注，锋利</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="card card-amber" style="padding:18px;">
+      <div style="font-family:'Playfair Display','Noto Serif SC',serif;font-size:15px;font-weight:500;text-align:center;color:var(--text-primary);font-style:italic;">
+        竞品要么试图取代手机（昂贵、低像素相机、续航差），要么困在手机里（无法常态采集）。我们两者兼得：语音用专属硬件，图像用手机 — <span style="color:var(--amber-deep);font-weight:600;">¥50 的 BOM，竞品 1/10 的试错成本，多模态全覆盖。</span>
+      </div>
+    </div>
+  </div>
+  <div class="slide-line"></div>
+  <div class="brand">EINKO</div>
+  <div class="slide-number">14</div>
+</div>
+
+<!-- ==================== SLIDE 15: HARDWARE COST ==================== -->
+<div class="slide">
+  <div class="label">成本分析</div>
+  <h2>硬件成本深度拆解</h2>
+  <div class="subtitle" style="margin-bottom:16px;">4G Cat.1 模组方案，BOM ¥50 — 首批打样费用 ¥15-20 万（深圳硬件伙伴已确认）</div>
+
+  <div class="content-area justify-center">
+    <div class="grid-2 gap-24">
+      <!-- Left: BOM breakdown -->
+      <div>
+        <h3 style="margin-bottom:8px;">BOM 组件明细 <span style="font-size:11px;color:var(--text-muted);font-weight:400;">(4G Cat.1 方案)</span></h3>
+        <div class="table-container" style="margin-bottom:12px;">
+          <table style="font-size:12px;">
+            <thead>
+              <tr>
+                <th style="padding:6px 10px;">组件</th>
+                <th style="padding:6px 10px;">型号 / 规格</th>
+                <th style="padding:6px 10px;text-align:right;">单价</th>
+                <th style="padding:6px 10px;text-align:right;">占比</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td style="padding:5px 10px;font-weight:600;color:var(--text-primary);">4G Cat.1 模组</td>
+                <td style="padding:5px 10px;">Air780E / EC600N 等（内置 MCU）</td>
+                <td style="padding:5px 10px;text-align:right;font-weight:600;">¥20-25</td>
+                <td style="padding:5px 10px;text-align:right;">40-50%</td>
+              </tr>
+              <tr>
+                <td style="padding:5px 10px;font-weight:600;color:var(--text-primary);">锂电池</td>
+                <td style="padding:5px 10px;">3.7V 500-800mAh</td>
+                <td style="padding:5px 10px;text-align:right;font-weight:600;">¥5-8</td>
+                <td style="padding:5px 10px;text-align:right;">10-16%</td>
+              </tr>
+              <tr>
+                <td style="padding:5px 10px;font-weight:600;color:var(--text-primary);">数字麦克风</td>
+                <td style="padding:5px 10px;">INMP441 I2S</td>
+                <td style="padding:5px 10px;text-align:right;font-weight:600;">¥3-5</td>
+                <td style="padding:5px 10px;text-align:right;">6-10%</td>
+              </tr>
+              <tr>
+                <td style="padding:5px 10px;font-weight:600;color:var(--text-primary);">PCB + 被动元件</td>
+                <td style="padding:5px 10px;">4 层 FR-4</td>
+                <td style="padding:5px 10px;text-align:right;font-weight:600;">¥5-6</td>
+                <td style="padding:5px 10px;text-align:right;">10-12%</td>
+              </tr>
+              <tr>
+                <td style="padding:5px 10px;font-weight:600;color:var(--text-primary);">外壳</td>
+                <td style="padding:5px 10px;">ABS/PC 注塑 + 夹子/表带</td>
+                <td style="padding:5px 10px;text-align:right;font-weight:600;">¥3-5</td>
+                <td style="padding:5px 10px;text-align:right;">6-10%</td>
+              </tr>
+              <tr>
+                <td style="padding:5px 10px;font-weight:600;color:var(--text-primary);">SIM 卡座</td>
+                <td style="padding:5px 10px;">Nano SIM / eSIM</td>
+                <td style="padding:5px 10px;text-align:right;font-weight:600;">¥1-2</td>
+                <td style="padding:5px 10px;text-align:right;">2-4%</td>
+              </tr>
+              <tr>
+                <td style="padding:5px 10px;font-weight:600;color:var(--text-primary);">其他</td>
+                <td style="padding:5px 10px;">马达 / LED / 按钮 / USB-C</td>
+                <td style="padding:5px 10px;text-align:right;font-weight:600;">¥4-6</td>
+                <td style="padding:5px 10px;text-align:right;">8-12%</td>
+              </tr>
+            </tbody>
+            <tfoot>
+              <tr>
+                <td colspan="2" style="padding:7px 10px;font-weight:700;color:var(--amber-deep);background:var(--bg-cream-accent);border-top:2px solid var(--border);">BOM 合计</td>
+                <td style="padding:7px 10px;text-align:right;font-weight:700;color:var(--amber-deep);background:var(--bg-cream-accent);border-top:2px solid var(--border);">~¥50</td>
+                <td style="padding:7px 10px;text-align:right;font-weight:600;background:var(--bg-cream-accent);border-top:2px solid var(--border);">100%</td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+        <div class="card-sm card-amber" style="padding:10px 14px;">
+          <div style="font-size:11px;color:var(--text-secondary);line-height:1.5;">4G Cat.1 模组内置 MCU，简化硬件架构 · 4G IoT SIM 月租 &lt;¥5/用户/月 · 已与深圳硬件伙伴确认方案</div>
+        </div>
+      </div>
+
+      <!-- Right: Scale economics + first batch -->
+      <div>
+        <h3 style="margin-bottom:8px;">规模效应：单位总成本</h3>
+        <div class="table-container" style="margin-bottom:14px;">
+          <table style="font-size:12px;">
+            <thead>
+              <tr>
+                <th style="padding:6px 10px;">成本项</th>
+                <th style="padding:6px 10px;text-align:right;">100 台</th>
+                <th style="padding:6px 10px;text-align:right;">500 台</th>
+                <th style="padding:6px 10px;text-align:right;">5,000 台</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td style="padding:5px 10px;color:var(--text-muted);">BOM 元器件</td>
+                <td style="padding:5px 10px;text-align:right;">¥60</td>
+                <td style="padding:5px 10px;text-align:right;">¥50</td>
+                <td style="padding:5px 10px;text-align:right;color:var(--sage-deep);font-weight:600;">¥38</td>
+              </tr>
+              <tr>
+                <td style="padding:5px 10px;color:var(--text-muted);">SMT + 组装 + 测试</td>
+                <td style="padding:5px 10px;text-align:right;">¥50</td>
+                <td style="padding:5px 10px;text-align:right;">¥30</td>
+                <td style="padding:5px 10px;text-align:right;color:var(--sage-deep);font-weight:600;">¥15</td>
+              </tr>
+              <tr>
+                <td style="padding:5px 10px;color:var(--text-muted);">外壳 (含模具分摊)</td>
+                <td style="padding:5px 10px;text-align:right;">¥45</td>
+                <td style="padding:5px 10px;text-align:right;">¥12</td>
+                <td style="padding:5px 10px;text-align:right;color:var(--sage-deep);font-weight:600;">¥7</td>
+              </tr>
+              <tr>
+                <td style="padding:5px 10px;color:var(--text-muted);">包装 + 质检</td>
+                <td style="padding:5px 10px;text-align:right;">¥18</td>
+                <td style="padding:5px 10px;text-align:right;">¥13</td>
+                <td style="padding:5px 10px;text-align:right;color:var(--sage-deep);font-weight:600;">¥8</td>
+              </tr>
+            </tbody>
+            <tfoot>
+              <tr>
+                <td style="padding:7px 10px;font-weight:700;color:var(--text-primary);background:var(--bg-cream-accent);border-top:2px solid var(--border);">单位总成本</td>
+                <td style="padding:7px 10px;text-align:right;font-weight:700;background:var(--bg-cream-accent);border-top:2px solid var(--border);">¥173</td>
+                <td style="padding:7px 10px;text-align:right;font-weight:700;background:var(--bg-cream-accent);border-top:2px solid var(--border);">¥105</td>
+                <td style="padding:7px 10px;text-align:right;font-weight:700;color:var(--sage-deep);background:var(--bg-cream-accent);border-top:2px solid var(--border);">¥68</td>
+              </tr>
+              <tr>
+                <td style="padding:5px 10px;font-weight:600;color:var(--text-primary);">毛利率 (拓麻歌子版 @¥599)</td>
+                <td style="padding:5px 10px;text-align:right;font-weight:600;">71%</td>
+                <td style="padding:5px 10px;text-align:right;font-weight:600;">82%</td>
+                <td style="padding:5px 10px;text-align:right;font-weight:700;color:var(--sage-deep);">89%</td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+
+        <h3 style="margin-bottom:8px;">首批打样总投入</h3>
+        <div class="card card-amber" style="padding:12px 14px;margin-bottom:10px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <div>
+              <div style="font-size:11px;color:var(--text-secondary);line-height:1.6;">硬件工程设计 + 打样 + 小批量试产<br>深圳硬件伙伴报价，已确认</div>
+            </div>
+            <div style="font-family:'Playfair Display',serif;font-size:24px;font-weight:700;color:var(--amber-deep);white-space:nowrap;margin-left:16px;">¥15-20万</div>
+          </div>
+        </div>
+        <div style="display:flex;gap:8px;">
+          <div class="card-sm" style="flex:1;text-align:center;padding:8px;">
+            <div style="font-size:10px;color:var(--text-muted);">竞品首批投入</div>
+            <div style="font-family:'Playfair Display',serif;font-size:17px;font-weight:700;color:var(--terracotta);">$1-10M+</div>
+          </div>
+          <div class="card-sm card-sage" style="flex:1;text-align:center;padding:8px;">
+            <div style="font-size:10px;color:var(--text-muted);">Einko 首批</div>
+            <div style="font-family:'Playfair Display',serif;font-size:17px;font-weight:700;color:var(--sage-deep);">¥15-20万</div>
+          </div>
+          <div class="card-sm" style="flex:1;text-align:center;padding:8px;">
+            <div style="font-size:10px;color:var(--text-muted);">试错成本比</div>
+            <div style="font-family:'Playfair Display',serif;font-size:17px;font-weight:700;color:var(--sage-deep);">1/50</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-line"></div>
+  <div class="brand">EINKO</div>
+  <div class="slide-number">15</div>
+</div>
+
+<!-- ==================== SLIDE 16: TRACTION ==================== -->
+<div class="slide">
+  <div class="label">数据与里程碑</div>
+  <h2>内测期间的用户数据</h2>
+  <div class="subtitle" style="margin-bottom:20px;">零广告投放, 自己运营社媒, 验证产品需求</div>
+
+  <div class="content-area justify-center">
+    <!-- Key metrics row -->
+    <div style="display:flex;gap:16px;margin-bottom:24px;">
+      <div class="card" style="flex:1;text-align:center;padding:18px;">
+        <div style="font-family:'Playfair Display',serif;font-size:36px;font-weight:700;color:var(--sage-deep);">600+</div>
+        <div style="font-size:12px;color:var(--text-muted);margin-top:2px;">活跃用户</div>
+        <div style="font-size:11px;color:var(--text-secondary);margin-top:4px;">至少导入 1 张截图的真实用户</div>
+      </div>
+      <div class="card" style="flex:1;text-align:center;padding:18px;">
+        <div style="font-family:'Playfair Display',serif;font-size:36px;font-weight:700;color:var(--amber-deep);">100+</div>
+        <div style="font-size:12px;color:var(--text-muted);margin-top:2px;">月活用户</div>
+        <div style="font-size:11px;color:var(--text-secondary);margin-top:4px;">近一个月活跃用户</div>
+      </div>
+      <div class="card" style="flex:1;text-align:center;padding:18px;">
+        <div style="font-family:'Playfair Display',serif;font-size:36px;font-weight:700;color:var(--terracotta);">10</div>
+        <div style="font-size:12px;color:var(--text-muted);margin-top:2px;">付费用户</div>
+        <div style="font-size:11px;color:var(--text-secondary);margin-top:4px;">自然转化付费用户</div>
+      </div>
+      <div class="card" style="flex:1;text-align:center;padding:18px;">
+        <div style="font-family:'Playfair Display',serif;font-size:36px;font-weight:700;color:var(--text-primary);">35万</div>
+        <div style="font-size:12px;color:var(--text-muted);margin-top:2px;">总曝光量</div>
+        <div style="font-size:11px;color:var(--text-secondary);margin-top:4px;">海外 15 万 + 国内 20 万</div>
+      </div>
+    </div>
+
+    <div class="grid-2 gap-24">
+      <div>
+        <h3 style="margin-bottom:10px;">转化漏斗</h3>
+        <div class="table-container">
+          <table>
+            <tr>
+              <td style="font-weight:600;color:var(--text-primary);">曝光 → 使用</td>
+              <td style="font-family:'Playfair Display',serif;font-weight:700;color:var(--sage-deep);">0.17%</td>
+              <td style="font-size:11px;color:var(--text-muted);">纯自然流量，零付费获客</td>
+            </tr>
+            <tr>
+              <td style="font-weight:600;color:var(--text-primary);">使用 → 月活</td>
+              <td style="font-family:'Playfair Display',serif;font-weight:700;color:var(--sage-deep);">~17%</td>
+              <td style="font-size:11px;color:var(--text-muted);">工具类 App 健康水平</td>
+            </tr>
+            <tr>
+              <td style="font-weight:600;color:var(--text-primary);">使用 → 付费</td>
+              <td style="font-family:'Playfair Display',serif;font-weight:700;color:var(--sage-deep);">1.7%</td>
+              <td style="font-size:11px;color:var(--text-muted);">无 paywall 优化，自然付费</td>
+            </tr>
+          </table>
+        </div>
+        <div class="card-sm card-amber" style="margin-top:12px;padding:14px;">
+          <div style="font-size:12px;color:var(--text-secondary);line-height:1.6;font-style:italic;">
+            所有数据均在零广告投放、零市场推广预算下获得。验证了产品本身的吸引力 — 加入营销杠杆后增长空间巨大。
+          </div>
+        </div>
+      </div>
+      <div>
+        <h3 style="margin-bottom:10px;">已完成里程碑</h3>
+        <div class="progress-item">
+          <div class="progress-check progress-done">&#10003;</div>
+          <span>EINKO App 上架 App Store</span>
+        </div>
+        <div class="progress-item">
+          <div class="progress-check progress-done">&#10003;</div>
+          <span>600+ 真实使用用户，10 位付费</span>
+        </div>
+        <div class="progress-item">
+          <div class="progress-check progress-done">&#10003;</div>
+          <span>核心功能（AI 分类/搜索）全部上线</span>
+        </div>
+        <div class="progress-item">
+          <div class="progress-check progress-done">&#10003;</div>
+          <span>OpenClaw 智能体框架开发完成</span>
+        </div>
+        <div class="progress-item">
+          <div class="progress-check progress-done">&#10003;</div>
+          <span>深圳硬件伙伴确认 4G 方案 + BOM ¥50</span>
+        </div>
+        <div class="progress-item">
+          <div class="progress-check progress-done">&#10003;</div>
+          <span>einko.app 官网上线</span>
+        </div>
+        <div class="progress-item">
+          <div class="progress-check progress-wip">&rarr;</div>
+          <span>4G 硬件原型打样中（对讲机 / 手环评估）</span>
+        </div>
+        <div class="progress-item">
+          <div class="progress-check progress-wip">&rarr;</div>
+          <span>AI Companion 配套 App 开发中</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-line"></div>
+  <div class="brand">EINKO</div>
+  <div class="slide-number">16</div>
+</div>
+
+<!-- ==================== SLIDE 17: THE ASK ==================== -->
+<div class="slide">
+  <div class="content-area justify-center">
+    <div>
+      <div class="label">融资需求</div>
+      <h2>天使轮融资 $1-2M</h2>
+      <div class="subtitle">天使轮 · 18-24 个月资金跑道 · 从产品打样到万台级量产</div>
+    </div>
+  </div>
+
+  <div class="slide-line"></div>
+  <div class="brand">EINKO</div>
+  <div class="slide-number">17</div>
+</div>
+
+
+<!-- ==================== SLIDE 18: CLOSING ==================== -->
+<div class="slide closing-slide">
+  <div style="position:relative;z-index:1;">
+    <div class="label" style="margin-bottom:24px;letter-spacing:4px;">EINKO</div>
+    <h1 style="font-family:'Playfair Display','Noto Serif SC',serif;font-size:46px;font-weight:700;color:var(--text-primary);margin-bottom:16px;">
+      多模态上下文平台 &middot; 软件体时代的 “Android 厂商”
+    </h1>
+    
+  <div class="brand">EINKO</div>
+</div>
+
+</body>
+</html>

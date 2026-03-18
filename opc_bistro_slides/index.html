@@ -547,6 +547,59 @@ html, body {
 }
 
 /* ═══════════════════════════════════════════
+   CLOSE SLIDE — COMPACT LAYOUT
+   ═══════════════════════════════════════════ */
+.slide--close {
+  padding: 1.5rem 2rem;
+}
+
+.slide--close .slide__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.slide--close .hardware-gallery {
+  margin: 0.5rem 0;
+}
+
+.slide--close .hardware-gallery__img {
+  height: 120px;
+}
+
+.slide--close .hardware-gallery__img--lifestyle {
+  height: 110px;
+}
+
+.contacts--compact {
+  margin: 0.5rem 0 0;
+  gap: 3rem;
+}
+
+.contacts--compact .person__qrs {
+  margin-top: 0.2rem;
+}
+
+.contacts--compact .qr-item__img {
+  width: 120px;
+  height: 120px;
+}
+
+.contacts--compact .person__avatar {
+  width: 44px;
+  height: 44px;
+}
+
+.contacts--compact .person__name {
+  font-size: 1rem;
+}
+
+.contacts--compact .person {
+  gap: 0.3rem;
+}
+
+/* ═══════════════════════════════════════════
    RESPONSIVE
    ═══════════════════════════════════════════ */
 @media (max-width: 768px) {
@@ -825,24 +878,22 @@ html, body {
   <!-- ══════════════════════════════════════
        SLIDE 9 — CLOSE (10s)
        ══════════════════════════════════════ -->
-  <section class="slide slide--dark" data-dark>
+  <section class="slide slide--dark slide--close" data-dark>
     <div class="slide__inner">
-      <h1 class="reveal t-hero" style="--i:0">einclaw.cn</h1>
+      <h1 class="reveal t-title" style="--i:0; font-size: clamp(2.5rem, 6vw, 4.5rem); letter-spacing: 0.06em;">einclaw.cn</h1>
       <div class="reveal divider" style="--i:1"></div>
-      <p class="reveal t-subtitle" style="--i:2">
+      <p class="reveal t-body" style="--i:2; opacity: 0.6;">
         众筹进行中
       </p>
-      <div class="spacer"></div>
       <div class="reveal hardware-gallery" style="--i:3">
         <img class="hardware-gallery__img" src="product-device.png" alt="EinClaw Mic 深色版">
         <img class="hardware-gallery__img--lifestyle" src="product-lifestyle.png" alt="EinClaw Mic 佩戴效果">
         <img class="hardware-gallery__img" src="product-white.png" alt="EinClaw Mic 浅色版">
       </div>
-      <p class="reveal t-title mt-2" style="--i:4; font-size: clamp(1.5rem, 3.5vw, 2.5rem);">
+      <p class="reveal t-subtitle" style="--i:4;">
         每一个想法都值得被留住
       </p>
-      <div class="spacer-lg"></div>
-      <div class="reveal contacts" style="--i:5">
+      <div class="reveal contacts contacts--compact" style="--i:5">
         <div class="person">
           <img class="person__avatar" src="arvin-avatar.jpg" alt="Arvin">
           <span class="person__name">Arvin 阿问</span>

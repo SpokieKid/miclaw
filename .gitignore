@@ -4,3 +4,7 @@
 sync_mic.sh
 .env.payments.local
 *.zip
+
+/xingjie_slides
+/local_voice
+transcribe.sh
