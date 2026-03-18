@@ -80,9 +80,11 @@ export default function About() {
                     <ExternalLink className="h-3 w-3 text-[var(--bark-light)]" />
                   </a>
                 </DropdownMenuItem>
-                <DropdownMenuItem disabled className="flex items-center justify-between opacity-60">
-                  EinClaw
-                  <span className="text-[0.7rem] text-[var(--bark-light)]">Coming Soon</span>
+                <DropdownMenuItem asChild>
+                  <a href="https://mineclaw.app" target="_blank" rel="noopener noreferrer" className="flex items-center justify-between">
+                    EinClaw
+                    <ExternalLink className="h-3 w-3 text-[var(--bark-light)]" />
+                  </a>
                 </DropdownMenuItem>
                 <DropdownMenuItem disabled className="flex items-center justify-between opacity-60">
                   EinClaw Park
@@ -194,7 +196,7 @@ export default function About() {
               [
                 { key: 'product1', icon: Mic, link: null },
                 { key: 'product2', icon: Image, link: 'https://einko.app' },
-                { key: 'product3', icon: Cloud, link: null },
+                { key: 'product3', icon: Cloud, link: 'https://mineclaw.app' },
                 { key: 'product4', icon: Globe, link: null },
               ] as const
             ).map(({ key, icon: Icon, link }, i) => (

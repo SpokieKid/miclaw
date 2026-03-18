@@ -78,9 +78,11 @@ function Nav({ onOpenPayment }: { onOpenPayment: () => void }) {
                   <ExternalLink className="h-3 w-3 text-[var(--bark-light)]" />
                 </a>
               </DropdownMenuItem>
-              <DropdownMenuItem disabled className="flex items-center justify-between opacity-60">
-                EinClaw
-                <span className="text-[0.7rem] text-[var(--bark-light)]">Coming Soon</span>
+              <DropdownMenuItem asChild>
+                <a href="https://mineclaw.app" target="_blank" rel="noopener noreferrer" className="flex items-center justify-between">
+                  EinClaw
+                  <ExternalLink className="h-3 w-3 text-[var(--bark-light)]" />
+                </a>
               </DropdownMenuItem>
               <DropdownMenuItem disabled className="flex items-center justify-between opacity-60">
                 EinClaw Park
@@ -546,7 +548,11 @@ function Footer() {
               </a>
             </li>
             <li><Link to="/" className="transition-colors hover:text-[var(--bark)]">EinClaw Mic</Link></li>
-            <li className="opacity-50">EinClaw <span className="text-[0.75rem]">· Coming Soon</span></li>
+            <li>
+              <a href="https://mineclaw.app" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 transition-colors hover:text-[var(--bark)]">
+                EinClaw <ExternalLink className="h-3 w-3" />
+              </a>
+            </li>
             <li className="opacity-50">EinClaw Park <span className="text-[0.75rem]">· Coming Soon</span></li>
           </ul>
         </div>
