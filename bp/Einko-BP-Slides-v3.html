@@ -1,0 +1,1906 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EinClaw - 商业计划书</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500&family=Noto+Serif+SC:wght@400;500;600;700;900&family=Source+Sans+3:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap');
+
+  :root {
+    /* Warm cream palette */
+    --bg-cream: #FFFBF0;
+    --bg-cream-deep: #FFF8E7;
+    --bg-cream-accent: #FEF3C7;
+    --bg-white: #FFFFFF;
+    --bg-warm-light: #FEFCF6;
+
+    /* Accent colors */
+    --amber: #D97706;
+    --amber-deep: #B45309;
+    --amber-light: #F59E0B;
+    --amber-glow: rgba(217, 119, 6, 0.08);
+    --amber-glow-strong: rgba(217, 119, 6, 0.15);
+    --terracotta: #C2410C;
+    --terracotta-light: #EA580C;
+    --terracotta-glow: rgba(194, 65, 12, 0.08);
+
+    /* Text */
+    --text-primary: #1C1917;
+    --text-secondary: #57534E;
+    --text-muted: #78716C;
+    --text-light: #A8A29E;
+
+    /* Greens */
+    --sage: #65A30D;
+    --sage-deep: #4D7C0F;
+    --sage-glow: rgba(101, 163, 13, 0.10);
+
+    /* Borders & shadows */
+    --border: #E7E5E4;
+    --border-light: #F5F5F4;
+    --shadow-soft: 0 2px 16px rgba(28, 25, 23, 0.04);
+    --shadow-card: 0 1px 8px rgba(28, 25, 23, 0.06);
+    --shadow-elevated: 0 4px 24px rgba(28, 25, 23, 0.08);
+
+    /* Gradients */
+    --gradient-warm: linear-gradient(180deg, #FFFBF0 0%, #FFF8E7 100%);
+    --gradient-cream: linear-gradient(135deg, #FFFBF0 0%, #FEF3C7 100%);
+    --gradient-amber: linear-gradient(135deg, #D97706, #F59E0B);
+    --gradient-sage: linear-gradient(135deg, #65A30D, #84CC16);
+    --gradient-terracotta: linear-gradient(135deg, #C2410C, #EA580C);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  @page {
+    size: landscape;
+    margin: 0;
+  }
+
+  body {
+    font-family: 'Source Sans 3', 'Noto Serif SC', -apple-system, sans-serif;
+    background: var(--bg-cream);
+    color: var(--text-primary);
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+    width: 100%;
+  }
+
+  .slide {
+    width: 100%;
+    height: 100vh;
+    padding: 56px 72px;
+    position: relative;
+    overflow: hidden;
+    page-break-after: always;
+    page-break-inside: avoid;
+    background: var(--gradient-warm);
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Subtle warm texture overlay */
+  .slide::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(ellipse at 80% 20%, rgba(254, 243, 199, 0.4) 0%, transparent 50%);
+    pointer-events: none;
+  }
+
+  /* Page number */
+  .slide-number {
+    position: absolute;
+    bottom: 28px;
+    right: 48px;
+    font-family: 'Playfair Display', serif;
+    font-size: 13px;
+    color: var(--text-light);
+    font-weight: 400;
+    letter-spacing: 1px;
+    font-style: italic;
+  }
+
+  /* Brand watermark */
+  .brand {
+    position: absolute;
+    bottom: 28px;
+    left: 48px;
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 11px;
+    color: var(--text-light);
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+  }
+
+  /* Thin decorative line at bottom */
+  .slide-line {
+    position: absolute;
+    bottom: 52px;
+    left: 48px;
+    right: 48px;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* Typography */
+  h1 {
+    font-family: 'Playfair Display', 'Noto Serif SC', serif;
+    font-size: 44px;
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.5px;
+    color: var(--text-primary);
+    margin-bottom: 12px;
+  }
+
+  h2 {
+    font-family: 'Playfair Display', 'Noto Serif SC', serif;
+    font-size: 32px;
+    font-weight: 600;
+    line-height: 1.25;
+    letter-spacing: -0.3px;
+    color: var(--text-primary);
+    margin-bottom: 10px;
+  }
+
+  h3 {
+    font-family: 'Source Sans 3', 'Noto Serif SC', sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 1.3;
+    color: var(--text-primary);
+    margin-bottom: 8px;
+  }
+
+  .subtitle {
+    font-size: 17px;
+    color: var(--text-secondary);
+    font-weight: 400;
+    line-height: 1.6;
+    max-width: 680px;
+  }
+
+  .label {
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--amber);
+    margin-bottom: 10px;
+  }
+
+  .highlight {
+    color: var(--amber-deep);
+    font-weight: 600;
+  }
+
+  .highlight-green {
+    color: var(--sage-deep);
+    font-weight: 600;
+  }
+
+  /* Layout helpers */
+  .flex { display: flex; }
+  .flex-1 { flex: 1; }
+  .gap-12 { gap: 12px; }
+  .gap-16 { gap: 16px; }
+  .gap-20 { gap: 20px; }
+  .gap-24 { gap: 24px; }
+  .gap-28 { gap: 28px; }
+  .gap-32 { gap: 32px; }
+  .gap-40 { gap: 40px; }
+  .items-center { align-items: center; }
+  .justify-center { justify-content: center; }
+  .content-area { flex: 1; display: flex; flex-direction: column; }
+
+  /* Cards */
+  .card {
+    background: var(--bg-white);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 24px;
+    box-shadow: var(--shadow-soft);
+  }
+
+  .card-sm {
+    background: var(--bg-white);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px 18px;
+    box-shadow: var(--shadow-card);
+  }
+
+  .card-amber {
+    border-color: rgba(217, 119, 6, 0.25);
+    background: linear-gradient(135deg, rgba(254, 243, 199, 0.5), rgba(255, 251, 240, 0.8));
+  }
+
+  .card-sage {
+    border-color: rgba(101, 163, 13, 0.25);
+    background: linear-gradient(135deg, rgba(101, 163, 13, 0.05), rgba(132, 204, 22, 0.03));
+  }
+
+  .card-terracotta {
+    border-color: rgba(194, 65, 12, 0.2);
+    background: linear-gradient(135deg, rgba(194, 65, 12, 0.04), rgba(234, 88, 12, 0.02));
+  }
+
+  /* Table */
+  .table-container {
+    width: 100%;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow-card);
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+  }
+
+  th {
+    background: var(--bg-cream-deep);
+    padding: 10px 14px;
+    text-align: left;
+    font-weight: 600;
+    color: var(--text-muted);
+    font-size: 11px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    border-bottom: 1px solid var(--border);
+  }
+
+  td {
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--border-light);
+    color: var(--text-secondary);
+    line-height: 1.4;
+    background: var(--bg-white);
+  }
+
+  tr:last-child td {
+    border-bottom: none;
+  }
+
+  tr:nth-child(even) td {
+    background: var(--bg-warm-light);
+  }
+
+  /* Tags */
+  .tag {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+  }
+
+  .tag-amber {
+    background: var(--amber-glow);
+    color: var(--amber-deep);
+    border: 1px solid rgba(217, 119, 6, 0.2);
+  }
+
+  .tag-sage {
+    background: var(--sage-glow);
+    color: var(--sage-deep);
+    border: 1px solid rgba(101, 163, 13, 0.2);
+  }
+
+  .tag-terracotta {
+    background: var(--terracotta-glow);
+    color: var(--terracotta);
+    border: 1px solid rgba(194, 65, 12, 0.2);
+  }
+
+  /* Stat blocks */
+  .stat {
+    text-align: center;
+  }
+
+  .stat-value {
+    font-family: 'Playfair Display', serif;
+    font-size: 38px;
+    font-weight: 700;
+    line-height: 1;
+    margin-bottom: 6px;
+    color: var(--text-primary);
+  }
+
+  .stat-label {
+    font-size: 12px;
+    color: var(--text-muted);
+    font-weight: 500;
+  }
+
+  /* Bar chart */
+  .bar-container {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 10px;
+  }
+
+  .bar-label {
+    width: 52px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-align: right;
+  }
+
+  .bar-track {
+    flex: 1;
+    height: 26px;
+    background: var(--bg-cream-deep);
+    border-radius: 8px;
+    overflow: hidden;
+    display: flex;
+    border: 1px solid var(--border);
+  }
+
+  .bar-fill-hw {
+    background: var(--gradient-amber);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    font-weight: 600;
+    color: white;
+    border-radius: 7px 0 0 7px;
+  }
+
+  .bar-fill-sub {
+    background: var(--gradient-sage);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    font-weight: 600;
+    color: white;
+  }
+
+  /* Quote */
+  .quote {
+    font-family: 'Playfair Display', 'Noto Serif SC', serif;
+    font-size: 22px;
+    font-weight: 500;
+    font-style: italic;
+    line-height: 1.5;
+    color: var(--text-primary);
+    border-left: 3px solid var(--amber);
+    padding-left: 24px;
+    margin: 20px 0;
+  }
+
+  /* Grid */
+  .grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+
+  .grid-3 {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 20px;
+  }
+
+  .grid-4 {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 14px;
+  }
+
+  /* Bullet list */
+  .bullet-list {
+    list-style: none;
+    padding: 0;
+  }
+
+  .bullet-list li {
+    padding: 5px 0 5px 20px;
+    position: relative;
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--text-secondary);
+  }
+
+  .bullet-list li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 13px;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--amber);
+  }
+
+  /* Cover special */
+  .cover-slide {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background: linear-gradient(180deg, #FFFBF0 0%, #FEF3C7 50%, #FFF8E7 100%);
+  }
+
+  .cover-slide::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 800px;
+    height: 800px;
+    background: radial-gradient(circle, rgba(217, 119, 6, 0.06) 0%, transparent 60%);
+  }
+
+  .cover-slide h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 72px;
+    font-weight: 700;
+    letter-spacing: -1px;
+    color: var(--text-primary);
+    margin-bottom: 20px;
+  }
+
+  .cover-tagline {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 24px;
+    color: var(--text-secondary);
+    font-weight: 400;
+    margin-bottom: 40px;
+    letter-spacing: 1px;
+  }
+
+  .cover-meta {
+    font-size: 13px;
+    color: var(--text-muted);
+    font-weight: 400;
+    letter-spacing: 0.5px;
+  }
+
+  /* Closing slide */
+  .closing-slide {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background: linear-gradient(180deg, #FEF3C7 0%, #FFFBF0 40%, #FFF8E7 100%);
+  }
+
+  .closing-slide::before {
+    width: 900px;
+    height: 900px;
+    background: radial-gradient(circle, rgba(217, 119, 6, 0.05) 0%, transparent 55%);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  /* Flow diagram */
+  .flow-step {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 4px;
+  }
+
+  .flow-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  .flow-icon-amber {
+    background: var(--amber-glow);
+    color: var(--amber-deep);
+    border: 1px solid rgba(217, 119, 6, 0.2);
+  }
+
+  .flow-icon-sage {
+    background: var(--sage-glow);
+    color: var(--sage-deep);
+    border: 1px solid rgba(101, 163, 13, 0.2);
+  }
+
+  .flow-text {
+    font-size: 13px;
+    line-height: 1.4;
+    color: var(--text-secondary);
+  }
+
+  .flow-connector {
+    width: 2px;
+    height: 8px;
+    background: var(--border);
+    margin-left: 15px;
+    margin-bottom: 4px;
+  }
+
+  /* Timeline */
+  .timeline {
+    display: flex;
+    gap: 0;
+    position: relative;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    top: 20px;
+    left: 40px;
+    right: 40px;
+    height: 2px;
+    background: var(--border);
+    z-index: 0;
+  }
+
+  .timeline-item {
+    flex: 1;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+  }
+
+  .timeline-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    margin: 14px auto 14px;
+    border: 2px solid var(--bg-cream);
+    box-shadow: 0 0 0 2px var(--border);
+  }
+
+  .timeline-dot-amber { background: var(--amber); box-shadow: 0 0 0 2px var(--amber); }
+  .timeline-dot-sage { background: var(--sage); box-shadow: 0 0 0 2px var(--sage); }
+  .timeline-dot-terracotta { background: var(--terracotta); box-shadow: 0 0 0 2px var(--terracotta); }
+
+  .timeline-title {
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 2px;
+  }
+
+  .timeline-desc {
+    font-size: 11px;
+    color: var(--text-muted);
+    line-height: 1.5;
+    padding: 0 6px;
+  }
+
+  /* Progress items */
+  .progress-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 6px 0;
+    font-size: 13px;
+    color: var(--text-secondary);
+  }
+
+  .progress-check {
+    width: 20px;
+    height: 20px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    flex-shrink: 0;
+  }
+
+  .progress-done {
+    background: var(--sage-glow);
+    color: var(--sage-deep);
+    border: 1px solid rgba(101, 163, 13, 0.25);
+  }
+
+  .progress-wip {
+    background: var(--amber-glow);
+    color: var(--amber);
+    border: 1px solid rgba(217, 119, 6, 0.25);
+  }
+
+  /* Comparison highlight */
+  .compare-winner {
+    color: var(--sage-deep);
+    font-weight: 700;
+  }
+
+  /* Divider */
+  .divider {
+    width: 48px;
+    height: 2px;
+    background: var(--gradient-amber);
+    border-radius: 1px;
+    margin: 12px 0;
+  }
+
+  /* Decorative horizontal rule */
+  .ornament {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 16px 0;
+  }
+
+  .ornament::before,
+  .ornament::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  .ornament-dot {
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: var(--amber);
+  }
+
+  /* Number circle for "Why Us" and similar */
+  .icon-circle {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Playfair Display', serif;
+    font-size: 16px;
+    font-weight: 600;
+    margin: 0 auto 12px;
+    color: var(--amber-deep);
+    background: var(--amber-glow-strong);
+    border: 1px solid rgba(217, 119, 6, 0.15);
+  }
+</style>
+</head>
+<body>
+
+<!-- ==================== SLIDE 1: COVER ==================== -->
+<div class="slide cover-slide">
+  <div style="position:relative;z-index:1;">
+    <div class="label" style="margin-bottom:28px;letter-spacing:4px;">商业计划书 2026</div>
+    <h1>EinClaw</h1>
+    <div class="cover-tagline">随时随地，言出法随</div>
+    <div class="cover-meta" style="margin-bottom:12px;">人类大脑与 AI 大脑之间的高速公路</div>
+    <div class="cover-meta">天使轮融资 &middot; 2026 年 3 月</div>
+  </div>
+  <div class="brand">EINCLAW</div>
+</div>
+
+<!-- ==================== SLIDE 2: INSIGHT ==================== -->
+<div class="slide">
+  <div class="label">核心洞察</div>
+  <h2>语音是脑机接口出来之前，人机交互里最宽的一条带宽</h2>
+  <div class="subtitle" style="margin-bottom:28px;">但现在没有人能真正把它利用起来。</div>
+
+  <div class="content-area justify-center">
+    <div class="grid-2 gap-32">
+      <div>
+        <h3 style="color:var(--amber-deep);margin-bottom:14px;">带宽对比</h3>
+        <div class="card card-amber" style="padding:20px;margin-bottom:16px;">
+          <div style="margin-bottom:16px;">
+            <div class="bar-container">
+              <div class="bar-label">打字</div>
+              <div class="bar-track">
+                <div class="bar-fill-hw" style="width:8%;border-radius:7px;">40</div>
+              </div>
+              <div style="font-size:11px;color:var(--text-muted);width:60px;">字/分钟</div>
+            </div>
+            <div class="bar-container">
+              <div class="bar-label">语音</div>
+              <div class="bar-track">
+                <div class="bar-fill-sub" style="width:50%;border-radius:7px;">250</div>
+              </div>
+              <div style="font-size:11px;color:var(--text-muted);width:60px;">字/分钟</div>
+            </div>
+            <div class="bar-container">
+              <div class="bar-label">思维</div>
+              <div class="bar-track">
+                <div style="width:100%;background:var(--gradient-terracotta);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:600;color:white;border-radius:7px;">1000+</div>
+              </div>
+              <div style="font-size:11px;color:var(--text-muted);width:60px;">字/分钟</div>
+            </div>
+          </div>
+          <div style="font-size:13px;color:var(--text-secondary);line-height:1.7;">
+            语音的信息吞吐量是打字的 <strong style="color:var(--amber-deep);">6 倍以上</strong>。它是目前最接近人类思维速度的输出通道 — 直到脑机接口到来。
+          </div>
+        </div>
+        <div class="card-sm">
+          <div style="font-size:12px;color:var(--text-secondary);line-height:1.7;">
+            问题是：现有的语音交互方案（手机 App、智能音箱）都需要你停下来、掏出设备、打开应用。这些摩擦足以杀死 90% 的想法。
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <h3 style="color:var(--sage-deep);margin-bottom:14px;">我们的判断</h3>
+        <div class="quote" style="margin:0 0 20px;font-size:20px;">
+          如果能把语音这条带宽真正打通，<br>就等于在人类大脑和 AI 大脑之间<br>建了一条高速公路。
+        </div>
+        <div class="card card-sage" style="padding:18px;margin-bottom:12px;">
+          <div style="font-size:13px;color:var(--text-secondary);line-height:1.8;">
+            <strong style="color:var(--sage-deep);">OpenClaw / Claude Code 级别的 AI 已经来了。</strong><br>
+            它们能写代码、发推文、整理笔记、做调研。<br>
+            缺的不是 AI 的能力，缺的是<strong style="color:var(--sage-deep);">一个随时随地把想法喂给 AI 的入口</strong>。
+          </div>
+        </div>
+        <div class="card-sm card-amber">
+          <div style="font-size:12px;color:var(--text-secondary);line-height:1.7;">
+            EinClaw 就是这个入口。一个 4G 独立联网的对讲机，按下说话，松手走人。你的每一个想法都会被 AI 接住、理解、执行。
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-line"></div>
+  <div class="brand">EINCLAW</div>
+  <div class="slide-number">02</div>
+</div>
+
+<!-- ==================== SLIDE 4: TARGET USERS ==================== -->
+<div class="slide">
+  <div class="label">垂直场景</div>
+  <h2>三个我们最先切入的 PMF 场景</h2>
+  <div class="subtitle" style="margin-bottom:20px;">不讲大故事。我们找到三类人，他们每天都有大量零碎想法需要被 AI 接住和执行。</div>
+
+  <div class="content-area justify-center">
+    <div class="grid-3 gap-20">
+      <div class="card card-amber" style="padding:20px;">
+        <div style="display:flex;gap:12px;align-items:center;margin-bottom:12px;">
+          <div class="flow-icon flow-icon-amber" style="width:40px;height:40px;font-size:16px;">创</div>
+          <div style="font-size:18px;font-weight:700;color:var(--text-primary);">内容创作者</div>
+        </div>
+        <div class="divider"></div>
+        <div style="font-size:13px;color:var(--text-secondary);line-height:1.8;margin-bottom:12px;">
+          <strong style="color:var(--amber-deep);">痛点：</strong>每天产生大量零碎的选题灵感和素材想法，但没时间停下来整理，绝大部分都丢了。
+        </div>
+        <div style="font-size:13px;color:var(--text-secondary);line-height:1.8;">
+          <strong style="color:var(--amber-deep);">EinClaw 怎么帮：</strong>散步、通勤时按下说出想法，AI 自动整理成大纲、生成文案、配图建议。一条推文从录音到可发布。
+        </div>
+        <div style="margin-top:12px;">
+          <span class="tag tag-amber">Twitter / 小红书 / 公众号</span>
+        </div>
+      </div>
+
+      <div class="card card-sage" style="padding:20px;">
+        <div style="display:flex;gap:12px;align-items:center;margin-bottom:12px;">
+          <div class="flow-icon flow-icon-sage" style="width:40px;height:40px;font-size:16px;">码</div>
+          <div style="font-size:18px;font-weight:700;color:var(--text-primary);">产品经理 &amp; 独立开发者</div>
+        </div>
+        <div class="divider" style="background:var(--gradient-sage);"></div>
+        <div style="font-size:13px;color:var(--text-secondary);line-height:1.8;margin-bottom:12px;">
+          <strong style="color:var(--sage-deep);">痛点：</strong>每天有大量想法和需求需要验证和开发，但从想到做中间隔着太多步骤。
+        </div>
+        <div style="font-size:13px;color:var(--text-secondary);line-height:1.8;">
+          <strong style="color:var(--sage-deep);">EinClaw 怎么帮：</strong>对着"对讲机"说下要做的事情，OpenClaw 帮你快速完成验证并看到结果。开车时口述 Bug，下车时 PR 已提交。
+        </div>
+        <div style="margin-top:12px;">
+          <span class="tag tag-sage">Issue / PR / 需求验证</span>
+        </div>
+      </div>
+
+      <div class="card card-terracotta" style="padding:20px;">
+        <div style="display:flex;gap:12px;align-items:center;margin-bottom:12px;">
+          <div class="flow-icon" style="width:40px;height:40px;font-size:16px;background:var(--terracotta-glow);color:var(--terracotta);border:1px solid rgba(194,65,12,0.2);">记</div>
+          <div style="font-size:18px;font-weight:700;color:var(--text-primary);">日记记录者</div>
+        </div>
+        <div class="divider" style="background:var(--gradient-terracotta);"></div>
+        <div style="font-size:13px;color:var(--text-secondary);line-height:1.8;margin-bottom:12px;">
+          <strong style="color:var(--terracotta);">痛点：</strong>想写日记但坚持不下来。打字太慢、打开 App 太麻烦，想法稍纵即逝。
+        </div>
+        <div style="font-size:13px;color:var(--text-secondary);line-height:1.8;">
+          <strong style="color:var(--terracotta);">EinClaw 怎么帮：</strong>随时按下说出想法和感受，AI 帮你整理成日记。回看时还能围绕历史记录持续对话，实现与自己的对话。
+        </div>
+        <div style="margin-top:12px;">
+          <span class="tag tag-terracotta">日记 / 反思 / 自我对话</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card card-amber" style="padding:16px 20px;margin-top:20px;">
+      <div style="font-size:14px;color:var(--text-secondary);line-height:1.8;text-align:center;">
+        共同点：这三类用户都是<strong style="color:var(--amber-deep);">高频思考者</strong> — 他们的想法产出远超他们能记录的速度。EinClaw 就是他们的<strong style="color:var(--amber-deep);">外挂思维缓冲区</strong>。
+      </div>
+    </div>
+  </div>
+  <div class="slide-line"></div>
+  <div class="brand">EINCLAW</div>
+  <div class="slide-number">03</div>
+</div>
+
+<!-- ==================== SLIDE 5: USE CASE - CONTENT CREATOR ==================== -->
+<div class="slide">
+  <div class="label">场景一 · 内容创作者</div>
+  <h2>从灵感到发布，全程不碰手机</h2>
+  <div class="subtitle" style="margin-bottom:22px;">一个内容创作者的典型一天。</div>
+
+  <div class="content-area justify-center">
+    <div class="grid-2 gap-28">
+      <div>
+        <h3 style="margin-bottom:12px;">用户旅程</h3>
+        <div class="card" style="padding:20px;">
+          <div class="flow-step">
+            <div class="flow-icon flow-icon-amber">1</div>
+            <div class="flow-text"><strong>早晨散步</strong> — 按下 EinClaw，说出今天想写的选题方向</div>
+          </div>
+          <div class="flow-connector"></div>
+          <div class="flow-step">
+            <div class="flow-icon flow-icon-amber">2</div>
+            <div class="flow-text"><strong>松手走人</strong> — 语音 4G 直传 OpenClaw，AI 开始整理大纲</div>
+          </div>
+          <div class="flow-connector"></div>
+          <div class="flow-step">
+            <div class="flow-icon flow-icon-sage">3</div>
+            <div class="flow-text"><strong>通勤路上</strong> — 再按一下，补充两个观点和案例</div>
+          </div>
+          <div class="flow-connector"></div>
+          <div class="flow-step">
+            <div class="flow-icon flow-icon-sage">4</div>
+            <div class="flow-text"><strong>到公司</strong> — 打开手机，一篇完整的推文草稿已经在等你审阅</div>
+          </div>
+          <div class="flow-connector"></div>
+          <div class="flow-step">
+            <div class="flow-icon flow-icon-sage">5</div>
+            <div class="flow-text"><strong>微调发布</strong> — 改两句话，一键发布到 Twitter / 小红书</div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <h3 style="margin-bottom:12px;">价值量化</h3>
+        <div class="card-sm" style="margin-bottom:10px;border-left:3px solid var(--terracotta);">
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <div style="font-size:13px;color:var(--text-secondary);">传统方式：从灵感到成稿</div>
+            <div style="font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:var(--terracotta);">2-4 小时</div>
+          </div>
+        </div>
+        <div class="card-sm card-sage" style="margin-bottom:16px;border-left:3px solid var(--sage);">
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <div style="font-size:13px;color:var(--text-secondary);">EinClaw：从灵感到成稿</div>
+            <div style="font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:var(--sage-deep);">15 分钟</div>
+          </div>
+        </div>
+
+        <h3 style="margin-bottom:10px;">为什么他们会用</h3>
+        <div class="card card-amber" style="padding:16px;">
+          <ul class="bullet-list">
+            <li>灵感转瞬即逝，打字记录太慢</li>
+            <li>已有 AI 写作工具，但"喂素材"太麻烦</li>
+            <li>EinClaw 让"输入想法"和"生活"不冲突</li>
+            <li>多次按下可持续追加上下文，AI 自动融合</li>
+          </ul>
+        </div>
+
+        <div class="card-sm" style="margin-top:12px;text-align:center;">
+          <div style="font-size:11px;color:var(--text-muted);margin-bottom:4px;">目标用户规模（中国）</div>
+          <div style="font-family:'Playfair Display',serif;font-size:24px;font-weight:700;color:var(--amber-deep);">2000万+</div>
+          <div style="font-size:11px;color:var(--text-muted);">活跃内容创作者</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-line"></div>
+  <div class="brand">EINCLAW</div>
+  <div class="slide-number">04</div>
+</div>
+
+<!-- ==================== SLIDE 6: USE CASE - PM & INDIE DEV ==================== -->
+<div class="slide">
+  <div class="label">场景二 · 产品经理 &amp; 独立开发者</div>
+  <h2>对着"对讲机"说要做的事，OpenClaw 帮你搞定</h2>
+  <div class="subtitle" style="margin-bottom:22px;">从想法到验证，不需要坐下来打开电脑。</div>
+
+  <div class="content-area justify-center">
+    <div class="grid-2 gap-28">
+      <div>
+        <h3 style="margin-bottom:12px;">用户旅程</h3>
+        <div class="card" style="padding:20px;">
+          <div class="flow-step">
+            <div class="flow-icon flow-icon-sage">1</div>
+            <div class="flow-text"><strong>开车路上</strong> — 按下 EinClaw："首页的加载速度太慢了，帮我查一下是哪个 API 调用的问题"</div>
+          </div>
+          <div class="flow-connector"></div>
+          <div class="flow-step">
+            <div class="flow-icon flow-icon-sage">2</div>
+            <div class="flow-text"><strong>OpenClaw 接手</strong> — 自动分析代码仓库，定位瓶颈，创建 Issue</div>
+          </div>
+          <div class="flow-connector"></div>
+          <div class="flow-step">
+            <div class="flow-icon flow-icon-sage">3</div>
+            <div class="flow-text"><strong>再按一下</strong>："顺便把那个用户反馈的注册 Bug 也修了"</div>
+          </div>
+          <div class="flow-connector"></div>
+          <div class="flow-step">
+            <div class="flow-icon flow-icon-amber">4</div>
+            <div class="flow-text"><strong>到公司</strong> — 打开电脑，两个 PR 已提交，等你 review</div>
+          </div>
+        </div>
+
+        <div class="card-sm card-sage" style="margin-top:12px;">
+          <div style="font-size:12px;color:var(--text-secondary);line-height:1.7;font-style:italic;">
+            对独立开发者来说，这等于随身带了一个永远在线的技术合伙人。
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <h3 style="margin-bottom:12px;">能做什么</h3>
+        <div class="card-sm" style="margin-bottom:8px;border-left:3px solid var(--sage);">
+          <div style="font-size:13px;font-weight:600;color:var(--text-primary);">Bug 口述 → Issue + PR</div>
+          <div style="font-size:12px;color:var(--text-secondary);margin-top:2px;">说出问题描述，AI 自动定位代码、修复、提交</div>
+        </div>
+        <div class="card-sm" style="margin-bottom:8px;border-left:3px solid var(--amber);">
+          <div style="font-size:13px;font-weight:600;color:var(--text-primary);">需求口述 → 原型验证</div>
+          <div style="font-size:12px;color:var(--text-secondary);margin-top:2px;">说出功能需求，AI 快速生成原型代码并部署预览</div>
+        </div>
+        <div class="card-sm" style="margin-bottom:8px;border-left:3px solid var(--terracotta);">
+          <div style="font-size:13px;font-weight:600;color:var(--text-primary);">想法口述 → 调研报告</div>
+          <div style="font-size:12px;color:var(--text-secondary);margin-top:2px;">说出一个产品想法，AI 帮你搜索竞品、分析市场、整理报告</div>
+        </div>
+        <div class="card-sm" style="margin-bottom:16px;border-left:3px solid var(--sage);">
+          <div style="font-size:13px;font-weight:600;color:var(--text-primary);">会议后口述 → 任务拆解</div>
+          <div style="font-size:12px;color:var(--text-secondary);margin-top:2px;">会后说出要点，AI 自动生成待办清单并创建对应 Issue</div>
+        </div>
+
+        <div class="card-sm" style="text-align:center;">
+          <div style="font-size:11px;color:var(--text-muted);margin-bottom:4px;">目标用户规模（中国）</div>
+          <div style="font-family:'Playfair Display',serif;font-size:24px;font-weight:700;color:var(--sage-deep);">500万+</div>
+          <div style="font-size:11px;color:var(--text-muted);">产品经理 + 独立开发者 + 技术创始人</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-line"></div>
+  <div class="brand">EINCLAW</div>
+  <div class="slide-number">05</div>
+</div>
+
+<!-- ==================== SLIDE 7: USE CASE - JOURNAL ==================== -->
+<div class="slide">
+  <div class="label">场景三 · 日记记录</div>
+  <h2>说出来就是写下来 — 与自己的持续对话</h2>
+  <div class="subtitle" style="margin-bottom:22px;">写日记最大的敌人不是没时间，是摩擦。</div>
+
+  <div class="content-area justify-center">
+    <div class="grid-2 gap-28">
+      <div>
+        <h3 style="margin-bottom:12px;">用户旅程</h3>
+        <div class="card" style="padding:20px;">
+          <div class="flow-step">
+            <div class="flow-icon" style="width:32px;height:32px;border-radius:10px;background:var(--terracotta-glow);color:var(--terracotta);border:1px solid rgba(194,65,12,0.2);font-size:13px;font-weight:700;flex-shrink:0;">1</div>
+            <div class="flow-text"><strong>睡前</strong> — 按下 EinClaw，说出今天发生了什么、有什么感受</div>
+          </div>
+          <div class="flow-connector"></div>
+          <div class="flow-step">
+            <div class="flow-icon" style="width:32px;height:32px;border-radius:10px;background:var(--terracotta-glow);color:var(--terracotta);border:1px solid rgba(194,65,12,0.2);font-size:13px;font-weight:700;flex-shrink:0;">2</div>
+            <div class="flow-text"><strong>AI 整理</strong> — 转写、整理、提炼关键情绪和事件，生成结构化日记</div>
+          </div>
+          <div class="flow-connector"></div>
+          <div class="flow-step">
+            <div class="flow-icon" style="width:32px;height:32px;border-radius:10px;background:var(--terracotta-glow);color:var(--terracotta);border:1px solid rgba(194,65,12,0.2);font-size:13px;font-weight:700;flex-shrink:0;">3</div>
+            <div class="flow-text"><strong>随时追加</strong> — 通勤、午休、任何零碎时刻都可以按下补充</div>
+          </div>
+          <div class="flow-connector"></div>
+          <div class="flow-step">
+            <div class="flow-icon flow-icon-amber">4</div>
+            <div class="flow-text"><strong>回顾对话</strong> — 一周后对 AI 说"上周我为什么焦虑"，它帮你梳理脉络</div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <h3 style="margin-bottom:12px;">为什么语音日记是一个好的切入点</h3>
+        <div class="card-sm" style="margin-bottom:10px;border-left:3px solid var(--terracotta);">
+          <div style="font-size:13px;font-weight:600;color:var(--text-primary);">高频 + 刚需 + 习惯养成</div>
+          <div style="font-size:12px;color:var(--text-secondary);margin-top:2px;">每天都可以做，做了就有价值，养成后很难离开</div>
+        </div>
+        <div class="card-sm" style="margin-bottom:10px;border-left:3px solid var(--amber);">
+          <div style="font-size:13px;font-weight:600;color:var(--text-primary);">天然适合语音</div>
+          <div style="font-size:12px;color:var(--text-secondary);margin-top:2px;">说比写快 6 倍，而且说的内容往往比写的更真实、更丰富</div>
+        </div>
+        <div class="card-sm" style="margin-bottom:10px;border-left:3px solid var(--sage);">
+          <div style="font-size:13px;font-weight:600;color:var(--text-primary);">数据沉淀 = 长期壁垒</div>
+          <div style="font-size:12px;color:var(--text-secondary);margin-top:2px;">用户的日记越积越多，AI 越来越了解你，迁移成本极高</div>
+        </div>
+
+        <div class="card card-amber" style="padding:16px;margin-top:16px;">
+          <div style="font-size:13px;color:var(--text-secondary);line-height:1.7;">
+            <strong style="color:var(--amber-deep);">延展空间：</strong>语音日记是入口。积累足够多的个人数据后，可以做情绪分析、健康追踪、个人 AI 助理 — 但第一步，先把"说就是写"这件事做到极致。
+          </div>
+        </div>
+
+        <div class="card-sm" style="margin-top:12px;text-align:center;">
+          <div style="font-size:11px;color:var(--text-muted);margin-bottom:4px;">目标用户规模（全球）</div>
+          <div style="font-family:'Playfair Display',serif;font-size:24px;font-weight:700;color:var(--terracotta);">数亿级</div>
+          <div style="font-size:11px;color:var(--text-muted);">有日记/反思习惯或意愿的人</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-line"></div>
+  <div class="brand">EINCLAW</div>
+  <div class="slide-number">06</div>
+</div>
+
+<!-- ==================== SLIDE 7.5: BEYOND EFFICIENCY ==================== -->
+<div class="slide">
+  <div class="label">长期壁垒</div>
+  <h2>卷效率卷不过大厂 -- 所以我们第一天就做"陪伴"</h2>
+  <div class="subtitle" style="margin-bottom:22px;">EinClaw 不只是一个效率工具。你交互的是一个活的软件体 -- 你在培养它，它也在陪伴你。</div>
+
+  <div class="content-area justify-center">
+    <div class="grid-2 gap-28">
+      <div>
+        <h3 style="margin-bottom:12px;">为什么不能只卷效率</h3>
+        <div class="card card-terracotta" style="padding:18px;margin-bottom:14px;">
+          <div style="font-size:13px;color:var(--text-secondary);line-height:1.8;">
+            <strong style="color:var(--terracotta);">现实：</strong>效率工具的终局是大厂入场碾压。Apple、Google、OpenAI 都会做语音助手，拼功能我们没有优势。<br><br>
+            <strong style="color:var(--terracotta);">我们的判断：</strong>用户会为效率付费一阵子，但会为<strong>陪伴</strong>付费一辈子。宠物经济 $300B+，因为人需要的不是一个完美的工具，而是一个有感情的伙伴。
+          </div>
+        </div>
+
+        <div class="card card-amber" style="padding:16px;">
+          <div style="font-size:15px;font-weight:700;color:var(--amber-deep);margin-bottom:8px;">软件体 -- 你在培养的"龙虾"</div>
+          <div style="font-size:13px;color:var(--text-secondary);line-height:1.8;">
+            EinClaw 背后不是一个冷冰冰的 API，而是一个可成长的<strong style="color:var(--amber-deep);">软件体</strong>。你喂它想法，它学习你的风格；你和它对话越多，它越懂你。<br><br>
+            这个培养的过程本身就有意义 -- 就像养一只龙虾，你会对它产生感情。
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <h3 style="margin-bottom:12px;">效率 + 情感 = 不可替代</h3>
+        <div class="card card-sage" style="padding:18px;margin-bottom:12px;">
+          <div style="font-size:14px;font-weight:600;color:var(--sage-deep);margin-bottom:10px;">1. 效率价值 -- 它帮你做事</div>
+          <div style="font-size:13px;color:var(--text-secondary);line-height:1.7;">
+            帮你写推文、提 PR、整理日记。越用越了解你的工作习惯，处理效率越来越高。你养出来的软件体，比别人的更懂你。
+          </div>
+        </div>
+        <div class="card card-amber" style="padding:18px;margin-bottom:12px;">
+          <div style="font-size:14px;font-weight:600;color:var(--amber-deep);margin-bottom:10px;">2. 情感价值 -- 它陪伴你</div>
+          <div style="font-size:13px;color:var(--text-secondary);line-height:1.7;">
+            按下按钮和它说话的过程，本身就是一种陪伴。它记得你昨天的心情，知道你上周在焦虑什么。这种"被理解"的感觉，是效率工具给不了的。
+          </div>
+        </div>
+
+        <div class="card" style="padding:16px;text-align:center;">
+          <div style="font-size:12px;color:var(--text-muted);margin-bottom:10px;">护城河对比</div>
+          <div style="display:flex;gap:12px;">
+            <div style="flex:1;">
+              <div style="font-size:11px;color:var(--text-muted);margin-bottom:4px;">纯效率工具</div>
+              <div style="font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:var(--terracotta);">随时可替换</div>
+            </div>
+            <div style="flex:1;">
+              <div style="font-size:11px;color:var(--text-muted);margin-bottom:4px;">效率 + 情感陪伴</div>
+              <div style="font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:var(--sage-deep);">养了就舍不得走</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-line"></div>
+  <div class="brand">EINCLAW</div>
+  <div class="slide-number">07</div>
+</div>
+
+<!-- ==================== SLIDE 8: PROBLEM ==================== -->
+<div class="slide">
+  <div class="label">痛点</div>
+  <h2>AI 已经够聪明了 — 但你喂不进去</h2>
+  <div class="subtitle" style="margin-bottom:28px;">不是 AI 不够聪明，而是人和 AI 之间的通道太窄了。</div>
+
+  <div class="content-area justify-center">
+    <div class="grid-2 gap-32">
+      <div>
+        <h3 style="color:var(--terracotta);margin-bottom:14px;">你每天丢失的想法</h3>
+        <div class="card-sm" style="margin-bottom:10px;">
+          <div style="font-size:13px;color:var(--text-primary);font-weight:500;">开车时冒出的产品灵感</div>
+          <div style="font-size:12px;color:var(--text-muted);margin-top:3px;">5 分钟后就忘了 — 你无法停下来打字</div>
+        </div>
+        <div class="card-sm" style="margin-bottom:10px;">
+          <div style="font-size:13px;color:var(--text-primary);font-weight:500;">散步时想到的推文选题</div>
+          <div style="font-size:12px;color:var(--text-muted);margin-top:3px;">回到电脑前已经忘了怎么表达</div>
+        </div>
+        <div class="card-sm" style="margin-bottom:10px;">
+          <div style="font-size:13px;color:var(--text-primary);font-weight:500;">睡前想记录的一天感受</div>
+          <div style="font-size:12px;color:var(--text-muted);margin-top:3px;">打开手机又刷了半小时视频</div>
+        </div>
+        <div class="card-sm">
+          <div style="font-size:13px;color:var(--text-primary);font-weight:500;">会后想让 AI 帮忙跟进的任务</div>
+          <div style="font-size:12px;color:var(--text-muted);margin-top:3px;">打开 ChatGPT 还得重新描述上下文</div>
+        </div>
+      </div>
+      <div>
+        <h3 style="color:var(--amber-deep);margin-bottom:14px;">问题的本质</h3>
+        <div class="card card-amber" style="padding:22px;margin-bottom:14px;">
+          <div style="font-family:'Playfair Display','Noto Serif SC',serif;font-size:15px;color:var(--text-primary);line-height:1.7;font-style:italic;">
+            OpenClaw / Claude Code 已经能写代码、发推文、做调研。<br>
+            但你必须解锁手机、打开 App、打字输入 —<br>
+            7 个步骤、45 秒以上。
+          </div>
+          <div style="font-size:13px;color:var(--text-secondary);margin-top:14px;line-height:1.6;">
+            这 45 秒的摩擦，足以杀死你 90% 的好想法。
+          </div>
+        </div>
+        <div class="card-sm" style="text-align:center;">
+          <div style="font-size:12px;color:var(--text-muted);margin-bottom:8px;">从想法到让 AI 行动的摩擦</div>
+          <div style="display:flex;justify-content:space-between;align-items:flex-end;padding:0 12px;">
+            <div style="text-align:center;">
+              <div style="font-family:'Playfair Display',serif;font-size:24px;font-weight:700;color:var(--terracotta);">7 步 / 45秒</div>
+              <div style="font-size:11px;color:var(--text-muted);">手机 App</div>
+            </div>
+            <div style="font-family:'Playfair Display',serif;font-size:16px;color:var(--text-light);font-style:italic;">vs</div>
+            <div style="text-align:center;">
+              <div style="font-family:'Playfair Display',serif;font-size:24px;font-weight:700;color:var(--sage-deep);">1 步 / 3秒</div>
+              <div style="font-size:11px;color:var(--text-muted);">EinClaw</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-line"></div>
+  <div class="brand">EINCLAW</div>
+  <div class="slide-number">08</div>
+</div>
+
+<!-- ==================== SLIDE 9: SOLUTION ==================== -->
+<div class="slide">
+  <div class="label">我们的解决方案</div>
+  <h2>EinClaw — 人类大脑到 AI 大脑的高速公路</h2>
+  <div class="subtitle" style="margin-bottom:24px;">一个 4G 独立联网的语音对讲机。按下说话，松手走人。不需要手机，不需要打字，不需要等。</div>
+
+  <div class="content-area justify-center">
+    <div class="grid-2 gap-32">
+      <div>
+        <h3 style="margin-bottom:14px;">核心产品：OpenClaw 直通硬件</h3>
+        <div class="card card-amber" style="padding:20px;margin-bottom:16px;">
+          <div style="font-size:13px;color:var(--text-secondary);line-height:1.9;">
+            <strong style="color:var(--amber-deep);">4G 独立联网</strong> — 无需手机，随时随地可用<br>
+            <strong style="color:var(--amber-deep);">单按钮交互</strong> — 按下说话，松手走人<br>
+            <strong style="color:var(--amber-deep);">OpenClaw 驱动</strong> — 自研 AI 智能体，理解 + 记忆 + 执行<br>
+            <strong style="color:var(--amber-deep);">BOM ¥50</strong> — 深圳供应链，极低试错成本
+          </div>
+        </div>
+
+        <h3 style="margin-bottom:10px;">两种硬件形态（评估中）</h3>
+        <div style="display:flex;gap:12px;">
+          <div class="card-sm" style="flex:1;text-align:center;border-color:rgba(217,119,6,0.25);">
+            <div style="font-size:13px;font-weight:600;color:var(--amber-deep);">对讲机</div>
+            <div style="font-size:11px;color:var(--text-muted);margin-top:2px;">夹在衣领/口袋<br>已有产品原型</div>
+          </div>
+          <div class="card-sm" style="flex:1;text-align:center;border-color:rgba(101,163,13,0.25);">
+            <div style="font-size:13px;font-weight:600;color:var(--sage-deep);">智能手环</div>
+            <div style="font-size:11px;color:var(--text-muted);margin-top:2px;">佩戴在手腕<br>形态探索中</div>
+          </div>
+        </div>
+        <div style="font-size:11px;color:var(--text-muted);margin-top:8px;font-style:italic;">两种形态共享同一套电子方案和 OpenClaw 后端，与工厂评估中。</div>
+      </div>
+      <div>
+        <h3 style="margin-bottom:14px;">从想法到行动：极致缩短路径</h3>
+        <div class="card" style="padding:20px;margin-bottom:16px;">
+          <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px;">
+            <div style="width:8px;height:8px;border-radius:50%;background:var(--terracotta);"></div>
+            <div style="font-size:13px;color:var(--text-secondary);">按下按钮 → 红灯 + 短振动 → 说话</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px;">
+            <div style="width:8px;height:8px;border-radius:50%;background:var(--sage);"></div>
+            <div style="font-size:13px;color:var(--text-secondary);">松手 → 绿灯闪烁 → 4G 直传 OpenClaw</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:12px;">
+            <div style="width:8px;height:8px;border-radius:50%;background:var(--amber);"></div>
+            <div style="font-size:13px;color:var(--text-secondary);">继续你的生活 → AI 自动处理一切</div>
+          </div>
+        </div>
+
+        <div class="card card-amber" style="padding:18px;">
+          <div style="font-size:12px;color:var(--text-muted);margin-bottom:10px;">摩擦对比：给 AI 下达指令</div>
+          <div style="display:flex;justify-content:space-between;align-items:flex-end;">
+            <div style="text-align:center;">
+              <div style="font-family:'Playfair Display',serif;font-size:28px;font-weight:700;color:var(--terracotta);">7 步 / 45秒</div>
+              <div style="font-size:11px;color:var(--text-muted);">手机 App</div>
+            </div>
+            <div style="font-family:'Playfair Display',serif;font-size:18px;color:var(--text-light);font-style:italic;">vs</div>
+            <div style="text-align:center;">
+              <div style="font-family:'Playfair Display',serif;font-size:28px;font-weight:700;color:var(--sage-deep);">1 步 / 5秒</div>
+              <div style="font-size:11px;color:var(--text-muted);">Einko 硬件</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="quote" style="margin-top:20px;font-size:18px;">
+      随时随地，言出法随。
+    </div>
+  </div>
+  <div class="slide-line"></div>
+  <div class="brand">EINCLAW</div>
+  <div class="slide-number">09</div>
+</div>
+
+<!-- ==================== SLIDE 10: HARDWARE DEEP DIVE ==================== -->
+<div class="slide">
+  <div class="label">硬件详情</div>
+  <h2>极简硬件，极低成本</h2>
+  <div class="subtitle" style="margin-bottom:18px;">4G 独立联网，不依赖手机。BOM ¥50，深圳供应链。按下按钮，说，松手走人。</div>
+
+  <div class="content-area">
+    <div style="display:flex;gap:20px;flex:1;">
+      <!-- Left: Dual form factors -->
+      <div style="flex:1;">
+        <div style="display:flex;gap:12px;margin-bottom:14px;">
+          <div class="card card-amber" style="flex:1;padding:14px 16px;">
+            <div style="font-size:10px;color:var(--amber-deep);font-weight:600;letter-spacing:1px;margin-bottom:4px;">形态 A</div>
+            <h3 style="font-size:15px;margin-bottom:6px;">对讲机</h3>
+            <div style="font-size:12px;color:var(--text-secondary);line-height:1.7;">
+              夹在衣领 / 口袋<br>
+              按钮触发说话<br>
+              适合通勤 / 工作<br>
+            </div>
+            <div style="font-size:11px;color:var(--amber-deep);font-weight:600;margin-top:6px;">已有产品原型</div>
+          </div>
+          <div class="card card-sage" style="flex:1;padding:14px 16px;">
+            <div style="font-size:10px;color:var(--sage-deep);font-weight:600;letter-spacing:1px;margin-bottom:4px;">形态 B</div>
+            <h3 style="font-size:15px;margin-bottom:6px;">智能手环</h3>
+            <div style="font-size:12px;color:var(--text-secondary);line-height:1.7;">
+              佩戴在手腕<br>
+              触摸 / 双击说话<br>
+              适合运动 / 日常<br>
+            </div>
+            <div style="font-size:11px;color:var(--sage-deep);font-weight:600;margin-top:6px;">形态探索中</div>
+          </div>
+        </div>
+
+        <div class="card" style="padding:14px 18px;margin-bottom:14px;text-align:center;">
+          <div style="font-size:11px;color:var(--text-muted);margin-bottom:6px;">两种形态共享同一套核心架构</div>
+          <div style="display:flex;gap:8px;justify-content:center;">
+            <span class="tag tag-amber">4G Cat.1 模组</span>
+            <span class="tag tag-sage">OpenClaw 后端</span>
+            <span class="tag tag-terracotta">BOM ~50 RMB</span>
+          </div>
+        </div>
+
+        <h3 style="margin-bottom:8px;">交互：极致简单</h3>
+        <div class="card" style="padding:14px 18px;">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
+            <div style="width:8px;height:8px;border-radius:50%;background:var(--terracotta);"></div>
+            <div style="font-size:13px;color:var(--text-secondary);">按下按钮 → 红灯 + 短振动 → 说话</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
+            <div style="width:8px;height:8px;border-radius:50%;background:var(--sage);"></div>
+            <div style="font-size:13px;color:var(--text-secondary);">松手 → 绿灯闪烁 + 双振动 → 4G 直传云端</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;">
+            <div style="width:8px;height:8px;border-radius:50%;background:var(--amber);"></div>
+            <div style="font-size:13px;color:var(--text-secondary);">继续你的生活 → OpenClaw 自动处理</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Specs + comparison -->
+      <div style="flex:1;">
+        <h3 style="margin-bottom:10px;">核心优势：4G 独立联网</h3>
+        <div class="card" style="padding:16px 18px;margin-bottom:14px;">
+          <div style="font-size:13px;color:var(--text-secondary);line-height:1.9;">
+            4G Cat.1 模组，独立联网，无需手机<br>
+            唤醒式联网：按下才开启 4G，低功耗休眠<br>
+            离线录音自动缓存，恢复信号后批量上传<br>
+            续航 2-3 天，USB-C 充电
+          </div>
+          <div style="display:flex;gap:10px;margin-top:12px;">
+            <div class="card-sm" style="flex:1;text-align:center;border-color:rgba(217,119,6,0.25);padding:8px;">
+              <div style="font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:var(--amber-deep);">~¥50</div>
+              <div style="font-size:10px;color:var(--text-muted);">硬件 BOM</div>
+            </div>
+            <div class="card-sm" style="flex:1;text-align:center;border-color:rgba(101,163,13,0.25);padding:8px;">
+              <div style="font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:var(--sage-deep);">4G</div>
+              <div style="font-size:10px;color:var(--text-muted);">独立联网</div>
+            </div>
+            <div class="card-sm" style="flex:1;text-align:center;border-color:rgba(194,65,12,0.2);padding:8px;">
+              <div style="font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:var(--terracotta);">深圳</div>
+              <div style="font-size:10px;color:var(--text-muted);">供应链</div>
+            </div>
+          </div>
+        </div>
+
+        <h3 style="margin-bottom:8px;">核心使用场景</h3>
+        <ul class="bullet-list" style="margin-bottom:14px;">
+          <li>通勤路上 — 委派今日待办</li>
+          <li>散步 / 跑步 — 捕捉灵感和想法</li>
+          <li>做饭 / 家务 — 快速处理琐事</li>
+          <li>会议间隙 — 快速跟进</li>
+        </ul>
+
+        <div class="card card-amber" style="padding:14px 18px;">
+          <div style="font-size:12px;color:var(--text-muted);margin-bottom:8px;">摩擦对比：给 AI 下达指令</div>
+          <div style="display:flex;justify-content:space-between;align-items:flex-end;">
+            <div style="text-align:center;">
+              <div style="font-family:'Playfair Display',serif;font-size:24px;font-weight:700;color:var(--terracotta);">7 步 / 45 秒</div>
+              <div style="font-size:11px;color:var(--text-muted);">手机 App</div>
+            </div>
+            <div style="font-family:'Playfair Display',serif;font-size:16px;color:var(--text-light);font-style:italic;">vs</div>
+            <div style="text-align:center;">
+              <div style="font-family:'Playfair Display',serif;font-size:24px;font-weight:700;color:var(--sage-deep);">1 步 / 5 秒</div>
+              <div style="font-size:11px;color:var(--text-muted);">EinClaw</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-line"></div>
+  <div class="brand">EINCLAW</div>
+  <div class="slide-number">10</div>
+</div>
+
+<!-- ==================== SLIDE 11: EINKO APP ==================== -->
+<div class="slide">
+  <div class="label">已验证产品</div>
+  <h2>Einko App — 已上架 App Store 的 AI 截图助手</h2>
+  <div class="subtitle" style="margin-bottom:22px;">团队已有完整的 AI 产品交付能力。600+ 用户，10 位付费，零广告投放。</div>
+
+  <div class="content-area">
+    <div class="grid-2 gap-28" style="flex:1;">
+      <div>
+        <h3 style="margin-bottom:12px;">核心功能</h3>
+        <div class="card-sm" style="margin-bottom:8px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <span style="font-size:13px;color:var(--text-secondary);">截图自动导入</span>
+            <span class="tag tag-sage" style="font-size:10px;">已上线</span>
+          </div>
+        </div>
+        <div class="card-sm" style="margin-bottom:8px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <span style="font-size:13px;color:var(--text-secondary);">AI 内容理解与分类</span>
+            <span class="tag tag-sage" style="font-size:10px;">已上线</span>
+          </div>
+        </div>
+        <div class="card-sm" style="margin-bottom:8px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <span style="font-size:13px;color:var(--text-secondary);">关键词 + 语义搜索</span>
+            <span class="tag tag-sage" style="font-size:10px;">已上线</span>
+          </div>
+        </div>
+        <div class="card-sm" style="margin-bottom:8px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <span style="font-size:13px;color:var(--text-secondary);">手动拍照导入</span>
+            <span class="tag tag-sage" style="font-size:10px;">已上线</span>
+          </div>
+        </div>
+        <div class="card-sm">
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <span style="font-size:13px;color:var(--text-secondary);">OpenClaw 智能体联动</span>
+            <span class="tag tag-amber" style="font-size:10px;">第三阶段</span>
+          </div>
+        </div>
+      </div>
+      <div>
+        <h3 style="margin-bottom:12px;">用户旅程</h3>
+        <div class="card" style="padding:20px;">
+          <div class="flow-step">
+            <div class="flow-icon flow-icon-amber">1</div>
+            <div class="flow-text">微信群里看到朋友推荐的餐厅</div>
+          </div>
+          <div class="flow-connector"></div>
+          <div class="flow-step">
+            <div class="flow-icon flow-icon-amber">2</div>
+            <div class="flow-text">截图（已有习惯，零额外操作）</div>
+          </div>
+          <div class="flow-connector"></div>
+          <div class="flow-step">
+            <div class="flow-icon flow-icon-amber">3</div>
+            <div class="flow-text">EINKO 自动导入 + AI 分析内容</div>
+          </div>
+          <div class="flow-connector"></div>
+          <div class="flow-step">
+            <div class="flow-icon flow-icon-amber">4</div>
+            <div class="flow-text">自动归类到"美食"，提取餐厅名+地址</div>
+          </div>
+          <div class="flow-connector"></div>
+          <div class="flow-step">
+            <div class="flow-icon flow-icon-sage">5</div>
+            <div class="flow-text">两周后搜索"朋友推荐的日料" -- 秒找到</div>
+          </div>
+          <div class="flow-connector"></div>
+          <div class="flow-step">
+            <div class="flow-icon flow-icon-sage">6</div>
+            <div class="flow-text">实机演示</div>
+          </div>
+        </div>
+
+        <div style="display:flex;gap:12px;margin-top:14px;">
+          <div class="card-sm" style="flex:1;text-align:center;border-color:rgba(101,163,13,0.25);">
+            <div style="font-family:'Playfair Display',serif;font-size:24px;font-weight:700;color:var(--sage-deep);">600+</div>
+            <div style="font-size:10px;color:var(--text-muted);">活跃用户</div>
+          </div>
+          <div class="card-sm" style="flex:1;text-align:center;border-color:rgba(217,119,6,0.25);">
+            <div style="font-family:'Playfair Display',serif;font-size:24px;font-weight:700;color:var(--amber-deep);">100+</div>
+            <div style="font-size:10px;color:var(--text-muted);">月活用户</div>
+          </div>
+          <div class="card-sm" style="flex:1;text-align:center;border-color:rgba(194,65,12,0.2);">
+            <div style="font-family:'Playfair Display',serif;font-size:24px;font-weight:700;color:var(--terracotta);">10</div>
+            <div style="font-size:10px;color:var(--text-muted);">付费用户</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-line"></div>
+  <div class="brand">EINCLAW</div>
+  <div class="slide-number">11</div>
+</div>
+
+<!-- ==================== SLIDE 12: MARKET ==================== -->
+<div class="slide">
+  <div class="label">市场机会</div>
+  <h2>垂直切入，精准打透</h2>
+  <div class="subtitle" style="margin-bottom:28px;">不追求大而全的市场叙事。先打透三个垂直场景，建立真实的 PMF。</div>
+
+  <div class="content-area justify-center">
+    <div class="grid-2 gap-32">
+      <div>
+        <h3 style="margin-bottom:16px;">三个垂直市场</h3>
+        <div class="card-sm card-amber" style="margin-bottom:10px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <div>
+              <div style="font-size:13px;font-weight:600;color:var(--amber-deep);">内容创作者</div>
+              <div style="font-size:12px;color:var(--text-secondary);margin-top:2px;">Twitter / 小红书 / 公众号创作者</div>
+            </div>
+            <div style="font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:var(--amber-deep);">2000万+</div>
+          </div>
+        </div>
+        <div class="card-sm card-sage" style="margin-bottom:10px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <div>
+              <div style="font-size:13px;font-weight:600;color:var(--sage-deep);">产品经理 &amp; 独立开发者</div>
+              <div style="font-size:12px;color:var(--text-secondary);margin-top:2px;">AI 重度用户，每天用 ChatGPT / Claude</div>
+            </div>
+            <div style="font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:var(--sage-deep);">500万+</div>
+          </div>
+        </div>
+        <div class="card-sm card-terracotta" style="margin-bottom:16px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <div>
+              <div style="font-size:13px;font-weight:600;color:var(--terracotta);">日记 / 反思爱好者</div>
+              <div style="font-size:12px;color:var(--text-secondary);margin-top:2px;">有记录意愿但坚持不下来的人群</div>
+            </div>
+            <div style="font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:var(--terracotta);">数亿级</div>
+          </div>
+        </div>
+
+        <h3 style="margin-bottom:12px;">为什么是现在</h3>
+        <ul class="bullet-list">
+          <li>OpenClaw / Claude Code 级别的 Agent 刚刚成熟</li>
+          <li>4G IoT 模组白菜价，BOM 仅 ¥50</li>
+          <li>竞品全军覆没（Humane / Rabbit），留出窗口期</li>
+          <li>语音 AI 交互需求正在爆发，但入口缺失</li>
+        </ul>
+      </div>
+      <div>
+        <h3 style="margin-bottom:16px;">PMF 验证路径</h3>
+        <div class="card card-amber" style="margin-bottom:10px;">
+          <div style="font-size:14px;font-weight:600;margin-bottom:8px;color:var(--amber-deep);">第一步：内容创作者（首批 100 用户）</div>
+          <div style="font-size:12px;color:var(--text-secondary);line-height:1.7;">
+            切入 Twitter / 小红书创作者社群<br>
+            验证核心假设：语音输入 → AI 生成内容 → 发布<br>
+            关键指标：每周使用频次、完整内容发布率
+          </div>
+        </div>
+        <div class="card card-sage" style="margin-bottom:10px;">
+          <div style="font-size:14px;font-weight:600;margin-bottom:8px;color:var(--sage-deep);">第二步：开发者社群（拓展至 500 用户）</div>
+          <div style="font-size:12px;color:var(--text-secondary);line-height:1.7;">
+            切入独立开发者 / 创始人圈子<br>
+            验证核心假设：语音 → Issue / PR / 调研<br>
+            关键指标：任务完成率、NPS
+          </div>
+        </div>
+        <div class="card card-terracotta">
+          <div style="font-size:14px;font-weight:600;margin-bottom:8px;color:var(--terracotta);">第三步：日记场景（拓展至数千用户）</div>
+          <div style="font-size:12px;color:var(--text-secondary);line-height:1.7;">
+            切入效率 / 心理健康社群<br>
+            验证核心假设：语音日记 → 长期留存<br>
+            关键指标：30 日留存率、日均使用次数
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-line"></div>
+  <div class="brand">EINCLAW</div>
+  <div class="slide-number">12</div>
+</div>
+
+<!-- ==================== SLIDE 13: COMPETITION ==================== -->
+<div class="slide">
+  <div class="label">竞争格局</div>
+  <h2>最简单 + 最便宜 + 独立联网</h2>
+  <div style="height:16px;"></div>
+
+  <div class="content-area justify-center">
+    <div class="table-container" style="margin-bottom:24px;">
+      <table>
+        <thead>
+          <tr>
+            <th>维度</th>
+            <th>Humane AI Pin</th>
+            <th>Rabbit R1</th>
+            <th>Limitless Pendant</th>
+            <th style="color:var(--amber-deep);">EinClaw</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="font-weight:600;color:var(--text-primary);">售价</td>
+            <td>$699</td>
+            <td>$199</td>
+            <td>$99</td>
+            <td class="compare-winner">¥199-699</td>
+          </tr>
+          <tr>
+            <td style="font-weight:600;color:var(--text-primary);">BOM 成本</td>
+            <td>~$200+</td>
+            <td>~$80+</td>
+            <td>~$50+</td>
+            <td class="compare-winner">~$7 (¥50)</td>
+          </tr>
+          <tr>
+            <td style="font-weight:600;color:var(--text-primary);">联网方式</td>
+            <td>eSIM + WiFi</td>
+            <td>WiFi + 蜂窝</td>
+            <td>蓝牙（依赖手机）</td>
+            <td class="compare-winner">4G 独立联网</td>
+          </tr>
+          <tr>
+            <td style="font-weight:600;color:var(--text-primary);">定位</td>
+            <td>取代手机</td>
+            <td>独立 AI 设备</td>
+            <td>会议录音</td>
+            <td class="compare-winner">语音→AI 执行的高速公路</td>
+          </tr>
+          <tr>
+            <td style="font-weight:600;color:var(--text-primary);">交互方式</td>
+            <td>触摸+语音+投影</td>
+            <td>触摸+语音+屏幕</td>
+            <td>被动录音</td>
+            <td class="compare-winner">单按钮对讲</td>
+          </tr>
+          <tr>
+            <td style="font-weight:600;color:var(--text-primary);">AI 伙伴属性</td>
+            <td>无</td>
+            <td>弱</td>
+            <td>无</td>
+            <td class="compare-winner">长期记忆 + 成长</td>
+          </tr>
+          <tr>
+            <td style="font-weight:600;color:var(--text-primary);">复杂度</td>
+            <td>极高</td>
+            <td>高</td>
+            <td>低</td>
+            <td class="compare-winner">极简</td>
+          </tr>
+          <tr>
+            <td style="font-weight:600;color:var(--text-primary);">市场表现</td>
+            <td style="color:var(--terracotta);">召回 / 挣扎中</td>
+            <td style="color:var(--amber);">使用量下滑</td>
+            <td style="color:var(--text-muted);">单一场景</td>
+            <td class="compare-winner">专注，锋利</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="card card-amber" style="padding:18px;">
+      <div style="font-family:'Playfair Display','Noto Serif SC',serif;font-size:15px;font-weight:500;text-align:center;color:var(--text-primary);font-style:italic;">
+        竞品要么试图取代手机（昂贵、复杂、失败），要么依赖手机（无法随时随地）。EinClaw 只做一件事：<span style="color:var(--amber-deep);font-weight:600;">让你的想法以最快速度到达 AI。¥50 BOM，极简交互，4G 独立联网。</span>
+      </div>
+    </div>
+  </div>
+  <div class="slide-line"></div>
+  <div class="brand">EINCLAW</div>
+  <div class="slide-number">13</div>
+</div>
+
+<!-- ==================== SLIDE 14: HARDWARE COST ==================== -->
+<div class="slide">
+  <div class="label">成本分析</div>
+  <h2>硬件成本深度拆解</h2>
+  <div class="subtitle" style="margin-bottom:16px;">4G Cat.1 模组方案，BOM ¥50 — 首批打样费用 ¥15-20 万（深圳硬件伙伴已确认）</div>
+
+  <div class="content-area justify-center">
+    <div class="grid-2 gap-24">
+      <!-- Left: BOM breakdown -->
+      <div>
+        <h3 style="margin-bottom:8px;">BOM 组件明细 <span style="font-size:11px;color:var(--text-muted);font-weight:400;">(4G Cat.1 方案)</span></h3>
+        <div class="table-container" style="margin-bottom:12px;">
+          <table style="font-size:12px;">
+            <thead>
+              <tr>
+                <th style="padding:6px 10px;">组件</th>
+                <th style="padding:6px 10px;">型号 / 规格</th>
+                <th style="padding:6px 10px;text-align:right;">单价</th>
+                <th style="padding:6px 10px;text-align:right;">占比</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td style="padding:5px 10px;font-weight:600;color:var(--text-primary);">4G Cat.1 模组</td>
+                <td style="padding:5px 10px;">Air780E / EC600N 等（内置 MCU）</td>
+                <td style="padding:5px 10px;text-align:right;font-weight:600;">¥20-25</td>
+                <td style="padding:5px 10px;text-align:right;">40-50%</td>
+              </tr>
+              <tr>
+                <td style="padding:5px 10px;font-weight:600;color:var(--text-primary);">锂电池</td>
+                <td style="padding:5px 10px;">3.7V 500-800mAh</td>
+                <td style="padding:5px 10px;text-align:right;font-weight:600;">¥5-8</td>
+                <td style="padding:5px 10px;text-align:right;">10-16%</td>
+              </tr>
+              <tr>
+                <td style="padding:5px 10px;font-weight:600;color:var(--text-primary);">数字麦克风</td>
+                <td style="padding:5px 10px;">INMP441 I2S</td>
+                <td style="padding:5px 10px;text-align:right;font-weight:600;">¥3-5</td>
+                <td style="padding:5px 10px;text-align:right;">6-10%</td>
+              </tr>
+              <tr>
+                <td style="padding:5px 10px;font-weight:600;color:var(--text-primary);">PCB + 被动元件</td>
+                <td style="padding:5px 10px;">4 层 FR-4</td>
+                <td style="padding:5px 10px;text-align:right;font-weight:600;">¥5-6</td>
+                <td style="padding:5px 10px;text-align:right;">10-12%</td>
+              </tr>
+              <tr>
+                <td style="padding:5px 10px;font-weight:600;color:var(--text-primary);">外壳</td>
+                <td style="padding:5px 10px;">ABS/PC 注塑 + 夹子/表带</td>
+                <td style="padding:5px 10px;text-align:right;font-weight:600;">¥3-5</td>
+                <td style="padding:5px 10px;text-align:right;">6-10%</td>
+              </tr>
+              <tr>
+                <td style="padding:5px 10px;font-weight:600;color:var(--text-primary);">SIM 卡座</td>
+                <td style="padding:5px 10px;">Nano SIM / eSIM</td>
+                <td style="padding:5px 10px;text-align:right;font-weight:600;">¥1-2</td>
+                <td style="padding:5px 10px;text-align:right;">2-4%</td>
+              </tr>
+              <tr>
+                <td style="padding:5px 10px;font-weight:600;color:var(--text-primary);">其他</td>
+                <td style="padding:5px 10px;">马达 / LED / 按钮 / USB-C</td>
+                <td style="padding:5px 10px;text-align:right;font-weight:600;">¥4-6</td>
+                <td style="padding:5px 10px;text-align:right;">8-12%</td>
+              </tr>
+            </tbody>
+            <tfoot>
+              <tr>
+                <td colspan="2" style="padding:7px 10px;font-weight:700;color:var(--amber-deep);background:var(--bg-cream-accent);border-top:2px solid var(--border);">BOM 合计</td>
+                <td style="padding:7px 10px;text-align:right;font-weight:700;color:var(--amber-deep);background:var(--bg-cream-accent);border-top:2px solid var(--border);">~¥50</td>
+                <td style="padding:7px 10px;text-align:right;font-weight:600;background:var(--bg-cream-accent);border-top:2px solid var(--border);">100%</td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+        <div class="card-sm card-amber" style="padding:10px 14px;">
+          <div style="font-size:11px;color:var(--text-secondary);line-height:1.5;">4G Cat.1 模组内置 MCU，简化硬件架构 · 4G IoT SIM 月租 &lt;¥5/用户/月 · 已与深圳硬件伙伴确认方案</div>
+        </div>
+      </div>
+
+      <!-- Right: Scale economics + first batch -->
+      <div>
+        <h3 style="margin-bottom:8px;">规模效应：单位总成本</h3>
+        <div class="table-container" style="margin-bottom:14px;">
+          <table style="font-size:12px;">
+            <thead>
+              <tr>
+                <th style="padding:6px 10px;">成本项</th>
+                <th style="padding:6px 10px;text-align:right;">100 台</th>
+                <th style="padding:6px 10px;text-align:right;">500 台</th>
+                <th style="padding:6px 10px;text-align:right;">5,000 台</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td style="padding:5px 10px;color:var(--text-muted);">BOM 元器件</td>
+                <td style="padding:5px 10px;text-align:right;">¥60</td>
+                <td style="padding:5px 10px;text-align:right;">¥50</td>
+                <td style="padding:5px 10px;text-align:right;color:var(--sage-deep);font-weight:600;">¥38</td>
+              </tr>
+              <tr>
+                <td style="padding:5px 10px;color:var(--text-muted);">SMT + 组装 + 测试</td>
+                <td style="padding:5px 10px;text-align:right;">¥50</td>
+                <td style="padding:5px 10px;text-align:right;">¥30</td>
+                <td style="padding:5px 10px;text-align:right;color:var(--sage-deep);font-weight:600;">¥15</td>
+              </tr>
+              <tr>
+                <td style="padding:5px 10px;color:var(--text-muted);">外壳 (含模具分摊)</td>
+                <td style="padding:5px 10px;text-align:right;">¥45</td>
+                <td style="padding:5px 10px;text-align:right;">¥12</td>
+                <td style="padding:5px 10px;text-align:right;color:var(--sage-deep);font-weight:600;">¥7</td>
+              </tr>
+              <tr>
+                <td style="padding:5px 10px;color:var(--text-muted);">包装 + 质检</td>
+                <td style="padding:5px 10px;text-align:right;">¥18</td>
+                <td style="padding:5px 10px;text-align:right;">¥13</td>
+                <td style="padding:5px 10px;text-align:right;color:var(--sage-deep);font-weight:600;">¥8</td>
+              </tr>
+            </tbody>
+            <tfoot>
+              <tr>
+                <td style="padding:7px 10px;font-weight:700;color:var(--text-primary);background:var(--bg-cream-accent);border-top:2px solid var(--border);">单位总成本</td>
+                <td style="padding:7px 10px;text-align:right;font-weight:700;background:var(--bg-cream-accent);border-top:2px solid var(--border);">¥173</td>
+                <td style="padding:7px 10px;text-align:right;font-weight:700;background:var(--bg-cream-accent);border-top:2px solid var(--border);">¥105</td>
+                <td style="padding:7px 10px;text-align:right;font-weight:700;color:var(--sage-deep);background:var(--bg-cream-accent);border-top:2px solid var(--border);">¥68</td>
+              </tr>
+              <tr>
+                <td style="padding:5px 10px;font-weight:600;color:var(--text-primary);">毛利率 (拓麻歌子版 @¥599)</td>
+                <td style="padding:5px 10px;text-align:right;font-weight:600;">71%</td>
+                <td style="padding:5px 10px;text-align:right;font-weight:600;">82%</td>
+                <td style="padding:5px 10px;text-align:right;font-weight:700;color:var(--sage-deep);">89%</td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+
+        <h3 style="margin-bottom:8px;">首批打样总投入</h3>
+        <div class="card card-amber" style="padding:12px 14px;margin-bottom:10px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <div>
+              <div style="font-size:11px;color:var(--text-secondary);line-height:1.6;">硬件工程设计 + 打样 + 小批量试产<br>深圳硬件伙伴报价，已确认</div>
+            </div>
+            <div style="font-family:'Playfair Display',serif;font-size:24px;font-weight:700;color:var(--amber-deep);white-space:nowrap;margin-left:16px;">¥15-20万</div>
+          </div>
+        </div>
+        <div style="display:flex;gap:8px;">
+          <div class="card-sm" style="flex:1;text-align:center;padding:8px;">
+            <div style="font-size:10px;color:var(--text-muted);">竞品首批投入</div>
+            <div style="font-family:'Playfair Display',serif;font-size:17px;font-weight:700;color:var(--terracotta);">$1-10M+</div>
+          </div>
+          <div class="card-sm card-sage" style="flex:1;text-align:center;padding:8px;">
+            <div style="font-size:10px;color:var(--text-muted);">Einko 首批</div>
+            <div style="font-family:'Playfair Display',serif;font-size:17px;font-weight:700;color:var(--sage-deep);">¥15-20万</div>
+          </div>
+          <div class="card-sm" style="flex:1;text-align:center;padding:8px;">
+            <div style="font-size:10px;color:var(--text-muted);">试错成本比</div>
+            <div style="font-family:'Playfair Display',serif;font-size:17px;font-weight:700;color:var(--sage-deep);">1/50</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-line"></div>
+  <div class="brand">EINCLAW</div>
+  <div class="slide-number">14</div>
+</div>
+
+<!-- ==================== SLIDE 15: TRACTION ==================== -->
+<div class="slide">
+  <div class="label">数据与里程碑</div>
+  <h2>内测期间的用户数据</h2>
+  <div class="subtitle" style="margin-bottom:20px;">零广告投放, 自己运营社媒, 验证产品需求</div>
+
+  <div class="content-area justify-center">
+    <!-- Key metrics row -->
+    <div style="display:flex;gap:16px;margin-bottom:24px;">
+      <div class="card" style="flex:1;text-align:center;padding:18px;">
+        <div style="font-family:'Playfair Display',serif;font-size:36px;font-weight:700;color:var(--sage-deep);">600+</div>
+        <div style="font-size:12px;color:var(--text-muted);margin-top:2px;">活跃用户</div>
+        <div style="font-size:11px;color:var(--text-secondary);margin-top:4px;">至少导入 1 张截图的真实用户</div>
+      </div>
+      <div class="card" style="flex:1;text-align:center;padding:18px;">
+        <div style="font-family:'Playfair Display',serif;font-size:36px;font-weight:700;color:var(--amber-deep);">100+</div>
+        <div style="font-size:12px;color:var(--text-muted);margin-top:2px;">月活用户</div>
+        <div style="font-size:11px;color:var(--text-secondary);margin-top:4px;">近一个月活跃用户</div>
+      </div>
+      <div class="card" style="flex:1;text-align:center;padding:18px;">
+        <div style="font-family:'Playfair Display',serif;font-size:36px;font-weight:700;color:var(--terracotta);">10</div>
+        <div style="font-size:12px;color:var(--text-muted);margin-top:2px;">付费用户</div>
+        <div style="font-size:11px;color:var(--text-secondary);margin-top:4px;">自然转化付费用户</div>
+      </div>
+      <div class="card" style="flex:1;text-align:center;padding:18px;">
+        <div style="font-family:'Playfair Display',serif;font-size:36px;font-weight:700;color:var(--text-primary);">35万</div>
+        <div style="font-size:12px;color:var(--text-muted);margin-top:2px;">总曝光量</div>
+        <div style="font-size:11px;color:var(--text-secondary);margin-top:4px;">海外 15 万 + 国内 20 万</div>
+      </div>
+    </div>
+
+    <div class="grid-2 gap-24">
+      <div>
+        <h3 style="margin-bottom:10px;">转化漏斗</h3>
+        <div class="table-container">
+          <table>
+            <tr>
+              <td style="font-weight:600;color:var(--text-primary);">曝光 → 使用</td>
+              <td style="font-family:'Playfair Display',serif;font-weight:700;color:var(--sage-deep);">0.17%</td>
+              <td style="font-size:11px;color:var(--text-muted);">纯自然流量，零付费获客</td>
+            </tr>
+            <tr>
+              <td style="font-weight:600;color:var(--text-primary);">使用 → 月活</td>
+              <td style="font-family:'Playfair Display',serif;font-weight:700;color:var(--sage-deep);">~17%</td>
+              <td style="font-size:11px;color:var(--text-muted);">工具类 App 健康水平</td>
+            </tr>
+            <tr>
+              <td style="font-weight:600;color:var(--text-primary);">使用 → 付费</td>
+              <td style="font-family:'Playfair Display',serif;font-weight:700;color:var(--sage-deep);">1.7%</td>
+              <td style="font-size:11px;color:var(--text-muted);">无 paywall 优化，自然付费</td>
+            </tr>
+          </table>
+        </div>
+        <div class="card-sm card-amber" style="margin-top:12px;padding:14px;">
+          <div style="font-size:12px;color:var(--text-secondary);line-height:1.6;font-style:italic;">
+            所有数据均在零广告投放、零市场推广预算下获得。验证了产品本身的吸引力 — 加入营销杠杆后增长空间巨大。
+          </div>
+        </div>
+      </div>
+      <div>
+        <h3 style="margin-bottom:10px;">已完成里程碑</h3>
+        <div class="progress-item">
+          <div class="progress-check progress-done">&#10003;</div>
+          <span>EINKO App 上架 App Store</span>
+        </div>
+        <div class="progress-item">
+          <div class="progress-check progress-done">&#10003;</div>
+          <span>600+ 真实使用用户，10 位付费</span>
+        </div>
+        <div class="progress-item">
+          <div class="progress-check progress-done">&#10003;</div>
+          <span>核心功能（AI 分类/搜索）全部上线</span>
+        </div>
+        <div class="progress-item">
+          <div class="progress-check progress-done">&#10003;</div>
+          <span>OpenClaw 智能体框架开发完成</span>
+        </div>
+        <div class="progress-item">
+          <div class="progress-check progress-done">&#10003;</div>
+          <span>深圳硬件伙伴确认 4G 方案 + BOM ¥50</span>
+        </div>
+        <div class="progress-item">
+          <div class="progress-check progress-done">&#10003;</div>
+          <span>einko.app 官网上线</span>
+        </div>
+        <div class="progress-item">
+          <div class="progress-check progress-wip">&rarr;</div>
+          <span>4G 硬件原型打样中（对讲机 / 手环评估）</span>
+        </div>
+        <div class="progress-item">
+          <div class="progress-check progress-wip">&rarr;</div>
+          <span>AI Companion 配套 App 开发中</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-line"></div>
+  <div class="brand">EINCLAW</div>
+  <div class="slide-number">15</div>
+</div>
+
+<!-- ==================== SLIDE 16: CLOSING ==================== -->
+<div class="slide closing-slide">
+  <div style="position:relative;z-index:1;">
+    <div class="label" style="margin-bottom:24px;letter-spacing:4px;">EINCLAW</div>
+    <h1 style="font-family:'Playfair Display','Noto Serif SC',serif;font-size:56px;font-weight:700;color:var(--text-primary);margin-bottom:16px;">
+      随时随地，言出法随
+    </h1>
+    <div class="cover-tagline" style="font-size:20px;">人类大脑与 AI 大脑之间的高速公路</div>
+  </div>
+  <div class="brand">EINCLAW</div>
+</div>
+
+</body>
+</html>
