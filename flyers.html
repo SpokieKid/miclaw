@@ -1,0 +1,1164 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EinClaw A4 Flyers - 5 Styles</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500;600;700&family=Noto+Serif+SC:wght@400;700;900&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --cream: #f5f0ea;
+    --cream-dark: #ebe4db;
+    --warm: #c4b5a3;
+    --warm-light: #ddd5ca;
+    --terracotta: #e8634a;
+    --terracotta-light: #f0917d;
+    --bark: #1a1714;
+    --bark-light: #8a7e72;
+    --sage: #7a8a6e;
+  }
+
+  body {
+    background: #c8c0b6;
+    font-family: 'Inter', sans-serif;
+    min-height: 100vh;
+  }
+
+  /* ---- Nav ---- */
+  .nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    background: var(--bark);
+    display: flex;
+    align-items: center;
+    padding: 0 32px;
+    height: 56px;
+    gap: 8px;
+  }
+
+  .nav-title {
+    font-family: 'DM Serif Display', serif;
+    color: var(--cream);
+    font-size: 18px;
+    margin-right: 24px;
+  }
+
+  .nav-btn {
+    padding: 8px 20px;
+    border: 1px solid rgba(245,240,234,0.15);
+    border-radius: 6px;
+    background: transparent;
+    color: var(--cream);
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .nav-btn:hover { background: rgba(245,240,234,0.1); }
+  .nav-btn.active { background: var(--terracotta); border-color: var(--terracotta); }
+
+  .nav-export {
+    margin-left: auto;
+    padding: 8px 20px;
+    border: none;
+    border-radius: 6px;
+    background: var(--terracotta);
+    color: white;
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: opacity 0.2s;
+  }
+
+  .nav-export:hover { opacity: 0.85; }
+
+  .nav-status {
+    font-size: 12px;
+    color: var(--terracotta-light);
+    min-width: 120px;
+    text-align: right;
+  }
+
+  /* ---- Stage ---- */
+  .stage {
+    padding: 80px 0 40px;
+    display: flex;
+    justify-content: center;
+  }
+
+  /* ---- Flyer base ---- */
+  .flyer {
+    width: 800px;
+    height: 1132px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 16px 48px rgba(26,23,20,0.18);
+    display: none;
+  }
+
+  .flyer.active { display: block; }
+
+  /* ============================================
+     STYLE 1 — Classic Editorial
+     ============================================ */
+  .f1 {
+    background: var(--cream);
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    padding: 60px 64px;
+  }
+  .f1.active { display: flex; }
+
+  .f1 .logo-row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    align-self: flex-start;
+  }
+
+  .f1 .logo-mark {
+    width: 40px; height: 40px;
+    background: var(--bark);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'DM Serif Display', serif;
+    font-size: 26px;
+    color: var(--cream);
+  }
+
+  .f1 .logo-name {
+    font-family: 'DM Serif Display', serif;
+    font-size: 28px;
+    color: var(--bark);
+  }
+
+  .f1 .divider {
+    width: 100%;
+    height: 2px;
+    background: var(--terracotta);
+    opacity: 0.5;
+    margin: 28px 0;
+  }
+
+  .f1 .headline {
+    font-family: 'Noto Serif SC', serif;
+    font-weight: 900;
+    font-size: 52px;
+    color: var(--bark);
+    line-height: 1.25;
+    text-align: center;
+    letter-spacing: 2px;
+  }
+
+  .f1 .headline .accent { color: var(--terracotta); }
+
+  .f1 .product-img {
+    width: 220px;
+    height: 220px;
+    object-fit: contain;
+    mix-blend-mode: multiply;
+    margin: 28px 0;
+  }
+
+  .f1 .tagline {
+    font-size: 16px;
+    color: var(--bark-light);
+    letter-spacing: 6px;
+    margin-bottom: 28px;
+  }
+
+  .f1 .cards {
+    display: flex;
+    gap: 16px;
+    width: 100%;
+    margin-bottom: 28px;
+  }
+
+  .f1 .card {
+    flex: 1;
+    background: var(--cream-dark);
+    border: 1px solid var(--warm-light);
+    border-radius: 14px;
+    padding: 20px;
+    text-align: center;
+  }
+
+  .f1 .card-name {
+    font-family: 'DM Serif Display', serif;
+    font-size: 20px;
+    color: var(--bark);
+  }
+
+  .f1 .card-type {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 12px;
+    color: var(--terracotta);
+    letter-spacing: 3px;
+    font-weight: 700;
+    margin: 2px 0 8px;
+  }
+
+  .f1 .card-desc {
+    font-size: 13px;
+    color: var(--bark-light);
+    line-height: 1.5;
+  }
+
+  .f1 .bottom-quote {
+    font-family: 'Noto Serif SC', serif;
+    font-weight: 700;
+    font-size: 24px;
+    color: var(--bark);
+    text-align: center;
+    line-height: 1.6;
+    margin-bottom: 24px;
+  }
+
+  .f1 .bottom-quote .accent { color: var(--terracotta); }
+
+  .f1 .qr-row {
+    display: flex;
+    gap: 48px;
+  }
+
+  .f1 .person {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .f1 .person-name {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--bark);
+  }
+
+  .f1 .person-qrs {
+    display: flex;
+    gap: 10px;
+  }
+
+  .f1 .qr-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+  }
+
+  .f1 .qr-item img {
+    width: 96px; height: 96px;
+    border-radius: 6px;
+    object-fit: contain;
+    background: white;
+  }
+
+  .f1 .qr-label {
+    font-size: 10px;
+    color: var(--bark-light);
+    letter-spacing: 1px;
+  }
+
+  .f1 .url {
+    font-family: 'DM Serif Display', serif;
+    font-size: 16px;
+    color: var(--bark);
+    margin-top: 16px;
+  }
+
+  /* ============================================
+     STYLE 2 — Bold Split
+     ============================================ */
+  .f2 {
+    background: var(--cream);
+    display: none;
+  }
+  .f2.active { display: block; }
+
+  .f2 .left-bar {
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 8px;
+    background: var(--terracotta);
+  }
+
+  .f2 .top {
+    padding: 48px 56px 0 56px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .f2 .logo-mark {
+    width: 36px; height: 36px;
+    background: var(--bark);
+    border-radius: 7px;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'DM Serif Display', serif;
+    font-size: 22px; color: var(--cream);
+  }
+
+  .f2 .logo-name {
+    font-family: 'DM Serif Display', serif;
+    font-size: 24px; color: var(--bark);
+  }
+
+  .f2 .hero {
+    padding: 40px 56px 0;
+  }
+
+  .f2 .headline {
+    font-family: 'Noto Serif SC', serif;
+    font-weight: 900;
+    font-size: 64px;
+    color: var(--bark);
+    line-height: 1.2;
+  }
+
+  .f2 .headline .accent { color: var(--terracotta); }
+
+  .f2 .sub {
+    font-size: 18px;
+    color: var(--bark-light);
+    margin-top: 16px;
+    letter-spacing: 6px;
+  }
+
+  .f2 .split {
+    display: flex;
+    margin-top: 36px;
+    height: 380px;
+  }
+
+  .f2 .split-left {
+    flex: 1;
+    padding: 36px 36px 36px 56px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 24px;
+  }
+
+  .f2 .feature {
+    border-left: 3px solid var(--terracotta);
+    padding-left: 16px;
+  }
+
+  .f2 .feature-name {
+    font-family: 'DM Serif Display', serif;
+    font-size: 22px;
+    color: var(--bark);
+  }
+
+  .f2 .feature-desc {
+    font-size: 14px;
+    color: var(--bark-light);
+    margin-top: 4px;
+    line-height: 1.5;
+  }
+
+  .f2 .split-right {
+    width: 320px;
+    position: relative;
+    overflow: hidden;
+    margin: 0 24px 0 0;
+    border-radius: 16px;
+  }
+
+  .f2 .split-right img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 30%;
+  }
+
+  .f2 .bottom {
+    padding: 24px 56px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 20px;
+  }
+
+  .f2 .bottom-quote {
+    font-family: 'Noto Serif SC', serif;
+    font-weight: 700;
+    font-size: 24px;
+    color: var(--bark);
+    line-height: 1.6;
+  }
+
+  .f2 .bottom-quote .accent { color: var(--terracotta); }
+
+  .f2 .bottom-url {
+    font-family: 'DM Serif Display', serif;
+    font-size: 18px;
+    color: var(--bark-light);
+  }
+
+  .f2 .bottom-qrs {
+    display: flex;
+    gap: 48px;
+  }
+
+  .f2 .person { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+  .f2 .person-name { font-size: 14px; font-weight: 700; color: var(--bark); font-family: 'Noto Serif SC', serif; }
+  .f2 .person-qrs { display: flex; gap: 12px; }
+  .f2 .qr-item { display: flex; flex-direction: column; align-items: center; gap: 3px; }
+  .f2 .qr-item img { width: 96px; height: 96px; border-radius: 8px; object-fit: contain; background: white; }
+  .f2 .qr-label { font-size: 11px; color: var(--bark-light); letter-spacing: 1px; }
+
+  /* ============================================
+     STYLE 3 — Dark Mode
+     ============================================ */
+  .f3 {
+    background: var(--bark);
+    display: none;
+    flex-direction: column;
+    padding: 56px 60px;
+  }
+  .f3.active { display: flex; }
+
+  .f3 .top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .f3 .logo-row {
+    display: flex; align-items: center; gap: 12px;
+  }
+
+  .f3 .logo-mark {
+    width: 38px; height: 38px;
+    background: var(--cream);
+    border-radius: 7px;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'DM Serif Display', serif;
+    font-size: 24px; color: var(--bark);
+  }
+
+  .f3 .logo-name {
+    font-family: 'DM Serif Display', serif;
+    font-size: 24px; color: var(--cream);
+  }
+
+  .f3 .url {
+    font-family: 'Inter', sans-serif;
+    font-size: 14px; color: var(--warm);
+  }
+
+  .f3 .divider {
+    width: 100%; height: 1px;
+    background: rgba(245,240,234,0.1);
+    margin: 28px 0;
+  }
+
+  .f3 .headline {
+    font-family: 'Noto Serif SC', serif;
+    font-weight: 900;
+    font-size: 56px;
+    color: var(--cream);
+    line-height: 1.25;
+    text-align: center;
+  }
+
+  .f3 .headline .accent { color: var(--terracotta); }
+
+  .f3 .tagline {
+    text-align: center;
+    font-size: 16px;
+    color: var(--warm);
+    letter-spacing: 6px;
+    margin-top: 12px;
+  }
+
+  .f3 .product-area {
+    display: flex;
+    justify-content: center;
+    margin: 32px 0;
+  }
+
+  .f3 .product-img {
+    width: 200px; height: 200px;
+    object-fit: contain;
+    filter: brightness(1.1);
+  }
+
+  .f3 .cards {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 28px;
+  }
+
+  .f3 .card {
+    flex: 1;
+    background: rgba(245,240,234,0.05);
+    border: 1px solid rgba(245,240,234,0.1);
+    border-radius: 14px;
+    padding: 20px;
+    text-align: center;
+  }
+
+  .f3 .card-name {
+    font-family: 'DM Serif Display', serif;
+    font-size: 20px; color: var(--cream);
+  }
+
+  .f3 .card-type {
+    font-size: 12px; color: var(--terracotta);
+    letter-spacing: 3px; font-weight: 700;
+    margin: 2px 0 8px;
+    font-family: 'Noto Serif SC', serif;
+  }
+
+  .f3 .card-desc {
+    font-size: 13px; color: var(--warm); line-height: 1.5;
+  }
+
+  .f3 .bottom-quote {
+    font-family: 'Noto Serif SC', serif;
+    font-weight: 700;
+    font-size: 28px;
+    color: var(--cream);
+    text-align: center;
+    line-height: 1.6;
+    margin-bottom: 28px;
+  }
+
+  .f3 .bottom-quote .accent { color: var(--terracotta); }
+
+  .f3 .qr-row {
+    display: flex;
+    justify-content: center;
+    gap: 48px;
+    margin-top: auto;
+  }
+
+  .f3 .person { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+  .f3 .person-name { font-size: 13px; font-weight: 700; color: var(--cream); font-family: 'Noto Serif SC', serif; }
+  .f3 .person-qrs { display: flex; gap: 10px; }
+  .f3 .qr-item { display: flex; flex-direction: column; align-items: center; gap: 3px; }
+  .f3 .qr-item img { width: 96px; height: 96px; border-radius: 6px; object-fit: contain; background: white; }
+  .f3 .qr-label { font-size: 10px; color: var(--warm); letter-spacing: 1px; }
+
+  /* ============================================
+     STYLE 4 — Minimal Centered
+     ============================================ */
+  .f4 {
+    background: white;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 80px 80px;
+  }
+  .f4.active { display: flex; }
+
+  .f4 .logo-mark {
+    width: 56px; height: 56px;
+    background: var(--bark);
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'DM Serif Display', serif;
+    font-size: 36px; color: var(--cream);
+    margin-bottom: 20px;
+  }
+
+  .f4 .headline {
+    font-family: 'Noto Serif SC', serif;
+    font-weight: 900;
+    font-size: 44px;
+    color: var(--bark);
+    line-height: 1.3;
+    text-align: center;
+    letter-spacing: 1px;
+  }
+
+  .f4 .headline .accent { color: var(--terracotta); }
+
+  .f4 .sep {
+    width: 48px; height: 3px;
+    background: var(--terracotta);
+    border-radius: 2px;
+    margin: 28px 0;
+  }
+
+  .f4 .desc {
+    font-size: 16px;
+    color: var(--bark-light);
+    text-align: center;
+    line-height: 1.8;
+    max-width: 480px;
+    margin-bottom: 32px;
+  }
+
+  .f4 .features {
+    display: flex;
+    gap: 48px;
+    margin-bottom: 36px;
+  }
+
+  .f4 .feat {
+    text-align: center;
+  }
+
+  .f4 .feat-icon {
+    font-size: 32px;
+    margin-bottom: 8px;
+  }
+
+  .f4 .feat-name {
+    font-family: 'DM Serif Display', serif;
+    font-size: 18px;
+    color: var(--bark);
+  }
+
+  .f4 .feat-sub {
+    font-size: 12px;
+    color: var(--terracotta);
+    letter-spacing: 3px;
+    font-weight: 700;
+    margin-top: 2px;
+  }
+
+  .f4 .feat-desc {
+    font-size: 13px;
+    color: var(--bark-light);
+    margin-top: 6px;
+    line-height: 1.5;
+  }
+
+  .f4 .quote {
+    font-family: 'Noto Serif SC', serif;
+    font-weight: 700;
+    font-size: 22px;
+    color: var(--bark);
+    text-align: center;
+    margin-bottom: 32px;
+  }
+
+  .f4 .quote .accent { color: var(--terracotta); }
+
+  .f4 .qr-row {
+    display: flex;
+    gap: 48px;
+    margin-bottom: 20px;
+  }
+
+  .f4 .person { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+  .f4 .person-name { font-size: 13px; font-weight: 700; color: var(--bark); font-family: 'Noto Serif SC', serif; }
+  .f4 .person-qrs { display: flex; gap: 10px; }
+  .f4 .qr-item { display: flex; flex-direction: column; align-items: center; gap: 3px; }
+  .f4 .qr-item img { width: 96px; height: 96px; border-radius: 6px; object-fit: contain; background: var(--cream); }
+  .f4 .qr-label { font-size: 10px; color: var(--bark-light); letter-spacing: 1px; }
+  .f4 .url { font-family: 'DM Serif Display', serif; font-size: 16px; color: var(--bark-light); }
+
+  /* ============================================
+     STYLE 5 — Photo Hero
+     ============================================ */
+  .f5 {
+    background: var(--bark);
+    display: none;
+  }
+  .f5.active { display: block; }
+
+  .f5 .photo-area {
+    width: 100%;
+    height: 520px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .f5 .photo-area img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 25%;
+  }
+
+  .f5 .photo-area::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 200px;
+    background: linear-gradient(to top, var(--bark), transparent);
+  }
+
+  .f5 .photo-logo {
+    position: absolute;
+    top: 32px; left: 40px;
+    display: flex; align-items: center; gap: 10px;
+    z-index: 2;
+  }
+
+  .f5 .photo-logo .mark {
+    width: 36px; height: 36px;
+    background: rgba(245,240,234,0.9);
+    border-radius: 7px;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'DM Serif Display', serif;
+    font-size: 22px; color: var(--bark);
+  }
+
+  .f5 .photo-logo .name {
+    font-family: 'DM Serif Display', serif;
+    font-size: 22px; color: white;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.3);
+  }
+
+  .f5 .content {
+    padding: 36px 56px 44px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .f5 .headline {
+    font-family: 'Noto Serif SC', serif;
+    font-weight: 900;
+    font-size: 48px;
+    color: var(--cream);
+    line-height: 1.3;
+    text-align: center;
+    margin-bottom: 12px;
+  }
+
+  .f5 .headline .accent { color: var(--terracotta); }
+
+  .f5 .tagline {
+    font-size: 15px;
+    color: var(--warm);
+    letter-spacing: 6px;
+    margin-bottom: 32px;
+  }
+
+  .f5 .features-row {
+    display: flex;
+    gap: 32px;
+    margin-bottom: 32px;
+  }
+
+  .f5 .feat {
+    flex: 1;
+    text-align: center;
+    padding: 20px 16px;
+    border: 1px solid rgba(245,240,234,0.08);
+    border-radius: 12px;
+  }
+
+  .f5 .feat-name {
+    font-family: 'DM Serif Display', serif;
+    font-size: 18px; color: var(--cream);
+  }
+
+  .f5 .feat-type {
+    font-size: 11px; color: var(--terracotta);
+    letter-spacing: 3px; font-weight: 700; margin: 2px 0 8px;
+  }
+
+  .f5 .feat-desc {
+    font-size: 12px; color: var(--warm); line-height: 1.5;
+  }
+
+  .f5 .quote {
+    font-family: 'Noto Serif SC', serif;
+    font-weight: 700;
+    font-size: 24px;
+    color: var(--cream);
+    text-align: center;
+    margin-bottom: 28px;
+  }
+
+  .f5 .quote .accent { color: var(--terracotta); }
+
+  .f5 .bottom {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 48px;
+  }
+
+  .f5 .person { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+  .f5 .person-name { font-size: 13px; font-weight: 700; color: var(--cream); font-family: 'Noto Serif SC', serif; }
+  .f5 .person-qrs { display: flex; gap: 10px; }
+  .f5 .qr-item { display: flex; flex-direction: column; align-items: center; gap: 3px; }
+  .f5 .qr-item img { width: 96px; height: 96px; border-radius: 6px; object-fit: contain; background: white; }
+  .f5 .qr-label { font-size: 10px; color: var(--warm); letter-spacing: 1px; }
+
+  .f5 .url {
+    font-family: 'DM Serif Display', serif;
+    font-size: 14px;
+    color: var(--warm);
+    margin-top: 16px;
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+
+<div class="nav">
+  <div class="nav-title">EinClaw Flyers</div>
+  <button class="nav-btn active" onclick="show(1)">1. 经典</button>
+  <button class="nav-btn" onclick="show(2)">2. 分栏</button>
+  <button class="nav-btn" onclick="show(3)">3. 暗色</button>
+  <button class="nav-btn" onclick="show(4)">4. 极简</button>
+  <button class="nav-btn" onclick="show(5)">5. 大图</button>
+  <button class="nav-export" onclick="exportFlyer()">导出当前设计 (6x)</button>
+  <div class="nav-status" id="status"></div>
+</div>
+
+<div class="stage">
+
+  <!-- ════════════════════════════════════════
+       STYLE 1 — Classic Editorial
+       ════════════════════════════════════════ -->
+  <div class="flyer f1 active" data-id="1" data-bg="#f5f0ea">
+    <div class="logo-row">
+      <div class="logo-mark">E</div>
+      <div class="logo-name">EinClaw</div>
+    </div>
+    <div class="divider"></div>
+    <div class="headline">
+      独立直连 <span class="accent">OpenClaw</span><br>语音麦克风
+    </div>
+    <img class="product-img" src="white.png" alt="EinClaw">
+    <div class="tagline">按下按钮 · 说出指令 · 松手走人</div>
+    <div class="cards">
+      <div class="card">
+        <div class="card-name">EinClaw Mic</div>
+        <div class="card-type">AI 语音硬件</div>
+        <div class="card-desc">按下按钮，对 AI 说话<br>单手操作，5 秒完成</div>
+      </div>
+      <div class="card">
+        <div class="card-name">OpenClaw</div>
+        <div class="card-type">AI 智能体平台</div>
+        <div class="card-desc">理解语音指令<br>自动规划并执行任务</div>
+      </div>
+    </div>
+    <div class="bottom-quote">
+      言出法随<br>捕捉你的<span class="accent">所思所想</span>，以及<span class="accent">所感</span>
+    </div>
+    <div class="qr-row">
+      <div class="person">
+        <div class="person-name">Arvin 阿问</div>
+        <div class="person-qrs">
+          <div class="qr-item"><img src="qishifu_slides/arvin-wechat.png"><span class="qr-label">微信</span></div>
+          <div class="qr-item"><img src="qishifu_slides/arvin-xhs.png"><span class="qr-label">小红书</span></div>
+        </div>
+      </div>
+      <div class="person">
+        <div class="person-name" style="color: var(--terracotta);">预售购买</div>
+        <div class="person-qrs">
+          <div class="qr-item"><img src="xhs_designs/llmsrc/xhs_product_purchase.png" style="border-radius: 8px;"><span class="qr-label">扫码预购</span></div>
+        </div>
+      </div>
+      <div class="person">
+        <div class="person-name">Affe 阿霏</div>
+        <div class="person-qrs">
+          <div class="qr-item"><img src="qishifu_slides/affe-wechat.png"><span class="qr-label">微信</span></div>
+          <div class="qr-item"><img src="qishifu_slides/affe-xhs.png"><span class="qr-label">小红书</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="url">einclaw.com</div>
+  </div>
+
+  <!-- ════════════════════════════════════════
+       STYLE 2 — Bold Split
+       ════════════════════════════════════════ -->
+  <div class="flyer f2" data-id="2" data-bg="#f5f0ea">
+    <div class="left-bar"></div>
+    <div class="top">
+      <div class="logo-mark">E</div>
+      <div class="logo-name">EinClaw</div>
+    </div>
+    <div class="hero">
+      <div class="headline">独立直连<br><span class="accent">OpenClaw</span><br>语音麦克风</div>
+      <div class="sub">按下按钮 · 说出指令 · 松手走人</div>
+    </div>
+    <div class="split">
+      <div class="split-left">
+        <div class="feature">
+          <div class="feature-name">EinClaw Mic · AI 语音硬件</div>
+          <div class="feature-desc">按下按钮，对 AI 说话<br>单手操作，5 秒完成</div>
+        </div>
+        <div class="feature">
+          <div class="feature-name">OpenClaw · AI 智能体平台</div>
+          <div class="feature-desc">理解语音指令<br>自动规划并执行任务</div>
+        </div>
+      </div>
+      <div class="split-right">
+        <img src="xhs_designs/0326_yilabao/IMG_1960.jpeg" alt="Product">
+      </div>
+    </div>
+    <div class="bottom">
+      <div class="bottom-quote">
+        言出法随<br>
+        捕捉你的<span class="accent">所思所想</span>，以及<span class="accent">所感</span>
+      </div>
+      <div class="bottom-qrs">
+        <div class="person">
+          <div class="person-name">Arvin 阿问</div>
+          <div class="person-qrs">
+            <div class="qr-item"><img src="qishifu_slides/arvin-wechat.png"><span class="qr-label">微信</span></div>
+            <div class="qr-item"><img src="qishifu_slides/arvin-xhs.png"><span class="qr-label">小红书</span></div>
+          </div>
+        </div>
+        <div class="person">
+          <div class="person-name" style="color: var(--terracotta);">预售购买</div>
+          <div class="person-qrs">
+            <div class="qr-item"><img src="xhs_designs/llmsrc/xhs_product_purchase.png" style="border-radius: 8px;"><span class="qr-label">扫码预购</span></div>
+          </div>
+        </div>
+        <div class="person">
+          <div class="person-name">Affe 阿霏</div>
+          <div class="person-qrs">
+            <div class="qr-item"><img src="qishifu_slides/affe-wechat.png"><span class="qr-label">微信</span></div>
+            <div class="qr-item"><img src="qishifu_slides/affe-xhs.png"><span class="qr-label">小红书</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="bottom-url">einclaw.com</div>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════════
+       STYLE 3 — Dark Mode
+       ════════════════════════════════════════ -->
+  <div class="flyer f3" data-id="3" data-bg="#1a1714">
+    <div class="top">
+      <div class="logo-row">
+        <div class="logo-mark">E</div>
+        <div class="logo-name">EinClaw</div>
+      </div>
+      <div class="url">einclaw.com</div>
+    </div>
+    <div class="divider"></div>
+    <div class="headline">
+      独立直连 <span class="accent">OpenClaw</span><br>语音麦克风
+    </div>
+    <div class="tagline">按下按钮 · 说出指令 · 松手走人</div>
+    <div class="product-area">
+      <img class="product-img" src="white.png" alt="EinClaw">
+    </div>
+    <div class="cards">
+      <div class="card">
+        <div class="card-name">EinClaw Mic</div>
+        <div class="card-type">AI 语音硬件</div>
+        <div class="card-desc">按下按钮，对 AI 说话<br>单手操作，5 秒完成</div>
+      </div>
+      <div class="card">
+        <div class="card-name">OpenClaw</div>
+        <div class="card-type">AI 智能体平台</div>
+        <div class="card-desc">理解语音指令<br>自动规划并执行任务</div>
+      </div>
+    </div>
+    <div class="bottom-quote">
+      言出法随<br>捕捉你的<span class="accent">所思所想</span>，以及<span class="accent">所感</span>
+    </div>
+    <div class="qr-row">
+      <div class="person">
+        <div class="person-name">Arvin 阿问</div>
+        <div class="person-qrs">
+          <div class="qr-item"><img src="qishifu_slides/arvin-wechat.png"><span class="qr-label">微信</span></div>
+          <div class="qr-item"><img src="qishifu_slides/arvin-xhs.png"><span class="qr-label">小红书</span></div>
+        </div>
+      </div>
+      <div class="person">
+        <div class="person-name" style="color: var(--terracotta);">预售购买</div>
+        <div class="person-qrs">
+          <div class="qr-item"><img src="xhs_designs/llmsrc/xhs_product_purchase.png" style="border-radius: 8px;"><span class="qr-label">扫码预购</span></div>
+        </div>
+      </div>
+      <div class="person">
+        <div class="person-name">Affe 阿霏</div>
+        <div class="person-qrs">
+          <div class="qr-item"><img src="qishifu_slides/affe-wechat.png"><span class="qr-label">微信</span></div>
+          <div class="qr-item"><img src="qishifu_slides/affe-xhs.png"><span class="qr-label">小红书</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════════
+       STYLE 4 — Minimal Centered
+       ════════════════════════════════════════ -->
+  <div class="flyer f4" data-id="4" data-bg="#ffffff">
+    <div class="logo-mark">E</div>
+    <div class="headline">
+      独立直连 <span class="accent">OpenClaw</span><br>语音麦克风
+    </div>
+    <div class="sep"></div>
+    <div class="desc">
+      按下按钮，说出指令，松手走人。<br>
+      你的 AI 智能体会听到、记住、并执行一切。
+    </div>
+    <div class="features">
+      <div class="feat">
+        <div class="feat-icon">&#128266;</div>
+        <div class="feat-name">EinClaw Mic</div>
+        <div class="feat-sub">AI 语音硬件</div>
+        <div class="feat-desc">按下按钮<br>对 AI 说话</div>
+      </div>
+      <div class="feat">
+        <div class="feat-icon">&#9881;</div>
+        <div class="feat-name">OpenClaw</div>
+        <div class="feat-sub">AI 智能体平台</div>
+        <div class="feat-desc">理解指令<br>自动执行</div>
+      </div>
+    </div>
+    <div class="quote">
+      言出法随<br>捕捉你的<span class="accent">所思所想</span>，以及<span class="accent">所感</span>
+    </div>
+    <div class="qr-row">
+      <div class="person">
+        <div class="person-name">Arvin 阿问</div>
+        <div class="person-qrs">
+          <div class="qr-item"><img src="qishifu_slides/arvin-wechat.png"><span class="qr-label">微信</span></div>
+          <div class="qr-item"><img src="qishifu_slides/arvin-xhs.png"><span class="qr-label">小红书</span></div>
+        </div>
+      </div>
+      <div class="person">
+        <div class="person-name" style="color: var(--terracotta);">预售购买</div>
+        <div class="person-qrs">
+          <div class="qr-item"><img src="xhs_designs/llmsrc/xhs_product_purchase.png" style="border-radius: 8px;"><span class="qr-label">扫码预购</span></div>
+        </div>
+      </div>
+      <div class="person">
+        <div class="person-name">Affe 阿霏</div>
+        <div class="person-qrs">
+          <div class="qr-item"><img src="qishifu_slides/affe-wechat.png"><span class="qr-label">微信</span></div>
+          <div class="qr-item"><img src="qishifu_slides/affe-xhs.png"><span class="qr-label">小红书</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="url">einclaw.com</div>
+  </div>
+
+  <!-- ════════════════════════════════════════
+       STYLE 5 — Photo Hero
+       ════════════════════════════════════════ -->
+  <div class="flyer f5" data-id="5" data-bg="#1a1714">
+    <div class="photo-area">
+      <img src="xhs_designs/0326_yilabao/IMG_1960.jpeg" alt="Product">
+      <div class="photo-logo">
+        <div class="mark">E</div>
+        <div class="name">EinClaw</div>
+      </div>
+    </div>
+    <div class="content">
+      <div class="headline">
+        独立直连 <span class="accent">OpenClaw</span><br>语音麦克风
+      </div>
+      <div class="tagline">按下按钮 · 说出指令 · 松手走人</div>
+      <div class="features-row">
+        <div class="feat">
+          <div class="feat-name">EinClaw Mic</div>
+          <div class="feat-type">AI 语音硬件</div>
+          <div class="feat-desc">按下按钮，对 AI 说话</div>
+        </div>
+        <div class="feat">
+          <div class="feat-name">OpenClaw</div>
+          <div class="feat-type">AI 智能体平台</div>
+          <div class="feat-desc">理解指令，自动执行</div>
+        </div>
+      </div>
+      <div class="quote">
+        言出法随 · 捕捉你的<span class="accent">所思所想</span>，以及<span class="accent">所感</span>
+      </div>
+      <div class="bottom">
+        <div class="person">
+          <div class="person-name">Arvin 阿问</div>
+          <div class="person-qrs">
+            <div class="qr-item"><img src="qishifu_slides/arvin-wechat.png"><span class="qr-label">微信</span></div>
+            <div class="qr-item"><img src="qishifu_slides/arvin-xhs.png"><span class="qr-label">小红书</span></div>
+          </div>
+        </div>
+        <div class="person">
+          <div class="person-name" style="color: var(--terracotta);">预售购买</div>
+          <div class="person-qrs">
+            <div class="qr-item"><img src="xhs_designs/llmsrc/xhs_product_purchase.png" style="border-radius: 8px;"><span class="qr-label">扫码预购</span></div>
+          </div>
+        </div>
+        <div class="person">
+          <div class="person-name">Affe 阿霏</div>
+          <div class="person-qrs">
+            <div class="qr-item"><img src="qishifu_slides/affe-wechat.png"><span class="qr-label">微信</span></div>
+            <div class="qr-item"><img src="qishifu_slides/affe-xhs.png"><span class="qr-label">小红书</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="url">einclaw.com</div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+let current = 1;
+
+function show(n) {
+  current = n;
+  document.querySelectorAll('.flyer').forEach(f => f.classList.remove('active'));
+  document.querySelector(`.flyer[data-id="${n}"]`).classList.add('active');
+  document.querySelectorAll('.nav-btn').forEach((b, i) => {
+    b.classList.toggle('active', i === n - 1);
+  });
+}
+
+async function exportFlyer() {
+  const flyer = document.querySelector('.flyer.active');
+  const status = document.getElementById('status');
+  const btn = document.querySelector('.nav-export');
+
+  btn.textContent = '渲染中...';
+  btn.style.opacity = '0.5';
+  status.textContent = '';
+
+  try {
+    const canvas = await html2canvas(flyer, {
+      scale: 6,
+      useCORS: true,
+      allowTaint: true,
+      backgroundColor: flyer.dataset.bg,
+      logging: false,
+      imageTimeout: 15000,
+    });
+
+    const link = document.createElement('a');
+    const w = canvas.width;
+    const h = canvas.height;
+    link.download = `EinClaw-传单-风格${current}-${w}x${h}.png`;
+    link.href = canvas.toDataURL('image/png');
+    link.click();
+
+    status.textContent = `${w}x${h} px`;
+  } catch (err) {
+    status.textContent = '失败: ' + err.message;
+    console.error(err);
+  }
+
+  btn.textContent = '导出当前设计 (6x)';
+  btn.style.opacity = '1';
+  setTimeout(() => { status.textContent = ''; }, 5000);
+}
+</script>
+
+</body>
+</html>

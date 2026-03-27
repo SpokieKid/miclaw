@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EinClaw Roll-up Banner - 80cm x 200cm</title>
+<!--
+  EinClaw 易拉宝设计稿
+  尺寸：80cm x 200cm (标准易拉宝)
+  导出方式：
+    1. Chrome 打开 → 右键检查 → 选中 .banner → 右键 → Capture node screenshot
+    2. 发给印刷厂，告知实际尺寸 80cm x 200cm，哑光覆膜
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@300;400;500;600&family=Noto+Serif+SC:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --cream: #f5f0ea;
+    --cream-dark: #ebe4db;
+    --warm: #c4b5a3;
+    --warm-light: #ddd5ca;
+    --terracotta: #e8634a;
+    --bark: #1a1714;
+    --bark-light: #8a7e72;
+  }
+
+  body {
+    background: #d0c8be;
+    display: flex;
+    justify-content: center;
+    padding: 40px 0;
+    font-family: 'Inter', -apple-system, sans-serif;
+  }
+
+  .banner {
+    width: 800px;
+    height: 2000px;
+    background: var(--cream);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 20px 60px rgba(26, 23, 20, 0.15);
+  }
+
+
+  /* Subtle background gradient */
+  .banner::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 600px 800px at 50% 25%, rgba(232, 99, 74, 0.025), transparent),
+      radial-gradient(ellipse 500px 600px at 30% 75%, rgba(196, 181, 163, 0.06), transparent);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .banner > * { position: relative; z-index: 1; }
+
+
+
+  /* ---- Divider ---- */
+  .divider {
+    margin: 0 80px;
+    height: 2px;
+    background: var(--terracotta);
+    opacity: 0.5;
+    flex-shrink: 0;
+  }
+
+  /* ============================================
+     SECTION 1 — Logo
+     ============================================ */
+  .top-section {
+    padding: 44px 80px 0;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    flex-shrink: 0;
+  }
+
+  .logo-mark {
+    width: 50px;
+    height: 50px;
+    background: var(--bark);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .logo-mark span {
+    font-family: 'DM Serif Display', Georgia, serif;
+    font-size: 32px;
+    color: var(--cream);
+    margin-top: 2px;
+  }
+
+  .logo-text {
+    font-family: 'DM Serif Display', Georgia, serif;
+    font-size: 34px;
+    color: var(--bark);
+    letter-spacing: 1px;
+  }
+
+  /* ============================================
+     SECTION 2 — Headline + Product
+     ============================================ */
+  .hero-section {
+    padding: 44px 80px 0;
+    text-align: center;
+    flex-shrink: 0;
+  }
+
+  .headline {
+    font-family: 'Noto Serif SC', Georgia, serif;
+    font-weight: 900;
+    font-size: 68px;
+    color: var(--bark);
+    line-height: 1.25;
+    letter-spacing: 2px;
+  }
+
+  .headline .accent {
+    color: var(--terracotta);
+  }
+
+  .product-area {
+    padding: 24px 0 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-shrink: 0;
+  }
+
+  .product-image {
+    width: 280px;
+    height: 280px;
+    object-fit: contain;
+    mix-blend-mode: multiply;
+  }
+
+  .product-tagline {
+    margin-top: 16px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    font-size: 19px;
+    color: var(--bark-light);
+    letter-spacing: 8px;
+  }
+
+  /* ============================================
+     SECTION 3 — Dual Channel Cards
+     ============================================ */
+  .channels-section {
+    padding: 36px 56px 0;
+    flex-shrink: 0;
+  }
+
+  .channels-grid {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+  }
+
+  .channel-card {
+    flex: 1;
+    max-width: 330px;
+    background: var(--cream-dark);
+    border-radius: 18px;
+    padding: 24px 24px 22px;
+    text-align: center;
+    position: relative;
+    border: 1px solid var(--warm-light);
+  }
+
+  .channel-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 50px;
+    height: 3px;
+    background: var(--terracotta);
+    border-radius: 0 0 3px 3px;
+  }
+
+  .channel-icon {
+    font-size: 36px;
+    margin-bottom: 8px;
+  }
+
+  .channel-name {
+    font-family: 'DM Serif Display', Georgia, serif;
+    font-size: 26px;
+    color: var(--bark);
+  }
+
+  .channel-type {
+    font-family: 'Noto Serif SC', Georgia, serif;
+    font-size: 14px;
+    color: var(--terracotta);
+    letter-spacing: 4px;
+    font-weight: 700;
+    margin: 4px 0 12px;
+  }
+
+  .channel-desc {
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+    color: var(--bark-light);
+    line-height: 1.65;
+  }
+
+  /* ============================================
+     SECTION 4 — Lifestyle Image (full width)
+     ============================================ */
+  .lifestyle-section {
+    padding: 6px 56px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-shrink: 0;
+  }
+
+  .lifestyle-image {
+    width: 100%;
+    max-width: 560px;
+    height: 360px;
+    object-fit: cover;
+    object-position: center 30%;
+    border-radius: 16px;
+    display: block;
+    box-shadow: 0 10px 36px rgba(26, 23, 20, 0.1);
+  }
+
+  .lifestyle-caption {
+    margin-bottom: 12px;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    color: var(--bark-light);
+    letter-spacing: 3px;
+  }
+
+  /* ============================================
+     SECTION 5 — Bottom Quote
+     ============================================ */
+  .bottom-quote {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 36px 80px;
+    text-align: center;
+    flex-shrink: 0;
+  }
+
+  .bottom-quote-text {
+    font-family: 'Noto Serif SC', Georgia, serif;
+    font-weight: 700;
+    font-size: 34px;
+    color: var(--bark);
+    line-height: 1.6;
+  }
+
+  .bottom-quote-text .accent {
+    color: var(--terracotta);
+  }
+
+  /* ============================================
+     SECTION 6 — Footer
+     ============================================ */
+  .footer-section {
+    padding: 0 80px 20px;
+    text-align: center;
+    flex-shrink: 0;
+  }
+
+  .footer-url {
+    font-family: 'DM Serif Display', Georgia, serif;
+    font-size: 30px;
+    color: var(--bark);
+    letter-spacing: 2px;
+    margin-bottom: 24px;
+  }
+
+  .persons-row {
+    display: flex;
+    justify-content: center;
+    gap: 64px;
+    margin-bottom: 24px;
+  }
+
+  .person {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .person-name {
+    font-family: 'Noto Serif SC', Georgia, serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--bark);
+    letter-spacing: 1px;
+  }
+
+  .person-qrs {
+    display: flex;
+    gap: 16px;
+    margin-top: 4px;
+  }
+
+  .qr-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .qr-item img {
+    width: 120px;
+    height: 120px;
+    border-radius: 10px;
+    background: white;
+    object-fit: contain;
+  }
+
+  .qr-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    color: var(--bark-light);
+    letter-spacing: 2px;
+  }
+
+  .footer-company {
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    color: var(--warm);
+    letter-spacing: 1px;
+  }
+
+  /* Spacer utility */
+  .spacer { flex-shrink: 0; }
+
+  /* ---- Export toolbar ---- */
+  .export-toolbar {
+    position: fixed;
+    top: 24px;
+    right: 24px;
+    background: var(--bark);
+    border-radius: 14px;
+    padding: 20px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    z-index: 1000;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+    min-width: 200px;
+  }
+
+  .export-toolbar h3 {
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--cream);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 2px;
+  }
+
+  .export-btn {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 16px;
+    border: 1px solid rgba(245,240,234,0.15);
+    border-radius: 8px;
+    background: transparent;
+    color: var(--cream);
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background 0.2s, border-color 0.2s;
+  }
+
+  .export-btn:hover {
+    background: rgba(245,240,234,0.1);
+    border-color: rgba(245,240,234,0.3);
+  }
+
+  .export-btn:active {
+    background: rgba(245,240,234,0.15);
+  }
+
+  .export-btn .btn-res {
+    font-size: 11px;
+    color: var(--warm);
+    font-family: 'Inter', sans-serif;
+  }
+
+  .export-btn.exporting {
+    opacity: 0.5;
+    pointer-events: none;
+  }
+
+  .export-status {
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    color: var(--terracotta);
+    text-align: center;
+    min-height: 16px;
+  }
+
+  /* ---- Print ---- */
+  @media print {
+    body { background: none; padding: 0; }
+    .banner { box-shadow: none; width: 800mm; height: 2000mm; }
+    .export-toolbar { display: none; }
+    @page { size: 800mm 2000mm; margin: 0; }
+  }
+</style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+</head>
+<body>
+
+<div class="banner">
+  <!-- 1. Logo -->
+  <div class="top-section">
+    <div class="logo-mark"><span>E</span></div>
+    <div class="logo-text">EinClaw</div>
+  </div>
+
+  <div class="spacer" style="height: 20px;"></div>
+  <div class="divider"></div>
+
+  <!-- 2. Headline -->
+  <div class="hero-section">
+    <div class="headline">
+      独立直连 <span class="accent">OpenClaw</span><br>语音麦克风
+    </div>
+  </div>
+
+  <!-- 3. Product -->
+  <div class="product-area">
+    <img class="product-image" src="white.png" alt="EinClaw Device">
+    <div class="product-tagline">按下按钮 &middot; 说出指令 &middot; 松手走人</div>
+  </div>
+
+  <!-- 4. Feature highlights -->
+  <div class="channels-section">
+    <div class="channels-grid">
+      <div class="channel-card">
+        <div class="channel-icon">&#128266;</div>
+        <div class="channel-name">EinClaw Mic</div>
+        <div class="channel-type">AI 语音硬件</div>
+        <div class="channel-desc">
+          按下按钮，对 AI 说话<br>
+          单手操作，5 秒完成
+        </div>
+      </div>
+      <div class="channel-card">
+        <div class="channel-icon">&#9881;</div>
+        <div class="channel-name">OpenClaw</div>
+        <div class="channel-type">AI 智能体平台</div>
+        <div class="channel-desc">
+          理解语音指令<br>
+          自动规划并执行任务
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5. Bottom Quote -->
+  <div class="bottom-quote">
+    <div class="bottom-quote-text">
+      言出法随<br>
+      捕捉你的<span class="accent">所思所想</span>，以及<span class="accent">所感</span>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- 6. QR Codes + URL -->
+  <div class="footer-section">
+    <div class="footer-url">einclaw.com</div>
+    <div class="persons-row">
+      <div class="person">
+        <div class="person-name">Arvin 阿问</div>
+        <div class="person-qrs">
+          <div class="qr-item">
+            <img src="qishifu_slides/arvin-wechat.png" alt="Arvin WeChat">
+            <span class="qr-label">微信</span>
+          </div>
+          <div class="qr-item">
+            <img src="qishifu_slides/arvin-xhs.png" alt="Arvin 小红书">
+            <span class="qr-label">小红书</span>
+          </div>
+        </div>
+      </div>
+      <div class="person">
+        <div class="person-name" style="color: var(--terracotta);">预售购买</div>
+        <div class="person-qrs">
+          <div class="qr-item">
+            <img src="xhs_designs/llmsrc/xhs_product_purchase.png" alt="预售" style="border-radius: 12px;">
+            <span class="qr-label">扫码预购</span>
+          </div>
+        </div>
+      </div>
+      <div class="person">
+        <div class="person-name">Affe 阿霏</div>
+        <div class="person-qrs">
+          <div class="qr-item">
+            <img src="qishifu_slides/affe-wechat.png" alt="Affe WeChat">
+            <span class="qr-label">微信</span>
+          </div>
+          <div class="qr-item">
+            <img src="qishifu_slides/affe-xhs.png" alt="Affe 小红书">
+            <span class="qr-label">小红书</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 7. Lifestyle Image (bottom) -->
+  <div class="lifestyle-section">
+    <div class="lifestyle-caption">这是我们的产品实拍图</div>
+    <img class="lifestyle-image" src="xhs_designs/0326_yilabao/IMG_1960.jpeg" alt="EinClaw worn on collar">
+  </div>
+</div>
+
+<!-- Export toolbar -->
+<div class="export-toolbar">
+  <h3>导出易拉宝</h3>
+  <button class="export-btn" onclick="exportBanner(3)">
+    预览版 <span class="btn-res">2400 x 6000</span>
+  </button>
+  <button class="export-btn" onclick="exportBanner(6)">
+    标准印刷 <span class="btn-res">4800 x 12000</span>
+  </button>
+  <button class="export-btn" onclick="exportBanner(10)">
+    高清印刷 <span class="btn-res">8000 x 20000</span>
+  </button>
+  <div class="export-status" id="exportStatus"></div>
+</div>
+
+<script>
+async function exportBanner(scale) {
+  const banner = document.querySelector('.banner');
+  const toolbar = document.querySelector('.export-toolbar');
+  const status = document.getElementById('exportStatus');
+  const buttons = document.querySelectorAll('.export-btn');
+
+  buttons.forEach(b => b.classList.add('exporting'));
+  status.textContent = '正在渲染，请稍候...';
+
+  // Hide toolbar during capture
+  toolbar.style.visibility = 'hidden';
+
+  try {
+    const canvas = await html2canvas(banner, {
+      scale: scale,
+      useCORS: true,
+      allowTaint: true,
+      backgroundColor: '#f5f0ea',
+      logging: false,
+      imageTimeout: 15000,
+    });
+
+    // Trigger download
+    const link = document.createElement('a');
+    const w = canvas.width;
+    const h = canvas.height;
+    link.download = `EinClaw-易拉宝-${w}x${h}.png`;
+    link.href = canvas.toDataURL('image/png');
+    link.click();
+
+    status.textContent = `已导出 ${w} x ${h} px`;
+  } catch (err) {
+    status.textContent = '导出失败: ' + err.message;
+    console.error(err);
+  }
+
+  toolbar.style.visibility = 'visible';
+  buttons.forEach(b => b.classList.remove('exporting'));
+
+  setTimeout(() => { status.textContent = ''; }, 5000);
+}
+</script>
+
+</body>
+</html>

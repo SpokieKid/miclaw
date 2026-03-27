@@ -8,3 +8,8 @@ sync_mic.sh
 /xingjie_slides
 /local_voice
 transcribe.sh
+/local_voice_backup
+/xhs_designs
+/xhsnote
+/0325_event_slides
+/0325_event_slides_vercel
