@@ -1,0 +1,1150 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EinClaw Mic - Open Cloud 用户分享</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&amp;family=Inter:wght@300;400;500;600;700&amp;family=Noto+Serif+SC:wght@400;600;700&amp;display=swap" rel="stylesheet">
+<style>
+:root {
+  --cream: #f5efe7;
+  --cream-deep: #ebe0d2;
+  --cream-soft: #fbf7f2;
+  --ink: #171513;
+  --ink-soft: #74685e;
+  --line: rgba(23, 21, 19, 0.10);
+  --line-strong: rgba(23, 21, 19, 0.18);
+  --terracotta: #e36b4f;
+  --terracotta-soft: rgba(227, 107, 79, 0.12);
+  --olive: #66784f;
+  --olive-soft: rgba(102, 120, 79, 0.12);
+  --gold: #b67a2d;
+  --gold-soft: rgba(182, 122, 45, 0.14);
+  --dark: #1c1816;
+  --dark-soft: rgba(245, 239, 231, 0.18);
+
+  --font-serif: 'DM Serif Display', 'Noto Serif SC', Georgia, serif;
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'PingFang SC', sans-serif;
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: var(--cream);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  position: relative;
+}
+
+.deck {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.slide {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3.25rem 2.25rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.6s var(--ease);
+}
+
+.slide.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.slide--dark {
+  background:
+    radial-gradient(circle at top right, rgba(227, 107, 79, 0.18), transparent 32%),
+    linear-gradient(180deg, #1f1a17 0%, #161311 100%);
+  color: var(--cream);
+}
+
+.slide--light {
+  background:
+    radial-gradient(circle at top right, rgba(227, 107, 79, 0.10), transparent 28%),
+    linear-gradient(180deg, #f7f2eb 0%, #f2e8dd 100%);
+  color: var(--ink);
+}
+
+.slide__inner {
+  width: 100%;
+  max-width: 1180px;
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity 0.7s var(--ease),
+    transform 0.7s var(--ease);
+  transition-delay: calc(var(--i, 0) * 0.12s + 0.16s);
+}
+
+.slide.active .reveal {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.slide:not(.active) .reveal {
+  transition: none;
+}
+
+.t-caption {
+  font-size: clamp(0.8rem, 1.2vw, 0.96rem);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+.t-title {
+  font-family: var(--font-serif);
+  font-size: clamp(2.4rem, 5vw, 4.8rem);
+  line-height: 1.08;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+}
+
+.t-subtitle {
+  font-size: clamp(1.05rem, 1.9vw, 1.45rem);
+  line-height: 1.7;
+  font-weight: 300;
+}
+
+.t-body {
+  font-size: clamp(0.98rem, 1.45vw, 1.1rem);
+  line-height: 1.75;
+  font-weight: 400;
+}
+
+.t-number {
+  font-family: var(--font-serif);
+  font-size: clamp(3.2rem, 7vw, 6rem);
+  line-height: 1;
+  font-weight: 400;
+}
+
+.accent {
+  color: var(--terracotta);
+}
+
+.muted {
+  color: var(--ink-soft);
+}
+
+.muted-cream {
+  color: rgba(245, 239, 231, 0.72);
+}
+
+.divider {
+  width: 5rem;
+  height: 1px;
+  margin: 1.4rem 0;
+  background: var(--line-strong);
+}
+
+.slide--dark .divider {
+  background: rgba(245, 239, 231, 0.22);
+}
+
+.spacer {
+  height: 1rem;
+}
+
+.spacer-lg {
+  height: 2rem;
+}
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 3rem;
+  align-items: center;
+}
+
+.hero-copy {
+  max-width: 620px;
+}
+
+.hero-copy .t-caption {
+  color: rgba(245, 239, 231, 0.64);
+}
+
+.hero-sub {
+  max-width: 560px;
+  margin-top: 1.4rem;
+}
+
+.chip-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 1.6rem;
+}
+
+.chip {
+  padding: 0.55rem 0.95rem;
+  border: 1px solid rgba(245, 239, 231, 0.18);
+  border-radius: 999px;
+  background: rgba(245, 239, 231, 0.06);
+  color: rgba(245, 239, 231, 0.88);
+  font-size: 0.92rem;
+  font-weight: 500;
+}
+
+.hero-side {
+  display: grid;
+  gap: 1rem;
+}
+
+.hero-card {
+  padding: 1.25rem;
+  border-radius: 1.4rem;
+  background: rgba(245, 239, 231, 0.08);
+  border: 1px solid rgba(245, 239, 231, 0.10);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.22);
+}
+
+.ratio-card {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 1rem;
+  text-align: center;
+}
+
+.ratio-card__label {
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: rgba(245, 239, 231, 0.58);
+}
+
+.ratio-card__arrow {
+  font-size: 2rem;
+  color: rgba(245, 239, 231, 0.45);
+}
+
+.ratio-card .accent-soft {
+  color: rgba(227, 107, 79, 0.88);
+}
+
+.hero-gallery {
+  display: grid;
+  grid-template-columns: 1fr 0.84fr;
+  gap: 1rem;
+  align-items: end;
+}
+
+.hero-gallery img {
+  width: 100%;
+  display: block;
+  object-fit: contain;
+  filter: drop-shadow(0 18px 36px rgba(0, 0, 0, 0.28));
+}
+
+.hero-gallery__stack {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.section-head {
+  max-width: 840px;
+}
+
+.section-head .t-caption {
+  color: var(--terracotta);
+}
+
+.section-head .t-title {
+  margin-top: 0.65rem;
+}
+
+.section-head .t-subtitle {
+  margin-top: 1rem;
+  color: var(--ink-soft);
+}
+
+.build-grid {
+  display: grid;
+  grid-template-columns: 0.92fr 1.08fr;
+  gap: 2rem;
+  margin-top: 2rem;
+  align-items: stretch;
+}
+
+.panel {
+  border-radius: 1.6rem;
+  background: rgba(255, 255, 255, 0.62);
+  border: 1px solid var(--line);
+  box-shadow: 0 10px 30px rgba(23, 21, 19, 0.06);
+}
+
+.panel--dark {
+  background: rgba(23, 21, 19, 0.03);
+}
+
+.hardware-panel {
+  padding: 1.5rem;
+  display: grid;
+  gap: 1.1rem;
+}
+
+.hardware-visual {
+  padding: 1rem 1rem 0.4rem;
+  border-radius: 1.25rem;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.72), rgba(245, 239, 231, 0.75));
+  border: 1px solid rgba(23, 21, 19, 0.06);
+}
+
+.hardware-visual img {
+  width: 100%;
+  display: block;
+  object-fit: contain;
+}
+
+.hardware-metrics {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.8rem;
+}
+
+.metric-box {
+  padding: 0.95rem 0.85rem;
+  border-radius: 1rem;
+  background: var(--cream-soft);
+  border: 1px solid var(--line);
+  text-align: center;
+}
+
+.metric-box__value {
+  font-family: var(--font-serif);
+  font-size: 1.8rem;
+  line-height: 1;
+}
+
+.metric-box__label {
+  margin-top: 0.4rem;
+  font-size: 0.82rem;
+  color: var(--ink-soft);
+  line-height: 1.45;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.8rem;
+}
+
+.form-box {
+  padding: 1rem;
+  border-radius: 1rem;
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.62);
+}
+
+.form-box__eyebrow {
+  font-size: 0.75rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--gold);
+}
+
+.form-box__title {
+  margin-top: 0.55rem;
+  font-size: 1.28rem;
+  font-weight: 600;
+}
+
+.form-box__desc {
+  margin-top: 0.45rem;
+  font-size: 0.92rem;
+  line-height: 1.65;
+  color: var(--ink-soft);
+}
+
+.principles {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.principle {
+  padding: 1.25rem;
+  border-radius: 1.15rem;
+  background: rgba(255, 255, 255, 0.74);
+  border: 1px solid var(--line);
+}
+
+.principle__index {
+  width: 2rem;
+  height: 2rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  margin-bottom: 0.9rem;
+  font-family: var(--font-serif);
+  font-size: 1.2rem;
+  background: var(--terracotta-soft);
+  color: var(--terracotta);
+}
+
+.principle__title {
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.principle__body {
+  margin-top: 0.55rem;
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: var(--ink-soft);
+}
+
+.cap-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.cap-card {
+  padding: 1.35rem;
+  border-radius: 1.35rem;
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.70);
+  box-shadow: 0 10px 24px rgba(23, 21, 19, 0.05);
+}
+
+.cap-card__eyebrow {
+  font-size: 0.75rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--terracotta);
+}
+
+.cap-card__title {
+  margin-top: 0.6rem;
+  font-size: 1.28rem;
+  font-weight: 700;
+}
+
+.cap-card__desc {
+  margin-top: 0.65rem;
+  font-size: 0.97rem;
+  line-height: 1.72;
+  color: var(--ink-soft);
+}
+
+.cap-card__example {
+  margin-top: 0.95rem;
+  padding-top: 0.9rem;
+  border-top: 1px solid rgba(23, 21, 19, 0.08);
+  font-size: 0.9rem;
+  line-height: 1.7;
+  color: var(--ink);
+}
+
+.flow-layout {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 2rem;
+  align-items: start;
+  margin-top: 2rem;
+}
+
+.flow-board {
+  padding: 1.6rem;
+}
+
+.flow-rail {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr auto 1fr auto 1fr auto 1fr;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+.flow-node {
+  min-height: 176px;
+  padding: 1rem;
+  border-radius: 1.15rem;
+  background: rgba(255, 255, 255, 0.74);
+  border: 1px solid var(--line);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.flow-node--accent {
+  background: linear-gradient(180deg, rgba(227, 107, 79, 0.12), rgba(255, 255, 255, 0.70));
+}
+
+.flow-node--olive {
+  background: linear-gradient(180deg, rgba(102, 120, 79, 0.12), rgba(255, 255, 255, 0.70));
+}
+
+.flow-node__step {
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--ink-soft);
+}
+
+.flow-node__title {
+  margin-top: 0.75rem;
+  font-size: 1.04rem;
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.flow-node__body {
+  margin-top: 0.7rem;
+  font-size: 0.9rem;
+  line-height: 1.68;
+  color: var(--ink-soft);
+}
+
+.flow-arrow {
+  font-size: 1.65rem;
+  color: rgba(23, 21, 19, 0.34);
+}
+
+.flow-side {
+  display: grid;
+  gap: 1rem;
+}
+
+.flow-note {
+  padding: 1.25rem;
+  border-radius: 1.25rem;
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.74);
+}
+
+.flow-note__title {
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.flow-note__body {
+  margin-top: 0.55rem;
+  font-size: 0.93rem;
+  line-height: 1.72;
+  color: var(--ink-soft);
+}
+
+.scenario-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.scenario-card {
+  padding: 1.35rem;
+  border-radius: 1.35rem;
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.72);
+  min-height: 250px;
+  display: flex;
+  flex-direction: column;
+}
+
+.scenario-card__label {
+  font-size: 0.76rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--gold);
+}
+
+.scenario-card__title {
+  margin-top: 0.7rem;
+  font-size: 1.25rem;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+.scenario-card__voice,
+.scenario-card__result {
+  margin-top: 0.9rem;
+  padding: 0.9rem 1rem;
+  border-radius: 1rem;
+  font-size: 0.92rem;
+  line-height: 1.65;
+}
+
+.scenario-card__voice {
+  background: rgba(227, 107, 79, 0.10);
+  color: var(--ink);
+}
+
+.scenario-card__result {
+  margin-top: auto;
+  background: rgba(102, 120, 79, 0.10);
+  color: var(--ink);
+}
+
+.close-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2.5rem;
+  align-items: center;
+}
+
+.close-copy .t-caption {
+  color: rgba(245, 239, 231, 0.68);
+}
+
+.close-copy .t-title {
+  margin-top: 0.9rem;
+}
+
+.close-copy .t-subtitle {
+  margin-top: 1rem;
+  max-width: 560px;
+  color: rgba(245, 239, 231, 0.78);
+}
+
+.close-points {
+  display: grid;
+  gap: 0.8rem;
+  margin-top: 1.6rem;
+}
+
+.close-point {
+  padding: 0.95rem 1rem;
+  border-radius: 1rem;
+  background: rgba(245, 239, 231, 0.07);
+  border: 1px solid rgba(245, 239, 231, 0.10);
+  font-size: 0.95rem;
+  line-height: 1.65;
+  color: rgba(245, 239, 231, 0.85);
+}
+
+.close-gallery {
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  gap: 1rem;
+  align-items: center;
+}
+
+.close-gallery__stack {
+  display: grid;
+  gap: 1rem;
+}
+
+.close-gallery img {
+  width: 100%;
+  display: block;
+  object-fit: contain;
+  filter: drop-shadow(0 18px 42px rgba(0, 0, 0, 0.30));
+}
+
+.close-url {
+  margin-top: 1.8rem;
+  font-family: var(--font-serif);
+  font-size: clamp(2rem, 4vw, 3.4rem);
+  letter-spacing: 0.06em;
+  color: var(--cream);
+}
+
+.progress-bar {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  height: 4px;
+  width: 0;
+  background: var(--terracotta);
+  z-index: 10;
+  transition: width 0.45s var(--ease);
+}
+
+.counter,
+.hint {
+  position: fixed;
+  z-index: 10;
+  font-size: 0.82rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+.counter {
+  right: 1.4rem;
+  bottom: 1rem;
+}
+
+.hint {
+  left: 1.4rem;
+  bottom: 1rem;
+  transition: opacity 0.35s ease;
+}
+
+.counter--light,
+.hint--light {
+  color: rgba(23, 21, 19, 0.42);
+}
+
+.counter--dark,
+.hint--dark {
+  color: rgba(245, 239, 231, 0.42);
+}
+
+@media (max-width: 1100px) {
+  .hero-grid,
+  .build-grid,
+  .flow-layout,
+  .close-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-copy,
+  .close-copy {
+    max-width: none;
+  }
+
+  .flow-rail {
+    grid-template-columns: 1fr;
+  }
+
+  .flow-arrow {
+    transform: rotate(90deg);
+    margin: 0.2rem auto;
+  }
+
+  .flow-node {
+    min-height: auto;
+  }
+}
+
+@media (max-width: 900px) {
+  .slide {
+    padding: 2rem 1.2rem 3.6rem;
+  }
+
+  .principles,
+  .cap-grid,
+  .scenario-grid,
+  .form-row,
+  .hero-gallery,
+  .close-gallery,
+  .hardware-metrics {
+    grid-template-columns: 1fr;
+  }
+
+  .ratio-card {
+    grid-template-columns: 1fr;
+  }
+
+  .ratio-card__arrow {
+    transform: rotate(90deg);
+  }
+}
+</style>
+</head>
+<body>
+
+<div class="deck">
+
+  <div class="slide slide--dark active" data-dark>
+    <div class="slide__inner hero-grid">
+      <div class="hero-copy">
+        <p class="reveal t-caption" style="--i:0">Open Cloud 用户分享 · 5 分钟</p>
+        <div class="spacer"></div>
+        <h1 class="reveal t-title" style="--i:1">给龙虾装一个<br><span class="accent">随身麦克风</span></h1>
+        <p class="reveal t-subtitle hero-sub" style="--i:2">
+          EinClaw Mic 不是再造一个新的 AI 大脑，而是给你已有的 OpenClaw 增加一个更自然、更低摩擦的语音入口。
+        </p>
+        <div class="reveal chip-row" style="--i:3">
+          <span class="chip">4G 独立联网</span>
+          <span class="chip">单按钮交互</span>
+          <span class="chip">直达 OpenClaw</span>
+          <span class="chip">BOM 约 ¥50</span>
+        </div>
+      </div>
+
+      <div class="hero-side">
+        <div class="reveal hero-card ratio-card" style="--i:2">
+          <div>
+            <div class="t-number" style="color: rgba(245, 239, 231, 0.34);">7</div>
+            <div class="ratio-card__label">掏手机 / 解锁 / 找入口 / 粘贴到龙虾</div>
+          </div>
+          <div class="ratio-card__arrow">&rarr;</div>
+          <div>
+            <div class="t-number accent-soft">1</div>
+            <div class="ratio-card__label">按下，说话，松手走人</div>
+          </div>
+        </div>
+
+        <div class="reveal hero-card hero-gallery" style="--i:3">
+          <img src="../web/public/product-white.png" alt="EinClaw Mic 白色形态">
+          <div class="hero-gallery__stack">
+            <img src="../web/public/product-device.png" alt="EinClaw Mic 深色形态">
+            <img src="../web/public/product-lifestyle.png" alt="EinClaw Mic 佩戴效果">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide slide--light">
+    <div class="slide__inner">
+      <div class="section-head">
+        <p class="reveal t-caption" style="--i:0">第一部分 · 这个硬件是怎么做的</p>
+        <h2 class="reveal t-title" style="--i:1">我们不是先做复杂硬件，而是先做对一条输入链路</h2>
+        <p class="reveal t-subtitle" style="--i:2">
+          目标非常单纯: 让一个念头在最短时间里到达 AI。剩下的所有硬件决策，都是围绕这个目标收敛出来的。
+        </p>
+      </div>
+
+      <div class="build-grid">
+        <div class="reveal panel hardware-panel" style="--i:3">
+          <div class="hardware-visual">
+            <img src="../web/public/product-device.png" alt="EinClaw Mic 产品图">
+          </div>
+
+          <div class="hardware-metrics">
+            <div class="metric-box">
+              <div class="metric-box__value accent">4G</div>
+              <div class="metric-box__label">脱离手机，独立联网</div>
+            </div>
+            <div class="metric-box">
+              <div class="metric-box__value" style="color: var(--gold);">1</div>
+              <div class="metric-box__label">一个按钮，完成输入</div>
+            </div>
+            <div class="metric-box">
+              <div class="metric-box__value" style="color: var(--olive);">~¥50</div>
+              <div class="metric-box__label">核心 BOM 成本</div>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-box">
+              <div class="form-box__eyebrow">Current</div>
+              <div class="form-box__title">对讲机形态</div>
+              <div class="form-box__desc">夹在衣领或口袋，最先成立的形态，适合通勤、工作、走路时随手说一句。</div>
+            </div>
+            <div class="form-box">
+              <div class="form-box__eyebrow">Next</div>
+              <div class="form-box__title">手环形态</div>
+              <div class="form-box__desc">复用同一套电子架构，只改变佩戴方式和触发动作，继续压低使用门槛。</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="reveal principles" style="--i:4">
+          <div class="principle">
+            <div class="principle__index">1</div>
+            <div class="principle__title">先砍掉多余交互</div>
+            <div class="principle__body">不做屏幕，不做复杂菜单，不追求实时对话。只保留一个动作: 按下，说话，松手。</div>
+          </div>
+
+          <div class="principle">
+            <div class="principle__index">2</div>
+            <div class="principle__title">先脱离手机依赖</div>
+            <div class="principle__body">4G Cat.1 直连，断网可缓存，恢复信号再补传。关键不是更酷，而是更可靠。</div>
+          </div>
+
+          <div class="principle">
+            <div class="principle__index">3</div>
+            <div class="principle__title">尽量复用成熟器件</div>
+            <div class="principle__body">模组、电池、数字麦克风、LED、马达、USB-C，这些都不是发明，重点是把它们组合成最小可行链路。</div>
+          </div>
+
+          <div class="principle">
+            <div class="principle__index">4</div>
+            <div class="principle__title">把试错成本压下来</div>
+            <div class="principle__body">深圳供应链 + 简单电子方案，让我们能快速打样、快速迭代，而不是陷进大而全硬件项目里。</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide slide--light">
+    <div class="slide__inner">
+      <div class="section-head">
+        <p class="reveal t-caption" style="--i:0">第二部分 · 它有哪些功能</p>
+        <h2 class="reveal t-title" style="--i:1">它不是聊天玩具，而是给龙虾增加一个稳定的语音输入层</h2>
+        <p class="reveal t-subtitle" style="--i:2">
+          真正有价值的不是“能说话”，而是它能把一句话稳稳送进你已经配好的 agent 工作流里。
+        </p>
+      </div>
+
+      <div class="cap-grid">
+        <div class="reveal cap-card" style="--i:3">
+          <div class="cap-card__eyebrow">Capture</div>
+          <div class="cap-card__title">随时采集输入</div>
+          <div class="cap-card__desc">灵感、待办、Bug、会议反馈、碎片判断，都可以在走路、通勤、做饭的时候先说进去。</div>
+          <div class="cap-card__example"><strong>例子:</strong> “记一下这个选题” / “帮我开个 issue” / “把这句想法存到日记里”。</div>
+        </div>
+
+        <div class="reveal cap-card" style="--i:4">
+          <div class="cap-card__eyebrow">Route</div>
+          <div class="cap-card__title">按关键词分发工作流</div>
+          <div class="cap-card__desc">同一个硬件，对不同人不是同一个产品。真正的差异在你龙虾里配的 skills 和 workflow。</div>
+          <div class="cap-card__example"><strong>例子:</strong> “选题记录” 进内容库，“代码问题” 进开发流，“会议纪要” 进知识库。</div>
+        </div>
+
+        <div class="reveal cap-card" style="--i:5">
+          <div class="cap-card__eyebrow">Accumulate</div>
+          <div class="cap-card__title">支持多次追加上下文</div>
+          <div class="cap-card__desc">第一次只说一个念头，后面再补两句案例、一个链接、一条判断，OpenClaw 可以继续往同一任务里叠上下文。</div>
+          <div class="cap-card__example"><strong>例子:</strong> 早上记录选题，中午补观点，晚上直接生成草稿。</div>
+        </div>
+
+        <div class="reveal cap-card" style="--i:6">
+          <div class="cap-card__eyebrow">Execute</div>
+          <div class="cap-card__title">把采集真正变成执行</div>
+          <div class="cap-card__desc">语音不是终点。它应该最终变成文档、消息、任务、代码变更，或者你日常工作流里的任何动作。</div>
+          <div class="cap-card__example"><strong>例子:</strong> 自动整理大纲、创建 Issue、发 Telegram、写入知识库、触发后续 Agent。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide slide--light">
+    <div class="slide__inner">
+      <div class="section-head">
+        <p class="reveal t-caption" style="--i:0">第三部分 · 它怎么接到龙虾上</p>
+        <h2 class="reveal t-title" style="--i:1">对用户来说是一键直达，对系统来说是一层很薄的中转和路由</h2>
+        <p class="reveal t-subtitle" style="--i:2">
+          重点不是替换你的 OpenClaw，而是把“键盘输入”换成“随身语音输入”，让已有工作流获得新的入口。
+        </p>
+      </div>
+
+      <div class="flow-layout">
+        <div class="reveal panel flow-board" style="--i:3">
+          <div class="flow-rail">
+            <div class="flow-node flow-node--accent">
+              <div>
+                <div class="flow-node__step">Step 1</div>
+                <div class="flow-node__title">按下 EinClaw Mic</div>
+                <div class="flow-node__body">用户只做一个动作: 按下按钮，说出一句话，松手结束。</div>
+              </div>
+            </div>
+            <div class="flow-arrow">&rarr;</div>
+            <div class="flow-node">
+              <div>
+                <div class="flow-node__step">Step 2</div>
+                <div class="flow-node__title">4G 上传音频</div>
+                <div class="flow-node__body">设备独立联网，不依赖手机；断网时本地缓存，恢复后补传。</div>
+              </div>
+            </div>
+            <div class="flow-arrow">&rarr;</div>
+            <div class="flow-node">
+              <div>
+                <div class="flow-node__step">Step 3</div>
+                <div class="flow-node__title">转写 + 关键词路由</div>
+                <div class="flow-node__body">轻中转层负责把语音变成结构化输入，并命中对应 workflow。</div>
+              </div>
+            </div>
+            <div class="flow-arrow">&rarr;</div>
+            <div class="flow-node flow-node--olive">
+              <div>
+                <div class="flow-node__step">Step 4</div>
+                <div class="flow-node__title">投递到你的 OpenClaw</div>
+                <div class="flow-node__body">任务进入你自己的龙虾，大脑还是原来的大脑，只是多了一个入口。</div>
+              </div>
+            </div>
+            <div class="flow-arrow">&rarr;</div>
+            <div class="flow-node">
+              <div>
+                <div class="flow-node__step">Step 5</div>
+                <div class="flow-node__title">结果回到熟悉的通道</div>
+                <div class="flow-node__body">Telegram、知识库、待办、文档、代码仓库，回到你平时已经在用的地方。</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="flow-side">
+          <div class="reveal flow-note" style="--i:4">
+            <div class="flow-note__title">不重写工作流</div>
+            <div class="flow-note__body">如果你已经有一套龙虾技能树，EinClaw 不需要推翻它。我们只是把输入从“打开界面敲字”变成“抬手说一句”。</div>
+          </div>
+
+          <div class="reveal flow-note" style="--i:5">
+            <div class="flow-note__title">中转层的价值</div>
+            <div class="flow-note__body">统一鉴权、转写、缓存、断点续传、关键词路由。这些放在中间层做，硬件才可以足够轻，OpenClaw 也能保持灵活。</div>
+          </div>
+
+          <div class="reveal flow-note" style="--i:6">
+            <div class="flow-note__title">本质上是一个语音 Inbox</div>
+            <div class="flow-note__body">它不一定要立刻回复你，但一定要可靠地接住你说过的话，然后交给龙虾去理解、记忆和执行。</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide slide--light">
+    <div class="slide__inner">
+      <div class="section-head">
+        <p class="reveal t-caption" style="--i:0">第四部分 · 几个具体场景</p>
+        <h2 class="reveal t-title" style="--i:1">同一个硬件，接到不同龙虾上，就会变成不同的产品</h2>
+        <p class="reveal t-subtitle" style="--i:2">
+          对 Open Cloud 用户来说，真正有意思的地方不在硬件本身，而在它能把多少碎片时间重新变成 agent 的工作时间。
+        </p>
+      </div>
+
+      <div class="scenario-grid">
+        <div class="reveal scenario-card" style="--i:3">
+          <div class="scenario-card__label">场景 01</div>
+          <div class="scenario-card__title">内容创作: 路上说一句，回家已有草稿</div>
+          <div class="scenario-card__voice">“选题记录: 为什么 AI 创作者最后拼的不是模型能力，而是信息源管理。”</div>
+          <div class="scenario-card__result">龙虾自动写入选题库，后续再补两句观点，晚上就能生成大纲、草稿和配图建议。</div>
+        </div>
+
+        <div class="reveal scenario-card" style="--i:4">
+          <div class="scenario-card__label">场景 02</div>
+          <div class="scenario-card__title">开发协作: 开车时描述 Bug，下车时任务已分发</div>
+          <div class="scenario-card__voice">“把今天 iOS 登录页那个 loading 卡住的问题记一下，先拉日志，再建一个 issue 给我。”</div>
+          <div class="scenario-card__result">龙虾进入开发 workflow，自动整理问题描述、补充上下文、发到对应仓库或沟通群。</div>
+        </div>
+
+        <div class="reveal scenario-card" style="--i:5">
+          <div class="scenario-card__label">场景 03</div>
+          <div class="scenario-card__title">个人事务: 做饭时把脑子里的碎任务全部甩出去</div>
+          <div class="scenario-card__voice">“明早提醒我给张三回电话，再把周五的北京行程整理一下发 Telegram。”</div>
+          <div class="scenario-card__result">龙虾拆分成待办、日历、提醒和消息，不需要你中途停下来找手机。</div>
+        </div>
+
+        <div class="reveal scenario-card" style="--i:6">
+          <div class="scenario-card__label">场景 04</div>
+          <div class="scenario-card__title">知识沉淀: 会议间隙补一句，最后自动长成完整上下文</div>
+          <div class="scenario-card__voice">“补充一下刚才那个客户反馈，他其实最在意的是离线能力，不是界面。”</div>
+          <div class="scenario-card__result">龙虾把这句挂到原任务下面，后面汇总成会议纪要、需求判断和后续决策依据。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide slide--dark" data-dark>
+    <div class="slide__inner close-grid">
+      <div class="close-copy">
+        <p class="reveal t-caption" style="--i:0">最后一句</p>
+        <h2 class="reveal t-title" style="--i:1">不是做一个会说话的硬件<br>而是让你的<span class="accent">龙虾更容易接住你</span></h2>
+        <p class="reveal t-subtitle" style="--i:2">
+          如果 OpenClaw 已经足够能干，下一步最值得做的，就不是再造一个大脑，而是补齐输入这块最容易丢 context 的地方。
+        </p>
+
+        <div class="reveal close-points" style="--i:3">
+          <div class="close-point">硬件层: 一个按钮、一条 4G 链路、足够轻的交互负担。</div>
+          <div class="close-point">系统层: 一层薄中转，把语音变成 OpenClaw 能直接接住的结构化输入。</div>
+          <div class="close-point">场景层: 让创作、开发、待办、知识沉淀这些碎片场景真正跑起来。</div>
+        </div>
+
+        <div class="reveal close-url" style="--i:4">einclaw.cn</div>
+      </div>
+
+      <div class="reveal close-gallery" style="--i:3">
+        <div class="close-gallery__stack">
+          <img src="../web/public/product-device.png" alt="EinClaw Mic 深色产品图">
+          <img src="../web/public/product-white.png" alt="EinClaw Mic 白色产品图">
+        </div>
+        <img src="../web/public/product-lifestyle.png" alt="EinClaw Mic 佩戴效果">
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="progress-bar" id="progress"></div>
+<div class="counter" id="counter"></div>
+<div class="hint" id="hint">&larr; &rarr; / Space</div>
+
+<script>
+(function () {
+  var slides = Array.from(document.querySelectorAll('.slide'));
+  var total = slides.length;
+  var progress = document.getElementById('progress');
+  var counter = document.getElementById('counter');
+  var hint = document.getElementById('hint');
+  var current = 0;
+  var touchStartX = 0;
+
+  function go(index) {
+    if (index < 0 || index >= total) return;
+    slides[current].classList.remove('active');
+    current = index;
+    slides[current].classList.add('active');
+
+    progress.style.width = ((current + 1) / total * 100) + '%';
+    counter.textContent = (current + 1) + ' / ' + total;
+
+    var isDark = slides[current].hasAttribute('data-dark');
+    counter.className = 'counter ' + (isDark ? 'counter--dark' : 'counter--light');
+    hint.className = 'hint ' + (isDark ? 'hint--dark' : 'hint--light');
+
+    if (current > 0) hint.style.opacity = '0';
+  }
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ' || e.key === 'Enter' || e.key === 'PageDown') {
+      e.preventDefault();
+      go(current + 1);
+    } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp' || e.key === 'Backspace' || e.key === 'PageUp') {
+      e.preventDefault();
+      go(current - 1);
+    } else if (e.key === 'Home') {
+      e.preventDefault();
+      go(0);
+    } else if (e.key === 'End') {
+      e.preventDefault();
+      go(total - 1);
+    } else if (e.key === 'f' || e.key === 'F') {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen();
+      } else {
+        document.exitFullscreen();
+      }
+    }
+  });
+
+  document.addEventListener('click', function (e) {
+    if (e.target.closest('a, button')) return;
+    var x = e.clientX / window.innerWidth;
+    go(current + (x < 0.3 ? -1 : 1));
+  });
+
+  document.addEventListener('touchstart', function (e) {
+    touchStartX = e.touches[0].clientX;
+  }, { passive: true });
+
+  document.addEventListener('touchend', function (e) {
+    var diff = touchStartX - e.changedTouches[0].clientX;
+    if (Math.abs(diff) > 50) {
+      go(current + (diff > 0 ? 1 : -1));
+    }
+  }, { passive: true });
+
+  go(0);
+})();
+</script>
+</body>
+</html>

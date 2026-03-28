@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EinClaw Mic — OpenClaw 用户分享</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500;600&family=Noto+Serif+SC:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════
+   DESIGN TOKENS
+   ═══════════════════════════════════════════ */
+:root {
+  --cream: #f5f0ea;
+  --cream-dark: #ebe4db;
+  --bark: #1a1714;
+  --bark-light: #8a7e72;
+  --terracotta: #e8634a;
+  --warm: #c4b5a3;
+  --warm-light: #ddd5ca;
+
+  --font-serif: 'DM Serif Display', 'Noto Serif SC', Georgia, serif;
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'PingFang SC', sans-serif;
+
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* ═══════════════════════════════════════════
+   RESET & BASE
+   ═══════════════════════════════════════════ */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+html, body {
+  width: 100%; height: 100%;
+  overflow: hidden;
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  background: var(--cream);
+  color: var(--bark);
+}
+
+/* ═══════════════════════════════════════════
+   SLIDE STRUCTURE
+   ═══════════════════════════════════════════ */
+.deck { position: relative; width: 100%; height: 100%; }
+
+.slide {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 2rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.6s var(--ease);
+}
+
+.slide.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.slide--dark {
+  background: var(--bark);
+  color: var(--cream);
+}
+
+.slide--light {
+  background: var(--cream);
+  color: var(--bark);
+}
+
+.slide__inner {
+  max-width: 960px;
+  width: 100%;
+  text-align: center;
+}
+
+/* ═══════════════════════════════════════════
+   REVEAL ANIMATIONS
+   ═══════════════════════════════════════════ */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
+  transition-delay: calc(var(--i, 0) * 0.13s + 0.15s);
+}
+
+.slide.active .reveal {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.slide:not(.active) .reveal {
+  transition: none;
+}
+
+/* ═══════════════════════════════════════════
+   TYPOGRAPHY
+   ═══════════════════════════════════════════ */
+.t-hero {
+  font-family: var(--font-serif);
+  font-size: clamp(4rem, 10vw, 8rem);
+  letter-spacing: 0.12em;
+  line-height: 1;
+  font-weight: 400;
+}
+
+.t-title {
+  font-family: var(--font-serif);
+  font-size: clamp(2rem, 5vw, 3.8rem);
+  line-height: 1.25;
+  font-weight: 400;
+}
+
+.t-subtitle {
+  font-size: clamp(1.1rem, 2.5vw, 1.6rem);
+  line-height: 1.6;
+  font-weight: 300;
+}
+
+.t-body {
+  font-size: clamp(1rem, 2vw, 1.3rem);
+  line-height: 1.7;
+  font-weight: 300;
+}
+
+.t-caption {
+  font-size: clamp(0.8rem, 1.5vw, 1rem);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+.t-number {
+  font-family: var(--font-serif);
+  font-size: clamp(3rem, 8vw, 6rem);
+  line-height: 1;
+  font-weight: 400;
+}
+
+/* ═══════════════════════════════════════════
+   UTILITY CLASSES
+   ═══════════════════════════════════════════ */
+.accent { color: var(--terracotta); }
+.muted { color: var(--bark-light); }
+.muted-cream { opacity: 0.5; }
+
+.divider {
+  width: 5rem;
+  height: 1px;
+  background: var(--warm);
+  margin: 1.5rem auto;
+}
+
+.slide--dark .divider { background: rgba(245, 240, 234, 0.25); }
+.slide--dark .muted { color: rgba(245, 240, 234, 0.5); }
+
+.spacer { height: 1.5rem; }
+.spacer-lg { height: 2.5rem; }
+
+.mt-1 { margin-top: 0.5rem; }
+.mt-2 { margin-top: 1rem; }
+.mt-3 { margin-top: 1.5rem; }
+.mt-4 { margin-top: 2rem; }
+
+/* ═══════════════════════════════════════════
+   HARDWARE SHOWCASE
+   ═══════════════════════════════════════════ */
+.hardware-showcase {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 3rem;
+  margin: 1.5rem 0;
+  flex-wrap: wrap;
+}
+
+.hardware-img {
+  height: 420px;
+  max-width: 90vw;
+  border-radius: 1rem;
+  object-fit: contain;
+  filter: drop-shadow(0 8px 24px rgba(0,0,0,0.12));
+}
+
+.hardware-img--small {
+  height: 280px;
+}
+
+/* ═══════════════════════════════════════════
+   FEATURE GRID
+   ═══════════════════════════════════════════ */
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin: 2.5rem 0;
+}
+
+.feature-card {
+  background: var(--cream-dark);
+  border-radius: 1rem;
+  padding: 1.8rem 1.5rem;
+  text-align: center;
+}
+
+.feature-card__icon {
+  font-size: 2.5rem;
+  margin-bottom: 0.8rem;
+}
+
+.feature-card__title {
+  font-family: var(--font-serif);
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+}
+
+.feature-card__desc {
+  font-size: 0.9rem;
+  color: var(--bark-light);
+  line-height: 1.5;
+}
+
+/* ═══════════════════════════════════════════
+   CONNECTION FLOW
+   ═══════════════════════════════════════════ */
+.connection-flow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  margin: 2.5rem 0;
+  flex-wrap: wrap;
+}
+
+.connection-box {
+  background: var(--cream-dark);
+  border-radius: 1rem;
+  padding: 1.5rem 2rem;
+  text-align: center;
+  min-width: 160px;
+}
+
+.connection-box--highlight {
+  background: var(--terracotta);
+  color: #fff;
+}
+
+.connection-box__icon {
+  font-size: 2.2rem;
+  margin-bottom: 0.5rem;
+}
+
+.connection-box__title {
+  font-family: var(--font-serif);
+  font-size: 1.2rem;
+  margin-bottom: 0.3rem;
+}
+
+.connection-box__desc {
+  font-size: 0.85rem;
+  opacity: 0.8;
+}
+
+.connection-arrow {
+  font-size: 2rem;
+  color: var(--warm);
+}
+
+/* ═══════════════════════════════════════════
+   SCENARIO CARDS
+   ═══════════════════════════════════════════ */
+.scenario-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+  margin: 2rem 0;
+}
+
+.scenario-card {
+  background: var(--cream-dark);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  text-align: left;
+  border-left: 3px solid var(--terracotta);
+}
+
+.scenario-card__label {
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--terracotta);
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.scenario-card__title {
+  font-family: var(--font-serif);
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+}
+
+.scenario-card__desc {
+  font-size: 0.9rem;
+  color: var(--bark-light);
+  line-height: 1.5;
+}
+
+/* ═══════════════════════════════════════════
+   TECH SPECS
+   ═══════════════════════════════════════════ */
+.spec-list {
+  display: flex;
+  justify-content: center;
+  gap: 3rem;
+  margin: 2rem 0;
+  flex-wrap: wrap;
+}
+
+.spec-item {
+  text-align: center;
+}
+
+.spec-item__value {
+  font-family: var(--font-serif);
+  font-size: 1.8rem;
+  color: var(--terracotta);
+  margin-bottom: 0.3rem;
+}
+
+.spec-item__label {
+  font-size: 0.85rem;
+  color: var(--bark-light);
+}
+
+/* ═══════════════════════════════════════════
+   PROGRESS BAR & COUNTER
+   ═══════════════════════════════════════════ */
+.progress-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  height: 3px;
+  background: var(--terracotta);
+  transition: width 0.5s var(--ease);
+  z-index: 100;
+}
+
+.counter {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 2rem;
+  font-size: 0.85rem;
+  font-weight: 300;
+  z-index: 100;
+  transition: color 0.5s ease;
+}
+
+.counter--dark { color: rgba(245, 240, 234, 0.35); }
+.counter--light { color: rgba(26, 23, 20, 0.3); }
+
+/* ═══════════════════════════════════════════
+   KEYBOARD HINT
+   ═══════════════════════════════════════════ */
+.hint {
+  position: fixed;
+  bottom: 1.5rem;
+  left: 2rem;
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  z-index: 100;
+  transition: opacity 1s ease, color 0.5s ease;
+}
+
+.hint--dark { color: rgba(245, 240, 234, 0.25); }
+.hint--light { color: rgba(26, 23, 20, 0.2); }
+
+/* ═══════════════════════════════════════════
+   CLOSE SLIDE & CONTACTS
+   ═══════════════════════════════════════════ */
+.slide--close {
+  padding: 1.5rem 2rem;
+}
+
+.slide--close .slide__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.contacts {
+  display: flex;
+  justify-content: center;
+  gap: 4rem;
+  margin: 1rem 0;
+}
+
+.person {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.person__avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid rgba(245, 240, 234, 0.15);
+}
+
+.person__name {
+  font-family: var(--font-serif);
+  font-size: 1.1rem;
+  color: var(--cream);
+}
+
+.person__x {
+  font-size: 0.75rem;
+  opacity: 0.4;
+  letter-spacing: 0.05em;
+}
+
+.person__qrs {
+  display: flex;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+.qr-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.qr-item__img {
+  width: 140px;
+  height: 140px;
+  border-radius: 0.5rem;
+  background: #fff;
+  padding: 4px;
+  object-fit: contain;
+}
+
+.qr-item__label {
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  opacity: 0.35;
+}
+
+/* ═══════════════════════════════════════════
+   RESPONSIVE
+   ═══════════════════════════════════════════ */
+@media (max-width: 768px) {
+  .slide { padding: 2rem 1.5rem; }
+  .feature-grid { grid-template-columns: 1fr; }
+  .scenario-grid { grid-template-columns: 1fr; }
+  .connection-flow { flex-direction: column; }
+  .hardware-showcase { gap: 1.5rem; }
+  .hardware-img { height: 150px; }
+  .spec-list { gap: 1.5rem; }
+}
+</style>
+</head>
+<body>
+
+<div class="deck">
+
+  <!-- ══════════════════════════════════════
+       SLIDE 1 — OPENING / HOOK (30s)
+       ══════════════════════════════════════ -->
+  <section class="slide slide--dark active" data-dark>
+    <div class="slide__inner">
+      <p class="reveal t-caption muted-cream" style="--i:0">OpenClaw 用户分享会</p>
+      <div class="spacer"></div>
+      <h1 class="reveal t-hero" style="--i:1">EinClaw</h1>
+      <div class="reveal divider" style="--i:2"></div>
+      <p class="reveal t-subtitle" style="--i:3">
+        一个可以直接对话的 AI 硬件
+      </p>
+      <div class="spacer"></div>
+      <p class="reveal t-body muted-cream" style="--i:4">
+        按下 → 说话 → 松手<br>
+        <span class="accent">你的 OpenClaw 就开始干活了</span>
+      </p>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════
+       SLIDE 2 — 硬件是怎么做的 (45s)
+       ══════════════════════════════════════ -->
+  <section class="slide slide--light">
+    <div class="slide__inner">
+      <p class="reveal t-caption muted" style="--i:0">Part 1</p>
+      <div class="spacer"></div>
+      <h2 class="reveal t-title" style="--i:1">我们是怎么做的</h2>
+      <div class="spacer"></div>
+      
+      <div class="reveal hardware-showcase" style="--i:2">
+        <img class="hardware-img" src="../xhs_designs/0326_yilabao/IMG_1960.jpeg" alt="EinClaw Mic">
+      </div>
+      
+      <div class="reveal" style="--i:3">
+        <span class="t-number accent">4G</span>
+        <span class="t-subtitle"> 独立联网</span>
+      </div>
+      
+      <div class="spacer"></div>
+      
+      <p class="reveal t-body muted" style="--i:4">
+        核心思路：极简硬件 + 云端智能 = 低成本、高可靠
+      </p>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════
+       SLIDE 3 — 硬件功能 (45s)
+       ══════════════════════════════════════ -->
+  <section class="slide slide--light">
+    <div class="slide__inner">
+      <p class="reveal t-caption muted" style="--i:0">Part 2</p>
+      <div class="spacer"></div>
+      <h2 class="reveal t-title" style="--i:1">它能做什么</h2>
+      <div class="spacer"></div>
+      
+      <div class="reveal feature-grid" style="--i:2">
+        <div class="feature-card">
+          <div class="feature-card__icon">🎙️</div>
+          <div class="feature-card__title">语音输入</div>
+          <div class="feature-card__desc">按下录音，松手即停<br>自动转文字</div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-card__icon">📡</div>
+          <div class="feature-card__title">4G 直连</div>
+          <div class="feature-card__desc">无需 WiFi<br>随时随地使用</div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-card__icon">⚡</div>
+          <div class="feature-card__title">实时传输</div>
+          <div class="feature-card__desc">录音秒传云端<br>即时处理</div>
+        </div>
+      </div>
+      
+      <div class="reveal" style="--i:3">
+        <p class="t-body muted">
+          不需要手机、不需要 APP、不需要蓝牙配对
+        </p>
+        <div class="spacer"></div>
+        <p class="t-subtitle">
+          只有一个按钮，<span class="accent">按下去就是对 AI 说话</span>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════
+       SLIDE 4 — 如何连接 OpenClaw (60s)
+       ══════════════════════════════════════ -->
+  <section class="slide slide--light">
+    <div class="slide__inner">
+      <p class="reveal t-caption muted" style="--i:0">Part 3</p>
+      <div class="spacer"></div>
+      <h2 class="reveal t-title" style="--i:1">如何直连到你的 OpenClaw</h2>
+      <div class="spacer-lg"></div>
+      
+      <div class="reveal connection-flow" style="--i:2">
+        <div class="connection-box">
+          <div class="connection-box__icon">🎙️</div>
+          <div class="connection-box__title">EinClaw Mic</div>
+          <div class="connection-box__desc">4G 语音采集</div>
+        </div>
+        <span class="connection-arrow">→</span>
+        <div class="connection-box">
+          <div class="connection-box__icon">☁️</div>
+          <div class="connection-box__title">云端中转</div>
+          <div class="connection-box__desc">语音转文字</div>
+        </div>
+        <span class="connection-arrow">→</span>
+        <div class="connection-box connection-box--highlight">
+          <div class="connection-box__icon">🦞</div>
+          <div class="connection-box__title">OpenClaw</div>
+          <div class="connection-box__desc">执行指令</div>
+        </div>
+      </div>
+      
+      <div class="reveal" style="--i:3">
+        <div class="spacer"></div>
+        <p class="t-body">
+          配置简单：在 EinClaw 后台填入你的 OpenClaw Webhook URL<br>
+          从此，你说的就是 OpenClaw 做的
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════
+       SLIDE 5 — 使用场景 1 & 2 (60s)
+       ══════════════════════════════════════ -->
+  <section class="slide slide--light">
+    <div class="slide__inner">
+      <p class="reveal t-caption muted" style="--i:0">Part 4 · 实际场景</p>
+      <div class="spacer"></div>
+      <h2 class="reveal t-title" style="--i:1">你可以这样用它</h2>
+      <div class="spacer"></div>
+      
+      <div class="reveal scenario-grid" style="--i:2">
+        <div class="scenario-card">
+          <div class="scenario-card__label">场景一</div>
+          <div class="scenario-card__title">开车时发推</div>
+          <div class="scenario-card__desc">
+            "刚刚这段话发到中英文两个推特号上去"<br><br>
+            → 自动翻译 + 双号发布
+          </div>
+        </div>
+        <div class="scenario-card">
+          <div class="scenario-card__label">场景二</div>
+          <div class="scenario-card__title">地铁上记选题</div>
+          <div class="scenario-card__desc">
+            "记一下这个选题：AI 创作者拼的是信息源管理"<br><br>
+            → 自动生成 topic-brief.md
+          </div>
+        </div>
+        <div class="scenario-card">
+          <div class="scenario-card__label">场景三</div>
+          <div class="scenario-card__title">转发并评论</div>
+          <div class="scenario-card__desc">
+            "找到 Andrej 最近关于供应链的推，转发并配文..."<br><br>
+            → 自动检索 + Quote 转发
+          </div>
+        </div>
+        <div class="scenario-card">
+          <div class="scenario-card__label">场景四</div>
+          <div class="scenario-card__title">任何你想做的</div>
+          <div class="scenario-card__desc">
+            "帮我把这段话整理成待办事项"<br><br>
+            → 你的 OpenClaw 技能决定可能性
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════
+       SLIDE 6 — SUMMARY (30s)
+       ══════════════════════════════════════ -->
+  <section class="slide slide--dark slide--close" data-dark>
+    <div class="slide__inner">
+      <h1 class="reveal t-hero" style="--i:0; font-size: clamp(3rem, 7vw, 5.5rem); letter-spacing: 0.06em;">einclaw.cn</h1>
+      <div class="reveal divider" style="--i:1"></div>
+      <p class="reveal t-subtitle" style="--i:2;">
+        众筹进行中，欢迎交流！
+      </p>
+      <div class="spacer"></div>
+      <div class="reveal contacts" style="--i:3">
+        <div class="person">
+          <img class="person__avatar" src="../opc_bistro_slides/arvin-avatar.jpg" alt="Arvin">
+          <span class="person__name">Arvin 阿问</span>
+          <span class="person__x">X: @arvinatwild</span>
+          <div class="person__qrs">
+            <div class="qr-item">
+              <img class="qr-item__img" src="../opc_bistro_slides/arvin-wechat.png" alt="Arvin WeChat">
+              <span class="qr-item__label">微信</span>
+            </div>
+            <div class="qr-item">
+              <img class="qr-item__img" src="../opc_bistro_slides/arvin-xhs.png" alt="Arvin 小红书">
+              <span class="qr-item__label">小红书</span>
+            </div>
+          </div>
+        </div>
+        <div class="person">
+          <img class="person__avatar" src="../opc_bistro_slides/affe-avatar.jpg" alt="Affe">
+          <span class="person__name">Affe 阿霏</span>
+          <span class="person__x">X: @affe_z</span>
+          <div class="person__qrs">
+            <div class="qr-item">
+              <img class="qr-item__img" src="../opc_bistro_slides/affe-wechat.png" alt="Affe WeChat">
+              <span class="qr-item__label">微信</span>
+            </div>
+            <div class="qr-item">
+              <img class="qr-item__img" src="../opc_bistro_slides/affe-xhs.png" alt="Affe 小红书">
+              <span class="qr-item__label">小红书</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<!-- Chrome -->
+<div class="progress-bar" id="progress"></div>
+<div class="counter" id="counter"></div>
+<div class="hint" id="hint">← → / Space</div>
+
+<script>
+(function () {
+  var slides = Array.from(document.querySelectorAll('.slide'));
+  var total = slides.length;
+  var progress = document.getElementById('progress');
+  var counter = document.getElementById('counter');
+  var hint = document.getElementById('hint');
+  var current = 0;
+  var touchStartX = 0;
+
+  function go(index) {
+    if (index < 0 || index >= total) return;
+    slides[current].classList.remove('active');
+    current = index;
+    slides[current].classList.add('active');
+
+    progress.style.width = ((current + 1) / total * 100) + '%';
+    counter.textContent = (current + 1) + ' / ' + total;
+
+    var isDark = slides[current].hasAttribute('data-dark');
+    counter.className = 'counter ' + (isDark ? 'counter--dark' : 'counter--light');
+    hint.className = 'hint ' + (isDark ? 'hint--dark' : 'hint--light');
+
+    if (current > 0) hint.style.opacity = '0';
+
+    slides.forEach(function (s, i) {
+      var vid = s.querySelector('video');
+      if (!vid) return;
+      if (i === current) {
+        vid.currentTime = 0;
+        vid.play().catch(function () {});
+      } else {
+        vid.pause();
+      }
+    });
+  }
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ' || e.key === 'Enter' || e.key === 'PageDown') {
+      e.preventDefault();
+      go(current + 1);
+    } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp' || e.key === 'Backspace' || e.key === 'PageUp') {
+      e.preventDefault();
+      go(current - 1);
+    } else if (e.key === 'Home') {
+      e.preventDefault();
+      go(0);
+    } else if (e.key === 'End') {
+      e.preventDefault();
+      go(total - 1);
+    } else if (e.key === 'f' || e.key === 'F') {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen();
+      } else {
+        document.exitFullscreen();
+      }
+    }
+  });
+
+  document.addEventListener('click', function (e) {
+    if (e.target.closest('a, button')) return;
+    var x = e.clientX / window.innerWidth;
+    go(current + (x < 0.3 ? -1 : 1));
+  });
+
+  document.addEventListener('touchstart', function (e) {
+    touchStartX = e.touches[0].clientX;
+  }, { passive: true });
+
+  document.addEventListener('touchend', function (e) {
+    var diff = touchStartX - e.changedTouches[0].clientX;
+    if (Math.abs(diff) > 50) {
+      go(current + (diff > 0 ? 1 : -1));
+    }
+  }, { passive: true });
+
+  go(0);
+})();
+</script>
+</body>
+</html>
