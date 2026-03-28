@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OPC AI 创业课课程表</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Noto+Serif+SC:wght@500;600;700;900&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  /* === Theme === */
+  :root {
+    --bg-cream: #fffbf0;
+    --bg-cream-deep: #fff8e7;
+    --bg-cream-accent: #fef3c7;
+    --bg-white: rgba(255, 255, 255, 0.92);
+    --bg-warm-light: #fefcf6;
+
+    --amber: #d97706;
+    --amber-deep: #b45309;
+    --amber-glow: rgba(217, 119, 6, 0.1);
+    --sage: #65a30d;
+    --sage-deep: #4d7c0f;
+    --sage-glow: rgba(101, 163, 13, 0.1);
+    --terracotta: #c2410c;
+    --terracotta-glow: rgba(194, 65, 12, 0.08);
+
+    --text-primary: #1c1917;
+    --text-secondary: #57534e;
+    --text-muted: #78716c;
+    --text-light: #a8a29e;
+    --border: rgba(231, 229, 228, 0.95);
+    --border-strong: rgba(217, 119, 6, 0.18);
+
+    --shadow-soft: 0 8px 28px rgba(28, 25, 23, 0.06);
+    --shadow-card: 0 12px 34px rgba(28, 25, 23, 0.08);
+
+    --poster-pad: clamp(18px, 2vw, 34px);
+    --gap-xl: clamp(18px, 1.6vw, 26px);
+    --gap-lg: clamp(14px, 1.2vw, 20px);
+    --gap-md: clamp(10px, 0.9vw, 16px);
+    --gap-sm: clamp(8px, 0.65vw, 12px);
+    --radius-lg: clamp(18px, 1.4vw, 24px);
+    --radius-md: clamp(14px, 1vw, 18px);
+    --radius-sm: 12px;
+
+    --title-size: clamp(2.2rem, 4vw, 4.6rem);
+    --headline-size: clamp(1.35rem, 2vw, 2rem);
+    --section-title-size: clamp(1.1rem, 1.35vw, 1.5rem);
+    --body-size: clamp(0.86rem, 0.95vw, 1rem);
+    --small-size: clamp(0.7rem, 0.75vw, 0.82rem);
+  }
+
+  /* === Base === */
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  html,
+  body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+  }
+
+  body {
+    font-family: "Source Sans 3", "Noto Serif SC", sans-serif;
+    background:
+      radial-gradient(circle at 12% 12%, rgba(254, 243, 199, 0.85), transparent 28%),
+      radial-gradient(circle at 88% 10%, rgba(217, 119, 6, 0.08), transparent 26%),
+      linear-gradient(180deg, #fffdf6 0%, #fff8e7 52%, #fffbf0 100%);
+    color: var(--text-primary);
+    -webkit-font-smoothing: antialiased;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+
+  .poster {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    padding: var(--poster-pad);
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap-lg);
+    overflow: hidden;
+  }
+
+  .poster::before,
+  .poster::after {
+    content: "";
+    position: absolute;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .poster::before {
+    inset: 0;
+    background:
+      radial-gradient(circle at 78% 22%, rgba(217, 119, 6, 0.08), transparent 24%),
+      radial-gradient(circle at 18% 78%, rgba(101, 163, 13, 0.08), transparent 20%);
+  }
+
+  .poster::after {
+    right: clamp(24px, 3vw, 56px);
+    top: clamp(20px, 2vw, 42px);
+    width: clamp(180px, 18vw, 320px);
+    height: clamp(180px, 18vw, 320px);
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.72) 0%, rgba(255, 255, 255, 0) 68%);
+    opacity: 0.7;
+  }
+
+  .surface {
+    position: relative;
+    z-index: 1;
+    backdrop-filter: blur(10px);
+  }
+
+  .eyebrow {
+    font-size: var(--small-size);
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--amber);
+    font-weight: 700;
+  }
+
+  .page-title {
+    font-family: "Playfair Display", "Noto Serif SC", serif;
+    font-size: var(--title-size);
+    line-height: 0.98;
+    letter-spacing: -0.04em;
+    margin: clamp(10px, 1vw, 16px) 0 clamp(12px, 1.2vw, 18px);
+  }
+
+  .page-title .cn {
+    display: block;
+    font-family: "Noto Serif SC", serif;
+    font-size: clamp(2.05rem, 3vw, 3.3rem);
+    letter-spacing: -0.02em;
+    margin-top: clamp(6px, 0.7vw, 10px);
+  }
+
+  .subtitle {
+    max-width: 44em;
+    font-size: clamp(0.96rem, 1.08vw, 1.15rem);
+    line-height: 1.55;
+    color: var(--text-secondary);
+  }
+
+  .topbar {
+    display: block;
+  }
+
+  .title-block {
+    padding: clamp(8px, 0.8vw, 14px) 0 0;
+  }
+
+  .meta-row {
+    margin-top: clamp(10px, 0.8vw, 16px);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .meta-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 7px 12px;
+    border-radius: 999px;
+    border: 1px solid rgba(217, 119, 6, 0.14);
+    background: rgba(255, 255, 255, 0.72);
+    color: var(--text-secondary);
+    font-size: var(--small-size);
+    font-weight: 600;
+  }
+
+  .meta-chip strong {
+    color: var(--amber-deep);
+    font-weight: 700;
+  }
+
+  .content-grid {
+    min-height: 0;
+    display: grid;
+    grid-template-columns: minmax(0, 0.94fr) minmax(0, 1.38fr) minmax(0, 0.98fr);
+    gap: var(--gap-md);
+    flex: 1;
+  }
+
+  .section-card {
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap-md);
+    padding: clamp(14px, 1vw, 18px);
+    border-radius: var(--radius-lg);
+    background: var(--bg-white);
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow-card);
+    overflow: hidden;
+  }
+
+  .section-card.amber {
+    background: linear-gradient(145deg, rgba(255, 255, 255, 0.96), rgba(254, 243, 199, 0.42));
+    border-color: rgba(217, 119, 6, 0.18);
+  }
+
+  .section-card.sage {
+    background: linear-gradient(145deg, rgba(255, 255, 255, 0.96), rgba(101, 163, 13, 0.08));
+    border-color: rgba(101, 163, 13, 0.18);
+  }
+
+  .section-card.terracotta {
+    background: linear-gradient(145deg, rgba(255, 255, 255, 0.96), rgba(194, 65, 12, 0.05));
+    border-color: rgba(194, 65, 12, 0.14);
+  }
+
+  .section-head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  .section-kicker {
+    font-size: var(--small-size);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: var(--text-muted);
+  }
+
+  .section-card h2 {
+    margin-top: 6px;
+    font-family: "Noto Serif SC", serif;
+    font-size: var(--section-title-size);
+    line-height: 1.25;
+    letter-spacing: -0.02em;
+  }
+
+  .duration-badge {
+    flex-shrink: 0;
+    padding: 8px 12px;
+    border-radius: 999px;
+    font-size: var(--small-size);
+    font-weight: 700;
+    line-height: 1;
+    background: rgba(255, 255, 255, 0.88);
+    border: 1px solid rgba(28, 25, 23, 0.08);
+    color: var(--text-primary);
+  }
+
+  .section-intro {
+    font-size: var(--body-size);
+    line-height: 1.5;
+    color: var(--text-secondary);
+  }
+
+  .lesson-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap-sm);
+  }
+
+  .lesson-item {
+    padding: clamp(9px, 0.78vw, 12px);
+    border-radius: var(--radius-md);
+    border: 1px solid rgba(231, 229, 228, 0.96);
+    background: rgba(255, 255, 255, 0.88);
+  }
+
+  .lesson-row {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: 10px;
+    align-items: start;
+  }
+
+  .lesson-index {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-family: "Playfair Display", serif;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    background: rgba(255, 255, 255, 0.88);
+    border: 1px solid rgba(28, 25, 23, 0.08);
+  }
+
+  .lesson-title {
+    font-size: var(--body-size);
+    line-height: 1.35;
+    color: var(--text-primary);
+    font-weight: 700;
+  }
+
+  .lesson-title .book {
+    color: var(--amber-deep);
+  }
+
+  .lesson-desc {
+    margin-top: 4px;
+    font-size: var(--small-size);
+    line-height: 1.45;
+    color: var(--text-secondary);
+  }
+
+  .reference-box {
+    margin-top: 10px;
+    display: grid;
+    gap: 8px;
+  }
+
+  .reference-row {
+    padding: 8px 10px;
+    border-radius: 14px;
+    font-size: var(--small-size);
+    line-height: 1.5;
+    background: rgba(255, 255, 255, 0.78);
+    border: 1px dashed rgba(217, 119, 6, 0.22);
+    color: var(--text-secondary);
+  }
+
+  .reference-row strong {
+    color: var(--text-primary);
+  }
+
+  @media (max-width: 1200px) {
+    .content-grid {
+      grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.28fr) minmax(0, 0.96fr);
+    }
+
+    .lesson-desc,
+    .section-intro {
+      line-height: 1.4;
+    }
+  }
+
+  @media (max-width: 900px) {
+    .poster {
+      gap: 14px;
+      padding: 14px;
+    }
+
+    .lesson-desc {
+      display: none;
+    }
+  }
+</style>
+</head>
+<body>
+  <main class="poster">
+    <section class="topbar surface">
+      <div class="title-block">
+        <div class="eyebrow">OPC AI Bootcamp</div>
+        <h1 class="page-title">
+          OPC AI 创业课
+          <span class="cn">一页课程表</span>
+        </h1>
+        <p class="subtitle">从政策心法到十倍开发，再到营销与盈利闭环。整套内容按 7 小时编排。</p>
+        <div class="meta-row">
+          <span class="meta-chip"><strong>Part 1</strong> 心法篇</span>
+          <span class="meta-chip"><strong>Part 2</strong> 真·十倍开发</span>
+          <span class="meta-chip"><strong>Part 3</strong> 营销与商业模式</span>
+        </div>
+      </div>
+
+    </section>
+
+    <section class="content-grid surface">
+      <article class="section-card amber">
+        <div class="section-head">
+          <div>
+            <div class="section-kicker">Part 1</div>
+            <h2>心法篇</h2>
+          </div>
+          <div class="duration-badge">1h</div>
+        </div>
+        <p class="section-intro">先把创业判断框架立住，再看 AI 信息差如何转成 OPC 的商业逻辑。</p>
+
+        <div class="lesson-list">
+          <div class="lesson-item">
+            <div class="lesson-row">
+              <span class="lesson-index">1</span>
+              <div>
+                <div class="lesson-title">OPC 的政策与创业趋势</div>
+                <div class="lesson-desc">政策窗口、创业节奏、机会识别。</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="lesson-item">
+            <div class="lesson-row">
+              <span class="lesson-index">2</span>
+              <div>
+                <div class="lesson-title">利用 AI 的信息差与 OPC 商业逻辑</div>
+                <div class="lesson-desc">把认知优势转成可执行的产品与商业路径。</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="section-card sage">
+        <div class="section-head">
+          <div>
+            <div class="section-kicker">Part 2</div>
+            <h2>真·十倍开发</h2>
+          </div>
+          <div class="duration-badge">4.5h</div>
+        </div>
+        <p class="section-intro">课程主轴。目标不是“会用几个 AI 工具”，而是把 AI 组织成一套真正可放大的开发系统。</p>
+
+        <div class="lesson-list">
+          <div class="lesson-item">
+            <div class="lesson-row">
+              <span class="lesson-index">1</span>
+              <div>
+                <div class="lesson-title"><span class="book">《你还在手写代码?》</span> 全面拥抱 Claude Code、Codex、Gemini</div>
+                <div class="lesson-desc">统一建立 AI coding 工具栈与协作姿势。</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="lesson-item">
+            <div class="lesson-row">
+              <span class="lesson-index">2</span>
+              <div>
+                <div class="lesson-title"><span class="book">《敲骨吸髓大法》</span> 用 AI 有结构地借鉴别人的项目</div>
+                <div class="lesson-desc">以典型 React 项目为例，拆思路、拆设计、拆实现。</div>
+              </div>
+            </div>
+            <div class="reference-box">
+              <div class="reference-row"><strong>2.1 思路从哪儿找：</strong>Indie Hacker、Stripe、Hacker News、小红书</div>
+              <div class="reference-row"><strong>2.2 设计从哪儿找：</strong>Framer、Mobbin、站酷、Lovart、你要借鉴的网站</div>
+            </div>
+          </div>
+
+          <div class="lesson-item">
+            <div class="lesson-row">
+              <span class="lesson-index">3</span>
+              <div>
+                <div class="lesson-title"><span class="book">《无情的代码机器》</span> AI 自动测试基础设施</div>
+                <div class="lesson-desc">让 AI 从“能写”升级到“能稳定交付”。</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="lesson-item">
+            <div class="lesson-row">
+              <span class="lesson-index">4</span>
+              <div>
+                <div class="lesson-title"><span class="book">《我要打十个!》</span> 多项目 Coding Agent 管理与最佳实践</div>
+                <div class="lesson-desc">多项目并行、分工、上下文和节奏控制。</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="section-card terracotta">
+        <div class="section-head">
+          <div>
+            <div class="section-kicker">Part 3</div>
+            <h2>OPC 营销与商业模式</h2>
+          </div>
+          <div class="duration-badge">1.5h</div>
+        </div>
+        <p class="section-intro">最后把内容生产、传播和盈利方式收口，避免只会做产品，不会长出现金流。</p>
+
+        <div class="lesson-list">
+          <div class="lesson-item">
+            <div class="lesson-row">
+              <span class="lesson-index">1</span>
+              <div>
+                <div class="lesson-title">OPC 社交媒体的素材管理与基本工具</div>
+                <div class="lesson-desc">素材沉淀、复用、工具链与日常分发节奏。</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="lesson-item">
+            <div class="lesson-row">
+              <span class="lesson-index">2</span>
+              <div>
+                <div class="lesson-title">OPC 的“从第一天开始盈利”商业模式</div>
+                <div class="lesson-desc">先盈利、再放大，搭建早期正反馈闭环。</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+    </section>
+  </main>
+</body>
+</html>
