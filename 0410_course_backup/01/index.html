@@ -1,0 +1,1987 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OPC AI 十倍开发效率创业课</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700;800&family=Noto+Serif+SC:wght@400;500;600;700;900&family=Source+Sans+3:wght@400;500;600;700&display=swap');
+
+    /* === VIEWPORT BASE === */
+    html, body {
+      height: 100%;
+      overflow-x: hidden;
+    }
+
+    html {
+      scroll-snap-type: y mandatory;
+      scroll-behavior: smooth;
+    }
+
+    .slide {
+      width: 100vw;
+      height: 100vh;
+      height: 100dvh;
+      overflow: hidden;
+      scroll-snap-align: start;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    .slide-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      max-height: 100%;
+      overflow: hidden;
+      padding: var(--slide-padding-x);
+      padding-top: var(--slide-padding-y);
+      padding-bottom: calc(var(--slide-padding-y) + clamp(2.75rem, 4vh, 3.5rem));
+    }
+
+    :root {
+      --title-size: clamp(1.8rem, 5vw, 4.8rem);
+      --h2-size: clamp(1.35rem, 3.25vw, 2.4rem);
+      --body-size: clamp(0.85rem, 1.4vw, 1.12rem);
+      --small-size: clamp(0.7rem, 0.95vw, 0.9rem);
+      --slide-padding-x: clamp(1.15rem, 4vw, 4rem);
+      --slide-padding-y: clamp(1rem, 4vh, 3rem);
+      --content-gap: clamp(0.6rem, 1.8vw, 1.8rem);
+
+      --bg-cream: #fffbf0;
+      --bg-cream-deep: #fff6de;
+      --bg-cream-accent: #fef3c7;
+      --bg-white: rgba(255, 255, 255, 0.82);
+      --bg-white-solid: #ffffff;
+      --amber: #d97706;
+      --amber-deep: #b45309;
+      --terracotta: #c2410c;
+      --sage: #65a30d;
+      --sage-deep: #4d7c0f;
+      --text-primary: #1c1917;
+      --text-secondary: #57534e;
+      --text-muted: #78716c;
+      --text-light: #a8a29e;
+      --border: rgba(231, 229, 228, 0.9);
+      --shadow-soft: 0 18px 44px rgba(28, 25, 23, 0.08);
+      --shadow-card: 0 10px 30px rgba(28, 25, 23, 0.08);
+      --gradient-warm: linear-gradient(180deg, #fffbf0 0%, #fff6de 100%);
+      --gradient-cover: radial-gradient(circle at top right, rgba(217, 119, 6, 0.12), transparent 34%),
+        radial-gradient(circle at bottom left, rgba(101, 163, 13, 0.08), transparent 30%),
+        linear-gradient(180deg, #fffbf0 0%, #fff6de 48%, #fffbf0 100%);
+      --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .card, .container, .content-box {
+      max-width: min(90vw, 1000px);
+      max-height: min(80vh, 700px);
+    }
+
+    .feature-list, .bullet-list {
+      gap: clamp(0.4rem, 1vh, 1rem);
+    }
+
+    .feature-list li, .bullet-list li {
+      font-size: var(--body-size);
+      line-height: 1.4;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr));
+      gap: clamp(0.5rem, 1.5vw, 1rem);
+    }
+
+    img, .image-container {
+      max-width: 100%;
+      max-height: min(50vh, 400px);
+      object-fit: contain;
+    }
+
+    @media (max-height: 700px) {
+      :root {
+        --slide-padding-x: clamp(0.8rem, 3vw, 2rem);
+        --slide-padding-y: clamp(0.75rem, 3vh, 1.8rem);
+        --title-size: clamp(1.4rem, 4.5vw, 2.8rem);
+        --h2-size: clamp(1.1rem, 3vw, 1.8rem);
+      }
+    }
+
+    @media (max-height: 600px) {
+      :root {
+        --slide-padding-x: clamp(0.7rem, 2.5vw, 1.5rem);
+        --slide-padding-y: clamp(0.65rem, 2.5vh, 1.2rem);
+        --title-size: clamp(1.2rem, 4vw, 2.2rem);
+        --body-size: clamp(0.72rem, 1.2vw, 0.95rem);
+      }
+
+      .nav-dots, .keyboard-hint {
+        display: none;
+      }
+    }
+
+    @media (max-height: 500px) {
+      :root {
+        --slide-padding-x: clamp(0.5rem, 2vw, 1rem);
+        --slide-padding-y: clamp(0.45rem, 2vh, 0.8rem);
+        --title-size: clamp(1.1rem, 3.5vw, 1.7rem);
+        --h2-size: clamp(0.95rem, 2.5vw, 1.3rem);
+        --body-size: clamp(0.68rem, 1vw, 0.85rem);
+      }
+    }
+
+    @media (max-width: 600px) {
+      :root {
+        --title-size: clamp(1.4rem, 7vw, 2.8rem);
+      }
+
+      .grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.2s !important;
+      }
+
+      html {
+        scroll-behavior: auto;
+      }
+    }
+
+    /* === RESET AND GLOBALS === */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Source Sans 3', sans-serif;
+      color: var(--text-primary);
+      background: var(--gradient-warm);
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    strong {
+      color: var(--amber-deep);
+      font-weight: 700;
+    }
+
+    .slide::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 84% 14%, rgba(217, 119, 6, 0.1), transparent 24%),
+        radial-gradient(circle at 18% 84%, rgba(101, 163, 13, 0.08), transparent 20%);
+      pointer-events: none;
+    }
+
+    .slide::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(28, 25, 23, 0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(28, 25, 23, 0.025) 1px, transparent 1px);
+      background-size: clamp(22px, 3vw, 36px) clamp(22px, 3vw, 36px);
+      mask-image: radial-gradient(circle at center, black 45%, transparent 85%);
+      opacity: 0.22;
+      pointer-events: none;
+    }
+
+    .slide > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .cover-slide {
+      background: var(--gradient-cover);
+    }
+
+    .content-slide,
+    .quote-slide,
+    .split-slide,
+    .image-only-slide {
+      background: var(--gradient-warm);
+    }
+
+    .eyebrow {
+      font-size: clamp(0.65rem, 0.9vw, 0.82rem);
+      letter-spacing: 0.26em;
+      text-transform: uppercase;
+      color: var(--amber);
+      font-weight: 700;
+    }
+
+    .top-header {
+      display: flex;
+      flex-direction: column;
+      gap: clamp(0.35rem, 0.8vh, 0.6rem);
+      margin-bottom: clamp(1rem, 2vh, 1.8rem);
+      max-width: min(70rem, 100%);
+    }
+
+    .display-title,
+    .page-title,
+    .quote-title,
+    .split-title {
+      font-family: 'Playfair Display', 'Noto Serif SC', serif;
+      line-height: 1.08;
+      letter-spacing: -0.04em;
+      color: var(--text-primary);
+    }
+
+    .display-title {
+      font-size: var(--title-size);
+      max-width: min(12ch, 92vw);
+      text-wrap: balance;
+      word-spacing: 0.12em;
+    }
+
+    .display-title strong + strong {
+      margin-left: 0.18em;
+    }
+
+    .page-title,
+    .split-title {
+      font-size: var(--h2-size);
+      max-width: min(20ch, 100%);
+      text-wrap: balance;
+    }
+
+    .lead-copy,
+    .quote-subtitle,
+    .split-note,
+    .content-paragraph {
+      font-size: clamp(0.95rem, 1.55vw, 1.2rem);
+      line-height: 1.65;
+      color: var(--text-secondary);
+    }
+
+    .cover-grid {
+      max-width: min(68rem, 100%);
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: clamp(0.85rem, 2vh, 1.35rem);
+    }
+
+    .meta-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: clamp(0.55rem, 1vw, 0.85rem);
+      margin-top: clamp(0.25rem, 0.8vh, 0.6rem);
+    }
+
+    .meta-chip {
+      padding: clamp(0.45rem, 0.85vh, 0.62rem) clamp(0.9rem, 1.5vw, 1.2rem);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.75);
+      border: 1px solid rgba(217, 119, 6, 0.16);
+      box-shadow: var(--shadow-card);
+      color: var(--text-secondary);
+      font-size: var(--small-size);
+      font-weight: 600;
+    }
+
+    .meta-logo-chip {
+      padding: clamp(0.42rem, 0.7vh, 0.56rem) clamp(0.82rem, 1.3vw, 1rem);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .meta-logo {
+      display: block;
+      height: clamp(1.1rem, 2vh, 1.4rem);
+      width: auto;
+      object-fit: contain;
+    }
+
+    .ornament {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.85rem;
+      width: min(16rem, 50vw);
+      margin-bottom: clamp(0.2rem, 1vh, 0.4rem);
+    }
+
+    .ornament-line {
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(217, 119, 6, 0.45), transparent);
+    }
+
+    .ornament-dot {
+      width: 0.38rem;
+      height: 0.38rem;
+      border-radius: 999px;
+      background: var(--amber);
+      box-shadow: 0 0 0 0.35rem rgba(217, 119, 6, 0.09);
+    }
+
+    .quote-shell {
+      width: min(70vw, 72rem);
+      max-width: 100%;
+      margin: 0 auto;
+      padding: 0;
+      border-radius: 0;
+      background: transparent;
+      border: none;
+      box-shadow: none;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      gap: clamp(0.75rem, 1.4vh, 1rem);
+    }
+
+    .quote-title {
+      font-size: clamp(1.7rem, 4.3vw, 3.4rem);
+      width: 100%;
+      max-width: none;
+      text-wrap: balance;
+    }
+
+    .quote-subtitle {
+      max-width: min(42rem, 100%);
+      text-wrap: balance;
+    }
+
+    .quote-shell-media {
+      max-width: min(78rem, 100%);
+    }
+
+    .quote-media {
+      width: min(62rem, 100%);
+      margin-top: clamp(0.25rem, 1vh, 0.6rem);
+    }
+
+    .quote-shell-lines {
+      gap: clamp(0.9rem, 1.8vh, 1.3rem);
+      max-width: min(76rem, 100%);
+      padding: 0;
+    }
+
+    .quote-line {
+      font-family: 'Playfair Display', 'Noto Serif SC', serif;
+      font-size: clamp(1.35rem, 3.25vw, 2.7rem);
+      line-height: 1.26;
+      color: var(--text-primary);
+      text-wrap: balance;
+    }
+
+    .quote-shell-explained {
+      gap: clamp(0.85rem, 1.5vh, 1.1rem);
+    }
+
+    .quote-title-compact {
+      font-size: clamp(1.45rem, 3.55vw, 2.9rem);
+      max-width: min(17ch, 100%);
+    }
+
+    .quote-subtitle-compact {
+      font-size: clamp(0.95rem, 1.5vw, 1.16rem);
+      line-height: 1.6;
+      max-width: min(46rem, 100%);
+    }
+
+    .content-panel {
+      flex: 1;
+      min-height: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .bullet-card {
+      width: min(68rem, 100%);
+      max-height: 100%;
+      overflow: hidden;
+      background: linear-gradient(145deg, rgba(255, 255, 255, 0.88), rgba(255, 249, 235, 0.72));
+      border: 1px solid rgba(217, 119, 6, 0.15);
+      border-radius: clamp(1.25rem, 2.4vw, 1.8rem);
+      box-shadow: var(--shadow-soft);
+      padding: clamp(1.1rem, 2.8vw, 2rem);
+    }
+
+    .bullet-list {
+      list-style: none;
+      display: grid;
+      gap: clamp(0.75rem, 1.4vh, 1rem);
+    }
+
+    .bullet-list li {
+      position: relative;
+      padding-left: clamp(1.3rem, 1.8vw, 1.65rem);
+      color: var(--text-secondary);
+      line-height: 1.58;
+      font-size: clamp(1.12rem, 1.78vw, 1.42rem);
+    }
+
+    .bullet-card .content-paragraph {
+      font-size: clamp(1.08rem, 1.72vw, 1.34rem);
+      line-height: 1.68;
+    }
+
+    .bullet-list li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0.58em;
+      width: 0.46rem;
+      height: 0.46rem;
+      border-radius: 999px;
+      background: linear-gradient(135deg, var(--amber), var(--terracotta));
+      box-shadow: 0 0 0 0.33rem rgba(217, 119, 6, 0.08);
+    }
+
+    .media-panel {
+      align-items: stretch;
+    }
+
+    .content-split-layout {
+      flex: 1;
+      min-height: 0;
+      display: grid;
+      grid-template-columns: minmax(18rem, 28rem) minmax(0, 1fr);
+      gap: clamp(1rem, 2.2vw, 2rem);
+      align-items: center;
+    }
+
+    .content-split-copy,
+    .content-split-media {
+      min-width: 0;
+    }
+
+    .bullet-card-side {
+      width: 100%;
+      max-height: min(52vh, 34rem);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .image-shell,
+    .image-tile {
+      width: 100%;
+      border-radius: 0;
+      border: none;
+      background: transparent;
+      box-shadow: none;
+      overflow: visible;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .image-shell-large {
+      max-width: min(72rem, 100%);
+      max-height: 100%;
+      margin: 0 auto;
+    }
+
+    .image-shell img,
+    .image-tile img {
+      width: 100%;
+      max-width: 100%;
+      max-height: min(58vh, 34rem);
+      object-fit: contain;
+      border-radius: 0;
+    }
+
+    .image-grid {
+      width: min(72rem, 100%);
+      margin: 0 auto;
+      display: grid;
+      gap: clamp(0.8rem, 1.6vw, 1.2rem);
+      align-items: stretch;
+    }
+
+    .image-grid-2 {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .image-grid-3 {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .split-layout {
+      flex: 1;
+      min-height: 0;
+      display: grid;
+      grid-template-columns: minmax(15rem, 24rem) minmax(0, 1fr);
+      gap: clamp(1rem, 2.2vw, 2rem);
+      align-items: center;
+    }
+
+    .split-copy {
+      display: flex;
+      flex-direction: column;
+      gap: clamp(0.7rem, 1.4vh, 0.95rem);
+      max-width: 24rem;
+    }
+
+    .divider {
+      width: clamp(3rem, 7vw, 5.5rem);
+      height: 2px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--amber), rgba(217, 119, 6, 0.15));
+    }
+
+    .split-media {
+      min-width: 0;
+    }
+
+    .image-only-panel {
+      flex: 1;
+      min-height: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .image-only-slide .image-shell-large {
+      width: min(86rem, 100%);
+      background: transparent;
+    }
+
+    .image-only-slide .image-shell-large img {
+      max-height: min(72vh, 48rem);
+    }
+
+    .slide-line {
+      position: absolute;
+      left: clamp(1.1rem, 4vw, 4rem);
+      right: clamp(1.1rem, 4vw, 4rem);
+      bottom: clamp(2.75rem, 5.5vh, 4rem);
+      height: 1px;
+      background: rgba(120, 113, 108, 0.22);
+    }
+
+    .brand,
+    .slide-number {
+      position: absolute;
+      bottom: clamp(1rem, 2.2vh, 1.4rem);
+      font-size: clamp(0.64rem, 0.82vw, 0.82rem);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--text-light);
+      font-weight: 600;
+    }
+
+    .brand {
+      left: clamp(1.1rem, 4vw, 4rem);
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+      letter-spacing: 0.12em;
+      text-transform: none;
+    }
+
+    .brand-text {
+      white-space: pre;
+    }
+
+    .brand-logo {
+      display: block;
+      height: clamp(0.8rem, 1.2vh, 1rem);
+      width: auto;
+      object-fit: contain;
+      opacity: 0.85;
+    }
+
+    .slide-number {
+      right: clamp(1.1rem, 4vw, 4rem);
+      font-family: 'Playfair Display', serif;
+      letter-spacing: 0.08em;
+    }
+
+    /* === PRESENTATION CONTROLS === */
+    .progress-track {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: rgba(28, 25, 23, 0.05);
+      z-index: 999;
+    }
+
+    .progress-bar {
+      width: 0;
+      height: 100%;
+      background: linear-gradient(90deg, var(--amber), var(--terracotta));
+      box-shadow: 0 0 20px rgba(217, 119, 6, 0.25);
+      transition: width 0.35s ease;
+    }
+
+    .nav-dots {
+      position: fixed;
+      right: clamp(0.45rem, 1vw, 0.8rem);
+      top: 50%;
+      transform: translateY(-50%);
+      display: grid;
+      gap: 0.35rem;
+      z-index: 999;
+      padding: 0.55rem;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.55);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(217, 119, 6, 0.08);
+    }
+
+    .nav-dot {
+      width: 0.42rem;
+      height: 0.42rem;
+      border-radius: 999px;
+      border: none;
+      background: rgba(120, 113, 108, 0.25);
+      cursor: pointer;
+      transition: transform 0.24s ease, background 0.24s ease;
+      padding: 0;
+    }
+
+    .nav-dot.active {
+      background: var(--amber);
+      transform: scale(1.6);
+    }
+
+    .keyboard-hint {
+      position: fixed;
+      left: 50%;
+      bottom: clamp(0.55rem, 1.6vh, 1rem);
+      transform: translateX(-50%);
+      z-index: 999;
+      font-size: clamp(0.64rem, 0.85vw, 0.82rem);
+      color: var(--text-muted);
+      background: rgba(255, 255, 255, 0.58);
+      border: 1px solid rgba(217, 119, 6, 0.08);
+      border-radius: 999px;
+      padding: 0.4rem 0.75rem;
+      backdrop-filter: blur(10px);
+    }
+
+    /* === ANIMATIONS === */
+    .reveal,
+    .reveal-scale {
+      opacity: 0;
+      will-change: transform, opacity;
+      transition:
+        opacity 0.7s var(--ease-out-expo),
+        transform 0.7s var(--ease-out-expo),
+        filter 0.7s var(--ease-out-expo);
+    }
+
+    .reveal {
+      transform: translateY(26px);
+      filter: blur(10px);
+    }
+
+    .reveal-scale {
+      transform: scale(0.96);
+    }
+
+    .slide.visible .reveal,
+    .slide.visible .reveal-scale {
+      opacity: 1;
+      transform: none;
+      filter: blur(0);
+    }
+
+    .slide.visible .reveal:nth-child(1),
+    .slide.visible .reveal-scale:nth-child(1) { transition-delay: 0.08s; }
+    .slide.visible .reveal:nth-child(2),
+    .slide.visible .reveal-scale:nth-child(2) { transition-delay: 0.16s; }
+    .slide.visible .reveal:nth-child(3),
+    .slide.visible .reveal-scale:nth-child(3) { transition-delay: 0.24s; }
+    .slide.visible .reveal:nth-child(4),
+    .slide.visible .reveal-scale:nth-child(4) { transition-delay: 0.32s; }
+    .slide.visible .reveal:nth-child(5),
+    .slide.visible .reveal-scale:nth-child(5) { transition-delay: 0.4s; }
+    .slide.visible .bullet-list li:nth-child(1) { transition-delay: 0.14s; }
+    .slide.visible .bullet-list li:nth-child(2) { transition-delay: 0.22s; }
+    .slide.visible .bullet-list li:nth-child(3) { transition-delay: 0.3s; }
+    .slide.visible .bullet-list li:nth-child(4) { transition-delay: 0.38s; }
+    .slide.visible .bullet-list li:nth-child(5) { transition-delay: 0.46s; }
+    .slide.visible .bullet-list li:nth-child(6) { transition-delay: 0.54s; }
+
+    /* === RESPONSIVE ADJUSTMENTS === */
+    @media (max-width: 980px) {
+      .split-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .content-split-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .split-copy {
+        max-width: none;
+      }
+
+      .image-grid-2 {
+        grid-template-columns: 1fr;
+      }
+
+      .image-grid-3 {
+        grid-template-columns: 1fr;
+      }
+
+      .nav-dots {
+        right: 0.25rem;
+      }
+    }
+
+    @media (min-width: 981px) {
+      .bullet-list-columns {
+        columns: 2;
+        column-gap: clamp(1.8rem, 3vw, 3rem);
+      }
+
+      .bullet-list-columns li {
+        break-inside: avoid;
+      }
+    }
+
+    @media print {
+      html {
+        scroll-snap-type: none;
+      }
+
+      body {
+        background: white;
+      }
+
+      .slide {
+        page-break-after: always;
+      }
+
+      .progress-track,
+      .nav-dots,
+      .keyboard-hint {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="progress-track" aria-hidden="true">
+    <div class="progress-bar" id="progressBar"></div>
+  </div>
+  <nav class="nav-dots" id="navDots" aria-label="Slide navigation"></nav>
+
+<!-- ==================== SLIDE 1: OPC AI 十倍开发效率创业课 ==================== -->
+<section class="slide cover-slide" data-slide-index="1" id="slide-01">
+  <div class="slide-content">
+    <div class="cover-grid">
+      <div class="ornament reveal">
+        <span class="ornament-line"></span>
+        <span class="ornament-dot"></span>
+        <span class="ornament-line"></span>
+      </div>
+      <h1 class="display-title reveal"><strong>OPC AI</strong> <strong>十倍开发效率创业课</strong></h1>
+      
+      <div class="meta-row"><div class="meta-chip reveal"><span>affe</span></div><div class="meta-chip meta-logo-chip reveal"><img class="meta-logo" src="assets/yihe.png" alt="一核学院"></div></div>
+    </div>
+  </div>
+
+  <div class="slide-line"></div>
+  <div class="brand"><span class="brand-text">OPC AI / </span><img class="brand-logo" src="assets/yihe.png" alt="一核学院"></div>
+  <div class="slide-number">01 / 57</div>
+</section>
+
+<!-- ==================== SLIDE 2: affe 的介绍 ==================== -->
+<section class="slide cover-slide" data-slide-index="2" id="slide-02">
+  <div class="slide-content">
+    <div class="cover-grid">
+      <div class="ornament reveal">
+        <span class="ornament-line"></span>
+        <span class="ornament-dot"></span>
+        <span class="ornament-line"></span>
+      </div>
+      <h1 class="display-title reveal">affe 的介绍</h1>
+      
+      <div class="meta-row"><div class="meta-chip meta-logo-chip reveal"><img class="meta-logo" src="assets/yihe.png" alt="一核学院"></div></div>
+    </div>
+  </div>
+
+  <div class="slide-line"></div>
+  <div class="brand"><span class="brand-text">OPC AI / </span><img class="brand-logo" src="assets/yihe.png" alt="一核学院"></div>
+  <div class="slide-number">02 / 57</div>
+</section>
+
+<!-- ==================== SLIDE 3: 课程简介 ==================== -->
+<section class="slide content-slide" data-slide-index="3" id="slide-03">
+  <div class="slide-content">
+    <header class="top-header">
+      <h2 class="page-title reveal">课程简介</h2>
+    </header>
+    <div class="content-panel">
+      <div class="bullet-card">
+        <ul class="bullet-list">          <li class="reveal">主要面向开发者背景的学员</li>
+          <li class="reveal">上午主要是介绍政策以及 OPC 创业趋势, 商业模式等等</li>
+          <li class="reveal">下午是偏实操的 OPC 开发智能体的使用, 有实操环节</li>
+          <li class="reveal">我会特别强调补足 “开发者” 群体的短板</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide-line"></div>
+  <div class="brand"><span class="brand-text">OPC AI / </span><img class="brand-logo" src="assets/yihe.png" alt="一核学院"></div>
+  <div class="slide-number">03 / 57</div>
+</section>
+
+<!-- ==================== SLIDE 4: 讲什么, 不讲什么 ==================== -->
+<section class="slide content-slide" data-slide-index="4" id="slide-04">
+  <div class="slide-content">
+    <header class="top-header">
+      <h2 class="page-title reveal">讲什么, 不讲什么</h2>
+    </header>
+    <div class="content-panel">
+      <div class="bullet-card">
+        <ul class="bullet-list">          <li class="reveal">开发部分会细讲</li>
+          <li class="reveal">营销 /  增长只会涉及心法, <strong>但不会深入</strong></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide-line"></div>
+  <div class="brand"><span class="brand-text">OPC AI / </span><img class="brand-logo" src="assets/yihe.png" alt="一核学院"></div>
+  <div class="slide-number">04 / 57</div>
+</section>
+
+<!-- ==================== SLIDE 5: 需要大家准备的内容 ==================== -->
+<section class="slide content-slide" data-slide-index="5" id="slide-05">
+  <div class="slide-content">
+    <header class="top-header">
+      <h2 class="page-title reveal">需要大家准备的内容</h2>
+    </header>
+    <div class="content-panel">
+      <div class="bullet-card">
+        <ul class="bullet-list">          <li class="reveal">cursor / claude code / codex</li>
+          <li class="reveal">Copilot 效果很差, 我从他第一天上线就能免费用, 一共没用过几次</li>
+          <li class="reveal">愿意动手以及一颗好奇的心</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide-line"></div>
+  <div class="brand"><span class="brand-text">OPC AI / </span><img class="brand-logo" src="assets/yihe.png" alt="一核学院"></div>
+  <div class="slide-number">05 / 57</div>
+</section>
+
+<!-- ==================== SLIDE 6: 1. OPC 创业趋势与政策 ==================== -->
+<section class="slide cover-slide" data-slide-index="6" id="slide-06">
+  <div class="slide-content">
+    <div class="cover-grid">
+      <div class="ornament reveal">
+        <span class="ornament-line"></span>
+        <span class="ornament-dot"></span>
+        <span class="ornament-line"></span>
+      </div>
+      <h1 class="display-title reveal">1. OPC 创业趋势与政策</h1>
+      
+      
+    </div>
+  </div>
+
+  <div class="slide-line"></div>
+  <div class="brand"><span class="brand-text">OPC AI / </span><img class="brand-logo" src="assets/yihe.png" alt="一核学院"></div>
+  <div class="slide-number">06 / 57</div>
+</section>
+
+<!-- ==================== SLIDE 7: OPC, One Person Company, 一人公司 ==================== -->
+<section class="slide quote-slide" data-slide-index="7" id="slide-07">
+  <div class="slide-content">
+    <div class="quote-shell">
+      <h2 class="quote-title reveal">OPC, One Person Company, 一人公司</h2>
+      
+      
+    </div>
+  </div>
+
+  <div class="slide-line"></div>
+  <div class="brand"><span class="brand-text">OPC AI / </span><img class="brand-logo" src="assets/yihe.png" alt="一核学院"></div>
+  <div class="slide-number">07 / 57</div>
+</section>
+
+<!-- ==================== SLIDE 8: 一个叫 Dan Koe 的人提出 ==================== -->
+<section class="slide quote-slide" data-slide-index="8" id="slide-08">
+  <div class="slide-content">
+    <div class="quote-shell">
+      <h2 class="quote-title reveal">一个叫 Dan Koe 的人提出</h2>
+      
+      
+    </div>
+  </div>
+
+  <div class="slide-line"></div>
+  <div class="brand"><span class="brand-text">OPC AI / </span><img class="brand-logo" src="assets/yihe.png" alt="一核学院"></div>
+  <div class="slide-number">08 / 57</div>
+</section>
+
+<!-- ==================== SLIDE 9: &quot;2026 如何做一人公司?“ ==================== -->
+<section class="slide split-slide" data-slide-index="9" id="slide-09">
+  <div class="slide-content">
+    <div class="split-layout">
+      <div class="split-copy">
+        <h2 class="split-title reveal">&quot;2026 如何做一人公司?“</h2>
+        
+      </div>
+      <div class="split-media">
+
+    <div class="image-shell reveal-scale">
+      <img src="assets/pasted-image-20260409073531.png" alt="Pasted image 20260409073531.png" loading="lazy">
+    </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide-line"></div>
+  <div class="brand"><span class="brand-text">OPC AI / </span><img class="brand-logo" src="assets/yihe.png" alt="一核学院"></div>
+  <div class="slide-number">09 / 57</div>
+</section>
+
+<!-- ==================== SLIDE 10: Dan Koe 何许人也 ==================== -->
+<section class="slide content-slide" data-slide-index="10" id="slide-10">
+  <div class="slide-content">
+    <header class="top-header">
+      <h2 class="page-title reveal">Dan Koe 何许人也</h2>
+    </header>
+    <div class="content-panel">
+      <div class="bullet-card">
+        <ul class="bullet-list">          <li class="reveal">成功学营销狂人</li>
+          <li class="reveal">“工作得更少, 挣得更多, 享受生活”</li>
+          <li class="reveal">愿意动手以及一颗好奇的心</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide-line"></div>
+  <div class="brand"><span class="brand-text">OPC AI / </span><img class="brand-logo" src="assets/yihe.png" alt="一核学院"></div>
+  <div class="slide-number">10 / 57</div>
+</section>
+
+<!-- ==================== SLIDE 11: 纯图片页 ==================== -->
+<section class="slide image-only-slide" data-slide-index="11" id="slide-11">
+  <div class="slide-content">
+    <div class="image-only-panel">
+
+    <div class="image-shell image-shell-large reveal-scale">
+      <img src="assets/pasted-image-20260409073825.png" alt="Pasted image 20260409073825.png" loading="lazy">
+    </div>
+    </div>
+  </div>
+
+  <div class="slide-line"></div>
+  <div class="brand"><span class="brand-text">OPC AI / </span><img class="brand-logo" src="assets/yihe.png" alt="一核学院"></div>
+  <div class="slide-number">11 / 57</div>
+</section>
+
+<!-- ==================== SLIDE 12: 纯图片页 ==================== -->
+<section class="slide image-only-slide" data-slide-index="12" id="slide-12">
+  <div class="slide-content">
+    <div class="image-only-panel">
+
+    <div class="image-shell image-shell-large reveal-scale">
+      <img src="assets/pasted-image-20260409073909.png" alt="Pasted image 20260409073909.png" loading="lazy">
+    </div>
+    </div>
+  </div>
+
+  <div class="slide-line"></div>
+  <div class="brand"><span class="brand-text">OPC AI / </span><img class="brand-logo" src="assets/yihe.png" alt="一核学院"></div>
+  <div class="slide-number">12 / 57</div>
+</section>
+
+<!-- ==================== SLIDE 13: 同时期, Solo Founder 也开始兴起 ==================== -->
+<section class="slide quote-slide" data-slide-index="13" id="slide-13">
+  <div class="slide-content">
+    <div class="quote-shell">
+      <h2 class="quote-title reveal">同时期, Solo Founder 也开始兴起</h2>
+      
+      
+    </div>
+  </div>
+
+  <div class="slide-line"></div>
+  <div class="brand"><span class="brand-text">OPC AI / </span><img class="brand-logo" src="assets/yihe.png" alt="一核学院"></div>
+  <div class="slide-number">13 / 57</div>
+</section>
+
+<!-- ==================== SLIDE 14: 纯图片页 ==================== -->
+<section class="slide image-only-slide" data-slide-index="14" id="slide-14">
+  <div class="slide-content">
+    <div class="image-only-panel">
+
+    <div class="image-shell image-shell-large reveal-scale">
+      <img src="assets/pasted-image-20260409074149.png" alt="Pasted image 20260409074149.png" loading="lazy">
+    </div>
+    </div>
+  </div>
+
+  <div class="slide-line"></div>
+  <div class="brand"><span class="brand-text">OPC AI / </span><img class="brand-logo" src="assets/yihe.png" alt="一核学院"></div>
+  <div class="slide-number">14 / 57</div>
+</section>
+
+<!-- ==================== SLIDE 15: Solo Founder 曾经很奇怪 ==================== -->
+<section class="slide content-slide" data-slide-index="15" id="slide-15">
+  <div class="slide-content">
+    <header class="top-header">
+      <h2 class="page-title reveal">Solo Founder 曾经很奇怪</h2>
+    </header>
+    <div class="content-panel">
+      <div class="bullet-card">
+        <ul class="bullet-list">          <li class="reveal">VC 投 Solo Founder 很少</li>
+          <li class="reveal">一个人创业会面临特别多的挑战</li>
+          <li class="reveal">这些挑战也是 OPC 会面临的挑战</li>
+          <li class="reveal">创业中杂活累活特别多</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide-line"></div>
+  <div class="brand"><span class="brand-text">OPC AI / </span><img class="brand-logo" src="assets/yihe.png" alt="一核学院"></div>
+  <div class="slide-number">15 / 57</div>
+</section>
+
+<!-- ==================== SLIDE 16: Openclaw 是 Peter 一个人的 Side Project ==================== -->
+<section class="slide quote-slide" data-slide-index="16" id="slide-16">
+  <div class="slide-content">
+    <div class="quote-shell">
+      <h2 class="quote-title reveal">Openclaw 是 Peter 一个人的 Side Project</h2>
+      
+      
+    </div>
+  </div>
+
+  <div class="slide-line"></div>
+  <div class="brand"><span class="brand-text">OPC AI / </span><img class="brand-logo" src="assets/yihe.png" alt="一核学院"></div>
+  <div class="slide-number">16 / 57</div>
+</section>
+
+<!-- ==================== SLIDE 17: 纯图片页 ==================== -->
+<section class="slide image-only-slide" data-slide-index="17" id="slide-17">
+  <div class="slide-content">
+    <div class="image-only-panel">
+
+    <div class="image-shell image-shell-large reveal-scale">
+      <img src="assets/pasted-image-20260409074945.png" alt="Pasted image 20260409074945.png" loading="lazy">
+    </div>
+    </div>
+  </div>
+
+  <div class="slide-line"></div>
+  <div class="brand"><span class="brand-text">OPC AI / </span><img class="brand-logo" src="assets/yihe.png" alt="一核学院"></div>
+  <div class="slide-number">17 / 57</div>
+</section>
+
+<!-- ==================== SLIDE 18: 所以, 一人公司的概念其实存在已久 ==================== -->
+<section class="slide quote-slide" data-slide-index="18" id="slide-18">
+  <div class="slide-content">
+    <div class="quote-shell">
+      <h2 class="quote-title reveal">所以, 一人公司的概念其实存在已久</h2>
+      
+      
+    </div>
+  </div>
+
+  <div class="slide-line"></div>
+  <div class="brand"><span class="brand-text">OPC AI / </span><img class="brand-logo" src="assets/yihe.png" alt="一核学院"></div>
+  <div class="slide-number">18 / 57</div>
+</section>
+
+<!-- ==================== SLIDE 19: Fiverr 上一直有自由职业者 ==================== -->
+<section class="slide quote-slide" data-slide-index="19" id="slide-19">
+  <div class="slide-content">
+    <div class="quote-shell">
+      <h2 class="quote-title reveal">Fiverr 上一直有自由职业者</h2>
+      
+      
+    </div>
+  </div>
+
+  <div class="slide-line"></div>
+  <div class="brand"><span class="brand-text">OPC AI / </span><img class="brand-logo" src="assets/yihe.png" alt="一核学院"></div>
+  <div class="slide-number">19 / 57</div>
+</section>
+
+<!-- ==================== SLIDE 20: 纯图片页 ==================== -->
+<section class="slide image-only-slide" data-slide-index="20" id="slide-20">
+  <div class="slide-content">
+    <div class="image-only-panel">
+
+    <div class="image-shell image-shell-large reveal-scale">
+      <img src="assets/pasted-image-20260409075354.png" alt="Pasted image 20260409075354.png" loading="lazy">
+    </div>
+    </div>
+  </div>
+
+  <div class="slide-line"></div>
+  <div class="brand"><span class="brand-text">OPC AI / </span><img class="brand-logo" src="assets/yihe.png" alt="一核学院"></div>
+  <div class="slide-number">20 / 57</div>
+</section>
+
+<!-- ==================== SLIDE 21: 自媒体当然也算一人公司 ==================== -->
+<section class="slide quote-slide" data-slide-index="21" id="slide-21">
+  <div class="slide-content">
+    <div class="quote-shell">
+      <h2 class="quote-title reveal">自媒体当然也算一人公司</h2>
+      
+      
+    </div>
+  </div>
+
+  <div class="slide-line"></div>
+  <div class="brand"><span class="brand-text">OPC AI / </span><img class="brand-logo" src="assets/yihe.png" alt="一核学院"></div>
+  <div class="slide-number">21 / 57</div>
+</section>
+
+<!-- ==================== SLIDE 22: 自媒体是个人劳动产生复利和杠杆的最佳选择 ==================== -->
+<section class="slide quote-slide" data-slide-index="22" id="slide-22">
+  <div class="slide-content">
+    <div class="quote-shell">
+      <h2 class="quote-title reveal">自媒体是个人劳动产生复利和杠杆的最佳选择</h2>
+      
+      
+    </div>
+  </div>
+
+  <div class="slide-line"></div>
+  <div class="brand"><span class="brand-text">OPC AI / </span><img class="brand-logo" src="assets/yihe.png" alt="一核学院"></div>
+  <div class="slide-number">22 / 57</div>
+</section>
+
+<!-- ==================== SLIDE 23: 电商当然也可以一个人做 ==================== -->
+<section class="slide quote-slide" data-slide-index="23" id="slide-23">
+  <div class="slide-content">
+    <div class="quote-shell">
+      <h2 class="quote-title reveal">电商当然也可以一个人做</h2>
+      <p class="quote-subtitle reveal">1 ~ 2 个人可以做好一个品类, 完全能好好生活</p>
+      
+    </div>
+  </div>
+
+  <div class="slide-line"></div>
+  <div class="brand"><span class="brand-text">OPC AI / </span><img class="brand-logo" src="assets/yihe.png" alt="一核学院"></div>
+  <div class="slide-number">23 / 57</div>
+</section>
+
+<!-- ==================== SLIDE 24: 那我们这次聊 OPC 是为什么 ? ==================== -->
+<section class="slide quote-slide" data-slide-index="24" id="slide-24">
+  <div class="slide-content">
+    <div class="quote-shell">
+      <h2 class="quote-title reveal">那我们这次聊 OPC 是为什么 ?</h2>
+      
+      
+    </div>
+  </div>
+
+  <div class="slide-line"></div>
+  <div class="brand"><span class="brand-text">OPC AI / </span><img class="brand-logo" src="assets/yihe.png" alt="一核学院"></div>
+  <div class="slide-number">24 / 57</div>
+</section>
+
+<!-- ==================== SLIDE 25: OPC 是因为 AI 让个人可以进入更多行业, 比如互联网 ==================== -->
+<section class="slide quote-slide" data-slide-index="25" id="slide-25">
+  <div class="slide-content">
+    <div class="quote-shell">
+      <h2 class="quote-title reveal">OPC 是因为 AI 让个人可以进入更多行业, 比如互联网</h2>
+      
+      
+    </div>
+  </div>
+
+  <div class="slide-line"></div>
+  <div class="brand"><span class="brand-text">OPC AI / </span><img class="brand-logo" src="assets/yihe.png" alt="一核学院"></div>
+  <div class="slide-number">25 / 57</div>
+</section>
+
+<!-- ==================== SLIDE 26: 以前的互联网产品门槛高 ==================== -->
+<section class="slide content-slide" data-slide-index="26" id="slide-26">
+  <div class="slide-content">
+    <header class="top-header">
+      <h2 class="page-title reveal">以前的互联网产品门槛高</h2>
+    </header>
+    <div class="content-panel">
+      <div class="bullet-card">
+        <ul class="bullet-list">          <li class="reveal">主要门槛是 “工程能力”</li>
+          <li class="reveal">一个团队需要 “设计 + 前后端开发 + 运营”</li>
+          <li class="reveal">要么你个人很牛逼, 要么你花钱 (百万级)</li>
+          <li class="reveal">而且即使是独立开发, 产品也很简单</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide-line"></div>
+  <div class="brand"><span class="brand-text">OPC AI / </span><img class="brand-logo" src="assets/yihe.png" alt="一核学院"></div>
+  <div class="slide-number">26 / 57</div>
+</section>
+
+<!-- ==================== SLIDE 27: 验证想法的门槛高 ==================== -->
+<section class="slide content-slide" data-slide-index="27" id="slide-27">
+  <div class="slide-content">
+    <header class="top-header">
+      <h2 class="page-title reveal">验证想法的门槛高</h2>
+    </header>
+    <div class="content-panel">
+      <div class="bullet-card">
+        <ul class="bullet-list">          <li class="reveal">至少需要实习生</li>
+          <li class="reveal">运营 / 设计, 都是必要的工作量, 也有成本</li>
+          <li class="reveal">验证想法有门槛, 一个人没法启动</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide-line"></div>
+  <div class="brand"><span class="brand-text">OPC AI / </span><img class="brand-logo" src="assets/yihe.png" alt="一核学院"></div>
+  <div class="slide-number">27 / 57</div>
+</section>
+
+<!-- ==================== SLIDE 28: 现在, 开发成本降低 90% ==================== -->
+<section class="slide content-slide" data-slide-index="28" id="slide-28">
+  <div class="slide-content">
+    <header class="top-header">
+      <h2 class="page-title reveal">现在, 开发成本降低 90%</h2>
+    </header>
+    <div class="content-panel">
+      <div class="bullet-card">
+        <ul class="bullet-list">          <li class="reveal">编程基本是一个被解决的问题</li>
+          <li class="reveal">一个月 20 美金完全可以雇佣 10 个顶级程序员</li>
+          <li class="reveal">这是质的改变</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide-line"></div>
+  <div class="brand"><span class="brand-text">OPC AI / </span><img class="brand-logo" src="assets/yihe.png" alt="一核学院"></div>
+  <div class="slide-number">28 / 57</div>
+</section>
+
+<!-- ==================== SLIDE 29: 大部分白领工作工作可以 AI 辅助完成 ==================== -->
+<section class="slide content-slide" data-slide-index="29" id="slide-29">
+  <div class="slide-content">
+    <header class="top-header">
+      <h2 class="page-title reveal">大部分白领工作工作可以 AI 辅助完成</h2>
+    </header>
+    <div class="content-panel">
+      <div class="bullet-card">
+        <ul class="bullet-list">          <li class="reveal">我的 PPT 都是 AI 排版</li>
+          <li class="reveal">所有文件操作, 包括 Excel, Word, 填申请表单, 发票整理... 都可以 AI 来做</li>
+          <li class="reveal">下午会给大家看案例</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide-line"></div>
+  <div class="brand"><span class="brand-text">OPC AI / </span><img class="brand-logo" src="assets/yihe.png" alt="一核学院"></div>
+  <div class="slide-number">29 / 57</div>
+</section>
+
+<!-- ==================== SLIDE 30: 纯图片页 ==================== -->
+<section class="slide image-only-slide" data-slide-index="30" id="slide-30">
+  <div class="slide-content">
+    <div class="image-only-panel">
+
+    <div class="image-shell image-shell-large reveal-scale">
+      <img src="assets/pasted-image-20260409080722.png" alt="Pasted image 20260409080722.png" loading="lazy">
+    </div>
+    </div>
+  </div>
+
+  <div class="slide-line"></div>
+  <div class="brand"><span class="brand-text">OPC AI / </span><img class="brand-logo" src="assets/yihe.png" alt="一核学院"></div>
+  <div class="slide-number">30 / 57</div>
+</section>
+
+<!-- ==================== SLIDE 31: AI 设计可以满足95% 的商用设计场景 ==================== -->
+<section class="slide content-slide" data-slide-index="31" id="slide-31">
+  <div class="slide-content">
+    <header class="top-header">
+      <h2 class="page-title reveal">AI 设计可以满足95% 的商用设计场景</h2>
+    </header>
+    <div class="content-panel">
+      <div class="bullet-card">
+        <ul class="bullet-list">          <li class="reveal">电商出海产品渲染图</li>
+          <li class="reveal">模特试衣 (堆友)</li>
+          <li class="reveal">Logo 设计</li>
+          <li class="reveal">UIUX 设计</li>
+          <li class="reveal">海报 / 封面设计</li>
+          <li class="reveal">...</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide-line"></div>
+  <div class="brand"><span class="brand-text">OPC AI / </span><img class="brand-logo" src="assets/yihe.png" alt="一核学院"></div>
+  <div class="slide-number">31 / 57</div>
+</section>
+
+<!-- ==================== SLIDE 32: 我们的黑客松 3D 渲染图 ==================== -->
+<section class="slide content-slide media-slide" data-slide-index="32" id="slide-32">
+  <div class="slide-content">
+    <header class="top-header">
+      <h2 class="page-title reveal">我们的黑客松 3D 渲染图</h2>
+    </header>
+    <div class="content-panel media-panel">
+
+    <div class="image-shell image-shell-large reveal-scale">
+      <img src="assets/screenshot-2026-04-09-at-8-09-16-am.png" alt="Screenshot 2026-04-09 at 8.09.16 AM.png" loading="lazy">
+    </div>
+    </div>
+  </div>
+
+  <div class="slide-line"></div>
+  <div class="brand"><span class="brand-text">OPC AI / </span><img class="brand-logo" src="assets/yihe.png" alt="一核学院"></div>
+  <div class="slide-number">32 / 57</div>
+</section>
+
+<!-- ==================== SLIDE 33: 我们的 App Logo ==================== -->
+<section class="slide content-slide media-slide" data-slide-index="33" id="slide-33">
+  <div class="slide-content">
+    <header class="top-header">
+      <h2 class="page-title reveal">我们的 App Logo</h2>
+    </header>
+    <div class="content-panel media-panel">
+
+    <div class="image-shell image-shell-large reveal-scale">
+      <img src="assets/pasted-image-20260409081126.png" alt="Pasted image 20260409081126.png" loading="lazy">
+    </div>
+    </div>
+  </div>
+
+  <div class="slide-line"></div>
+  <div class="brand"><span class="brand-text">OPC AI / </span><img class="brand-logo" src="assets/yihe.png" alt="一核学院"></div>
+  <div class="slide-number">33 / 57</div>
+</section>
+
+<!-- ==================== SLIDE 34: Lovart ==================== -->
+<section class="slide content-slide media-slide" data-slide-index="34" id="slide-34">
+  <div class="slide-content">
+    <header class="top-header">
+      <h2 class="page-title reveal">Lovart</h2>
+    </header>
+    <div class="content-panel media-panel">
+
+    <div class="image-shell image-shell-large reveal-scale">
+      <img src="assets/pasted-image-20260409081221.png" alt="Pasted image 20260409081221.png" loading="lazy">
+    </div>
+    </div>
+  </div>
+
+  <div class="slide-line"></div>
+  <div class="brand"><span class="brand-text">OPC AI / </span><img class="brand-logo" src="assets/yihe.png" alt="一核学院"></div>
+  <div class="slide-number">34 / 57</div>
+</section>
+
+<!-- ==================== SLIDE 35: 堆友 ==================== -->
+<section class="slide content-slide media-slide" data-slide-index="35" id="slide-35">
+  <div class="slide-content">
+    <header class="top-header">
+      <h2 class="page-title reveal">堆友</h2>
+    </header>
+    <div class="content-panel media-panel">
+
+    <div class="image-shell image-shell-large reveal-scale">
+      <img src="assets/pasted-image-20260409081317.png" alt="Pasted image 20260409081317.png" loading="lazy">
+    </div>
+    </div>
+  </div>
+
+  <div class="slide-line"></div>
+  <div class="brand"><span class="brand-text">OPC AI / </span><img class="brand-logo" src="assets/yihe.png" alt="一核学院"></div>
+  <div class="slide-number">35 / 57</div>
+</section>
+
+<!-- ==================== SLIDE 36: 也有人开始融入工业设计 + 建筑设计 ==================== -->
+<section class="slide content-slide media-slide" data-slide-index="36" id="slide-36">
+  <div class="slide-content">
+    <header class="top-header">
+      <h2 class="page-title reveal">也有人开始融入工业设计 + 建筑设计</h2>
+    </header>
+    <div class="content-panel media-panel">
+
+    <div class="image-grid image-grid-2">
+
+      <figure class="image-tile reveal-scale">
+        <img src="assets/screenshot-2026-04-09-at-8-22-07-am.png" alt="Screenshot 2026-04-09 at 8.22.07 AM.png" loading="lazy">
+      </figure>
+
+      <figure class="image-tile reveal-scale">
+        <img src="assets/screenshot-2026-04-09-at-8-22-40-am.png" alt="Screenshot 2026-04-09 at 8.22.40 AM.png" loading="lazy">
+      </figure>
+    </div>
+    </div>
+  </div>
+
+  <div class="slide-line"></div>
+  <div class="brand"><span class="brand-text">OPC AI / </span><img class="brand-logo" src="assets/yihe.png" alt="一核学院"></div>
+  <div class="slide-number">36 / 57</div>
+</section>
+
+<!-- ==================== SLIDE 37: 互联网的主要成本已不再是开发 ==================== -->
+<section class="slide quote-slide" data-slide-index="37" id="slide-37">
+  <div class="slide-content">
+    <div class="quote-shell">
+      <h2 class="quote-title reveal">互联网的主要成本已不再是开发</h2>
+      
+      
+    </div>
+  </div>
+
+  <div class="slide-line"></div>
+  <div class="brand"><span class="brand-text">OPC AI / </span><img class="brand-logo" src="assets/yihe.png" alt="一核学院"></div>
+  <div class="slide-number">37 / 57</div>
+</section>
+
+<!-- ==================== SLIDE 38: 怎么把产品卖出去才是真正的门槛 ==================== -->
+<section class="slide quote-slide" data-slide-index="38" id="slide-38">
+  <div class="slide-content">
+    <div class="quote-shell">
+      <h2 class="quote-title reveal">怎么把产品卖出去才是真正的门槛</h2>
+      
+      
+    </div>
+  </div>
+
+  <div class="slide-line"></div>
+  <div class="brand"><span class="brand-text">OPC AI / </span><img class="brand-logo" src="assets/yihe.png" alt="一核学院"></div>
+  <div class="slide-number">38 / 57</div>
+</section>
+
+<!-- ==================== SLIDE 39: “产品” 正在变得越来越像内容 ==================== -->
+<section class="slide content-slide media-slide" data-slide-index="39" id="slide-39">
+  <div class="slide-content">
+    <header class="top-header">
+      <h2 class="page-title reveal">“产品” 正在变得越来越像内容</h2>
+    </header>
+    <div class="content-panel media-panel">
+
+    <div class="image-shell image-shell-large reveal-scale">
+      <img src="assets/pasted-image-20260409082658.png" alt="Pasted image 20260409082658.png" loading="lazy">
+    </div>
+    </div>
+  </div>
+
+  <div class="slide-line"></div>
+  <div class="brand"><span class="brand-text">OPC AI / </span><img class="brand-logo" src="assets/yihe.png" alt="一核学院"></div>
+  <div class="slide-number">39 / 57</div>
+</section>
+
+<!-- ==================== SLIDE 40: 所以, 你一个人几乎可以开始做任何事 ==================== -->
+<section class="slide quote-slide" data-slide-index="40" id="slide-40">
+  <div class="slide-content">
+    <div class="quote-shell">
+      <h2 class="quote-title reveal">所以, 你一个人几乎可以开始做任何事</h2>
+      
+      
+    </div>
+  </div>
+
+  <div class="slide-line"></div>
+  <div class="brand"><span class="brand-text">OPC AI / </span><img class="brand-logo" src="assets/yihe.png" alt="一核学院"></div>
+  <div class="slide-number">40 / 57</div>
+</section>
+
+<!-- ==================== SLIDE 41: 1. OPC 创业的政策 ==================== -->
+<section class="slide cover-slide" data-slide-index="41" id="slide-41">
+  <div class="slide-content">
+    <div class="cover-grid">
+      <div class="ornament reveal">
+        <span class="ornament-line"></span>
+        <span class="ornament-dot"></span>
+        <span class="ornament-line"></span>
+      </div>
+      <h1 class="display-title reveal">1. OPC 创业的政策</h1>
+      
+      
+    </div>
+  </div>
+
+  <div class="slide-line"></div>
+  <div class="brand"><span class="brand-text">OPC AI / </span><img class="brand-logo" src="assets/yihe.png" alt="一核学院"></div>
+  <div class="slide-number">41 / 57</div>
+</section>
+
+<!-- ==================== SLIDE 42: 全国各地多点开花 ==================== -->
+<section class="slide content-slide media-slide" data-slide-index="42" id="slide-42">
+  <div class="slide-content">
+    <header class="top-header">
+      <h2 class="page-title reveal">全国各地多点开花</h2>
+    </header>
+    <div class="content-panel media-panel">
+
+    <div class="image-grid image-grid-3">
+
+      <figure class="image-tile reveal-scale">
+        <img src="assets/pasted-image-20260409085657.png" alt="Pasted image 20260409085657.png" loading="lazy">
+      </figure>
+
+      <figure class="image-tile reveal-scale">
+        <img src="assets/pasted-image-20260409085531.png" alt="Pasted image 20260409085531.png" loading="lazy">
+      </figure>
+
+      <figure class="image-tile reveal-scale">
+        <img src="assets/pasted-image-20260409085320.png" alt="Pasted image 20260409085320.png" loading="lazy">
+      </figure>
+    </div>
+    </div>
+  </div>
+
+  <div class="slide-line"></div>
+  <div class="brand"><span class="brand-text">OPC AI / </span><img class="brand-logo" src="assets/yihe.png" alt="一核学院"></div>
+  <div class="slide-number">42 / 57</div>
+</section>
+
+<!-- ==================== SLIDE 43: 各地对 OPC 的定义 ==================== -->
+<section class="slide content-slide media-slide" data-slide-index="43" id="slide-43">
+  <div class="slide-content">
+    <header class="top-header">
+      <h2 class="page-title reveal">各地对 OPC 的定义</h2>
+    </header>
+    <div class="content-panel media-panel">
+
+    <div class="image-shell image-shell-large reveal-scale">
+      <img src="assets/pasted-image-20260409101157.png" alt="Pasted image 20260409101157.png" loading="lazy">
+    </div>
+    </div>
+  </div>
+
+  <div class="slide-line"></div>
+  <div class="brand"><span class="brand-text">OPC AI / </span><img class="brand-logo" src="assets/yihe.png" alt="一核学院"></div>
+  <div class="slide-number">43 / 57</div>
+</section>
+
+<!-- ==================== SLIDE 44: OPC 的政策一般都有 ==================== -->
+<section class="slide content-slide" data-slide-index="44" id="slide-44">
+  <div class="slide-content">
+    <header class="top-header">
+      <h2 class="page-title reveal">OPC 的政策一般都有</h2>
+    </header>
+    <div class="content-panel">
+      <div class="bullet-card">
+        <ul class="bullet-list bullet-list-columns">          <li class="reveal">办公空间</li>
+          <li class="reveal">住宿有待</li>
+          <li class="reveal">财税</li>
+          <li class="reveal">人才奖励</li>
+          <li class="reveal">算力补贴</li>
+          <li class="reveal">资本支持</li>
+          <li class="reveal">订单对接</li>
+          <li class="reveal">媒体资源</li>
+          <li class="reveal">出海服务</li>
+          <li class="reveal">赛事奖励</li>
+          <li class="reveal">展会...</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide-line"></div>
+  <div class="brand"><span class="brand-text">OPC AI / </span><img class="brand-logo" src="assets/yihe.png" alt="一核学院"></div>
+  <div class="slide-number">44 / 57</div>
+</section>
+
+<!-- ==================== SLIDE 45: 央视来 Honghub 采访 ==================== -->
+<section class="slide content-slide media-slide" data-slide-index="45" id="slide-45">
+  <div class="slide-content">
+    <header class="top-header">
+      <h2 class="page-title reveal">央视来 Honghub 采访</h2>
+    </header>
+    <div class="content-panel media-panel">
+
+    <div class="image-shell image-shell-large reveal-scale">
+      <img src="assets/pasted-image-20260409101619.png" alt="Pasted image 20260409101619.png" loading="lazy">
+    </div>
+    </div>
+  </div>
+
+  <div class="slide-line"></div>
+  <div class="brand"><span class="brand-text">OPC AI / </span><img class="brand-logo" src="assets/yihe.png" alt="一核学院"></div>
+  <div class="slide-number">45 / 57</div>
+</section>
+
+<!-- ==================== SLIDE 46: 央视来 Honghub 采访 ==================== -->
+<section class="slide content-slide media-slide" data-slide-index="46" id="slide-46">
+  <div class="slide-content">
+    <header class="top-header">
+      <h2 class="page-title reveal">央视来 Honghub 采访</h2>
+    </header>
+    <div class="content-panel media-panel">
+
+    <div class="image-shell image-shell-large reveal-scale">
+      <img src="assets/pasted-image-20260409101801.png" alt="Pasted image 20260409101801.png" loading="lazy">
+    </div>
+    </div>
+  </div>
+
+  <div class="slide-line"></div>
+  <div class="brand"><span class="brand-text">OPC AI / </span><img class="brand-logo" src="assets/yihe.png" alt="一核学院"></div>
+  <div class="slide-number">46 / 57</div>
+</section>
+
+<!-- ==================== SLIDE 47: 央视来 Honghub 采访 ==================== -->
+<section class="slide content-slide media-slide" data-slide-index="47" id="slide-47">
+  <div class="slide-content">
+    <header class="top-header">
+      <h2 class="page-title reveal">央视来 Honghub 采访</h2>
+    </header>
+    <div class="content-panel media-panel">
+
+    <div class="image-shell image-shell-large reveal-scale">
+      <img src="assets/pasted-image-20260409101845.png" alt="Pasted image 20260409101845.png" loading="lazy">
+    </div>
+    </div>
+  </div>
+
+  <div class="slide-line"></div>
+  <div class="brand"><span class="brand-text">OPC AI / </span><img class="brand-logo" src="assets/yihe.png" alt="一核学院"></div>
+  <div class="slide-number">47 / 57</div>
+</section>
+
+<!-- ==================== SLIDE 48: OPC 的政策支持非常多样且还在加码 ==================== -->
+<section class="slide quote-slide" data-slide-index="48" id="slide-48">
+  <div class="slide-content">
+    <div class="quote-shell">
+      <h2 class="quote-title reveal">OPC 的政策支持非常多样且还在加码</h2>
+      
+      
+    </div>
+  </div>
+
+  <div class="slide-line"></div>
+  <div class="brand"><span class="brand-text">OPC AI / </span><img class="brand-logo" src="assets/yihe.png" alt="一核学院"></div>
+  <div class="slide-number">48 / 57</div>
+</section>
+
+<!-- ==================== SLIDE 49: 1.  Honghub 介绍 ==================== -->
+<section class="slide cover-slide" data-slide-index="49" id="slide-49">
+  <div class="slide-content">
+    <div class="cover-grid">
+      <div class="ornament reveal">
+        <span class="ornament-line"></span>
+        <span class="ornament-dot"></span>
+        <span class="ornament-line"></span>
+      </div>
+      <h1 class="display-title reveal">1.  Honghub 介绍</h1>
+      
+      
+    </div>
+  </div>
+
+  <div class="slide-line"></div>
+  <div class="brand"><span class="brand-text">OPC AI / </span><img class="brand-logo" src="assets/yihe.png" alt="一核学院"></div>
+  <div class="slide-number">49 / 57</div>
+</section>
+
+<!-- ==================== SLIDE 50: Honghub 的三无策略 ==================== -->
+<section class="slide quote-slide" data-slide-index="50" id="slide-50">
+  <div class="slide-content">
+    <div class="quote-shell quote-shell-media">
+      <h2 class="quote-title reveal">Honghub 的三无策略</h2>
+      
+      <div class="quote-media">
+    <div class="image-shell reveal-scale">
+      <img src="assets/pasted-image-20260409103001.png" alt="Pasted image 20260409103001.png" loading="lazy">
+    </div>
+</div>
+    </div>
+  </div>
+
+  <div class="slide-line"></div>
+  <div class="brand"><span class="brand-text">OPC AI / </span><img class="brand-logo" src="assets/yihe.png" alt="一核学院"></div>
+  <div class="slide-number">50 / 57</div>
+</section>
+
+<!-- ==================== SLIDE 51: VC 的模式不适合每一个人 ==================== -->
+<section class="slide content-slide" data-slide-index="51" id="slide-51">
+  <div class="slide-content">
+    <header class="top-header">
+      <h2 class="page-title reveal">VC 的模式不适合每一个人</h2>
+    </header>
+    <div class="content-panel">
+      <div class="bullet-card">
+        <ul class="bullet-list">          <li class="reveal">要么强团队背景</li>
+          <li class="reveal">要么强数据</li>
+          <li class="reveal">不适合早期验证</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide-line"></div>
+  <div class="brand"><span class="brand-text">OPC AI / </span><img class="brand-logo" src="assets/yihe.png" alt="一核学院"></div>
+  <div class="slide-number">51 / 57</div>
+</section>
+
+<!-- ==================== SLIDE 52: AI 时代的迭代速度太慢了 ==================== -->
+<section class="slide quote-slide" data-slide-index="52" id="slide-52">
+  <div class="slide-content">
+    <div class="quote-shell">
+      <h2 class="quote-title reveal">AI 时代的迭代速度太慢了</h2>
+      
+      
+    </div>
+  </div>
+
+  <div class="slide-line"></div>
+  <div class="brand"><span class="brand-text">OPC AI / </span><img class="brand-logo" src="assets/yihe.png" alt="一核学院"></div>
+  <div class="slide-number">52 / 57</div>
+</section>
+
+<!-- ==================== SLIDE 53: 想做 Business 还是 Startup ==================== -->
+<section class="slide content-slide" data-slide-index="53" id="slide-53">
+  <div class="slide-content">
+    <header class="top-header">
+      <h2 class="page-title reveal">想做 Business 还是 Startup</h2>
+    </header>
+    <div class="content-panel">
+      <div class="bullet-card">
+        <ul class="bullet-list">          <li class="reveal">OPC 不一定要做风险投资的产品化路线</li>
+          <li class="reveal">做 Business 其实挺好的</li>
+          <li class="reveal">甚至越来越多的 VC 也在要求 Day 1 Profitable, 从第一天起就要盈利;</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide-line"></div>
+  <div class="brand"><span class="brand-text">OPC AI / </span><img class="brand-logo" src="assets/yihe.png" alt="一核学院"></div>
+  <div class="slide-number">53 / 57</div>
+</section>
+
+<!-- ==================== SLIDE 54: 现金流是 OPC 的生命线 ==================== -->
+<section class="slide quote-slide" data-slide-index="54" id="slide-54">
+  <div class="slide-content">
+    <div class="quote-shell">
+      <h2 class="quote-title reveal">现金流是 OPC 的生命线</h2>
+      
+      
+    </div>
+  </div>
+
+  <div class="slide-line"></div>
+  <div class="brand"><span class="brand-text">OPC AI / </span><img class="brand-logo" src="assets/yihe.png" alt="一核学院"></div>
+  <div class="slide-number">54 / 57</div>
+</section>
+
+<!-- ==================== SLIDE 55: Honghub 团队介绍:  Mentorbook ==================== -->
+<section class="slide content-slide media-slide" data-slide-index="55" id="slide-55">
+  <div class="slide-content">
+    <header class="top-header">
+      <h2 class="page-title reveal">Honghub 团队介绍:  Mentorbook</h2>
+    </header>
+    <div class="content-split-layout">
+      <div class="content-split-copy">
+        <div class="bullet-card bullet-card-side">
+          <ul class="bullet-list">            <li class="reveal">AI 教育类产品</li>
+          </ul>
+          
+        </div>
+      </div>
+      <div class="content-split-media">
+
+    <div class="image-shell reveal-scale">
+      <img src="assets/pasted-image-20260409133900.png" alt="Pasted image 20260409133900.png" loading="lazy">
+    </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide-line"></div>
+  <div class="brand"><span class="brand-text">OPC AI / </span><img class="brand-logo" src="assets/yihe.png" alt="一核学院"></div>
+  <div class="slide-number">55 / 57</div>
+</section>
+
+<!-- ==================== SLIDE 56: 多行金句 ==================== -->
+<section class="slide quote-slide" data-slide-index="56" id="slide-56">
+  <div class="slide-content">
+    <div class="quote-shell quote-shell-lines">
+      <div class="quote-line reveal">OPC 要求每个人打破固有职责边界</div>
+      <div class="quote-line reveal">能够靠 AI + 外部合作, 推动完成</div>
+      <div class="quote-line reveal">商业模式, 销售, 市场, 增长, 设计, 开发, 运营, 售后…</div>
+    </div>
+  </div>
+
+  <div class="slide-line"></div>
+  <div class="brand"><span class="brand-text">OPC AI / </span><img class="brand-logo" src="assets/yihe.png" alt="一核学院"></div>
+  <div class="slide-number">56 / 57</div>
+</section>
+
+<!-- ==================== SLIDE 57: OPC 在我看来就是 High Agency 个体的集合 ==================== -->
+<section class="slide quote-slide" data-slide-index="57" id="slide-57">
+  <div class="slide-content">
+    <div class="quote-shell quote-shell-explained">
+      <h2 class="quote-title quote-title-compact reveal"><strong>OPC</strong> <strong>在我看来就是</strong> <strong>High Agency</strong> <strong>个体的集合</strong></h2>
+      <p class="quote-subtitle quote-subtitle-compact reveal">Agency 指 “主动推动让一件事情发生的能力”</p>
+    </div>
+  </div>
+
+  <div class="slide-line"></div>
+  <div class="brand"><span class="brand-text">OPC AI / </span><img class="brand-logo" src="assets/yihe.png" alt="一核学院"></div>
+  <div class="slide-number">57 / 57</div>
+</section>
+
+  <script>
+    class SlidePresentation {
+      constructor() {
+        this.slides = Array.from(document.querySelectorAll('.slide'));
+        this.currentSlide = 0;
+        this.progressBar = document.getElementById('progressBar');
+        this.navDots = document.getElementById('navDots');
+        this.touchStartY = 0;
+        this.touchEndY = 0;
+        this.buildDots();
+        this.setupIntersectionObserver();
+        this.setupKeyboardNav();
+        this.setupTouchNav();
+        this.updateActiveState(0);
+        this.goToHash();
+        window.addEventListener('hashchange', () => this.goToHash());
+        window.addEventListener('scroll', () => this.updateProgress(), { passive: true });
+        window.addEventListener('resize', () => this.updateProgress(), { passive: true });
+      }
+
+      buildDots() {
+        this.slides.forEach((slide, index) => {
+          const button = document.createElement('button');
+          button.className = 'nav-dot';
+          button.type = 'button';
+          button.setAttribute('aria-label', `Go to slide ${index + 1}`);
+          button.addEventListener('click', () => this.goToSlide(index));
+          this.navDots.appendChild(button);
+        });
+        this.dots = Array.from(this.navDots.querySelectorAll('.nav-dot'));
+      }
+
+      setupIntersectionObserver() {
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting && entry.intersectionRatio >= 0.55) {
+              const index = this.slides.indexOf(entry.target);
+              entry.target.classList.add('visible');
+              this.updateActiveState(index);
+            }
+          });
+        }, {
+          threshold: [0.55, 0.75]
+        });
+
+        this.slides.forEach((slide) => observer.observe(slide));
+      }
+
+      setupKeyboardNav() {
+        document.addEventListener('keydown', (event) => {
+          if (event.target && /input|textarea|select/i.test(event.target.tagName)) {
+            return;
+          }
+
+          if (['ArrowDown', 'ArrowRight', 'PageDown', ' '].includes(event.key)) {
+            event.preventDefault();
+            this.goToSlide(Math.min(this.currentSlide + 1, this.slides.length - 1));
+          }
+
+          if (['ArrowUp', 'ArrowLeft', 'PageUp'].includes(event.key)) {
+            event.preventDefault();
+            this.goToSlide(Math.max(this.currentSlide - 1, 0));
+          }
+
+          if (event.key === 'Home') {
+            event.preventDefault();
+            this.goToSlide(0);
+          }
+
+          if (event.key === 'End') {
+            event.preventDefault();
+            this.goToSlide(this.slides.length - 1);
+          }
+        });
+      }
+
+      setupTouchNav() {
+        document.addEventListener('touchstart', (event) => {
+          this.touchStartY = event.changedTouches[0].screenY;
+        }, { passive: true });
+
+        document.addEventListener('touchend', (event) => {
+          this.touchEndY = event.changedTouches[0].screenY;
+          const delta = this.touchStartY - this.touchEndY;
+          if (Math.abs(delta) < 60) {
+            return;
+          }
+          if (delta > 0) {
+            this.goToSlide(Math.min(this.currentSlide + 1, this.slides.length - 1));
+          } else {
+            this.goToSlide(Math.max(this.currentSlide - 1, 0));
+          }
+        }, { passive: true });
+      }
+
+      goToSlide(index, smooth = true) {
+        this.slides[index].scrollIntoView({ behavior: smooth ? 'smooth' : 'auto', block: 'start' });
+        this.updateActiveState(index);
+      }
+
+      updateActiveState(index) {
+        this.currentSlide = index;
+        this.slides.forEach((slide, slideIndex) => {
+          slide.classList.toggle('is-active', slideIndex === index);
+        });
+        if (this.dots) {
+          this.dots.forEach((dot, dotIndex) => {
+            dot.classList.toggle('active', dotIndex === index);
+          });
+        }
+        const hash = `#slide-${String(index + 1).padStart(2, '0')}`;
+        if (window.location.hash !== hash) {
+          history.replaceState(null, '', hash);
+        }
+        this.updateProgress();
+      }
+
+      goToHash() {
+        const match = window.location.hash.match(/#slide-(\d+)/);
+        if (!match) {
+          return;
+        }
+        const index = Number.parseInt(match[1], 10) - 1;
+        if (index >= 0 && index < this.slides.length) {
+          requestAnimationFrame(() => this.goToSlide(index, false));
+        }
+      }
+
+      updateProgress() {
+        const denominator = Math.max(this.slides.length - 1, 1);
+        const progress = (this.currentSlide / denominator) * 100;
+        this.progressBar.style.width = `${progress}%`;
+      }
+    }
+
+    new SlidePresentation();
+  </script>
+</body>
+</html>

@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>一核学院课程手册</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Noto+Serif+SC:wght@500;600;700;900&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg-cream: #fffbf0;
+    --bg-cream-deep: #fff8e7;
+    --bg-cream-accent: #fef3c7;
+    --bg-white: rgba(255, 255, 255, 0.94);
+    --amber: #d97706;
+    --amber-deep: #b45309;
+    --sage: #65a30d;
+    --terracotta: #c2410c;
+    --text-primary: #1c1917;
+    --text-secondary: #57534e;
+    --text-muted: #78716c;
+    --text-light: #a8a29e;
+    --border: #e7e5e4;
+    --border-light: #f5f5f4;
+    --shadow-soft: 0 12px 32px rgba(28, 25, 23, 0.08);
+  }
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  @page {
+    size: A4 portrait;
+    margin: 0;
+  }
+
+  html,
+  body {
+    background: #fffbf2;
+    color: var(--text-primary);
+    font-family: "Source Sans 3", "Noto Serif SC", sans-serif;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+
+  body {
+    padding: 0;
+  }
+
+  .document {
+    width: 210mm;
+    margin: 0 auto;
+    padding: 12mm 16mm 10mm;
+    background:
+      radial-gradient(circle at 88% 14%, rgba(217, 119, 6, 0.05), transparent 18%),
+      radial-gradient(circle at 8% 82%, rgba(101, 163, 13, 0.04), transparent 18%),
+      radial-gradient(circle at 78% 22%, rgba(254, 243, 199, 0.28), transparent 28%);
+    position: relative;
+    overflow: visible;
+    box-shadow: var(--shadow-soft);
+  }
+
+  .sheet {
+    width: auto;
+    margin: 0;
+    padding: 0;
+    background: transparent;
+    position: relative;
+    overflow: visible;
+    break-after: auto;
+    page-break-after: auto;
+  }
+
+  .sheet-inner {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .sheet + .sheet {
+    margin-top: 12px;
+  }
+
+  .eyebrow {
+    font-size: 10px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--amber);
+    font-weight: 700;
+  }
+
+  .brand-lockup {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .brand-logo {
+    width: 128px;
+    height: auto;
+    display: block;
+  }
+
+  h1 {
+    font-family: "Playfair Display", "Noto Serif SC", serif;
+    font-size: 35px;
+    line-height: 1.08;
+    letter-spacing: -0.03em;
+    margin-top: 8px;
+  }
+
+  h2 {
+    font-family: "Noto Serif SC", serif;
+    font-size: 20px;
+    line-height: 1.26;
+    margin-top: 14px;
+    margin-bottom: 8px;
+    letter-spacing: -0.02em;
+  }
+
+  h3 {
+    font-size: 15px;
+    line-height: 1.35;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+
+  p,
+  li,
+  td,
+  th {
+    font-size: 12.4px;
+    line-height: 1.62;
+  }
+
+  p {
+    color: var(--text-secondary);
+    margin-bottom: 10px;
+  }
+
+  .lead {
+    font-size: 14px;
+    line-height: 1.8;
+    max-width: 148mm;
+    margin-top: 10px;
+  }
+
+  .rule {
+    width: 56px;
+    height: 2px;
+    border-radius: 999px;
+    background: linear-gradient(90deg, var(--amber), #f59e0b);
+    margin: 10px 0 14px;
+  }
+
+  .section {
+    margin-top: 10px;
+  }
+
+  .doc-block {
+    background: var(--bg-white);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 12px 13px;
+  }
+
+  .doc-block + .doc-block {
+    margin-top: 10px;
+  }
+
+  .quote {
+    padding: 12px 14px;
+    border-left: 3px solid var(--amber);
+    background: rgba(255, 255, 255, 0.72);
+    color: var(--text-secondary);
+    border-radius: 0 14px 14px 0;
+    margin: 12px 0 4px;
+  }
+
+  .profile {
+    display: grid;
+    grid-template-columns: 64px 1fr;
+    gap: 14px;
+    align-items: start;
+  }
+
+  .avatar {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid rgba(217, 119, 6, 0.12);
+  }
+
+  .name {
+    font-family: "Noto Serif SC", serif;
+    font-size: 19px;
+    line-height: 1.2;
+    font-weight: 700;
+  }
+
+  .role {
+    margin-top: 4px;
+    color: var(--amber-deep);
+    font-size: 12px;
+    font-weight: 600;
+  }
+
+  ul,
+  ol {
+    margin: 8px 0 0 18px;
+    color: var(--text-secondary);
+  }
+
+  li + li {
+    margin-top: 5px;
+  }
+
+  .compact li + li {
+    margin-top: 3px;
+  }
+
+  .session {
+    margin-top: 8px;
+    padding-top: 7px;
+    border-top: 1px solid var(--border-light);
+  }
+
+  .session:first-of-type {
+    border-top: none;
+    padding-top: 0;
+    margin-top: 0;
+  }
+
+  .session-grid {
+    display: grid;
+    grid-template-columns: 20mm 48mm 1fr;
+    gap: 8px;
+    align-items: start;
+  }
+
+  .session-time {
+    font-family: "Playfair Display", serif;
+    font-size: 15px;
+    line-height: 1.2;
+    color: var(--text-primary);
+  }
+
+  .session-title {
+    font-family: "Noto Serif SC", serif;
+    font-size: 14px;
+    line-height: 1.38;
+  }
+
+  .session-detail {
+    color: var(--text-secondary);
+    font-size: 11.3px;
+    line-height: 1.5;
+  }
+
+  .session-detail p {
+    display: none;
+  }
+
+  .session-detail ul {
+    margin-top: 2px;
+    margin-left: 16px;
+  }
+
+  .session-detail li {
+    font-size: 11.2px;
+    line-height: 1.42;
+  }
+
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  @media print {
+    body {
+      padding: 0;
+      background: transparent;
+    }
+
+    .document {
+      margin: 0;
+      width: auto;
+      padding: 10mm 14mm 8mm;
+      box-shadow: none;
+      background: transparent;
+    }
+
+    .sheet + .sheet {
+      margin-top: 0;
+    }
+  }
+</style>
+</head>
+<body>
+
+  <main class="document">
+  <section class="sheet">
+    <article class="sheet-inner">
+      <div class="brand-lockup">
+        <img class="brand-logo" src="./yihe.png" alt="一核学院 Logo">
+        <div class="eyebrow">SoloCore Academy</div>
+      </div>
+      <h1>OPC AI 十倍开发效率创业课</h1>
+      <div class="rule"></div>
+
+      <section class="section">
+        <h2>课程介绍</h2>
+        <div class="doc-block">
+          <p>这门课程主要面向开发者背景的学员，尤其适合公司内部具备技术背景, 并希望转型为类 OPC 团队的学员。</p>
+          <p>课程将从开发者视角出发，系统讲清什么是 OPC，以及为什么当下全球范围内越来越多的人正在向 OPC 转型。我们会重点讨论，技术人员如何掌握转型 OPC 所需要的关键能力。也会讲解技术人员应如何如何抓住 AI Coding Tools 带来的独特技术红利，将自己的的工程能力转化为更强的个人竞争力与业务价值。</p>
+          <p>同时，课程也会正面回应技术人员在转型过程中常见的短板，帮助大家补足设计、沟通、商务、营销和运营等非技术能力，建立更完整的能适应新时代的能力结构。</p>
+          <p>希望通过这门课，让开发者不仅能把代码写得更快、更好，也能真正看懂趋势、抓住机会，并在新的环境里完成从技术执行者到能独立发现问题, 解决问题的 OPC 型全能人才的升级。</p>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>实战课主讲人</h2>
+        <div class="doc-block">
+          <div class="profile">
+            <img class="avatar" src="../opc_bistro_slides/affe-avatar.jpg" alt="affe 头像">
+            <div>
+              <div class="name">张雨霏 · affe</div>
+              <div class="role">Einko 联合创始人 / 一核学院 AI Coding 实战课主讲人</div>
+            </div>
+          </div>
+          <p style="margin-top: 12px;">张雨霏，affe，全国首家 OPC 社区鸿鹄汇早期入驻团队 Einko 联合创始人，前 Looki Agent 开发工程师，开源社区 Apache RocketMQ Committer，阿里巴巴国际人才孵化中心签约讲师，曾先后在阿里云、腾讯音乐、三星、Splunk、StreamNative 工作。</p>
+          <p>作为 Claude Code 的早期使用者，拥有长期在 OPC 环境里使用各类 AI 工具为真实业务场景搭建自动化工作流的经验，也踩过大量 AI Coding 的坑。对他来说，真正开心的事情之一，就是把这些经过实战验证的干货分享给更多人。</p>
+        </div>
+      </section>
+
+    </article>
+  </section>
+
+  <section class="sheet">
+    <article class="sheet-inner">
+      <div class="eyebrow">Course Timeline</div>
+      <h2>课程时间线</h2>
+
+      <section class="session">
+        <div class="session-grid">
+          <div class="session-time">09:00<br>09:45</div>
+          <div class="session-title">OPC 政策与创业趋势 + 全国首家 OPC 社区鸿鹄汇创业政策详解</div>
+          <div class="session-detail">
+            <ul class="compact">
+              <li>OPC 政策与创业趋势</li>
+              <li>全国首家 OPC 社区鸿鹄汇的简单介绍</li>
+              <li>OPC 产生的原因与时代趋势下的业务逻辑改变</li>
+              <li>技术给开发者带来的红利与挑战</li>
+              <li>小团队的灵活性与挑战</li>
+              <li>如何充分利用平台给创作者的激励</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="session">
+        <div class="session-grid">
+          <div class="session-time">09:50<br>10:35</div>
+          <div class="session-title">OPC 的 AI 信息差与利用创业红利：新的范式和思维上的转变</div>
+          <div class="session-detail">
+            <ul class="compact">
+              <li>开发者的挑战：做内容以及吸引注意力</li>
+              <li>个人 IP 之所以如此重要的底层逻辑</li>
+              <li>用信息差赚钱不要有耻感</li>
+              <li>如何克服营销羞耻</li>
+              <li>现金流的重要性</li>
+              <li>成为 OPC 意味着什么，为什么做好一家公司仍然很困难</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="session">
+        <div class="session-grid">
+          <div class="session-time">10:45<br>11:30</div>
+          <div class="session-title">OPC 的商业行动画布与常见商业模式分享</div>
+          <div class="session-detail">
+            <ul class="compact">
+              <li>OPC 的商业模式分析框架</li>
+              <li>独立开发者</li>
+              <li>自媒体</li>
+              <li>外包</li>
+              <li>知识付费</li>
+              <li>现金流互联网产品</li>
+              <li>其他：电商</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="session">
+        <div class="session-grid">
+          <div class="session-time">13:30<br>14:15</div>
+          <div class="session-title">OPC 代码开发：Claude Code、Codex 的基本配置和使用逻辑</div>
+          <div class="session-detail">
+            <ul class="compact">
+              <li>放弃手写代码，认识到代码是 OPC 时代里不稀缺的资源</li>
+              <li>从 Vibe Coding 氛围编程到 Agentic Engineering 智能体工程化</li>
+              <li>Agentic Engineering 是什么</li>
+              <li>什么是 Spec Harness</li>
+              <li>gstacks 的介绍</li>
+              <li>Codex 与 Claude Code 的使用场景</li>
+              <li>Claude Code 最佳使用实践：语音输入、remote-control、loop</li>
+              <li>常用 Skills 和 agent 设置</li>
+              <li>如何在手机上随时随地写代码</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+    </article>
+  </section>
+
+  <section class="sheet">
+    <article class="sheet-inner">
+      <section class="session">
+        <div class="session-grid">
+          <div class="session-time">14:20<br>15:05</div>
+          <div class="session-title">OPC 代码开发：设计到交付全流程</div>
+          <div class="session-detail">
+            <ul class="compact">
+              <li>step1 / htmltodesign：好的设计从模仿开始</li>
+              <li>Framer / Paper / Variant：有品味的设计</li>
+              <li>如何判断什么品类值得做，从模仿成熟赛道开始</li>
+              <li>如何通过 gstacks 启动项目</li>
+              <li>如何培养 OPC 的设计品味</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="session">
+        <div class="session-grid">
+          <div class="session-time">15:10<br>15:55</div>
+          <div class="session-title">OPC 代码开发：在本地搭建自动化测试框架，以及 Agentic Engineering 处理复杂工程</div>
+          <div class="session-detail">
+            <ul class="compact">
+              <li>为什么需要自动化测试，为什么它对 Coding Agent 如此重要</li>
+              <li>web-access skills 的安装</li>
+              <li>自动化测试框架与 Claude Code 的配合使用，包括 Playwright、CDP、chrome-dev-tools</li>
+              <li>将 Claude Code 融入 CI/CD 工作流中，包括自动化部署以及可观测性</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="session">
+        <div class="session-grid">
+          <div class="session-time">16:05<br>16:45</div>
+          <div class="session-title">OPC 代码开发：多项目 Agent 管理和项目管理</div>
+          <div class="session-detail">
+            <ul class="compact">
+              <li>上下文管理的核心要素与工具：使用 Linear 追踪、管理多个项目</li>
+              <li>使用 Tmux 建立持续的 Coding Session 来完成特定任务</li>
+              <li>多窗口 Agent Engineering 的开发最佳实践</li>
+              <li>如何在工程中形成复利，以及如何沉淀 skills</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+    </article>
+  </section>
+
+  <section class="sheet">
+    <article class="sheet-inner">
+      <section class="session">
+        <div class="session-grid">
+          <div class="session-time">16:50<br>17:35</div>
+          <div class="session-title">OPC 通用智能体：个人智能体环境与知识系统搭建以及其他技能</div>
+          <div class="session-detail">
+            <ul class="compact">
+              <li>社交媒体素材库管理和自动发布</li>
+              <li>Remotion + Screenstudio 自动剪视频工作流</li>
+              <li>如何建立高质量的信息源和设计风格参考</li>
+              <li>如何用智能体干杂活：PPT、Excel、Word、Markdown、HTML 操作</li>
+              <li>初识 SEO、增长和运营</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>课前准备</h2>
+        <div class="doc-block">
+          <ol>
+            <li>带上一台笔记本电脑，最好是 macOS 操作系统。</li>
+            <li>闲鱼上准备一个 Codex 的账号，一个月即可，根据不同账号类型花费大概在 12 ~ 140 元左右。</li>
+            <li>如有条件，可以在闲鱼上准备一个 Claude Code 的账号，一个月大概 150 元左右。</li>
+            <li>如有条件，在闲鱼上准备一个 Gmail 账号，用来薅各类 AI 工具的羊毛。</li>
+          </ol>
+        </div>
+      </section>
+
+    </article>
+  </section>
+  </main>
+
+</body>
+</html>
