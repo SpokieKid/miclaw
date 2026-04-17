@@ -1,0 +1,1481 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EinClaw × Solana - 语音驱动的链上 AI Agent 硬件</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500&family=Noto+Serif+SC:wght@400;500;600;700;900&family=Source+Sans+3:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap');
+
+  :root {
+    /* Warm cream palette */
+    --bg-cream: #FFFBF0;
+    --bg-cream-deep: #FFF8E7;
+    --bg-cream-accent: #FEF3C7;
+    --bg-white: #FFFFFF;
+    --bg-warm-light: #FEFCF6;
+
+    /* Accent colors */
+    --amber: #D97706;
+    --amber-deep: #B45309;
+    --amber-light: #F59E0B;
+    --amber-glow: rgba(217, 119, 6, 0.08);
+    --amber-glow-strong: rgba(217, 119, 6, 0.15);
+    --terracotta: #C2410C;
+    --terracotta-light: #EA580C;
+    --terracotta-glow: rgba(194, 65, 12, 0.08);
+
+    /* Text */
+    --text-primary: #1C1917;
+    --text-secondary: #57534E;
+    --text-muted: #78716C;
+    --text-light: #A8A29E;
+
+    /* Greens */
+    --sage: #65A30D;
+    --sage-deep: #4D7C0F;
+    --sage-glow: rgba(101, 163, 13, 0.10);
+
+    /* Borders & shadows */
+    --border: #E7E5E4;
+    --border-light: #F5F5F4;
+    --shadow-soft: 0 2px 16px rgba(28, 25, 23, 0.04);
+    --shadow-card: 0 1px 8px rgba(28, 25, 23, 0.06);
+    --shadow-elevated: 0 4px 24px rgba(28, 25, 23, 0.08);
+
+    /* Gradients */
+    --gradient-warm: linear-gradient(180deg, #FFFBF0 0%, #FFF8E7 100%);
+    --gradient-cream: linear-gradient(135deg, #FFFBF0 0%, #FEF3C7 100%);
+    --gradient-amber: linear-gradient(135deg, #D97706, #F59E0B);
+    --gradient-sage: linear-gradient(135deg, #65A30D, #84CC16);
+    --gradient-terracotta: linear-gradient(135deg, #C2410C, #EA580C);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  @page {
+    size: landscape;
+    margin: 0;
+  }
+
+  /* Root scaling for different screen sizes */
+  html {
+    font-size: 16px;
+  }
+
+  @media (max-height: 900px) {
+    html { font-size: 15px; }
+  }
+
+  @media (max-height: 800px) {
+    html { font-size: 14px; }
+  }
+
+  @media (max-height: 700px) {
+    html { font-size: 13px; }
+  }
+
+  @media (max-width: 1200px) {
+    html { font-size: 14px; }
+  }
+
+  @media (max-width: 1024px) {
+    html { font-size: 13px; }
+  }
+
+  body {
+    font-family: 'Source Sans 3', 'Noto Serif SC', -apple-system, sans-serif;
+    background: var(--bg-cream);
+    color: var(--text-primary);
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+    width: 100%;
+    overflow-x: hidden;
+  }
+
+  .slide {
+    width: 100%;
+    min-height: 100vh;
+    height: auto;
+    padding: clamp(16px, 3vh, 40px) clamp(24px, 3.5vw, 56px);
+    position: relative;
+    overflow: hidden;
+    page-break-after: always;
+    page-break-inside: avoid;
+    background: var(--gradient-warm);
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+  }
+
+  /* Scale content based on viewport */
+  .slide > * {
+    max-width: 100%;
+  }
+
+  /* Subtle warm texture overlay */
+  .slide::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(ellipse at 80% 20%, rgba(254, 243, 199, 0.4) 0%, transparent 50%);
+    pointer-events: none;
+  }
+
+  /* Page number */
+  .slide-number {
+    position: absolute;
+    bottom: clamp(16px, 3vh, 28px);
+    right: clamp(24px, 4vw, 48px);
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(11px, 1vw, 13px);
+    color: var(--text-light);
+    font-weight: 400;
+    letter-spacing: 1px;
+    font-style: italic;
+  }
+
+  /* Brand watermark */
+  .brand {
+    position: absolute;
+    bottom: clamp(16px, 3vh, 28px);
+    left: clamp(24px, 4vw, 48px);
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: clamp(9px, 0.85vw, 11px);
+    color: var(--text-light);
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+  }
+
+  /* Thin decorative line at bottom */
+  .slide-line {
+    position: absolute;
+    bottom: clamp(36px, 5vh, 52px);
+    left: clamp(24px, 4vw, 48px);
+    right: clamp(24px, 4vw, 48px);
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* Typography */
+  h1 {
+    font-family: 'Playfair Display', 'Noto Serif SC', serif;
+    font-size: clamp(1.5rem, 2.8vw, 2.5rem);
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.5px;
+    color: var(--text-primary);
+    margin-bottom: clamp(0.375rem, 1vh, 0.625rem);
+  }
+
+  h2 {
+    font-family: 'Playfair Display', 'Noto Serif SC', serif;
+    font-size: clamp(1.25rem, 2.2vw, 1.75rem);
+    font-weight: 600;
+    line-height: 1.25;
+    letter-spacing: -0.3px;
+    color: var(--text-primary);
+    margin-bottom: clamp(0.375rem, 0.8vh, 0.5rem);
+  }
+
+  h3 {
+    font-family: 'Source Sans 3', 'Noto Serif SC', sans-serif;
+    font-size: clamp(0.875rem, 1.2vw, 1.125rem);
+    font-weight: 600;
+    line-height: 1.3;
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+  }
+
+  .subtitle {
+    font-size: clamp(0.8125rem, 1.2vw, 1.0625rem);
+    color: var(--text-secondary);
+    font-weight: 400;
+    line-height: 1.6;
+    max-width: min(680px, 90%);
+  }
+
+  .label {
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: clamp(0.5625rem, 0.8vw, 0.6875rem);
+    font-weight: 600;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--amber);
+    margin-bottom: 0.625rem;
+  }
+
+  .highlight {
+    color: var(--amber-deep);
+    font-weight: 600;
+  }
+
+  .highlight-green {
+    color: var(--sage-deep);
+    font-weight: 600;
+  }
+
+  /* Layout helpers */
+  .flex { display: flex; }
+  .flex-1 { flex: 1; }
+  .gap-12 { gap: clamp(8px, 1vw, 12px); }
+  .gap-16 { gap: clamp(10px, 1.3vw, 16px); }
+  .gap-20 { gap: clamp(12px, 1.6vw, 20px); }
+  .gap-24 { gap: clamp(14px, 2vw, 24px); }
+  .gap-28 { gap: clamp(16px, 2.2vw, 28px); }
+  .gap-32 { gap: clamp(18px, 2.5vw, 32px); }
+  .gap-40 { gap: clamp(24px, 3vw, 40px); }
+  .items-center { align-items: center; }
+  .justify-center { justify-content: center; }
+  .content-area { flex: 1; display: flex; flex-direction: column; }
+
+  /* Cards */
+  .card {
+    background: var(--bg-white);
+    border: 1px solid var(--border);
+    border-radius: clamp(0.625rem, 1.2vw, 0.875rem);
+    padding: clamp(0.875rem, 1.6vw, 1.25rem);
+    box-shadow: var(--shadow-soft);
+  }
+
+  .card-sm {
+    background: var(--bg-white);
+    border: 1px solid var(--border);
+    border-radius: 0.75rem;
+    padding: clamp(0.75rem, 1.5vw, 1rem) clamp(0.875rem, 1.6vw, 1.125rem);
+    box-shadow: var(--shadow-card);
+  }
+
+  .card-amber {
+    border-color: rgba(217, 119, 6, 0.25);
+    background: linear-gradient(135deg, rgba(254, 243, 199, 0.5), rgba(255, 251, 240, 0.8));
+  }
+
+  .card-sage {
+    border-color: rgba(101, 163, 13, 0.25);
+    background: linear-gradient(135deg, rgba(101, 163, 13, 0.05), rgba(132, 204, 22, 0.03));
+  }
+
+  .card-terracotta {
+    border-color: rgba(194, 65, 12, 0.2);
+    background: linear-gradient(135deg, rgba(194, 65, 12, 0.04), rgba(234, 88, 12, 0.02));
+  }
+
+  /* Table */
+  .table-container {
+    width: 100%;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow-card);
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: clamp(0.6875rem, 1vw, 0.8125rem);
+  }
+
+  th {
+    background: var(--bg-cream-deep);
+    padding: 0.625rem 0.875rem;
+    text-align: left;
+    font-weight: 600;
+    color: var(--text-muted);
+    font-size: 0.6875rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    border-bottom: 1px solid var(--border);
+  }
+
+  td {
+    padding: 0.625rem 0.875rem;
+    border-bottom: 1px solid var(--border-light);
+    color: var(--text-secondary);
+    line-height: 1.4;
+    background: var(--bg-white);
+  }
+
+  tr:last-child td {
+    border-bottom: none;
+  }
+
+  tr:nth-child(even) td {
+    background: var(--bg-warm-light);
+  }
+
+  /* Tags */
+  .tag {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+  }
+
+  .tag-amber {
+    background: var(--amber-glow);
+    color: var(--amber-deep);
+    border: 1px solid rgba(217, 119, 6, 0.2);
+  }
+
+  .tag-sage {
+    background: var(--sage-glow);
+    color: var(--sage-deep);
+    border: 1px solid rgba(101, 163, 13, 0.2);
+  }
+
+  .tag-terracotta {
+    background: var(--terracotta-glow);
+    color: var(--terracotta);
+    border: 1px solid rgba(194, 65, 12, 0.2);
+  }
+
+  /* Stat blocks */
+  .stat {
+    text-align: center;
+  }
+
+  .stat-value {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.5rem, 2.8vw, 2.375rem);
+    font-weight: 700;
+    line-height: 1;
+    margin-bottom: 0.375rem;
+    color: var(--text-primary);
+  }
+
+  .stat-label {
+    font-size: clamp(0.625rem, 0.9vw, 0.75rem);
+    color: var(--text-muted);
+    font-weight: 500;
+  }
+
+  /* Flow diagram */
+  .flow-step {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 4px;
+  }
+
+  .flow-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  .flow-icon-amber {
+    background: var(--amber-glow);
+    color: var(--amber-deep);
+    border: 1px solid rgba(217, 119, 6, 0.2);
+  }
+
+  .flow-icon-sage {
+    background: var(--sage-glow);
+    color: var(--sage-deep);
+    border: 1px solid rgba(101, 163, 13, 0.2);
+  }
+
+  .flow-icon-terracotta {
+    background: var(--terracotta-glow);
+    color: var(--terracotta);
+    border: 1px solid rgba(194, 65, 12, 0.2);
+  }
+
+  .flow-text {
+    font-size: 13px;
+    line-height: 1.4;
+    color: var(--text-secondary);
+  }
+
+  .flow-connector {
+    width: 2px;
+    height: 8px;
+    background: var(--border);
+    margin-left: 15px;
+    margin-bottom: 4px;
+  }
+
+  /* Timeline */
+  .timeline {
+    display: flex;
+    gap: 0;
+    position: relative;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    top: 20px;
+    left: 40px;
+    right: 40px;
+    height: 2px;
+    background: var(--border);
+    z-index: 0;
+  }
+
+  .timeline-item {
+    flex: 1;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+  }
+
+  .timeline-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    margin: 14px auto 14px;
+    border: 2px solid var(--bg-cream);
+    box-shadow: 0 0 0 2px var(--border);
+  }
+
+  .timeline-dot-amber { background: var(--amber); box-shadow: 0 0 0 2px var(--amber); }
+  .timeline-dot-sage { background: var(--sage); box-shadow: 0 0 0 2px var(--sage); }
+  .timeline-dot-terracotta { background: var(--terracotta); box-shadow: 0 0 0 2px var(--terracotta); }
+
+  .timeline-title {
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 2px;
+  }
+
+  .timeline-desc {
+    font-size: 11px;
+    color: var(--text-muted);
+    line-height: 1.5;
+    padding: 0 6px;
+  }
+
+  /* Bullet list */
+  .bullet-list {
+    list-style: none;
+    padding: 0;
+  }
+
+  .bullet-list li {
+    padding: 5px 0 5px 20px;
+    position: relative;
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--text-secondary);
+  }
+
+  .bullet-list li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 13px;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--amber);
+  }
+
+  /* Cover special */
+  .cover-slide {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background: linear-gradient(180deg, #FFFBF0 0%, #FEF3C7 50%, #FFF8E7 100%);
+    min-height: 100vh;
+    height: auto;
+  }
+
+  .cover-slide::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: min(800px, 90vw);
+    height: min(800px, 90vh);
+    background: radial-gradient(circle, rgba(217, 119, 6, 0.06) 0%, transparent 60%);
+  }
+
+  .cover-slide h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.75rem, 4vw, 3.5rem);
+    font-weight: 700;
+    letter-spacing: -1px;
+    color: var(--text-primary);
+    margin-bottom: clamp(0.5rem, 1.5vh, 1rem);
+  }
+
+  .cover-tagline {
+    font-family: 'Noto Serif SC', serif;
+    font-size: clamp(15px, 1.6vw, 20px);
+    color: var(--text-secondary);
+    font-weight: 400;
+    margin-bottom: clamp(16px, 3vh, 28px);
+    letter-spacing: 1px;
+  }
+
+  .cover-meta {
+    font-size: 13px;
+    color: var(--text-muted);
+    font-weight: 400;
+    letter-spacing: 0.5px;
+  }
+
+  /* Quote */
+  .quote {
+    font-family: 'Playfair Display', 'Noto Serif SC', serif;
+    font-size: clamp(16px, 1.8vw, 22px);
+    font-weight: 500;
+    font-style: italic;
+    line-height: 1.5;
+    color: var(--text-primary);
+    border-left: 3px solid var(--amber);
+    padding-left: clamp(16px, 2vw, 24px);
+    margin: clamp(12px, 2vh, 20px) 0;
+  }
+
+  /* Grid */
+  .grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(16px, 2vw, 24px);
+  }
+
+  .grid-3 {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: clamp(12px, 1.6vw, 20px);
+  }
+
+  .grid-4 {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: clamp(10px, 1.2vw, 14px);
+  }
+
+  /* Number circle */
+  .icon-circle {
+    width: clamp(32px, 4vw, 40px);
+    height: clamp(32px, 4vw, 40px);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(14px, 1.6vw, 16px);
+    font-weight: 600;
+    margin: 0 auto 12px;
+    color: var(--amber-deep);
+    background: var(--amber-glow-strong);
+    border: 1px solid rgba(217, 119, 6, 0.15);
+  }
+
+  /* Divider */
+  .divider {
+    width: 48px;
+    height: 2px;
+    background: var(--gradient-amber);
+    border-radius: 1px;
+    margin: 12px 0;
+  }
+
+  /* Decorative horizontal rule */
+  .ornament {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 16px 0;
+  }
+
+  .ornament::before,
+  .ornament::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  .ornament-dot {
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: var(--amber);
+  }
+
+  /* Progress items */
+  .progress-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 6px 0;
+    font-size: 13px;
+    color: var(--text-secondary);
+  }
+
+  .progress-check {
+    width: 20px;
+    height: 20px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    flex-shrink: 0;
+  }
+
+  .progress-done {
+    background: var(--sage-glow);
+    color: var(--sage-deep);
+    border: 1px solid rgba(101, 163, 13, 0.25);
+  }
+
+  .progress-wip {
+    background: var(--amber-glow);
+    color: var(--amber);
+    border: 1px solid rgba(217, 119, 6, 0.25);
+  }
+
+  /* MacBook Pro and high-res laptop optimizations */
+  @media (min-width: 1440px) {
+    .slide {
+      padding: clamp(1.5rem, 4vh, 3.5rem) clamp(2.5rem, 5vw, 5rem);
+    }
+  }
+
+  @media (max-width: 1728px) and (min-height: 900px) {
+    html { font-size: 15px; }
+  }
+
+  @media (max-width: 1512px) {
+    html { font-size: 14px; }
+    .slide {
+      padding: clamp(1rem, 2.5vh, 2.25rem) clamp(1.5rem, 3.5vw, 3rem);
+    }
+    h1 {
+      font-size: clamp(1.375rem, 2.6vw, 2.25rem);
+    }
+    h2 {
+      font-size: clamp(1.125rem, 2vw, 1.625rem);
+    }
+  }
+
+  @media (max-width: 1280px) {
+    html { font-size: 13px; }
+    .slide {
+      padding: clamp(0.875rem, 2vh, 1.75rem) clamp(1.25rem, 3vw, 2.5rem);
+    }
+    .card {
+      padding: clamp(0.75rem, 1.4vw, 1rem);
+    }
+    .cover-slide h1 {
+      font-size: clamp(1.5rem, 4vw, 2.75rem);
+    }
+  }
+
+  @media (max-height: 800px) {
+    html { font-size: 12px; }
+    .slide {
+      padding: clamp(0.75rem, 2vh, 1.5rem) clamp(1rem, 2.5vw, 2rem);
+    }
+  }
+
+  @media (max-width: 1200px) {
+    .grid-4 {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  @media (max-width: 992px) {
+    .grid-3 {
+      grid-template-columns: 1fr 1fr;
+    }
+    .grid-2 {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 768px) {
+    html { font-size: 14px; }
+    .slide {
+      padding: 1.125rem 1.375rem;
+      height: auto;
+      min-height: 100vh;
+    }
+    .grid-4,
+    .grid-3 {
+      grid-template-columns: 1fr;
+    }
+    .cover-slide h1 {
+      font-size: clamp(1.625rem, 7vw, 2.375rem);
+    }
+    h1 {
+      font-size: clamp(1.375rem, 5.5vw, 1.75rem);
+    }
+    h2 {
+      font-size: clamp(1.125rem, 4.5vw, 1.5rem);
+    }
+  }
+
+  @media (max-width: 480px) {
+    html { font-size: 13px; }
+    .slide {
+      padding: 0.875rem 1.125rem;
+    }
+    .card {
+      padding: 0.75rem;
+    }
+    .cover-slide h1 {
+      font-size: 1.5rem;
+    }
+    h1 {
+      font-size: 1.25rem;
+    }
+    h2 {
+      font-size: 1.0625rem;
+    }
+    .bullet-list li {
+      font-size: 0.8125rem;
+    }
+  }
+
+  @media (min-aspect-ratio: 16/10) and (max-height: 900px) {
+    .slide {
+      padding: clamp(0.75rem, 2vh, 1.75rem) clamp(1.25rem, 3vw, 3rem);
+    }
+    .card {
+      padding: clamp(0.75rem, 1.4vw, 1.125rem);
+    }
+  }
+
+  @media (max-height: 700px) {
+    html { font-size: 11px; }
+    .slide {
+      padding: 0.625rem 1rem;
+    }
+  }
+
+  @media (max-width: 1512px) and (max-height: 982px) {
+    html { font-size: 13px; }
+  }
+
+  @media (min-width: 1728px) and (min-height: 1000px) {
+    html { font-size: 15px; }
+  }
+
+  @media (max-height: 800px) and (min-width: 1000px) {
+    html { font-size: 12px; }
+  }
+
+  @media (max-height: 750px) and (min-width: 900px) {
+    html { font-size: 11px; }
+    .slide {
+      padding: 0.5rem 1rem;
+    }
+  }
+</style>
+</head>
+<body>
+
+<!-- ==================== SLIDE 1: COVER ==================== -->
+<div class="slide cover-slide">
+  <div style="position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:clamp(0.75rem, 2vh, 1.25rem);">
+    <div class="label" style="margin-bottom:clamp(0.5rem, 1vh, 0.75rem);letter-spacing:clamp(3px, 0.4vw, 5px);">Voice-Powered On-Chain AI Agent Hardware</div>
+    <h1 style="font-size:clamp(2.5rem, 5.5vw, 4.5rem);margin-bottom:clamp(0.5rem, 1vh, 0.75rem);">EinClaw &times; Solana</h1>
+    <div class="cover-tagline">语音驱动的链上 AI Agent 硬件</div>
+    <div class="ornament" style="width:min(200px, 40vw);margin:clamp(0.5rem, 1vh, 0.75rem) 0;">
+      <div class="ornament-dot"></div>
+    </div>
+    <div class="cover-meta">EinClaw &middot; 2026 Q2</div>
+  </div>
+  <div class="slide-line"></div>
+  <div class="brand">EINCLAW</div>
+  <div class="slide-number">01</div>
+</div>
+
+<!-- ==================== SLIDE 2: WHY VOICE + SOLANA ==================== -->
+<div class="slide">
+  <div class="label">Why Voice + Solana</div>
+  <h2>为什么是 Voice + Solana</h2>
+  <div style="height:clamp(0.75rem, 2vh, 1.25rem);"></div>
+
+  <div class="content-area" style="justify-content:flex-start;">
+    <div class="grid-2" style="align-items:stretch;">
+      <div class="card card-terracotta" style="padding:clamp(1.25rem,2.5vw,1.875rem) clamp(1.375rem,2.8vw,2rem);display:flex;flex-direction:column;">
+        <div style="display:flex;align-items:center;gap:clamp(0.5rem, 0.8vw, 0.75rem);margin-bottom:clamp(1rem, 1.8vh, 1.375rem);">
+          <div style="width:clamp(2.25rem, 3vw, 2.75rem);height:clamp(2.25rem, 3vw, 2.75rem);border-radius:0.875rem;background:var(--terracotta-glow);border:1px solid rgba(194,65,12,0.2);display:flex;align-items:center;justify-content:center;font-size:clamp(0.875rem, 1vw, 1rem);font-weight:700;color:var(--terracotta);">!</div>
+          <div style="font-family:'Playfair Display','Noto Serif SC',serif;font-size:clamp(1.125rem,2vw,1.5rem);font-weight:700;color:var(--text-primary);">现状问题</div>
+        </div>
+        <ul class="bullet-list" style="flex:1;">
+          <li style="font-size:clamp(0.8125rem,1.2vw,0.9375rem);line-height:1.65;">Crypto 用户每天花 <strong style="color:var(--terracotta);">数小时</strong> 刷 Twitter 找 alpha，效率极低</li>
+          <li style="font-size:clamp(0.8125rem,1.2vw,0.9375rem);line-height:1.65;">链上操作需要 <strong style="color:var(--terracotta);">多步手动操作</strong>：打开 DEX、搜索 token、设置滑点、确认交易</li>
+          <li style="font-size:clamp(0.8125rem,1.2vw,0.9375rem);line-height:1.65;">市场情绪数据被 <strong style="color:var(--terracotta);">bot 污染</strong>，真人 signal 淹没在噪声中</li>
+          <li style="font-size:clamp(0.8125rem,1.2vw,0.9375rem);line-height:1.65;">"我比你早知道" 无法证明 &mdash; 口头 alpha 无链上凭证</li>
+        </ul>
+      </div>
+
+      <div class="card card-sage" style="padding:clamp(1.25rem,2.5vw,1.875rem) clamp(1.375rem,2.8vw,2rem);display:flex;flex-direction:column;">
+        <div style="display:flex;align-items:center;gap:clamp(0.5rem, 0.8vw, 0.75rem);margin-bottom:clamp(1rem, 1.8vh, 1.375rem);">
+          <div style="width:clamp(2.25rem, 3vw, 2.75rem);height:clamp(2.25rem, 3vw, 2.75rem);border-radius:0.875rem;background:var(--sage-glow);border:1px solid rgba(101,163,13,0.2);display:flex;align-items:center;justify-content:center;font-size:clamp(0.875rem, 1vw, 1rem);font-weight:700;color:var(--sage-deep);">E</div>
+          <div style="font-family:'Playfair Display','Noto Serif SC',serif;font-size:clamp(1.125rem,2vw,1.5rem);font-weight:700;color:var(--text-primary);">EinClaw 的解法</div>
+        </div>
+        <ul class="bullet-list" style="flex:1;">
+          <li style="font-size:clamp(0.8125rem,1.2vw,0.9375rem);line-height:1.65;"><strong style="color:var(--sage-deep);">一个按钮</strong>，说话就能获取 alpha &mdash; token 价格、动态、趋势</li>
+          <li style="font-size:clamp(0.8125rem,1.2vw,0.9375rem);line-height:1.65;">语音指令直接 <strong style="color:var(--sage-deep);">操作链上</strong> &mdash; 通过 Jupiter 完成 swap</li>
+          <li style="font-size:clamp(0.8125rem,1.2vw,0.9375rem);line-height:1.65;">每次查询产生 <strong style="color:var(--sage-deep);">真人情绪数据</strong>，去标识化后聚合为 oracle feed</li>
+          <li style="font-size:clamp(0.8125rem,1.2vw,0.9375rem);line-height:1.65;">链上 commitment hash 生成 <strong style="color:var(--sage-deep);">可验证的早期发现凭证</strong></li>
+        </ul>
+      </div>
+    </div>
+
+    <div style="margin-top:clamp(1rem, 2vh, 1.5rem);">
+      <div class="quote">
+        一个 4G 麦克风 + AI Agent + Solana = 真人情绪预言机
+      </div>
+    </div>
+  </div>
+  <div class="slide-line"></div>
+  <div class="brand">EINCLAW</div>
+  <div class="slide-number">02</div>
+</div>
+
+<!-- ==================== SLIDE 3: SCENARIO 1 — VOICE QUERY ALPHA ==================== -->
+<div class="slide cover-slide">
+  <div style="position:relative;z-index:1;width:100%;max-width:min(80rem, 94vw);margin:0 auto;display:flex;flex-direction:column;justify-content:center;gap:clamp(1.25rem, 3vh, 2.125rem);flex:1;">
+
+    <div style="max-width:min(70rem, 90vw);margin:0 auto;text-align:center;">
+      <div style="font-size:clamp(20px, 3vw, 36px);color:var(--text-secondary);font-weight:500;letter-spacing:-0.8px;line-height:1.12;">场景一：语音查询链上 Alpha</div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr minmax(3.75rem, 6vw) 1.1fr;align-items:center;gap:0;max-width:min(75rem, 92vw);margin:0 auto;">
+
+      <!-- Left: User speaks -->
+      <div style="background:var(--bg-white);border-radius:clamp(1rem, 2vw, 1.625rem);border:1.5px solid var(--border);padding:clamp(1.25rem, 2.5vh, 2.5rem) clamp(1.25rem, 2vw, 2.625rem);box-shadow:var(--shadow-elevated);text-align:center;">
+        <div style="display:inline-flex;align-items:center;gap:clamp(0.375rem, 0.5vw, 0.5rem);margin-bottom:clamp(1rem, 1.8vh, 1.5rem);padding:clamp(0.5rem, 0.8vh, 0.6875rem) clamp(0.875rem, 1.2vw, 1.25rem);border-radius:999px;background:var(--bg-cream-deep);border:1px solid var(--border);font-size:clamp(0.75rem, 0.9vw, 0.875rem);letter-spacing:1.5px;color:var(--text-muted);text-transform:uppercase;">Voice Alpha Query</div>
+        <div style="font-size:clamp(1.125rem, 2.2vw, 1.75rem);font-weight:700;color:var(--text-primary);margin-bottom:clamp(0.75rem, 1.2vh, 1.125rem);">按下按键，查询 Token</div>
+        <div style="background:var(--bg-cream-deep);border-radius:clamp(0.875rem, 1.5vw, 1.125rem);padding:clamp(1rem, 1.8vh, 1.5rem) clamp(1.125rem, 1.8vw, 1.625rem);font-size:clamp(0.8125rem, 1.3vw, 1rem);color:var(--text-primary);line-height:1.65;font-style:italic;text-align:left;">
+          "WIF 现在多少钱？有什么最新动态？"
+        </div>
+        <div style="margin-top:clamp(1rem, 1.8vh, 1.25rem);font-size:clamp(0.8125rem, 1vw, 0.9375rem);color:var(--text-muted);">EinClaw Mic &middot; 4G 独立联网 &middot; 一键查询</div>
+      </div>
+
+      <!-- Arrow -->
+      <div style="display:flex;flex-direction:column;align-items:center;gap:clamp(0.5rem, 0.8vh, 0.625rem);">
+        <div style="font-size:clamp(2rem, 4vw, 3.125rem);color:var(--amber);font-weight:300;">&rarr;</div>
+        <div style="font-size:clamp(0.75rem, 1vw, 0.875rem);color:var(--text-muted);writing-mode:horizontal-tb;">3s</div>
+      </div>
+
+      <!-- Right: Agent response -->
+      <div style="background:var(--bg-white);border-radius:clamp(1rem, 2vw, 1.625rem);border:1.5px solid var(--border);padding:clamp(1.125rem, 2vh, 2rem) clamp(1.25rem, 2.2vw, 2.25rem);box-shadow:var(--shadow-elevated);text-align:left;">
+        <div style="display:flex;align-items:center;gap:clamp(0.5rem, 0.6vw, 0.625rem);margin-bottom:clamp(0.875rem, 1.5vh, 1rem);">
+          <div style="font-size:clamp(0.625rem, 0.75vw, 0.75rem);color:var(--sage-deep);font-weight:700;letter-spacing:1.2px;text-transform:uppercase;">Agent Response</div>
+        </div>
+
+        <!-- Token info card -->
+        <div style="border:1px solid var(--border-light);border-radius:clamp(0.875rem, 1.3vw, 1rem);padding:clamp(1rem, 1.8vh, 1.25rem) clamp(1.125rem, 1.5vw, 1.375rem);background:var(--bg-warm-light);margin-bottom:clamp(0.75rem, 1.2vh, 1rem);">
+          <div style="display:flex;align-items:center;gap:clamp(0.625rem, 0.8vw, 0.75rem);margin-bottom:clamp(0.75rem, 1.2vh, 0.875rem);">
+            <div style="width:clamp(2.25rem, 3vw, 2.75rem);height:clamp(2.25rem, 3vw, 2.75rem);border-radius:50%;background:var(--gradient-amber);display:flex;align-items:center;justify-content:center;color:white;font-weight:700;font-size:clamp(0.75rem, 0.9vw, 0.875rem);">W</div>
+            <div>
+              <div style="font-size:clamp(1rem, 1.3vw, 1.25rem);font-weight:700;color:var(--text-primary);">dogwifhat (WIF)</div>
+              <div style="font-size:clamp(0.75rem, 0.85vw, 0.8125rem);color:var(--text-muted);">Solana &middot; Meme</div>
+            </div>
+          </div>
+
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:clamp(0.5rem, 0.8vw, 0.75rem);margin-bottom:clamp(0.75rem, 1.2vh, 0.875rem);">
+            <div style="text-align:center;padding:clamp(0.5rem, 0.8vh, 0.75rem);background:var(--bg-white);border-radius:0.625rem;border:1px solid var(--border-light);">
+              <div style="font-family:'Playfair Display',serif;font-size:clamp(1.25rem, 2vw, 1.75rem);font-weight:700;color:var(--text-primary);">$1.01</div>
+              <div style="font-size:clamp(0.625rem, 0.75vw, 0.6875rem);color:var(--text-muted);text-transform:uppercase;letter-spacing:0.5px;">Price</div>
+            </div>
+            <div style="text-align:center;padding:clamp(0.5rem, 0.8vh, 0.75rem);background:var(--bg-white);border-radius:0.625rem;border:1px solid var(--border-light);">
+              <div style="font-family:'Playfair Display',serif;font-size:clamp(1.25rem, 2vw, 1.75rem);font-weight:700;color:var(--sage-deep);">+12.3%</div>
+              <div style="font-size:clamp(0.625rem, 0.75vw, 0.6875rem);color:var(--text-muted);text-transform:uppercase;letter-spacing:0.5px;">24h Change</div>
+            </div>
+            <div style="text-align:center;padding:clamp(0.5rem, 0.8vh, 0.75rem);background:var(--bg-white);border-radius:0.625rem;border:1px solid var(--border-light);">
+              <div style="font-family:'Playfair Display',serif;font-size:clamp(1.25rem, 2vw, 1.75rem);font-weight:700;color:var(--text-primary);">$1B</div>
+              <div style="font-size:clamp(0.625rem, 0.75vw, 0.6875rem);color:var(--text-muted);text-transform:uppercase;letter-spacing:0.5px;">Market Cap</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Alpha summary -->
+        <div style="border:1px solid rgba(217,119,6,0.14);border-radius:clamp(0.875rem, 1.3vw, 1rem);padding:clamp(0.75rem, 1.2vh, 1rem) clamp(1rem, 1.3vw, 1.25rem);background:linear-gradient(180deg, rgba(255,251,240,0.96), rgba(254,243,199,0.46));">
+          <div style="font-size:clamp(0.625rem, 0.7vw, 0.6875rem);color:var(--amber-deep);font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:clamp(0.375rem, 0.6vh, 0.5rem);">Alpha Summary</div>
+          <div style="font-size:clamp(0.8125rem, 1vw, 0.9375rem);color:var(--text-primary);line-height:1.6;">
+            WIF 24h 交易量上涨 45%，社区活跃度高。Ansem 1 小时前发推看好 WIF 短期走势。Birdeye 热搜排名 #3。
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <div class="slide-line"></div>
+  <div class="brand">EINCLAW</div>
+  <div class="slide-number">03</div>
+</div>
+
+<!-- ==================== SLIDE 4: SCENARIO 2 — VOICE BUY TOKEN ==================== -->
+<div class="slide cover-slide">
+  <div style="position:relative;z-index:1;width:100%;max-width:min(80rem, 94vw);margin:0 auto;display:flex;flex-direction:column;justify-content:center;gap:clamp(1.25rem, 3vh, 2.125rem);flex:1;">
+
+    <div style="max-width:min(70rem, 90vw);margin:0 auto;text-align:center;">
+      <div style="font-size:clamp(20px, 3vw, 36px);color:var(--text-secondary);font-weight:500;letter-spacing:-0.8px;line-height:1.12;">场景二：语音买币</div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr minmax(3.75rem, 6vw) 1.15fr;align-items:center;gap:0;max-width:min(75rem, 92vw);margin:0 auto;">
+
+      <!-- Left: User speaks -->
+      <div style="background:var(--bg-white);border-radius:clamp(1rem, 2vw, 1.625rem);border:1.5px solid var(--border);padding:clamp(1.25rem, 2.5vh, 2.5rem) clamp(1.25rem, 2vw, 2.625rem);box-shadow:var(--shadow-elevated);text-align:center;">
+        <div style="display:inline-flex;align-items:center;gap:clamp(0.375rem, 0.5vw, 0.5rem);margin-bottom:clamp(1rem, 1.8vh, 1.5rem);padding:clamp(0.5rem, 0.8vh, 0.6875rem) clamp(0.875rem, 1.2vw, 1.25rem);border-radius:999px;background:var(--bg-cream-deep);border:1px solid var(--border);font-size:clamp(0.75rem, 0.9vw, 0.875rem);letter-spacing:1.5px;color:var(--text-muted);text-transform:uppercase;">Voice Swap</div>
+        <div style="font-size:clamp(1.125rem, 2.2vw, 1.75rem);font-weight:700;color:var(--text-primary);margin-bottom:clamp(0.75rem, 1.2vh, 1.125rem);">按下按键，说话买币</div>
+        <div style="background:var(--bg-cream-deep);border-radius:clamp(0.875rem, 1.5vw, 1.125rem);padding:clamp(1rem, 1.8vh, 1.5rem) clamp(1.125rem, 1.8vw, 1.625rem);font-size:clamp(0.8125rem, 1.3vw, 1rem);color:var(--text-primary);line-height:1.65;font-style:italic;text-align:left;">
+          "帮我买点 WIF"
+        </div>
+        <div style="margin-top:clamp(1rem, 1.8vh, 1.25rem);font-size:clamp(0.8125rem, 1vw, 0.9375rem);color:var(--text-muted);">EinClaw Mic &middot; 语音下单 &middot; 无需打开 DEX</div>
+      </div>
+
+      <!-- Arrow -->
+      <div style="display:flex;flex-direction:column;align-items:center;gap:clamp(0.5rem, 0.8vh, 0.625rem);">
+        <div style="font-size:clamp(2rem, 4vw, 3.125rem);color:var(--amber);font-weight:300;">&rarr;</div>
+        <div style="font-size:clamp(0.75rem, 1vw, 0.875rem);color:var(--text-muted);writing-mode:horizontal-tb;">15s</div>
+      </div>
+
+      <!-- Right: Resolution + Confirmation flow -->
+      <div style="background:var(--bg-white);border-radius:clamp(1rem, 2vw, 1.625rem);border:1.5px solid var(--border);padding:clamp(1.125rem, 2vh, 1.75rem) clamp(1.25rem, 2.2vw, 2rem);box-shadow:var(--shadow-elevated);text-align:left;">
+        <div style="display:flex;align-items:center;gap:clamp(0.5rem, 0.6vw, 0.625rem);margin-bottom:clamp(0.75rem, 1.2vh, 0.875rem);">
+          <div style="font-size:clamp(0.625rem, 0.75vw, 0.75rem);color:var(--sage-deep);font-weight:700;letter-spacing:1.2px;text-transform:uppercase;">Token Resolution</div>
+        </div>
+
+        <!-- Step 1: Resolve -->
+        <div style="border:1px solid var(--border-light);border-radius:clamp(0.75rem, 1.2vw, 0.875rem);padding:clamp(0.75rem, 1.2vh, 1rem) clamp(0.875rem, 1.2vw, 1rem);background:var(--bg-warm-light);margin-bottom:clamp(0.5rem, 0.8vh, 0.625rem);">
+          <div style="font-size:clamp(0.625rem, 0.7vw, 0.6875rem);color:var(--text-muted);font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:clamp(0.25rem, 0.4vh, 0.375rem);">Step 1: Resolve</div>
+          <div style="font-size:clamp(0.8125rem, 1vw, 0.9375rem);color:var(--text-primary);line-height:1.5;">
+            Found: <strong>dogwifhat (WIF)</strong><br>
+            Market Cap: <strong>$1B</strong> &middot; Confidence: <span class="tag tag-sage" style="font-size:10px;">VERY HIGH</span>
+          </div>
+          <div style="font-size:clamp(0.6875rem, 0.85vw, 0.8125rem);color:var(--text-muted);margin-top:4px;">
+            25,046x gap vs runner-up &mdash; unambiguous match
+          </div>
+        </div>
+
+        <!-- Step 2: TTS Confirmation -->
+        <div style="border:1px solid rgba(217,119,6,0.14);border-radius:clamp(0.75rem, 1.2vw, 0.875rem);padding:clamp(0.75rem, 1.2vh, 1rem) clamp(0.875rem, 1.2vw, 1rem);background:linear-gradient(180deg, rgba(255,251,240,0.96), rgba(254,243,199,0.46));margin-bottom:clamp(0.5rem, 0.8vh, 0.625rem);">
+          <div style="font-size:clamp(0.625rem, 0.7vw, 0.6875rem);color:var(--amber-deep);font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:clamp(0.25rem, 0.4vh, 0.375rem);">Step 2: TTS Confirmation</div>
+          <div style="font-size:clamp(0.8125rem, 1vw, 0.9375rem);color:var(--text-primary);line-height:1.55;font-style:italic;">
+            "准备购买 dogwifhat，当前价格 $1.01，市值 10 亿美元。确认吗？"
+          </div>
+          <div style="margin-top:clamp(0.375rem, 0.6vh, 0.5rem);display:flex;gap:clamp(0.5rem, 0.6vw, 0.625rem);">
+            <div style="padding:clamp(0.375rem, 0.5vh, 0.5rem) clamp(0.75rem, 1vw, 1rem);border-radius:999px;background:var(--sage-glow);border:1px solid rgba(101,163,13,0.25);font-size:clamp(0.6875rem, 0.8vw, 0.75rem);color:var(--sage-deep);font-weight:700;">User: "确认"</div>
+          </div>
+        </div>
+
+        <!-- Step 3: Execute -->
+        <div style="border:1px solid rgba(101,163,13,0.18);border-radius:clamp(0.75rem, 1.2vw, 0.875rem);padding:clamp(0.75rem, 1.2vh, 1rem) clamp(0.875rem, 1.2vw, 1rem);background:linear-gradient(135deg, rgba(101,163,13,0.05), rgba(132,204,22,0.03));">
+          <div style="font-size:clamp(0.625rem, 0.7vw, 0.6875rem);color:var(--sage-deep);font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:clamp(0.25rem, 0.4vh, 0.375rem);">Step 3: Execute via Jupiter</div>
+          <div style="font-size:clamp(0.8125rem, 1vw, 0.9375rem);color:var(--text-primary);line-height:1.5;">
+            SOL &rarr; WIF Swap &middot; Slippage 1% &middot; Route: Jupiter Aggregator
+          </div>
+          <div style="font-size:clamp(0.6875rem, 0.85vw, 0.8125rem);color:var(--sage-deep);font-weight:600;margin-top:4px;">
+            TX confirmed in 400ms
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <div class="slide-line"></div>
+  <div class="brand">EINCLAW</div>
+  <div class="slide-number">04</div>
+</div>
+
+<!-- ==================== SLIDE 5: SCENARIO 3 — ON-CHAIN FOOTPRINT ==================== -->
+<div class="slide cover-slide">
+  <div style="position:relative;z-index:1;width:100%;max-width:min(80rem, 94vw);margin:0 auto;display:flex;flex-direction:column;justify-content:center;gap:clamp(1.25rem, 3vh, 2.125rem);flex:1;">
+
+    <div style="max-width:min(70rem, 90vw);margin:0 auto;text-align:center;">
+      <div style="font-size:clamp(20px, 3vw, 36px);color:var(--text-secondary);font-weight:500;letter-spacing:-0.8px;line-height:1.12;">场景三：我比你早知道 &mdash; On-chain Footprint</div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr minmax(3.75rem, 6vw) 1.15fr;align-items:center;gap:0;max-width:min(75rem, 92vw);margin:0 auto;">
+
+      <!-- Left: Early query -->
+      <div style="background:var(--bg-white);border-radius:clamp(1rem, 2vw, 1.625rem);border:1.5px solid var(--border);padding:clamp(1.25rem, 2.5vh, 2.5rem) clamp(1.25rem, 2vw, 2.625rem);box-shadow:var(--shadow-elevated);text-align:center;">
+        <div style="display:inline-flex;align-items:center;gap:clamp(0.375rem, 0.5vw, 0.5rem);margin-bottom:clamp(1rem, 1.8vh, 1.5rem);padding:clamp(0.5rem, 0.8vh, 0.6875rem) clamp(0.875rem, 1.2vw, 1.25rem);border-radius:999px;background:var(--bg-cream-deep);border:1px solid var(--border);font-size:clamp(0.75rem, 0.9vw, 0.875rem);letter-spacing:1.5px;color:var(--text-muted);text-transform:uppercase;">April 3, 2026</div>
+        <div style="font-size:clamp(1.125rem, 2.2vw, 1.75rem);font-weight:700;color:var(--text-primary);margin-bottom:clamp(0.75rem, 1.2vh, 1.125rem);">用户早期查询 $MYRO</div>
+        <div style="background:var(--bg-cream-deep);border-radius:clamp(0.875rem, 1.5vw, 1.125rem);padding:clamp(1rem, 1.8vh, 1.5rem) clamp(1.125rem, 1.8vw, 1.625rem);font-size:clamp(0.8125rem, 1.3vw, 1rem);color:var(--text-primary);line-height:1.65;font-style:italic;text-align:left;">
+          "MYRO 是什么项目？值得关注吗？"
+        </div>
+        <div style="margin-top:clamp(0.75rem, 1.2vh, 1rem);">
+          <div style="display:inline-flex;align-items:center;gap:6px;padding:clamp(0.375rem, 0.5vh, 0.5rem) clamp(0.75rem, 1vw, 1rem);border-radius:999px;background:var(--amber-glow);border:1px solid rgba(217,119,6,0.2);font-size:clamp(0.6875rem, 0.85vw, 0.8125rem);color:var(--amber-deep);font-weight:600;">
+            MYRO mcap: $500K
+          </div>
+        </div>
+        <div style="margin-top:clamp(0.5rem, 0.8vh, 0.625rem);font-size:clamp(0.75rem, 0.9vw, 0.8125rem);color:var(--text-muted);">
+          commitment_hash = SHA256(user_id + "MYRO" + timestamp)<br>
+          &rarr; 写入 Solana (daily batch)
+        </div>
+      </div>
+
+      <!-- Arrow -->
+      <div style="display:flex;flex-direction:column;align-items:center;gap:clamp(0.5rem, 0.8vh, 0.625rem);">
+        <div style="font-size:clamp(2rem, 4vw, 3.125rem);color:var(--amber);font-weight:300;">&rarr;</div>
+        <div style="font-size:clamp(0.75rem, 1vw, 0.875rem);color:var(--text-muted);writing-mode:horizontal-tb;">3 months</div>
+      </div>
+
+      <!-- Right: Reveal + cNFT -->
+      <div style="background:var(--bg-white);border-radius:clamp(1rem, 2vw, 1.625rem);border:1.5px solid var(--border);padding:clamp(1.125rem, 2vh, 1.75rem) clamp(1.25rem, 2.2vw, 2rem);box-shadow:var(--shadow-elevated);text-align:left;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:clamp(0.75rem, 1.2vh, 0.875rem);">
+          <div style="font-size:clamp(0.625rem, 0.75vw, 0.75rem);color:var(--sage-deep);font-weight:700;letter-spacing:1.2px;text-transform:uppercase;">July 2026 &mdash; MYRO now $50M mcap</div>
+          <div class="tag tag-sage">100x</div>
+        </div>
+
+        <!-- cNFT Card mockup -->
+        <div style="border:1.5px solid rgba(217,119,6,0.25);border-radius:clamp(1rem, 1.5vw, 1.125rem);padding:clamp(1.25rem, 2vh, 1.75rem) clamp(1.125rem, 1.8vw, 1.5rem);background:linear-gradient(135deg, rgba(254,243,199,0.6), rgba(255,251,240,0.9));margin-bottom:clamp(0.75rem, 1.2vh, 1rem);text-align:center;">
+          <div style="font-size:clamp(0.625rem, 0.7vw, 0.6875rem);color:var(--amber-deep);font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:clamp(0.5rem, 0.8vh, 0.625rem);">Early Discovery cNFT</div>
+          <div style="font-family:'Playfair Display',serif;font-size:clamp(1.5rem, 2.5vw, 2rem);font-weight:700;color:var(--text-primary);margin-bottom:clamp(0.375rem, 0.6vh, 0.5rem);">$MYRO</div>
+          <div style="font-size:clamp(0.8125rem, 1vw, 0.9375rem);color:var(--text-secondary);line-height:1.5;margin-bottom:clamp(0.5rem, 0.8vh, 0.625rem);">
+            First queried: April 3, 2026<br>
+            Mcap at query: $500K &rarr; Now: $50M
+          </div>
+          <div style="display:inline-flex;align-items:center;gap:6px;padding:clamp(0.375rem, 0.6vh, 0.5rem) clamp(0.875rem, 1vw, 1rem);border-radius:999px;background:var(--gradient-amber);color:white;font-size:clamp(0.6875rem, 0.8vw, 0.75rem);font-weight:700;">
+            Top 2% Early Researcher
+          </div>
+        </div>
+
+        <div style="font-size:clamp(0.8125rem, 1vw, 0.9375rem);color:var(--text-secondary);line-height:1.6;">
+          <strong style="color:var(--text-primary);">Reveal flow:</strong> User reveals commitment hash on-chain &rarr; verifiable proof of early discovery &rarr; mint compressed NFT as social proof on Crypto Twitter.
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <div class="slide-line"></div>
+  <div class="brand">EINCLAW</div>
+  <div class="slide-number">05</div>
+</div>
+
+<!-- ==================== SLIDE 6: SENTIMENT ORACLE ==================== -->
+<div class="slide">
+  <div class="label">Sentiment Oracle</div>
+  <h2>Sentiment Oracle &mdash; 真人情绪预言机</h2>
+  <div style="height:clamp(0.5rem, 1.2vh, 0.75rem);"></div>
+
+  <div class="content-area" style="justify-content:flex-start;">
+    <!-- Pipeline flow -->
+    <div class="card" style="padding:clamp(1rem, 2vh, 1.5rem) clamp(1.25rem, 2vw, 1.75rem);margin-bottom:clamp(0.75rem, 1.5vh, 1rem);">
+      <div style="font-size:clamp(0.625rem, 0.75vw, 0.75rem);color:var(--text-muted);font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:clamp(0.625rem, 1vh, 0.875rem);">Oracle Pipeline</div>
+      <div style="display:grid;grid-template-columns:1fr auto 1fr auto 1fr auto 1fr;align-items:center;gap:clamp(0.5rem, 0.8vw, 0.75rem);">
+        <div style="text-align:center;padding:clamp(0.625rem, 1vh, 0.875rem);background:var(--amber-glow);border:1px solid rgba(217,119,6,0.2);border-radius:0.75rem;">
+          <div style="font-size:clamp(0.75rem, 0.9vw, 0.875rem);font-weight:700;color:var(--amber-deep);">Voice Queries</div>
+          <div style="font-size:clamp(0.625rem, 0.75vw, 0.6875rem);color:var(--text-muted);margin-top:2px;">EinClaw Mic</div>
+        </div>
+        <div style="font-size:clamp(1.25rem, 2vw, 1.5rem);color:var(--amber);font-weight:300;">&rarr;</div>
+        <div style="text-align:center;padding:clamp(0.625rem, 1vh, 0.875rem);background:var(--sage-glow);border:1px solid rgba(101,163,13,0.2);border-radius:0.75rem;">
+          <div style="font-size:clamp(0.75rem, 0.9vw, 0.875rem);font-weight:700;color:var(--sage-deep);">Token Extraction</div>
+          <div style="font-size:clamp(0.625rem, 0.75vw, 0.6875rem);color:var(--text-muted);margin-top:2px;">NLP Pipeline</div>
+        </div>
+        <div style="font-size:clamp(1.25rem, 2vw, 1.5rem);color:var(--amber);font-weight:300;">&rarr;</div>
+        <div style="text-align:center;padding:clamp(0.625rem, 1vh, 0.875rem);background:var(--terracotta-glow);border:1px solid rgba(194,65,12,0.2);border-radius:0.75rem;">
+          <div style="font-size:clamp(0.75rem, 0.9vw, 0.875rem);font-weight:700;color:var(--terracotta);">Anonymous Aggregation</div>
+          <div style="font-size:clamp(0.625rem, 0.75vw, 0.6875rem);color:var(--text-muted);margin-top:2px;">k-anonymity (k&ge;50)</div>
+        </div>
+        <div style="font-size:clamp(1.25rem, 2vw, 1.5rem);color:var(--amber);font-weight:300;">&rarr;</div>
+        <div style="text-align:center;padding:clamp(0.625rem, 1vh, 0.875rem);background:linear-gradient(135deg, rgba(217,119,6,0.08), rgba(101,163,13,0.08));border:1px solid var(--border);border-radius:0.75rem;">
+          <div style="font-size:clamp(0.75rem, 0.9vw, 0.875rem);font-weight:700;color:var(--text-primary);">Oracle Feed</div>
+          <div style="font-size:clamp(0.625rem, 0.75vw, 0.6875rem);color:var(--text-muted);margin-top:2px;">Switchboard</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Dashboard mockup -->
+    <div class="grid-3" style="align-items:stretch;">
+      <div class="card card-amber" style="padding:clamp(0.875rem, 1.5vw, 1.25rem);">
+        <div style="font-size:clamp(0.625rem, 0.7vw, 0.6875rem);color:var(--amber-deep);font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:clamp(0.5rem, 0.8vh, 0.625rem);">Trending</div>
+        <div style="display:grid;gap:clamp(0.375rem, 0.6vh, 0.5rem);">
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:clamp(0.375rem, 0.5vh, 0.5rem) clamp(0.5rem, 0.7vw, 0.625rem);background:var(--bg-white);border-radius:0.5rem;border:1px solid var(--border-light);">
+            <span style="font-size:clamp(0.8125rem, 1vw, 0.9375rem);font-weight:700;color:var(--text-primary);">WIF</span>
+            <span style="font-size:clamp(0.75rem, 0.9vw, 0.8125rem);color:var(--sage-deep);font-weight:700;">+200%</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:clamp(0.375rem, 0.5vh, 0.5rem) clamp(0.5rem, 0.7vw, 0.625rem);background:var(--bg-white);border-radius:0.5rem;border:1px solid var(--border-light);">
+            <span style="font-size:clamp(0.8125rem, 1vw, 0.9375rem);font-weight:700;color:var(--text-primary);">BONK</span>
+            <span style="font-size:clamp(0.75rem, 0.9vw, 0.8125rem);color:var(--sage-deep);font-weight:700;">+100%</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:clamp(0.375rem, 0.5vh, 0.5rem) clamp(0.5rem, 0.7vw, 0.625rem);background:var(--bg-white);border-radius:0.5rem;border:1px solid var(--border-light);">
+            <span style="font-size:clamp(0.8125rem, 1vw, 0.9375rem);font-weight:700;color:var(--text-primary);">JUP</span>
+            <span style="font-size:clamp(0.75rem, 0.9vw, 0.8125rem);color:var(--sage-deep);font-weight:700;">+65%</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card card-sage" style="padding:clamp(0.875rem, 1.5vw, 1.25rem);">
+        <div style="font-size:clamp(0.625rem, 0.7vw, 0.6875rem);color:var(--sage-deep);font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:clamp(0.5rem, 0.8vh, 0.625rem);">Early Signals</div>
+        <div style="display:grid;gap:clamp(0.375rem, 0.6vh, 0.5rem);">
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:clamp(0.375rem, 0.5vh, 0.5rem) clamp(0.5rem, 0.7vw, 0.625rem);background:var(--bg-white);border-radius:0.5rem;border:1px solid var(--border-light);">
+            <span style="font-size:clamp(0.8125rem, 1vw, 0.9375rem);font-weight:700;color:var(--text-primary);">MYRO</span>
+            <span class="tag tag-amber" style="font-size:9px;">First mentioned today</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:clamp(0.375rem, 0.5vh, 0.5rem) clamp(0.5rem, 0.7vw, 0.625rem);background:var(--bg-white);border-radius:0.5rem;border:1px solid var(--border-light);">
+            <span style="font-size:clamp(0.8125rem, 1vw, 0.9375rem);font-weight:700;color:var(--text-primary);">POPCAT</span>
+            <span class="tag tag-amber" style="font-size:9px;">First mentioned today</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:clamp(0.375rem, 0.5vh, 0.5rem) clamp(0.5rem, 0.7vw, 0.625rem);background:var(--bg-white);border-radius:0.5rem;border:1px solid var(--border-light);">
+            <span style="font-size:clamp(0.8125rem, 1vw, 0.9375rem);font-weight:700;color:var(--text-primary);">TNSR</span>
+            <span class="tag tag-sage" style="font-size:9px;">3 mentions this week</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card card-terracotta" style="padding:clamp(0.875rem, 1.5vw, 1.25rem);">
+        <div style="font-size:clamp(0.625rem, 0.7vw, 0.6875rem);color:var(--terracotta);font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:clamp(0.5rem, 0.8vh, 0.625rem);">Conviction Score</div>
+        <div style="display:grid;gap:clamp(0.375rem, 0.6vh, 0.5rem);">
+          <div style="padding:clamp(0.5rem, 0.7vh, 0.625rem) clamp(0.5rem, 0.7vw, 0.625rem);background:var(--bg-white);border-radius:0.5rem;border:1px solid var(--border-light);">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">
+              <span style="font-size:clamp(0.8125rem, 1vw, 0.9375rem);font-weight:700;color:var(--text-primary);">WIF</span>
+              <span style="font-size:clamp(0.75rem, 0.9vw, 0.8125rem);color:var(--sage-deep);font-weight:700;">100% bullish</span>
+            </div>
+            <div style="height:6px;background:var(--bg-cream-deep);border-radius:3px;overflow:hidden;">
+              <div style="height:100%;width:100%;background:var(--gradient-sage);border-radius:3px;"></div>
+            </div>
+          </div>
+          <div style="padding:clamp(0.5rem, 0.7vh, 0.625rem) clamp(0.5rem, 0.7vw, 0.625rem);background:var(--bg-white);border-radius:0.5rem;border:1px solid var(--border-light);">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">
+              <span style="font-size:clamp(0.8125rem, 1vw, 0.9375rem);font-weight:700;color:var(--text-primary);">BONK</span>
+              <span style="font-size:clamp(0.75rem, 0.9vw, 0.8125rem);color:var(--amber-deep);font-weight:700;">72% bullish</span>
+            </div>
+            <div style="height:6px;background:var(--bg-cream-deep);border-radius:3px;overflow:hidden;">
+              <div style="height:100%;width:72%;background:var(--gradient-amber);border-radius:3px;"></div>
+            </div>
+          </div>
+          <div style="padding:clamp(0.5rem, 0.7vh, 0.625rem) clamp(0.5rem, 0.7vw, 0.625rem);background:var(--bg-white);border-radius:0.5rem;border:1px solid var(--border-light);">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">
+              <span style="font-size:clamp(0.8125rem, 1vw, 0.9375rem);font-weight:700;color:var(--text-primary);">SOL</span>
+              <span style="font-size:clamp(0.75rem, 0.9vw, 0.8125rem);color:var(--terracotta);font-weight:700;">58% bullish</span>
+            </div>
+            <div style="height:6px;background:var(--bg-cream-deep);border-radius:3px;overflow:hidden;">
+              <div style="height:100%;width:58%;background:var(--gradient-terracotta);border-radius:3px;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Privacy note -->
+    <div style="margin-top:clamp(0.75rem, 1.5vh, 1rem);text-align:center;font-size:clamp(0.75rem, 0.9vw, 0.8125rem);color:var(--text-muted);padding:clamp(0.5rem, 0.8vh, 0.75rem) 0;border-top:1px solid var(--border-light);">
+      25 queries / 0 user IDs stored / k-anonymity threshold: 50
+    </div>
+  </div>
+  <div class="slide-line"></div>
+  <div class="brand">EINCLAW</div>
+  <div class="slide-number">06</div>
+</div>
+
+<!-- ==================== SLIDE 7: PRIVACY & SECURITY ==================== -->
+<div class="slide">
+  <div class="label">Privacy &amp; Security</div>
+  <h2>隐私与安全设计</h2>
+  <div style="height:clamp(0.75rem, 2vh, 1.25rem);"></div>
+
+  <div class="content-area" style="justify-content:flex-start;">
+    <div class="grid-3" style="margin-bottom:clamp(1rem, 2vh, 1.5rem);align-items:stretch;">
+      <div class="card card-sage" style="padding:clamp(1.125rem, 2vh, 1.5rem) clamp(1.25rem, 2vw, 1.5rem);text-align:center;display:flex;flex-direction:column;">
+        <div class="icon-circle" style="color:var(--sage-deep);background:var(--sage-glow);border-color:rgba(101,163,13,0.2);">1</div>
+        <h3 style="color:var(--sage-deep);">数据去标识化</h3>
+        <div style="font-size:clamp(0.8125rem, 1vw, 0.9375rem);color:var(--text-secondary);line-height:1.6;flex:1;">
+          user_id 在进入聚合管道前被剥离。原始语音数据不进入 sentiment pipeline，仅提取 token mention 和 sentiment signal。
+        </div>
+      </div>
+
+      <div class="card card-amber" style="padding:clamp(1.125rem, 2vh, 1.5rem) clamp(1.25rem, 2vw, 1.5rem);text-align:center;display:flex;flex-direction:column;">
+        <div class="icon-circle">2</div>
+        <h3 style="color:var(--amber-deep);">k-anonymity (k&ge;50)</h3>
+        <div style="font-size:clamp(0.8125rem, 1vw, 0.9375rem);color:var(--text-secondary);line-height:1.6;flex:1;">
+          任何 token 的 sentiment signal 需要至少 50 个独立贡献者才会发布。低于阈值的数据不会进入 oracle feed。
+        </div>
+      </div>
+
+      <div class="card card-terracotta" style="padding:clamp(1.125rem, 2vh, 1.5rem) clamp(1.25rem, 2vw, 1.5rem);text-align:center;display:flex;flex-direction:column;">
+        <div class="icon-circle" style="color:var(--terracotta);background:var(--terracotta-glow);border-color:rgba(194,65,12,0.2);">3</div>
+        <h3 style="color:var(--terracotta);">Explicit Opt-in</h3>
+        <div style="font-size:clamp(0.8125rem, 1vw, 0.9375rem);color:var(--text-secondary);line-height:1.6;flex:1;">
+          用户通过 Dashboard toggle 主动控制是否参与 sentiment oracle。默认关闭，数据主权完全归用户所有。
+        </div>
+      </div>
+    </div>
+
+    <!-- Transaction security -->
+    <div class="card" style="padding:clamp(1rem, 1.8vh, 1.375rem) clamp(1.25rem, 2vw, 1.75rem);">
+      <div style="font-size:clamp(0.625rem, 0.75vw, 0.75rem);color:var(--amber-deep);font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:clamp(0.625rem, 1vh, 0.875rem);">交易安全</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:clamp(0.75rem, 1.2vw, 1rem);">
+        <div style="display:flex;align-items:flex-start;gap:clamp(0.5rem, 0.7vw, 0.625rem);">
+          <div class="flow-icon flow-icon-amber" style="flex-shrink:0;">T</div>
+          <div>
+            <div style="font-size:clamp(0.8125rem, 1vw, 0.9375rem);font-weight:600;color:var(--text-primary);margin-bottom:2px;">TTS Confirmation</div>
+            <div style="font-size:clamp(0.75rem, 0.85vw, 0.8125rem);color:var(--text-muted);line-height:1.5;">所有交易操作需语音确认，防止误操作</div>
+          </div>
+        </div>
+        <div style="display:flex;align-items:flex-start;gap:clamp(0.5rem, 0.7vw, 0.625rem);">
+          <div class="flow-icon flow-icon-sage" style="flex-shrink:0;">$</div>
+          <div>
+            <div style="font-size:clamp(0.8125rem, 1vw, 0.9375rem);font-weight:600;color:var(--text-primary);margin-bottom:2px;">Spending Limits</div>
+            <div style="font-size:clamp(0.75rem, 0.85vw, 0.8125rem);color:var(--text-muted);line-height:1.5;">用户可配置单笔和每日交易限额</div>
+          </div>
+        </div>
+        <div style="display:flex;align-items:flex-start;gap:clamp(0.5rem, 0.7vw, 0.625rem);">
+          <div class="flow-icon flow-icon-terracotta" style="flex-shrink:0;">W</div>
+          <div>
+            <div style="font-size:clamp(0.8125rem, 1vw, 0.9375rem);font-weight:600;color:var(--text-primary);margin-bottom:2px;">Address Whitelist</div>
+            <div style="font-size:clamp(0.75rem, 0.85vw, 0.8125rem);color:var(--text-muted);line-height:1.5;">仅向白名单地址发送交易</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-line"></div>
+  <div class="brand">EINCLAW</div>
+  <div class="slide-number">07</div>
+</div>
+
+<!-- ==================== SLIDE 8: TECH ARCHITECTURE ==================== -->
+<div class="slide">
+  <div class="label">Tech Architecture</div>
+  <h2>技术架构</h2>
+  <div style="height:clamp(0.5rem, 1.2vh, 0.75rem);"></div>
+
+  <div class="content-area" style="justify-content:flex-start;">
+    <!-- Existing stack -->
+    <div class="card" style="padding:clamp(1rem, 1.8vh, 1.375rem) clamp(1.25rem, 2vw, 1.75rem);margin-bottom:clamp(0.75rem, 1.5vh, 1rem);">
+      <div style="font-size:clamp(0.625rem, 0.75vw, 0.75rem);color:var(--text-muted);font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:clamp(0.625rem, 1vh, 0.875rem);">Existing EinClaw Stack</div>
+      <div style="display:grid;grid-template-columns:1fr auto 1fr auto 1fr auto 1fr;align-items:center;gap:clamp(0.375rem, 0.6vw, 0.5rem);">
+        <div style="text-align:center;padding:clamp(0.75rem, 1.2vh, 1rem);background:var(--amber-glow);border:1px solid rgba(217,119,6,0.2);border-radius:0.75rem;">
+          <div style="font-size:clamp(0.875rem, 1.1vw, 1rem);font-weight:700;color:var(--amber-deep);">EinClaw Mic</div>
+          <div style="font-size:clamp(0.625rem, 0.75vw, 0.6875rem);color:var(--text-muted);margin-top:2px;">ESP32 + 4G</div>
+        </div>
+        <div style="font-size:clamp(1rem, 1.5vw, 1.25rem);color:var(--amber);font-weight:300;">&rarr;</div>
+        <div style="text-align:center;padding:clamp(0.75rem, 1.2vh, 1rem);background:var(--bg-warm-light);border:1px solid var(--border);border-radius:0.75rem;">
+          <div style="font-size:clamp(0.875rem, 1.1vw, 1rem);font-weight:700;color:var(--text-primary);">4G Network</div>
+          <div style="font-size:clamp(0.625rem, 0.75vw, 0.6875rem);color:var(--text-muted);margin-top:2px;">Independent</div>
+        </div>
+        <div style="font-size:clamp(1rem, 1.5vw, 1.25rem);color:var(--amber);font-weight:300;">&rarr;</div>
+        <div style="text-align:center;padding:clamp(0.75rem, 1.2vh, 1rem);background:var(--sage-glow);border:1px solid rgba(101,163,13,0.2);border-radius:0.75rem;">
+          <div style="font-size:clamp(0.875rem, 1.1vw, 1rem);font-weight:700;color:var(--sage-deep);">xiaozhi-server</div>
+          <div style="font-size:clamp(0.625rem, 0.75vw, 0.6875rem);color:var(--text-muted);margin-top:2px;">STT + LLM + TTS</div>
+        </div>
+        <div style="font-size:clamp(1rem, 1.5vw, 1.25rem);color:var(--amber);font-weight:300;">&rarr;</div>
+        <div style="text-align:center;padding:clamp(0.75rem, 1.2vh, 1rem);background:var(--terracotta-glow);border:1px solid rgba(194,65,12,0.2);border-radius:0.75rem;">
+          <div style="font-size:clamp(0.875rem, 1.1vw, 1rem);font-weight:700;color:var(--terracotta);">OpenClaw</div>
+          <div style="font-size:clamp(0.625rem, 0.75vw, 0.6875rem);color:var(--text-muted);margin-top:2px;">Agent Skills</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- New Solana extensions -->
+    <div style="font-size:clamp(0.625rem, 0.75vw, 0.75rem);color:var(--sage-deep);font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:clamp(0.375rem, 0.6vh, 0.5rem);">New: Solana Extensions</div>
+    <div class="grid-3" style="align-items:stretch;">
+      <div class="card card-amber" style="padding:clamp(1rem, 1.8vh, 1.25rem) clamp(1.125rem, 1.8vw, 1.375rem);">
+        <div style="display:flex;align-items:center;gap:clamp(0.5rem, 0.6vw, 0.625rem);margin-bottom:clamp(0.5rem, 0.8vh, 0.625rem);">
+          <div class="flow-icon flow-icon-amber">S</div>
+          <div style="font-size:clamp(0.875rem, 1.1vw, 1rem);font-weight:700;color:var(--text-primary);">Solana Agent Skill</div>
+        </div>
+        <div style="font-size:clamp(0.75rem, 0.9vw, 0.8125rem);color:var(--text-secondary);line-height:1.6;">
+          <strong style="color:var(--amber-deep);">DexScreener API</strong> for token resolution &amp; market data<br>
+          <strong style="color:var(--amber-deep);">Jupiter Aggregator</strong> for swap execution<br>
+          Token name disambiguation with confidence scoring
+        </div>
+      </div>
+
+      <div class="card card-sage" style="padding:clamp(1rem, 1.8vh, 1.25rem) clamp(1.125rem, 1.8vw, 1.375rem);">
+        <div style="display:flex;align-items:center;gap:clamp(0.5rem, 0.6vw, 0.625rem);margin-bottom:clamp(0.5rem, 0.8vh, 0.625rem);">
+          <div class="flow-icon flow-icon-sage">C</div>
+          <div style="font-size:clamp(0.875rem, 1.1vw, 1rem);font-weight:700;color:var(--text-primary);">Commitment Hash Pipeline</div>
+        </div>
+        <div style="font-size:clamp(0.75rem, 0.9vw, 0.8125rem);color:var(--text-secondary);line-height:1.6;">
+          SHA256(user_id + token + timestamp) &rarr; <strong style="color:var(--sage-deep);">Solana</strong> (daily batch)<br>
+          Reveal mechanism for proof of early discovery<br>
+          Compressed NFT minting for social proof
+        </div>
+      </div>
+
+      <div class="card card-terracotta" style="padding:clamp(1rem, 1.8vh, 1.25rem) clamp(1.125rem, 1.8vw, 1.375rem);">
+        <div style="display:flex;align-items:center;gap:clamp(0.5rem, 0.6vw, 0.625rem);margin-bottom:clamp(0.5rem, 0.8vh, 0.625rem);">
+          <div class="flow-icon flow-icon-terracotta">O</div>
+          <div style="font-size:clamp(0.875rem, 1.1vw, 1rem);font-weight:700;color:var(--text-primary);">Sentiment Aggregator</div>
+        </div>
+        <div style="font-size:clamp(0.75rem, 0.9vw, 0.8125rem);color:var(--text-secondary);line-height:1.6;">
+          De-identified voice queries &rarr; token extraction &rarr; sentiment scoring<br>
+          <strong style="color:var(--terracotta);">Switchboard Oracle Feed</strong><br>
+          k-anonymity threshold enforcement
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-line"></div>
+  <div class="brand">EINCLAW</div>
+  <div class="slide-number">08</div>
+</div>
+
+<!-- ==================== SLIDE 9: COMPETITIVE LANDSCAPE ==================== -->
+<div class="slide">
+  <div class="label">Competitive Landscape</div>
+  <h2>对标与定位</h2>
+  <div style="height:clamp(0.75rem, 2vh, 1.25rem);"></div>
+
+  <div class="content-area" style="justify-content:flex-start;">
+    <div class="table-container" style="margin-bottom:clamp(1rem, 2vh, 1.5rem);">
+      <table>
+        <thead>
+          <tr>
+            <th style="width:16%;"></th>
+            <th style="width:21%;">Helium</th>
+            <th style="width:21%;">Hivemapper</th>
+            <th style="width:21%;">Grass.io</th>
+            <th style="width:21%;background:rgba(217,119,6,0.12);color:var(--amber-deep);">EinClaw</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="font-weight:700;color:var(--text-primary);">Hardware</td>
+            <td>LoRa Hotspot</td>
+            <td>Dashcam</td>
+            <td>Browser Extension</td>
+            <td style="font-weight:600;color:var(--amber-deep);">4G Mic</td>
+          </tr>
+          <tr>
+            <td style="font-weight:700;color:var(--text-primary);">Data</td>
+            <td>Wireless coverage</td>
+            <td>Street imagery</td>
+            <td>Web data</td>
+            <td style="font-weight:600;color:var(--amber-deep);">Voice sentiment</td>
+          </tr>
+          <tr>
+            <td style="font-weight:700;color:var(--text-primary);">Token Model</td>
+            <td>Mine by coverage</td>
+            <td>Mine by driving</td>
+            <td>Mine by browsing</td>
+            <td style="font-weight:600;color:var(--amber-deep);">Mine by asking</td>
+          </tr>
+          <tr>
+            <td style="font-weight:700;color:var(--text-primary);">Unique</td>
+            <td>First mover</td>
+            <td>Map monopoly</td>
+            <td>Zero friction</td>
+            <td style="font-weight:600;color:var(--amber-deep);">Human-verified sentiment</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="quote">
+      DePIN 项目都在采集机器数据 &mdash; EinClaw 是唯一采集真人意图与情绪的硬件网络
+    </div>
+
+    <div class="grid-2" style="margin-top:clamp(0.75rem, 1.5vh, 1rem);">
+      <div class="card card-sage" style="padding:clamp(0.875rem, 1.5vw, 1.125rem);text-align:center;">
+        <div style="font-size:clamp(0.625rem, 0.7vw, 0.6875rem);color:var(--sage-deep);font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:clamp(0.25rem, 0.4vh, 0.375rem);">Our Moat</div>
+        <div style="font-size:clamp(0.875rem, 1.1vw, 1.0625rem);color:var(--text-primary);font-weight:600;line-height:1.5;">
+          Voice is the highest-intent signal: when someone speaks a token name, they are <em>thinking about it right now</em>.
+        </div>
+      </div>
+      <div class="card card-amber" style="padding:clamp(0.875rem, 1.5vw, 1.125rem);text-align:center;">
+        <div style="font-size:clamp(0.625rem, 0.7vw, 0.6875rem);color:var(--amber-deep);font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:clamp(0.25rem, 0.4vh, 0.375rem);">Why Hardware</div>
+        <div style="font-size:clamp(0.875rem, 1.1vw, 1.0625rem);color:var(--text-primary);font-weight:600;line-height:1.5;">
+          Hardware = Sybil-resistant. Every EinClaw Mic is a unique physical node &mdash; no bot farms, no fake signals.
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-line"></div>
+  <div class="brand">EINCLAW</div>
+  <div class="slide-number">09</div>
+</div>
+
+<!-- ==================== SLIDE 10: ROADMAP & FUNDRAISING ==================== -->
+<div class="slide">
+  <div class="label">Roadmap &amp; Fundraising</div>
+  <h2>路线图与融资</h2>
+  <div style="height:clamp(0.75rem, 2vh, 1.25rem);"></div>
+
+  <div class="content-area" style="justify-content:flex-start;">
+    <!-- Timeline -->
+    <div class="card" style="padding:clamp(1.125rem, 2vh, 1.5rem) clamp(1.25rem, 2vw, 1.75rem);margin-bottom:clamp(1rem, 2vh, 1.5rem);">
+      <div class="timeline">
+        <div class="timeline-item">
+          <div style="font-size:clamp(0.625rem, 0.75vw, 0.6875rem);color:var(--amber-deep);font-weight:700;letter-spacing:1px;text-transform:uppercase;">Q2 2026</div>
+          <div class="timeline-dot timeline-dot-amber"></div>
+          <div class="timeline-title" style="color:var(--amber-deep);">Alpha Agent Skill</div>
+          <div class="timeline-desc">
+            Token Resolution<br>
+            DexScreener API<br>
+            Jupiter Swap 集成<br>
+            语音查询 + 买币
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div style="font-size:clamp(0.625rem, 0.75vw, 0.6875rem);color:var(--sage-deep);font-weight:700;letter-spacing:1px;text-transform:uppercase;">Q3 2026</div>
+          <div class="timeline-dot timeline-dot-sage"></div>
+          <div class="timeline-title" style="color:var(--sage-deep);">On-chain Footprint</div>
+          <div class="timeline-desc">
+            Commitment Hash Pipeline<br>
+            Reveal Mechanism<br>
+            cNFT Minting<br>
+            Early Discovery 凭证
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div style="font-size:clamp(0.625rem, 0.75vw, 0.6875rem);color:var(--terracotta);font-weight:700;letter-spacing:1px;text-transform:uppercase;">Q4 2026</div>
+          <div class="timeline-dot timeline-dot-terracotta"></div>
+          <div class="timeline-title" style="color:var(--terracotta);">Sentiment Oracle</div>
+          <div class="timeline-desc">
+            Sentiment Aggregator<br>
+            k-anonymity Pipeline<br>
+            Oracle API<br>
+            Dashboard &amp; Opt-in
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div style="font-size:clamp(0.625rem, 0.75vw, 0.6875rem);color:var(--text-muted);font-weight:700;letter-spacing:1px;text-transform:uppercase;">2027</div>
+          <div class="timeline-dot"></div>
+          <div class="timeline-title">Switchboard Feed</div>
+          <div class="timeline-desc">
+            Switchboard 集成<br>
+            Partner Integrations<br>
+            DeFi Protocol Feeds<br>
+            Network Expansion
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Fundraising -->
+    <div class="card card-amber" style="padding:clamp(2rem, 4vh, 2.75rem) clamp(2.5rem, 5vw, 3.5rem);text-align:center;">
+      <div style="font-size:clamp(0.75rem, 1vw, 0.875rem);color:var(--text-muted);font-weight:700;letter-spacing:1.6px;text-transform:uppercase;margin-bottom:clamp(0.75rem, 1.5vh, 1rem);">预期天使轮融资金额</div>
+      <div style="font-family:'Playfair Display',serif;font-size:clamp(2.25rem, 5.5vw, 4rem);font-weight:700;color:var(--amber-deep);line-height:0.95;margin-bottom:clamp(0.75rem, 1.5vh, 1rem);">0.5 ~1M USD</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:clamp(0.75rem, 1.2vw, 1rem);margin-top:clamp(0.75rem, 1.5vh, 1.125rem);">
+        <div style="padding:clamp(0.5rem, 0.8vh, 0.75rem);background:rgba(255,255,255,0.7);border-radius:0.625rem;border:1px solid var(--border-light);">
+          <div style="font-size:clamp(0.8125rem, 1vw, 0.9375rem);font-weight:700;color:var(--text-primary);">40%</div>
+          <div style="font-size:clamp(0.6875rem, 0.8vw, 0.75rem);color:var(--text-muted);">Engineering &amp; Infra</div>
+        </div>
+        <div style="padding:clamp(0.5rem, 0.8vh, 0.75rem);background:rgba(255,255,255,0.7);border-radius:0.625rem;border:1px solid var(--border-light);">
+          <div style="font-size:clamp(0.8125rem, 1vw, 0.9375rem);font-weight:700;color:var(--text-primary);">35%</div>
+          <div style="font-size:clamp(0.6875rem, 0.8vw, 0.75rem);color:var(--text-muted);">Hardware &amp; Manufacturing</div>
+        </div>
+        <div style="padding:clamp(0.5rem, 0.8vh, 0.75rem);background:rgba(255,255,255,0.7);border-radius:0.625rem;border:1px solid var(--border-light);">
+          <div style="font-size:clamp(0.8125rem, 1vw, 0.9375rem);font-weight:700;color:var(--text-primary);">25%</div>
+          <div style="font-size:clamp(0.6875rem, 0.8vw, 0.75rem);color:var(--text-muted);">Growth &amp; Operations</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-line"></div>
+  <div class="brand">EINCLAW</div>
+  <div class="slide-number">10</div>
+</div>
+
+</body>
+</html>
