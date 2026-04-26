@@ -3,19 +3,17 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>EinClaw × Solana — Talk Shit, Send SOL</title>
+<title>EinClaw × Solana — talk shit, send SOL</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap');
 
   :root {
-    /* Solana-inspired dark palette */
     --bg-deep: #07070C;
     --bg-surface: #0F1020;
     --bg-card: #15172A;
     --bg-card-2: #1B1E36;
     --bg-elevated: #232645;
 
-    /* Solana brand */
     --sol-purple: #9945FF;
     --sol-purple-deep: #7C2FE8;
     --sol-purple-light: #B47BFF;
@@ -26,7 +24,6 @@
     --sol-green-glow: rgba(20, 241, 149, 0.18);
     --sol-magenta: #DC1FFF;
 
-    /* Meme accents */
     --hot-pink: #FF3D71;
     --hot-pink-glow: rgba(255, 61, 113, 0.18);
     --cyan: #00E0FF;
@@ -35,33 +32,28 @@
     --amber-glow: rgba(255, 210, 63, 0.18);
     --red: #FF4D4D;
 
-    /* Text */
     --text-primary: #F5F5F7;
     --text-secondary: #BFC0D1;
     --text-muted: #7A7B96;
     --text-dim: #4A4B66;
 
-    /* Borders */
     --border: rgba(255, 255, 255, 0.08);
     --border-bright: rgba(255, 255, 255, 0.16);
     --border-purple: rgba(153, 69, 255, 0.30);
     --border-green: rgba(20, 241, 149, 0.30);
 
-    /* Gradients */
     --gradient-sol: linear-gradient(135deg, #9945FF 0%, #14F195 100%);
     --gradient-purple: linear-gradient(135deg, #9945FF, #DC1FFF);
     --gradient-pink: linear-gradient(135deg, #FF3D71, #FF6B9D);
     --gradient-green: linear-gradient(135deg, #14F195, #0FCC7E);
     --gradient-amber: linear-gradient(135deg, #FFD23F, #FFA500);
 
-    /* Shadows */
     --shadow-card: 0 8px 32px rgba(0, 0, 0, 0.4), 0 1px 0 rgba(255, 255, 255, 0.04) inset;
     --shadow-glow-purple: 0 0 0 1px rgba(153, 69, 255, 0.4), 0 8px 40px rgba(153, 69, 255, 0.18);
     --shadow-glow-green: 0 0 0 1px rgba(20, 241, 149, 0.3), 0 8px 40px rgba(20, 241, 149, 0.15);
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
-
   @page { size: landscape; margin: 0; }
 
   html { font-size: 16px; }
@@ -99,7 +91,6 @@
     box-sizing: border-box;
   }
 
-  /* Subtle grid texture */
   .slide::before {
     content: '';
     position: absolute;
@@ -113,7 +104,6 @@
     -webkit-mask-image: radial-gradient(ellipse at center, black 30%, transparent 80%);
   }
 
-  /* Floating noise blobs for crypto vibe */
   .slide::after {
     content: '';
     position: absolute;
@@ -127,7 +117,6 @@
 
   .slide > * { position: relative; z-index: 1; }
 
-  /* Brand watermark */
   .brand {
     position: absolute;
     bottom: clamp(18px, 3vh, 28px);
@@ -141,7 +130,6 @@
     z-index: 2;
   }
 
-  /* Page number */
   .slide-number {
     position: absolute;
     bottom: clamp(18px, 3vh, 28px);
@@ -164,7 +152,6 @@
     z-index: 1;
   }
 
-  /* Typography */
   h1 {
     font-family: 'Space Grotesk', 'Noto Sans SC', sans-serif;
     font-size: clamp(2rem, 4vw, 3.25rem);
@@ -195,12 +182,8 @@
 
   p { line-height: 1.65; color: var(--text-secondary); }
 
-  code, .mono {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.92em;
-  }
+  code, .mono { font-family: 'JetBrains Mono', monospace; font-size: 0.92em; }
 
-  /* Mini components */
   .label {
     display: inline-flex;
     align-items: center;
@@ -264,7 +247,6 @@
     border-color: rgba(255,61,113,0.30);
   }
 
-  /* Gradient text */
   .gradient-text {
     background: var(--gradient-sol);
     -webkit-background-clip: text;
@@ -278,7 +260,6 @@
     -webkit-text-fill-color: transparent;
   }
 
-  /* Tags */
   .tag {
     display: inline-flex;
     align-items: center;
@@ -295,7 +276,6 @@
   .tag-pink { background: var(--hot-pink-glow); color: var(--hot-pink); border: 1px solid rgba(255,61,113,0.3); }
   .tag-amber { background: var(--amber-glow); color: var(--amber); border: 1px solid rgba(255,210,63,0.3); }
 
-  /* Terminal-ish display */
   .terminal {
     background: #050608;
     border: 1px solid rgba(20,241,149,0.2);
@@ -341,7 +321,6 @@
     border-radius: 999px;
   }
 
-  /* Glow pill */
   .pill-glow {
     display: inline-flex;
     align-items: center;
@@ -358,7 +337,6 @@
     box-shadow: 0 0 24px rgba(153,69,255,0.18);
   }
 
-  /* Big number */
   .big-num {
     font-family: 'Space Grotesk', sans-serif;
     font-size: clamp(2rem, 4vw, 3rem);
@@ -367,7 +345,6 @@
     letter-spacing: -1.5px;
   }
 
-  /* Cover-specific */
   .cover-slide {
     align-items: center;
     justify-content: center;
@@ -393,7 +370,6 @@
   .meme-hint .hl-pink { color: var(--hot-pink); }
   .meme-hint .hl-amber { color: var(--amber); }
 
-  /* Arrow style for flow diagrams */
   .arrow {
     font-size: clamp(1.5rem, 3vw, 2.5rem);
     color: var(--sol-purple-light);
@@ -401,7 +377,6 @@
     text-shadow: 0 0 20px var(--sol-purple-glow-strong);
   }
 
-  /* Step pill numbers */
   .step-num {
     display: inline-flex;
     width: clamp(1.875rem, 2.4vw, 2.25rem);
@@ -445,19 +420,6 @@
     gap: clamp(0.875rem, 1.5vw, 1.25rem);
   }
 
-  /* QR placeholder */
-  .qr-mock {
-    width: clamp(7rem, 10vw, 9rem);
-    height: clamp(7rem, 10vw, 9rem);
-    background:
-      conic-gradient(from 0deg, var(--bg-card) 0% 25%, var(--text-primary) 25% 50%, var(--bg-card) 50% 75%, var(--text-primary) 75% 100%),
-      var(--text-primary);
-    background-size: 25% 25%;
-    border-radius: 12px;
-    border: 4px solid var(--text-primary);
-  }
-
-  /* Ticker for cover */
   .ticker {
     font-family: 'JetBrains Mono', monospace;
     font-size: clamp(0.75rem, 0.95vw, 0.875rem);
@@ -469,32 +431,6 @@
   .ticker .up { color: var(--sol-green); }
   .ticker .down { color: var(--hot-pink); }
 
-  .glitch-bg {
-    position: absolute;
-    inset: 0;
-    background:
-      repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(153,69,255,0.012) 2px, rgba(153,69,255,0.012) 4px);
-    pointer-events: none;
-  }
-
-  /* Code block style */
-  .code-block {
-    background: #050608;
-    border: 1px solid var(--border);
-    border-radius: 0.75rem;
-    padding: 1rem 1.25rem;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: clamp(0.75rem, 0.9vw, 0.875rem);
-    color: var(--text-secondary);
-    line-height: 1.7;
-    overflow-x: auto;
-  }
-  .code-block .kw { color: var(--sol-purple-light); }
-  .code-block .str { color: var(--amber); }
-  .code-block .num { color: var(--sol-green); }
-  .code-block .com { color: var(--text-dim); font-style: italic; }
-  .code-block .fn { color: var(--cyan); }
-
 </style>
 </head>
 <body>
@@ -504,10 +440,10 @@
   <div style="display:flex;flex-direction:column;align-items:center;gap:clamp(1rem, 2.5vh, 2rem);">
     <div style="display:flex;gap:0.75rem;align-items:center;">
       <div class="pill-glow" style="background: var(--sol-green-glow); color: var(--sol-green); border-color: var(--border-green); box-shadow: 0 0 24px var(--sol-green-glow);">
-        ● SOLANA FRONTIER · APR 2026
+        ● SOLANA FRONTIER · 2026 年 4 月
       </div>
       <div class="pill-glow" style="background: var(--hot-pink-glow); color: var(--hot-pink); border-color: rgba(255,61,113,0.3); box-shadow: 0 0 24px var(--hot-pink-glow);">
-        DEVNET · LIVE
+        DEVNET · 已上线
       </div>
     </div>
 
@@ -516,12 +452,12 @@
     </h1>
 
     <div style="font-family:'Space Grotesk',sans-serif;font-size:clamp(1.25rem, 2.4vw, 2rem);color:var(--text-secondary);font-weight:500;letter-spacing:-0.5px;">
-      <span class="gradient-purple" style="font-weight:700;">talk shit</span>, <span style="color:var(--sol-green);font-weight:700;">send SOL</span>.
+      <span class="gradient-purple" style="font-weight:700;">talk shit</span>，<span style="color:var(--sol-green);font-weight:700;">send SOL</span>。
     </div>
 
-    <div style="font-family:'JetBrains Mono',monospace;font-size:clamp(0.875rem, 1.2vw, 1rem);color:var(--text-muted);max-width:min(40rem, 88vw);line-height:1.6;letter-spacing:0.3px;">
-      voice-first onchain agent on a 4G mic.<br>
-      press button → speak → tx confirmed in 3s. no UI, no gas wars, no cap.
+    <div style="font-family:'JetBrains Mono',monospace;font-size:clamp(0.875rem, 1.2vw, 1rem);color:var(--text-muted);max-width:min(40rem, 88vw);line-height:1.7;letter-spacing:0.3px;">
+      4G 麦克风上的语音 onchain agent。<br>
+      按一下、说一句、3 秒上链 — 不开 App、不打 gas 战、no cap。
     </div>
 
     <div class="ticker" style="margin-top:clamp(0.5rem, 1.5vh, 1.25rem);flex-wrap:wrap;justify-content:center;">
@@ -541,29 +477,29 @@
     </div>
   </div>
   <div class="brand">EINCLAW × SOL</div>
-  <div class="slide-number">01 / 11</div>
+  <div class="slide-number">01 / 13</div>
 </div>
 
 <!-- ==================== SLIDE 2: THE HOOK / PROBLEM ==================== -->
 <div class="slide">
   <div class="label label-pink">The Vibes Are Off</div>
-  <h2 style="margin-bottom:clamp(0.5rem, 1vh, 0.75rem);">"send 0.01 SOL to alice" 不应该需要 90 秒</h2>
+  <h2 style="margin-bottom:clamp(0.5rem, 1vh, 0.75rem);">"转 0.01 SOL 给 alice" 不应该需要 90 秒</h2>
   <div class="meme-hint" style="margin-bottom:clamp(1.5rem, 3vh, 2.25rem);">
-    <span class="hl-pink">POV:</span> 你在地铁上想给朋友转点 SOL · 真实操作步骤 ↓
+    <span class="hl-pink">POV：</span>你在地铁上，想给朋友打点 SOL · 真实操作步骤 ↓
   </div>
 
   <div class="grid-2" style="flex:1;align-items:stretch;gap:clamp(1.5rem, 3vw, 2.25rem);">
-    <!-- BEFORE: the old way -->
+    <!-- 现状：钱包 PTSD -->
     <div class="card card-pink" style="display:flex;flex-direction:column;">
       <div style="display:flex;align-items:center;gap:0.75rem;margin-bottom:1rem;">
         <span class="tag tag-pink">NGMI</span>
-        <h3 style="margin:0;color:var(--hot-pink);">现状：90 秒钱包 PTSD</h3>
+        <h3 style="margin:0;color:var(--hot-pink);">现状 — 90 秒钱包 PTSD</h3>
       </div>
       <ul class="bullet-list" style="flex:1;font-size:clamp(0.8125rem, 1.05vw, 0.9375rem);">
-        <li>解锁手机 → 找到 Phantom → 输入密码</li>
+        <li>解锁手机 → 打开 Phantom → 输密码</li>
         <li>切到 alice 的 Telegram，复制她那串 44 位地址</li>
-        <li>粘贴回 Phantom，<strong style="color:var(--hot-pink);">手动核对前 4 位 + 后 4 位</strong>（不然就 rug 了）</li>
-        <li>输入 0.01，确认 fee，签名，等确认</li>
+        <li>粘回 Phantom，<strong style="color:var(--hot-pink);">手动核对前 4 位 + 后 4 位</strong>（不然就被 rug 了）</li>
+        <li>输 0.01、确认 fee、签名、等确认</li>
         <li>截图发给 alice 证明你转了</li>
         <li>她回："这地址对吗" → 你又对一遍</li>
       </ul>
@@ -572,26 +508,26 @@
       </div>
     </div>
 
-    <!-- AFTER: our way -->
+    <!-- EinClaw -->
     <div class="card card-green" style="display:flex;flex-direction:column;">
       <div style="display:flex;align-items:center;gap:0.75rem;margin-bottom:1rem;">
         <span class="tag tag-green">WAGMI</span>
-        <h3 style="margin:0;color:var(--sol-green);">EinClaw：按一下、说一句</h3>
+        <h3 style="margin:0;color:var(--sol-green);">EinClaw — 按一下、说一句</h3>
       </div>
 
       <div class="voice-bubble" style="margin-top:0.75rem;margin-bottom:1rem;">
-        <div style="font-size:clamp(0.75rem, 0.85vw, 0.8125rem);color:var(--sol-purple-light);font-family:'JetBrains Mono',monospace;letter-spacing:1px;text-transform:uppercase;margin-bottom:6px;">user · 4G mic</div>
+        <div style="font-size:clamp(0.75rem, 0.85vw, 0.8125rem);color:var(--sol-purple-light);font-family:'JetBrains Mono',monospace;letter-spacing:1px;text-transform:uppercase;margin-bottom:6px;">用户 · 4G 麦</div>
         <div style="font-size:clamp(1rem, 1.5vw, 1.25rem);color:var(--text-primary);font-weight:500;line-height:1.5;">
-          "转 0.01 SOL 给 Alice"
+          "转 0.01 SOL 给 alice"
         </div>
       </div>
 
       <div class="terminal" style="flex:1;">
         <div class="terminal-body">
-          <span class="terminal-prompt">agent</span> <span class="terminal-output">→</span> resolving <span class="terminal-string">"alice"</span>...<br>
-          <span class="terminal-comment"># found in contacts.json (last 4: ..a7Bk)</span><br>
-          <span class="terminal-prompt">agent</span> <span class="terminal-output">→</span> caps OK · signing · broadcasting...<br>
-          <span class="terminal-output" style="color:var(--sol-green);">✓ tx confirmed · sig末四位 NJM3</span>
+          <span class="terminal-prompt">agent</span> <span class="terminal-output">→</span> 解析 <span class="terminal-string">"alice"</span>...<br>
+          <span class="terminal-comment"># 命中 contacts.json（末四位 a7Bk）</span><br>
+          <span class="terminal-prompt">agent</span> <span class="terminal-output">→</span> 限额校验通过 · 签名 · 广播...<br>
+          <span class="terminal-output" style="color:var(--sol-green);">✓ tx 已确认 · sig 末四位 NJM3</span>
         </div>
       </div>
 
@@ -602,24 +538,24 @@
   </div>
 
   <div style="margin-top:clamp(1.25rem, 2.5vh, 2rem);text-align:center;font-family:'Space Grotesk',sans-serif;font-size:clamp(1rem, 1.6vw, 1.375rem);color:var(--text-secondary);font-style:italic;">
-    we're not building another wallet. <strong class="gradient-text" style="font-weight:700;font-style:normal;">we're killing the wallet UI.</strong>
+    我们不是再做一个钱包。<strong class="gradient-text" style="font-weight:700;font-style:normal;">我们是来干掉钱包的 UI 的。</strong>
   </div>
 
   <div class="slide-line"></div>
   <div class="brand">EINCLAW × SOL</div>
-  <div class="slide-number">02 / 11</div>
+  <div class="slide-number">02 / 13</div>
 </div>
 
 <!-- ==================== SLIDE 3: WHAT WE SHIPPED ==================== -->
 <div class="slide">
-  <div class="label">What We Shipped</div>
+  <div class="label">已交付内容</div>
   <h2>三个 Skill，一根麦，链上跑通</h2>
   <div class="meme-hint" style="margin-bottom:clamp(1.25rem, 2.5vh, 1.875rem);">
-    安装到 OpenClaw 的 <code style="color:var(--sol-green);">~/.agents/skills/</code>，开箱即说，<span class="hl-pink">no smart contract deploy</span>，hackathon 黄金 7 天交付。
+    全部装在 OpenClaw 的 <code style="color:var(--sol-green);">~/.agents/skills/</code> 下，开箱即说，<span class="hl-pink">不部署任何智能合约</span>，hackathon 黄金 7 天交付。
   </div>
 
   <div class="grid-3" style="flex:1;align-items:stretch;">
-    <!-- Skill 1: crypto-price -->
+    <!-- crypto-price -->
     <div class="card card-green" style="display:flex;flex-direction:column;">
       <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;">
         <span class="tag tag-green">SHIPPED</span>
@@ -629,14 +565,14 @@
       <h3 style="font-size:clamp(1.125rem, 1.6vw, 1.375rem);margin-bottom:0.4rem;">crypto-price</h3>
       <div style="font-family:'JetBrains Mono',monospace;font-size:clamp(0.75rem, 0.85vw, 0.8125rem);color:var(--sol-green);margin-bottom:0.75rem;">DexScreener · 反 wash-trading</div>
       <p style="font-size:clamp(0.8125rem, 1vw, 0.9375rem);flex:1;line-height:1.6;">
-        说出 token 名，3 秒读出价格、市值、24h 涨跌。<strong style="color:var(--sol-green);">min(volume, liquidity)</strong> 排序杀掉假币。
+        说出 token 名，3 秒读出价格、市值、24h 涨跌。用 <strong style="color:var(--sol-green);">min(volume, liquidity)</strong> 排序杀掉假币。
       </p>
       <div style="margin-top:0.875rem;padding-top:0.875rem;border-top:1px dashed var(--border-green);font-family:'JetBrains Mono',monospace;font-size:0.75rem;color:var(--text-muted);">
         "BONK 现在多少钱？"
       </div>
     </div>
 
-    <!-- Skill 2: solana-pay -->
+    <!-- solana-pay -->
     <div class="card card-purple" style="display:flex;flex-direction:column;">
       <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;">
         <span class="tag tag-purple">SHIPPED</span>
@@ -646,14 +582,14 @@
       <h3 style="font-size:clamp(1.125rem, 1.6vw, 1.375rem);margin-bottom:0.4rem;">solana-pay</h3>
       <div style="font-family:'JetBrains Mono',monospace;font-size:clamp(0.75rem, 0.85vw, 0.8125rem);color:var(--sol-purple-light);margin-bottom:0.75rem;">Hot Wallet · Fernet 加密 · Caps</div>
       <p style="font-size:clamp(0.8125rem, 1vw, 0.9375rem);flex:1;line-height:1.6;">
-        Agent 自带零钱包。<strong style="color:var(--sol-purple-light);">单笔 0.05 / 日 0.2 SOL</strong> 上限 + audit log，把它当"零花钱卡"，不爆仓。
+        Agent 自带零花钱包。<strong style="color:var(--sol-purple-light);">单笔 0.05 / 单日 0.2 SOL</strong> 上限 + audit log，当成"零钱卡"用，永不爆仓。
       </p>
       <div style="margin-top:0.875rem;padding-top:0.875rem;border-top:1px dashed var(--border-purple);font-family:'JetBrains Mono',monospace;font-size:0.75rem;color:var(--text-muted);">
         "转 0.005 SOL 给 alice"
       </div>
     </div>
 
-    <!-- Skill 3: solana-contacts -->
+    <!-- solana-contacts -->
     <div class="card card-pink" style="display:flex;flex-direction:column;">
       <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;">
         <span class="tag tag-pink">SHIPPED</span>
@@ -661,9 +597,9 @@
       </div>
       <div style="font-size:2.25rem;margin-bottom:0.5rem;">📒</div>
       <h3 style="font-size:clamp(1.125rem, 1.6vw, 1.375rem);margin-bottom:0.4rem;">solana-contacts</h3>
-      <div style="font-family:'JetBrains Mono',monospace;font-size:clamp(0.75rem, 0.85vw, 0.8125rem);color:var(--hot-pink);margin-bottom:0.75rem;">Address Book · base58 + .sol</div>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:clamp(0.75rem, 0.85vw, 0.8125rem);color:var(--hot-pink);margin-bottom:0.75rem;">通讯录 · base58 + .sol 域名</div>
       <p style="font-size:clamp(0.8125rem, 1vw, 0.9375rem);flex:1;line-height:1.6;">
-        喊一声"把 X 加进通讯录"。支持 base58 地址 / SNS .sol 域名，<strong style="color:var(--hot-pink);">读末四位</strong>给你确认，防 rug。
+        喊一声"把 X 加进通讯录"。支持 base58 地址 / SNS .sol 域名，<strong style="color:var(--hot-pink);">读末四位</strong>给你确认，防止误转。
       </p>
       <div style="margin-top:0.875rem;padding-top:0.875rem;border-top:1px dashed rgba(255,61,113,0.3);font-family:'JetBrains Mono',monospace;font-size:0.75rem;color:var(--text-muted);">
         "把 vault.sol 加成 alpha"
@@ -674,13 +610,13 @@
   <div style="margin-top:clamp(1rem, 2vh, 1.5rem);display:flex;gap:0.5rem;flex-wrap:wrap;align-items:center;">
     <span class="tag tag-amber">+ BONUS</span>
     <span style="font-family:'JetBrains Mono',monospace;font-size:clamp(0.75rem, 0.9vw, 0.875rem);color:var(--text-secondary);">
-      ASR 热词注入 · 让 Qwen 不再把 Solana 念成"<span style="color:var(--text-dim);">索拉娜</span>"，把 BONK 念成"<span style="color:var(--text-dim);">本可</span>"
+      ASR 热词注入 — 让 Qwen 不再把 Solana 念成"<span style="color:var(--text-dim);">索拉娜</span>"，把 BONK 念成"<span style="color:var(--text-dim);">本可</span>"
     </span>
   </div>
 
   <div class="slide-line"></div>
   <div class="brand">EINCLAW × SOL</div>
-  <div class="slide-number">03 / 11</div>
+  <div class="slide-number">03 / 13</div>
 </div>
 
 <!-- ==================== SLIDE 4: DEMO 1 - PRICE ==================== -->
@@ -688,14 +624,13 @@
   <div class="label">Demo · 01</div>
   <h2>"BONK 现在多少钱？"</h2>
   <div class="meme-hint" style="margin-bottom:clamp(1.25rem, 2.5vh, 1.875rem);">
-    DexScreener 反 wash · 价格、市值、24h 涨跌一句话播完，不读那串 base58 地址（TTS 会哭）
+    DexScreener 反 wash · 价格、市值、24h 涨跌一句话播完，绝不读那串 base58 地址（TTS 会哭）
   </div>
 
   <div style="display:grid;grid-template-columns:1fr auto 1.2fr;gap:clamp(1rem, 2vw, 1.75rem);align-items:center;flex:1;">
-    <!-- LHS: voice -->
     <div>
       <div class="voice-bubble" style="text-align:left;">
-        <div style="font-size:clamp(0.75rem, 0.85vw, 0.8125rem);color:var(--sol-purple-light);font-family:'JetBrains Mono',monospace;letter-spacing:1px;text-transform:uppercase;margin-bottom:6px;">USER · PRESS-TO-TALK</div>
+        <div style="font-size:clamp(0.75rem, 0.85vw, 0.8125rem);color:var(--sol-purple-light);font-family:'JetBrains Mono',monospace;letter-spacing:1px;text-transform:uppercase;margin-bottom:6px;">用户 · 按住说话</div>
         <div style="font-size:clamp(1.125rem, 1.7vw, 1.5rem);color:var(--text-primary);font-weight:500;line-height:1.45;">
           "BONK 现在<br>多少钱？"
         </div>
@@ -706,13 +641,11 @@
       </div>
     </div>
 
-    <!-- Arrow -->
     <div style="text-align:center;">
       <div class="arrow">→</div>
       <div style="font-family:'JetBrains Mono',monospace;font-size:0.75rem;color:var(--sol-green);margin-top:6px;">3.2s</div>
     </div>
 
-    <!-- RHS: response -->
     <div class="card card-green">
       <div style="display:flex;align-items:center;gap:0.75rem;margin-bottom:1rem;">
         <div style="width:clamp(2.5rem, 3.5vw, 3.25rem);height:clamp(2.5rem, 3.5vw, 3.25rem);border-radius:50%;background:linear-gradient(135deg, #FFC107, #FF8A00);display:flex;align-items:center;justify-content:center;font-size:clamp(1.25rem, 1.8vw, 1.5rem);box-shadow:0 4px 20px rgba(255,138,0,0.3);">🐶</div>
@@ -726,7 +659,7 @@
       <div class="grid-3" style="gap:0.625rem;">
         <div style="background:var(--bg-elevated);border:1px solid var(--border);border-radius:0.625rem;padding:0.75rem;text-align:center;">
           <div style="font-family:'Space Grotesk',sans-serif;font-size:clamp(1rem, 1.4vw, 1.25rem);font-weight:700;color:var(--text-primary);">$0.00002145</div>
-          <div style="font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.8px;margin-top:2px;">Price</div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.8px;margin-top:2px;">价格</div>
         </div>
         <div style="background:var(--bg-elevated);border:1px solid var(--border-green);border-radius:0.625rem;padding:0.75rem;text-align:center;">
           <div style="font-family:'Space Grotesk',sans-serif;font-size:clamp(1rem, 1.4vw, 1.25rem);font-weight:700;color:var(--sol-green);">+12.4%</div>
@@ -734,7 +667,7 @@
         </div>
         <div style="background:var(--bg-elevated);border:1px solid var(--border);border-radius:0.625rem;padding:0.75rem;text-align:center;">
           <div style="font-family:'Space Grotesk',sans-serif;font-size:clamp(1rem, 1.4vw, 1.25rem);font-weight:700;color:var(--text-primary);">$1.6B</div>
-          <div style="font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.8px;margin-top:2px;">Mcap</div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.8px;margin-top:2px;">市值</div>
         </div>
       </div>
 
@@ -745,15 +678,15 @@
       </div>
 
       <div style="margin-top:0.75rem;font-family:'JetBrains Mono',monospace;font-size:clamp(0.6875rem, 0.8vw, 0.75rem);color:var(--text-muted);line-height:1.6;">
-        <span style="color:var(--sol-green);">✓</span> 反 wash-trading: <code style="color:var(--text-secondary);">rank by min(vol24h, liquidity)</code><br>
-        <span style="color:var(--sol-green);">✓</span> 5 个假 BONK 在搜索结果，排名第 1 的真 BONK 25,000x 领先
+        <span style="color:var(--sol-green);">✓</span> 反 wash-trading： <code style="color:var(--text-secondary);">rank by min(vol24h, liquidity)</code><br>
+        <span style="color:var(--sol-green);">✓</span> 搜索结果里有 5 个假 BONK，真 BONK 25,000x 领先
       </div>
     </div>
   </div>
 
   <div class="slide-line"></div>
   <div class="brand">EINCLAW × SOL</div>
-  <div class="slide-number">04 / 11</div>
+  <div class="slide-number">04 / 13</div>
 </div>
 
 <!-- ==================== SLIDE 5: DEMO 2 - PAY ==================== -->
@@ -761,71 +694,64 @@
   <div class="label label-purple">Demo · 02</div>
   <h2>"转 0.005 SOL 给 alice"</h2>
   <div class="meme-hint" style="margin-bottom:clamp(1.25rem, 2.5vh, 1.875rem);">
-    Agent 自己签名、自己广播、自己核账。用户耳朵里只有一句结果——Tx 末四位 + 余额。
+    Agent 自己签名、自己广播、自己核账。用户耳朵里只有一句结果 — Tx 末四位 + 余额。
   </div>
 
   <div style="display:grid;grid-template-columns:1fr auto 1.2fr;gap:clamp(1rem, 2vw, 1.75rem);align-items:center;flex:1;">
-    <!-- LHS -->
     <div>
       <div class="voice-bubble">
-        <div style="font-size:clamp(0.75rem, 0.85vw, 0.8125rem);color:var(--sol-purple-light);font-family:'JetBrains Mono',monospace;letter-spacing:1px;text-transform:uppercase;margin-bottom:6px;">USER</div>
+        <div style="font-size:clamp(0.75rem, 0.85vw, 0.8125rem);color:var(--sol-purple-light);font-family:'JetBrains Mono',monospace;letter-spacing:1px;text-transform:uppercase;margin-bottom:6px;">用户</div>
         <div style="font-size:clamp(1.125rem, 1.7vw, 1.5rem);color:var(--text-primary);font-weight:500;line-height:1.45;">
           "转 0.005 SOL<br>给 alice"
         </div>
       </div>
       <div style="margin-top:1rem;font-family:'JetBrains Mono',monospace;font-size:clamp(0.75rem, 0.9vw, 0.875rem);color:var(--text-muted);">
-        🎯 nickname → contacts.json<br>
-        🔐 hot wallet · Fernet at-rest<br>
-        ✅ caps: 0.05 / tx · 0.2 / day
+        🎯 昵称 → contacts.json<br>
+        🔐 hot wallet · Fernet 加密落盘<br>
+        ✅ 限额：0.05 / 笔 · 0.2 / 天
       </div>
     </div>
 
-    <!-- Arrow -->
     <div style="text-align:center;">
       <div class="arrow">→</div>
       <div style="font-family:'JetBrains Mono',monospace;font-size:0.75rem;color:var(--sol-purple-light);margin-top:6px;">~5s</div>
     </div>
 
-    <!-- RHS: 4-step flow -->
     <div style="display:flex;flex-direction:column;gap:0.625rem;">
-      <!-- step 1 -->
       <div style="display:flex;gap:0.875rem;align-items:flex-start;background:var(--bg-card);border:1px solid var(--border);border-radius:0.875rem;padding:0.75rem 1rem;">
         <span class="step-num">1</span>
         <div style="flex:1;">
-          <div style="font-family:'Space Grotesk',sans-serif;font-weight:600;color:var(--text-primary);font-size:clamp(0.875rem, 1.1vw, 1rem);">Resolve</div>
+          <div style="font-family:'Space Grotesk',sans-serif;font-weight:600;color:var(--text-primary);font-size:clamp(0.875rem, 1.1vw, 1rem);">Resolve · 解析收款方</div>
           <div style="font-family:'JetBrains Mono',monospace;font-size:clamp(0.75rem, 0.85vw, 0.8125rem);color:var(--text-secondary);">
             <span style="color:var(--sol-green);">alice</span> → <code style="color:var(--text-muted);">CGf3...S6DJ</code> <span class="tag tag-green" style="font-size:0.625rem;padding:2px 6px;">contact</span>
           </div>
         </div>
       </div>
 
-      <!-- step 2 -->
       <div style="display:flex;gap:0.875rem;align-items:flex-start;background:var(--bg-card);border:1px solid var(--border);border-radius:0.875rem;padding:0.75rem 1rem;">
         <span class="step-num">2</span>
         <div style="flex:1;">
-          <div style="font-family:'Space Grotesk',sans-serif;font-weight:600;color:var(--text-primary);font-size:clamp(0.875rem, 1.1vw, 1rem);">Caps Check</div>
+          <div style="font-family:'Space Grotesk',sans-serif;font-weight:600;color:var(--text-primary);font-size:clamp(0.875rem, 1.1vw, 1rem);">Caps Check · 限额校验</div>
           <div style="font-family:'JetBrains Mono',monospace;font-size:clamp(0.75rem, 0.85vw, 0.8125rem);color:var(--text-secondary);">
-            0.005 ≤ 0.05/tx ✓ · daily 0.013 + 0.005 ≤ 0.2 ✓
+            0.005 ≤ 0.05/tx ✓ · 当日 0.013 + 0.005 ≤ 0.2 ✓
           </div>
         </div>
       </div>
 
-      <!-- step 3 -->
       <div style="display:flex;gap:0.875rem;align-items:flex-start;background:var(--bg-card-2);border:1px solid var(--border-purple);border-radius:0.875rem;padding:0.75rem 1rem;">
         <span class="step-num">3</span>
         <div style="flex:1;">
-          <div style="font-family:'Space Grotesk',sans-serif;font-weight:600;color:var(--text-primary);font-size:clamp(0.875rem, 1.1vw, 1rem);">Sign & Broadcast</div>
+          <div style="font-family:'Space Grotesk',sans-serif;font-weight:600;color:var(--text-primary);font-size:clamp(0.875rem, 1.1vw, 1rem);">Sign &amp; Broadcast · 签名上链</div>
           <div style="font-family:'JetBrains Mono',monospace;font-size:clamp(0.75rem, 0.85vw, 0.8125rem);color:var(--text-secondary);">
-            ed25519 sig · devnet RPC · confirmed 400ms
+            ed25519 签名 · devnet RPC · confirmed 用时 400ms
           </div>
         </div>
       </div>
 
-      <!-- step 4 -->
       <div style="display:flex;gap:0.875rem;align-items:flex-start;background:linear-gradient(135deg, rgba(20,241,149,0.07), rgba(21,23,42,0.96));border:1px solid var(--border-green);border-radius:0.875rem;padding:0.875rem 1rem;box-shadow:0 0 30px rgba(20,241,149,0.08);">
         <span class="step-num" style="background:var(--gradient-green);box-shadow:0 4px 20px rgba(20,241,149,0.4);">✓</span>
         <div style="flex:1;">
-          <div style="font-family:'Space Grotesk',sans-serif;font-weight:700;color:var(--sol-green);font-size:clamp(0.9375rem, 1.2vw, 1.0625rem);">TTS Verbatim</div>
+          <div style="font-family:'Space Grotesk',sans-serif;font-weight:700;color:var(--sol-green);font-size:clamp(0.9375rem, 1.2vw, 1.0625rem);">TTS 一句话播报</div>
           <div style="font-family:'JetBrains Mono',monospace;font-size:clamp(0.8125rem, 1vw, 0.9375rem);color:var(--text-primary);font-style:italic;line-height:1.55;margin-top:4px;">
             "已转 0.005 SOL 给 alice，<br>Tx 末四位 NJM3，<br>agent 钱包剩余 4.987980 SOL。"
           </div>
@@ -834,37 +760,37 @@
 
       <div style="display:flex;gap:0.5rem;flex-wrap:wrap;font-family:'JetBrains Mono',monospace;font-size:0.7rem;color:var(--text-muted);">
         <span class="tag tag-purple">audit.jsonl ✓</span>
-        <span class="tag tag-green">on-chain explorer ✓</span>
-        <span class="tag tag-amber">no UI opened</span>
+        <span class="tag tag-green">链上 explorer 可查 ✓</span>
+        <span class="tag tag-amber">全程不开 App</span>
       </div>
     </div>
   </div>
 
   <div class="slide-line"></div>
   <div class="brand">EINCLAW × SOL</div>
-  <div class="slide-number">05 / 11</div>
+  <div class="slide-number">05 / 13</div>
 </div>
 
 <!-- ==================== SLIDE 6: DEMO 3 - CONTACTS ==================== -->
 <div class="slide">
   <div class="label label-pink">Demo · 03</div>
-  <h2>"把 vault.sol 加进通讯录，命名 alpha"</h2>
+  <h2>"把 vault.sol 加进通讯录，叫 alpha"</h2>
   <div class="meme-hint" style="margin-bottom:clamp(1.25rem, 2.5vh, 1.875rem);">
-    base58 / SNS .sol 都吃。读末四位让用户口头确认，再也不用念 44 位地址。
+    base58 / SNS .sol 都吃。读末四位让用户口头确认，再也不用一个字母一个字母念 44 位地址。
   </div>
 
   <div style="display:grid;grid-template-columns:1fr auto 1.1fr;gap:clamp(1rem, 2vw, 1.75rem);align-items:center;flex:1;">
     <div>
       <div class="voice-bubble">
-        <div style="font-size:clamp(0.75rem, 0.85vw, 0.8125rem);color:var(--sol-purple-light);font-family:'JetBrains Mono',monospace;letter-spacing:1px;text-transform:uppercase;margin-bottom:6px;">USER</div>
+        <div style="font-size:clamp(0.75rem, 0.85vw, 0.8125rem);color:var(--sol-purple-light);font-family:'JetBrains Mono',monospace;letter-spacing:1px;text-transform:uppercase;margin-bottom:6px;">用户</div>
         <div style="font-size:clamp(1rem, 1.5vw, 1.25rem);color:var(--text-primary);font-weight:500;line-height:1.5;">
           "把 <code style="color:var(--cyan);">CGf3z...S6DJ</code> 加进通讯录，叫它 <span style="color:var(--hot-pink);">alpha</span>"
         </div>
       </div>
       <div style="margin-top:1rem;font-family:'JetBrains Mono',monospace;font-size:clamp(0.75rem, 0.9vw, 0.875rem);color:var(--text-muted);">
-        🔍 base58 regex 校验<br>
-        💾 contacts.json (本地)<br>
-        🔁 normalize: 'Alpha' → 'alpha'
+        🔍 base58 正则校验<br>
+        💾 contacts.json（本地）<br>
+        🔁 自动归一化：'Alpha' → 'alpha'
       </div>
     </div>
 
@@ -874,19 +800,17 @@
     </div>
 
     <div class="card card-pink">
-      <!-- Contact card -->
       <div style="display:flex;align-items:center;gap:0.875rem;margin-bottom:1rem;">
         <div style="width:clamp(2.75rem, 3.8vw, 3.5rem);height:clamp(2.75rem, 3.8vw, 3.5rem);border-radius:50%;background:var(--gradient-pink);display:flex;align-items:center;justify-content:center;font-family:'Space Grotesk',sans-serif;font-weight:700;color:white;font-size:clamp(1rem, 1.3vw, 1.25rem);box-shadow:0 4px 20px var(--hot-pink-glow);">A</div>
         <div style="flex:1;">
           <div style="font-family:'Space Grotesk',sans-serif;font-size:clamp(1.125rem, 1.5vw, 1.375rem);font-weight:700;color:var(--text-primary);">alpha</div>
-          <div style="font-family:'JetBrains Mono',monospace;font-size:clamp(0.75rem, 0.85vw, 0.8125rem);color:var(--text-muted);">added · just now</div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:clamp(0.75rem, 0.85vw, 0.8125rem);color:var(--text-muted);">刚刚添加</div>
         </div>
         <span class="tag tag-pink">NEW</span>
       </div>
 
-      <!-- Address verification -->
       <div style="background:var(--bg-elevated);border:1px solid var(--border);border-radius:0.75rem;padding:0.875rem 1rem;margin-bottom:0.875rem;">
-        <div style="font-family:'JetBrains Mono',monospace;font-size:0.7rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;">Solana Address</div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:0.7rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;">Solana 地址</div>
         <div style="font-family:'JetBrains Mono',monospace;font-size:clamp(0.8125rem, 1vw, 0.9375rem);color:var(--text-secondary);word-break:break-all;line-height:1.55;">
           CGf3zdWChWeQdV38UjvPTqBRpiaJvrceKx9sUfcm<span style="color:var(--hot-pink);background:var(--hot-pink-glow);padding:1px 4px;border-radius:4px;font-weight:700;">S6DJ</span>
         </div>
@@ -896,7 +820,7 @@
         <div class="terminal-body">
           <span class="terminal-prompt">tts</span> <span class="terminal-output">→</span> <span class="terminal-string">"已添加 alpha，地址末四位 S6DJ，对吗？"</span><br>
           <span class="terminal-prompt">user</span> <span class="terminal-output">→</span> <span class="terminal-string">"对"</span><br>
-          <span class="terminal-output" style="color:var(--sol-green);">✓ saved.</span>
+          <span class="terminal-output" style="color:var(--sol-green);">✓ 已保存。</span>
         </div>
       </div>
     </div>
@@ -904,34 +828,117 @@
 
   <div style="margin-top:clamp(1rem, 2vh, 1.5rem);display:flex;gap:0.75rem;flex-wrap:wrap;">
     <div style="flex:1;min-width:14rem;background:var(--bg-card);border:1px solid var(--border);border-radius:0.75rem;padding:0.75rem 1rem;">
-      <div style="font-family:'JetBrains Mono',monospace;font-size:0.7rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;">现在可以这么用</div>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:0.7rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;">现在可以这样用</div>
       <div style="font-family:'JetBrains Mono',monospace;font-size:clamp(0.8125rem, 1vw, 0.9375rem);color:var(--sol-green);">"转 0.01 SOL 给 alpha"</div>
     </div>
     <div style="flex:1;min-width:14rem;background:var(--bg-card);border:1px solid var(--border);border-radius:0.75rem;padding:0.75rem 1rem;">
-      <div style="font-family:'JetBrains Mono',monospace;font-size:0.7rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;">SNS 域名也支持</div>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:0.7rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;">SNS 域名也吃</div>
       <div style="font-family:'JetBrains Mono',monospace;font-size:clamp(0.8125rem, 1vw, 0.9375rem);color:var(--sol-purple-light);">"加 vault.sol 成 vault"</div>
     </div>
   </div>
 
   <div class="slide-line"></div>
   <div class="brand">EINCLAW × SOL</div>
-  <div class="slide-number">06 / 11</div>
+  <div class="slide-number">06 / 13</div>
 </div>
 
-<!-- ==================== SLIDE 7: ARCHITECTURE ==================== -->
+<!-- ==================== SLIDE 7: BONUS DEMO - DUST DISRESPECT ==================== -->
 <div class="slide">
-  <div class="label label-purple">Under The Hood</div>
-  <h2>系统架构 — 5 层 · 全部能跑</h2>
+  <div class="label label-pink">Bonus Demo · Meme 玩法</div>
+  <h2 style="margin-bottom:clamp(0.5rem, 1vh, 0.75rem);">看不顺眼？给他发点 <span class="gradient-purple" style="font-weight:800;">dust</span> 💸</h2>
   <div class="meme-hint" style="margin-bottom:clamp(1.25rem, 2.5vh, 1.875rem);">
-    no AWS · no docker-compose · no smart contract · just Python + RPC + 一根 4G 麦
+    <span class="hl-pink">the most surgical disrespect in web3</span> · 不打架、不骂街，链上记你一笔 · 0.0001 SOL 是 <span class="hl-amber">侮辱</span>，不是给钱
   </div>
 
-  <!-- Architecture diagram -->
+  <div style="display:grid;grid-template-columns:1fr auto 1.2fr;gap:clamp(1rem, 2vw, 1.75rem);align-items:center;flex:1;">
+    <!-- LHS: voice -->
+    <div>
+      <div class="voice-bubble">
+        <div style="font-size:clamp(0.75rem, 0.85vw, 0.8125rem);color:var(--sol-purple-light);font-family:'JetBrains Mono',monospace;letter-spacing:1px;text-transform:uppercase;margin-bottom:6px;">用户 · 看完群里那条 cringe</div>
+        <div style="font-size:clamp(1.0625rem, 1.6vw, 1.4375rem);color:var(--text-primary);font-weight:500;line-height:1.5;">
+          "给那个 <span style="color:var(--hot-pink);">ngmi</span> 的家伙发<br>0.0001 SOL，<br>备注 <span style="color:var(--amber);">'cope harder'</span>"
+        </div>
+      </div>
+      <div style="margin-top:1rem;font-family:'JetBrains Mono',monospace;font-size:clamp(0.75rem, 0.9vw, 0.875rem);color:var(--text-muted);line-height:1.7;">
+        🎯 enemy 在通讯录里<br>
+        💸 0.0001 ≪ 0.05 上限 · 不需 confirm<br>
+        🪶 备注写进 audit log（v1.1 上链 Memo Program）
+      </div>
+    </div>
+
+    <!-- Arrow -->
+    <div style="text-align:center;">
+      <div class="arrow" style="color:var(--hot-pink);text-shadow:0 0 20px var(--hot-pink-glow);">→</div>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:0.75rem;color:var(--hot-pink);margin-top:6px;">~3s</div>
+    </div>
+
+    <!-- RHS: dust receipt -->
+    <div class="card card-pink" style="position:relative;">
+      <!-- L Bozo stamp -->
+      <div style="position:absolute;top:1rem;right:1rem;transform:rotate(8deg);background:var(--hot-pink-glow);border:2px solid var(--hot-pink);border-radius:0.5rem;padding:0.25rem 0.625rem;font-family:'Space Grotesk',sans-serif;font-weight:800;font-size:clamp(0.75rem, 0.95vw, 0.875rem);color:var(--hot-pink);letter-spacing:1px;">L + BOZO</div>
+
+      <div style="display:flex;align-items:center;gap:0.75rem;margin-bottom:1rem;">
+        <div style="font-size:2rem;">💀</div>
+        <div style="flex:1;">
+          <div style="font-family:'Space Grotesk',sans-serif;font-size:clamp(1.0625rem, 1.4vw, 1.25rem);font-weight:700;color:var(--text-primary);">已 dust 完毕</div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:clamp(0.7rem, 0.8vw, 0.75rem);color:var(--text-muted);">recipient: enemy.sol</div>
+        </div>
+      </div>
+
+      <!-- Tx receipt -->
+      <div style="background:var(--bg-elevated);border:1px solid var(--border);border-radius:0.75rem;padding:0.875rem 1rem;margin-bottom:0.875rem;">
+        <div style="display:grid;grid-template-columns:auto 1fr;gap:0.5rem 1rem;font-family:'JetBrains Mono',monospace;font-size:clamp(0.75rem, 0.9vw, 0.875rem);">
+          <div style="color:var(--text-muted);">金额</div>
+          <div style="color:var(--text-primary);font-weight:700;">0.0001 SOL <span style="color:var(--text-muted);font-weight:400;">(≈ $0.018)</span></div>
+          <div style="color:var(--text-muted);">手续费</div>
+          <div style="color:var(--text-primary);">0.000005 SOL <span style="color:var(--sol-green);">(精神战费用)</span></div>
+          <div style="color:var(--text-muted);">备注</div>
+          <div style="color:var(--amber);font-style:italic;">"cope harder"</div>
+          <div style="color:var(--text-muted);">Tx</div>
+          <div style="color:var(--sol-purple-light);">...sig 末四位 <strong>L007</strong> ✓</div>
+        </div>
+      </div>
+
+      <div class="terminal" style="margin-bottom:0;">
+        <div class="terminal-body">
+          <span class="terminal-prompt">tts</span> <span class="terminal-output">→</span> <span class="terminal-string">"已发 0.0001 SOL 给 enemy。他钱包余生有这一笔。"</span>
+        </div>
+      </div>
+
+      <div style="margin-top:0.75rem;font-family:'JetBrains Mono',monospace;font-size:clamp(0.6875rem, 0.8vw, 0.75rem);color:var(--text-muted);line-height:1.6;">
+        <span style="color:var(--hot-pink);">★</span> 链上历史 = 永久记录，他打开 Phantom 就看到<br>
+        <span style="color:var(--hot-pink);">★</span> 0.0001 SOL 太小，转账人没必要 / 受害人没法删
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom punchline strip -->
+  <div style="margin-top:clamp(1rem, 2vh, 1.5rem);background:linear-gradient(135deg, rgba(255,61,113,0.08), rgba(153,69,255,0.05));border:1px dashed rgba(255,61,113,0.4);border-radius:0.875rem;padding:0.875rem 1.25rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.75rem;">
+    <div style="font-family:'Space Grotesk',sans-serif;font-size:clamp(0.9375rem, 1.3vw, 1.125rem);color:var(--text-secondary);">
+      <strong style="color:var(--hot-pink);">在 ETH 上做这件事</strong>：手续费 $5，比侮辱本身贵 250 倍 — <span style="color:var(--text-muted);font-style:italic;">ngmi.</span>
+    </div>
+    <div style="font-family:'JetBrains Mono',monospace;font-size:clamp(0.75rem, 0.9vw, 0.875rem);color:var(--sol-green);">
+      Solana fee：$0.0001 · <strong>20,000x 性价比</strong>
+    </div>
+  </div>
+
+  <div class="slide-line"></div>
+  <div class="brand">EINCLAW × SOL</div>
+  <div class="slide-number">07 / 13</div>
+</div>
+
+<!-- ==================== SLIDE 8: ARCHITECTURE ==================== -->
+<div class="slide">
+  <div class="label label-purple">Under The Hood · 系统架构</div>
+  <h2>5 层架构 — 全部能跑</h2>
+  <div class="meme-hint" style="margin-bottom:clamp(1.25rem, 2.5vh, 1.875rem);">
+    没有 AWS · 没有 docker-compose · 没有智能合约 — Python + RPC + 一根 4G 麦
+  </div>
+
   <div style="flex:1;display:flex;flex-direction:column;gap:clamp(0.625rem, 1.2vh, 0.875rem);">
 
-    <!-- Layer 1: Hardware -->
     <div style="display:flex;align-items:center;gap:1rem;background:var(--bg-card);border:1px solid var(--border);border-radius:0.875rem;padding:0.75rem 1rem;">
-      <div style="font-family:'JetBrains Mono',monospace;font-size:clamp(0.75rem, 0.85vw, 0.8125rem);color:var(--text-muted);min-width:5rem;letter-spacing:1px;">L1 · DEVICE</div>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:clamp(0.75rem, 0.85vw, 0.8125rem);color:var(--text-muted);min-width:5rem;letter-spacing:1px;">L1 · 设备</div>
       <div style="font-size:1.5rem;">🎤</div>
       <div style="flex:1;">
         <div style="font-family:'Space Grotesk',sans-serif;font-weight:600;color:var(--text-primary);font-size:clamp(0.9375rem, 1.15vw, 1.0625rem);">EinClaw Mic — ESP32-S3 + 4G LTE</div>
@@ -940,18 +947,16 @@
       <span class="tag tag-green">RUNNING</span>
     </div>
 
-    <!-- Layer 2: ASR -->
     <div style="display:flex;align-items:center;gap:1rem;background:var(--bg-card);border:1px solid var(--border);border-radius:0.875rem;padding:0.75rem 1rem;">
       <div style="font-family:'JetBrains Mono',monospace;font-size:clamp(0.75rem, 0.85vw, 0.8125rem);color:var(--text-muted);min-width:5rem;letter-spacing:1px;">L2 · ASR</div>
       <div style="font-size:1.5rem;">🗣️</div>
       <div style="flex:1;">
-        <div style="font-family:'Space Grotesk',sans-serif;font-weight:600;color:var(--text-primary);font-size:clamp(0.9375rem, 1.15vw, 1.0625rem);">Qwen3 ASR Flash + 42 个 Crypto 热词</div>
-        <div style="font-family:'JetBrains Mono',monospace;font-size:clamp(0.75rem, 0.9vw, 0.875rem);color:var(--text-secondary);">Solana / BONK / WIF / FARTCOIN / .sol / vault — 不再听成"索拉娜"</div>
+        <div style="font-family:'Space Grotesk',sans-serif;font-weight:600;color:var(--text-primary);font-size:clamp(0.9375rem, 1.15vw, 1.0625rem);">Qwen3 ASR Flash + 42 个 crypto 热词</div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:clamp(0.75rem, 0.9vw, 0.875rem);color:var(--text-secondary);">Solana / BONK / WIF / FARTCOIN / .sol / vault — 不再被识别成"索拉娜"</div>
       </div>
       <span class="tag tag-amber">HOTWORDS</span>
     </div>
 
-    <!-- Layer 3: Agent -->
     <div style="display:flex;align-items:center;gap:1rem;background:var(--bg-card-2);border:1px solid var(--border-purple);border-radius:0.875rem;padding:0.875rem 1rem;box-shadow:0 0 24px rgba(153,69,255,0.08);">
       <div style="font-family:'JetBrains Mono',monospace;font-size:clamp(0.75rem, 0.85vw, 0.8125rem);color:var(--sol-purple-light);min-width:5rem;letter-spacing:1px;">L3 · AGENT</div>
       <div style="font-size:1.5rem;">🤖</div>
@@ -961,13 +966,12 @@
           <code style="color:var(--sol-green);">crypto-price</code> ·
           <code style="color:var(--sol-purple-light);">solana-pay</code> ·
           <code style="color:var(--hot-pink);">solana-contacts</code>
-          <span style="color:var(--text-muted);">— SKILL.md frontmatter, hot-reload via session 失效</span>
+          <span style="color:var(--text-muted);">— SKILL.md frontmatter，session 失效式热加载</span>
         </div>
       </div>
       <span class="tag tag-purple">CORE</span>
     </div>
 
-    <!-- Layer 4: External APIs -->
     <div class="grid-2" style="gap:0.625rem;">
       <div style="display:flex;align-items:center;gap:1rem;background:var(--bg-card);border:1px solid var(--border);border-radius:0.875rem;padding:0.75rem 1rem;">
         <div style="font-family:'JetBrains Mono',monospace;font-size:clamp(0.75rem, 0.85vw, 0.8125rem);color:var(--text-muted);letter-spacing:1px;">L4a</div>
@@ -981,19 +985,18 @@
         <div style="font-family:'JetBrains Mono',monospace;font-size:clamp(0.75rem, 0.85vw, 0.8125rem);color:var(--text-muted);letter-spacing:1px;">L4b</div>
         <div style="font-size:1.25rem;">🌐</div>
         <div style="flex:1;">
-          <div style="font-family:'Space Grotesk',sans-serif;font-weight:600;color:var(--text-primary);font-size:clamp(0.875rem, 1.05vw, 1rem);">SNS via Bonfida proxy</div>
-          <div style="font-family:'JetBrains Mono',monospace;font-size:clamp(0.7rem, 0.85vw, 0.8125rem);color:var(--text-secondary);">.sol → pubkey · 跨网通用</div>
+          <div style="font-family:'Space Grotesk',sans-serif;font-weight:600;color:var(--text-primary);font-size:clamp(0.875rem, 1.05vw, 1rem);">SNS · Bonfida proxy</div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:clamp(0.7rem, 0.85vw, 0.8125rem);color:var(--text-secondary);">.sol → pubkey · 跨主网 / 测试网通用</div>
         </div>
       </div>
     </div>
 
-    <!-- Layer 5: Solana -->
     <div style="display:flex;align-items:center;gap:1rem;background:linear-gradient(135deg, rgba(20,241,149,0.06), rgba(153,69,255,0.06), rgba(21,23,42,0.96));border:1px solid var(--border-green);border-radius:0.875rem;padding:0.875rem 1rem;box-shadow:0 0 24px rgba(20,241,149,0.08);">
-      <div style="font-family:'JetBrains Mono',monospace;font-size:clamp(0.75rem, 0.85vw, 0.8125rem);color:var(--sol-green);min-width:5rem;letter-spacing:1px;">L5 · CHAIN</div>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:clamp(0.75rem, 0.85vw, 0.8125rem);color:var(--sol-green);min-width:5rem;letter-spacing:1px;">L5 · 链</div>
       <div style="font-size:1.5rem;">⚡</div>
       <div style="flex:1;">
         <div style="font-family:'Space Grotesk',sans-serif;font-weight:700;color:var(--text-primary);font-size:clamp(0.9375rem, 1.2vw, 1.125rem);">Solana Devnet · solders + solana-py</div>
-        <div style="font-family:'JetBrains Mono',monospace;font-size:clamp(0.75rem, 0.9vw, 0.875rem);color:var(--text-secondary);">SystemProgram.transfer · Fernet-encrypted hot wallet · audit.jsonl</div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:clamp(0.75rem, 0.9vw, 0.875rem);color:var(--text-secondary);">SystemProgram.transfer · Fernet 加密 hot wallet · audit.jsonl 全留痕</div>
       </div>
       <span class="tag tag-green">DEVNET</span>
     </div>
@@ -1002,28 +1005,28 @@
 
   <div class="slide-line"></div>
   <div class="brand">EINCLAW × SOL</div>
-  <div class="slide-number">07 / 11</div>
+  <div class="slide-number">08 / 13</div>
 </div>
 
-<!-- ==================== SLIDE 8: SAFETY ==================== -->
+<!-- ==================== SLIDE 9: SAFETY ==================== -->
 <div class="slide">
-  <div class="label label-amber">Safety / Custody</div>
-  <h2>不让 Agent 把你 rug 了 — Custody-Light 设计</h2>
+  <div class="label label-amber">Safety · 自我托管</div>
+  <h2>不让 Agent 把你 rug 了 — 轻托管设计</h2>
   <div class="meme-hint" style="margin-bottom:clamp(1.25rem, 2.5vh, 1.875rem);">
-    把 hot wallet 当"零花钱卡" · 总额低、单笔限、日额封顶、每次留痕 · main wallet 永不出现
+    把 hot wallet 当"零花钱卡"用 · 总额低、单笔限、日额封顶、每次留痕 · 主钱包永远不出现
   </div>
 
   <div class="grid-2" style="flex:1;gap:clamp(1rem, 2vw, 1.5rem);align-items:stretch;">
-    <!-- LHS: defense layers -->
+    <!-- LHS -->
     <div style="display:flex;flex-direction:column;gap:0.75rem;">
       <div class="card" style="padding:1rem 1.25rem;">
         <div style="display:flex;align-items:center;gap:0.625rem;margin-bottom:0.5rem;">
           <span class="tag tag-amber">LAYER 1</span>
-          <h3 style="margin:0;font-size:clamp(0.9375rem, 1.15vw, 1.0625rem);">Per-Tx Cap</h3>
+          <h3 style="margin:0;font-size:clamp(0.9375rem, 1.15vw, 1.0625rem);">单笔上限</h3>
         </div>
         <div style="display:flex;align-items:baseline;gap:0.625rem;">
           <span class="big-num" style="color:var(--amber);">0.05</span>
-          <span style="font-family:'JetBrains Mono',monospace;color:var(--text-muted);">SOL / tx</span>
+          <span style="font-family:'JetBrains Mono',monospace;color:var(--text-muted);">SOL / 笔</span>
         </div>
         <div style="font-family:'JetBrains Mono',monospace;font-size:0.8rem;color:var(--text-secondary);margin-top:0.4rem;">超过需要明确 <code style="color:var(--amber);">--confirm</code></div>
       </div>
@@ -1031,38 +1034,38 @@
       <div class="card" style="padding:1rem 1.25rem;">
         <div style="display:flex;align-items:center;gap:0.625rem;margin-bottom:0.5rem;">
           <span class="tag tag-pink">LAYER 2</span>
-          <h3 style="margin:0;font-size:clamp(0.9375rem, 1.15vw, 1.0625rem);">Per-Day Cap</h3>
+          <h3 style="margin:0;font-size:clamp(0.9375rem, 1.15vw, 1.0625rem);">单日上限</h3>
         </div>
         <div style="display:flex;align-items:baseline;gap:0.625rem;">
           <span class="big-num" style="color:var(--hot-pink);">0.2</span>
-          <span style="font-family:'JetBrains Mono',monospace;color:var(--text-muted);">SOL / day · UTC</span>
+          <span style="font-family:'JetBrains Mono',monospace;color:var(--text-muted);">SOL / 天 · UTC 自然日</span>
         </div>
-        <div style="font-family:'JetBrains Mono',monospace;font-size:0.8rem;color:var(--text-secondary);margin-top:0.4rem;">硬限 · 由 audit log 实时聚合</div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:0.8rem;color:var(--text-secondary);margin-top:0.4rem;">硬上限 · 由 audit log 实时聚合</div>
       </div>
 
       <div class="card" style="padding:1rem 1.25rem;">
         <div style="display:flex;align-items:center;gap:0.625rem;margin-bottom:0.5rem;">
           <span class="tag tag-purple">LAYER 3</span>
-          <h3 style="margin:0;font-size:clamp(0.9375rem, 1.15vw, 1.0625rem);">Encrypted At Rest</h3>
+          <h3 style="margin:0;font-size:clamp(0.9375rem, 1.15vw, 1.0625rem);">私钥加密落盘</h3>
         </div>
         <div style="font-family:'JetBrains Mono',monospace;font-size:clamp(0.75rem, 0.9vw, 0.875rem);color:var(--text-secondary);">
           <code style="color:var(--sol-purple-light);">wallet.bin</code> = Fernet(secret_key)<br>
-          <code style="color:var(--text-muted);">chmod 0600</code> · 防 cat/grep/log 误泄
+          <code style="color:var(--text-muted);">chmod 0600</code> · 防 cat / grep / log 误泄
         </div>
       </div>
 
       <div class="card" style="padding:1rem 1.25rem;">
         <div style="display:flex;align-items:center;gap:0.625rem;margin-bottom:0.5rem;">
           <span class="tag tag-green">LAYER 4</span>
-          <h3 style="margin:0;font-size:clamp(0.9375rem, 1.15vw, 1.0625rem);">Append-only Audit</h3>
+          <h3 style="margin:0;font-size:clamp(0.9375rem, 1.15vw, 1.0625rem);">只追加审计</h3>
         </div>
         <div style="font-family:'JetBrains Mono',monospace;font-size:clamp(0.75rem, 0.9vw, 0.875rem);color:var(--text-secondary);">
-          每一笔（成功/拒绝/错误）都写 <code style="color:var(--sol-green);">audit.jsonl</code>，事后可对账
+          每一笔（成功 / 拒绝 / 错误）都写 <code style="color:var(--sol-green);">audit.jsonl</code>，事后能对账
         </div>
       </div>
     </div>
 
-    <!-- RHS: rugcheck-style score -->
+    <!-- RHS: rugcheck-style -->
     <div class="card" style="padding:clamp(1.125rem, 2.5vh, 1.625rem);background:linear-gradient(180deg, rgba(20,241,149,0.04), rgba(21,23,42,0.96));border-color:var(--border-green);display:flex;flex-direction:column;">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem;">
         <div style="font-family:'JetBrains Mono',monospace;font-size:clamp(0.75rem, 0.9vw, 0.875rem);color:var(--sol-green);letter-spacing:2px;text-transform:uppercase;">★ AGENT WALLET RUGCHECK</div>
@@ -1071,28 +1074,28 @@
 
       <div style="text-align:center;margin:1rem 0;">
         <div style="font-family:'Space Grotesk',sans-serif;font-size:clamp(3.5rem, 7vw, 5.5rem);font-weight:800;line-height:1;color:var(--sol-green);text-shadow:0 0 40px rgba(20,241,149,0.4);">94<span style="font-size:0.4em;color:var(--text-muted);">/100</span></div>
-        <div style="font-family:'JetBrains Mono',monospace;font-size:clamp(0.8125rem, 1vw, 0.9375rem);color:var(--text-secondary);margin-top:0.4rem;">total trust score · self-audit</div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:clamp(0.8125rem, 1vw, 0.9375rem);color:var(--text-secondary);margin-top:0.4rem;">trust score · 自审分数</div>
       </div>
 
       <div style="display:flex;flex-direction:column;gap:0.5rem;font-family:'JetBrains Mono',monospace;font-size:clamp(0.75rem, 0.9vw, 0.875rem);">
         <div style="display:flex;justify-content:space-between;padding:0.4rem 0.625rem;background:var(--bg-elevated);border-radius:0.5rem;">
-          <span style="color:var(--text-secondary);">Caps enforced before sign</span>
+          <span style="color:var(--text-secondary);">签名前强制 caps 校验</span>
           <span style="color:var(--sol-green);font-weight:700;">+25</span>
         </div>
         <div style="display:flex;justify-content:space-between;padding:0.4rem 0.625rem;background:var(--bg-elevated);border-radius:0.5rem;">
-          <span style="color:var(--text-secondary);">Devnet only · mainnet locked</span>
+          <span style="color:var(--text-secondary);">仅 devnet · mainnet 已锁</span>
           <span style="color:var(--sol-green);font-weight:700;">+20</span>
         </div>
         <div style="display:flex;justify-content:space-between;padding:0.4rem 0.625rem;background:var(--bg-elevated);border-radius:0.5rem;">
-          <span style="color:var(--text-secondary);">Audit log immutable (append-only)</span>
+          <span style="color:var(--text-secondary);">audit log 仅追加 · 不可改</span>
           <span style="color:var(--sol-green);font-weight:700;">+18</span>
         </div>
         <div style="display:flex;justify-content:space-between;padding:0.4rem 0.625rem;background:var(--bg-elevated);border-radius:0.5rem;">
-          <span style="color:var(--text-secondary);">Separate from main Phantom wallet</span>
+          <span style="color:var(--text-secondary);">独立钱包 · 与主 Phantom 隔离</span>
           <span style="color:var(--sol-green);font-weight:700;">+16</span>
         </div>
         <div style="display:flex;justify-content:space-between;padding:0.4rem 0.625rem;background:var(--bg-elevated);border-radius:0.5rem;">
-          <span style="color:var(--text-secondary);">Unknown recipient = hard reject</span>
+          <span style="color:var(--text-secondary);">未知收款人 = 硬拒绝</span>
           <span style="color:var(--sol-green);font-weight:700;">+15</span>
         </div>
         <div style="display:flex;justify-content:space-between;padding:0.4rem 0.625rem;background:rgba(255,210,63,0.08);border-radius:0.5rem;">
@@ -1102,7 +1105,7 @@
       </div>
 
       <div style="margin-top:auto;padding-top:1rem;font-family:'JetBrains Mono',monospace;font-size:0.7rem;color:var(--text-muted);text-align:center;line-height:1.6;">
-        💡 <span style="color:var(--text-secondary);">"treat balance as expendable, keep caps tight."</span><br>
+        💡 <span style="color:var(--text-secondary);">"余额视作可消耗，把上限调紧。"</span><br>
         本设计致敬 Solana Agent Kit / ElizaOS 的 custodial agent 模式
       </div>
     </div>
@@ -1110,23 +1113,23 @@
 
   <div class="slide-line"></div>
   <div class="brand">EINCLAW × SOL</div>
-  <div class="slide-number">08 / 11</div>
+  <div class="slide-number">09 / 13</div>
 </div>
 
-<!-- ==================== SLIDE 9: WHY THIS MATTERS ==================== -->
+<!-- ==================== SLIDE 10: WHY THIS MATTERS ==================== -->
 <div class="slide">
-  <div class="label">Why This Slaps</div>
-  <h2>为什么是 <span class="gradient-text">Voice + Hardware + Solana</span></h2>
+  <div class="label">Why This Slaps · 为什么这件事值得做</div>
+  <h2>三件事撞一起：<span class="gradient-text">Voice + Hardware + Solana</span></h2>
   <div class="meme-hint" style="margin-bottom:clamp(1.25rem, 2.5vh, 1.875rem);">
-    三件事撞在一起，才能让"按一下，链上完事"这件事真的成立
+    缺一不可 — 这才能让"按一下、链上完事"真的成立
   </div>
 
   <div class="grid-3" style="flex:1;align-items:stretch;">
     <div class="card card-purple" style="display:flex;flex-direction:column;">
       <div style="font-size:2.5rem;margin-bottom:0.625rem;">🎙️</div>
-      <h3 style="font-size:clamp(1.125rem, 1.5vw, 1.375rem);color:var(--sol-purple-light);">Voice = Lowest Friction</h3>
+      <h3 style="font-size:clamp(1.125rem, 1.5vw, 1.375rem);color:var(--sol-purple-light);">Voice = 最低摩擦</h3>
       <p style="flex:1;font-size:clamp(0.8125rem, 1vw, 0.9375rem);">
-        说话比打字快 6x，比打开 app 简单 10x。"想到了就发出来"是<strong style="color:var(--text-primary);">捕获瞬时意图</strong>的唯一接口。
+        说话比打字快 6 倍，比开 App 简单 10 倍。"想到就发出来"是<strong style="color:var(--text-primary);">捕捉瞬时意图</strong>的唯一接口。
       </p>
       <div style="margin-top:0.875rem;padding-top:0.875rem;border-top:1px dashed var(--border-purple);font-family:'JetBrains Mono',monospace;font-size:0.75rem;color:var(--text-muted);font-style:italic;">
         "you don't open Twitter,<br>you just <span style="color:var(--sol-purple-light);">tweet in your head</span>."
@@ -1135,9 +1138,9 @@
 
     <div class="card card-pink" style="display:flex;flex-direction:column;">
       <div style="font-size:2.5rem;margin-bottom:0.625rem;">📡</div>
-      <h3 style="font-size:clamp(1.125rem, 1.5vw, 1.375rem);color:var(--hot-pink);">Hardware = Always-On</h3>
+      <h3 style="font-size:clamp(1.125rem, 1.5vw, 1.375rem);color:var(--hot-pink);">Hardware = 永远在身上</h3>
       <p style="flex:1;font-size:clamp(0.8125rem, 1vw, 0.9375rem);">
-        4G mic 不依赖手机/Wi-Fi。地铁里、夜跑路上、工地、咖啡馆。<strong style="color:var(--text-primary);">物理按键 = 物理意图证明</strong>，比 voice activation 更稳。
+        4G 麦不依赖手机 / Wi-Fi。地铁、夜跑、工地、咖啡店都行。<strong style="color:var(--text-primary);">物理按键 = 物理意图证明</strong>，比唤醒词稳得多。
       </p>
       <div style="margin-top:0.875rem;padding-top:0.875rem;border-top:1px dashed rgba(255,61,113,0.3);font-family:'JetBrains Mono',monospace;font-size:0.75rem;color:var(--text-muted);font-style:italic;">
         "ambient AI ≠ Siri.<br>ambient AI = <span style="color:var(--hot-pink);">a button you press</span>."
@@ -1146,7 +1149,7 @@
 
     <div class="card card-green" style="display:flex;flex-direction:column;">
       <div style="font-size:2.5rem;margin-bottom:0.625rem;">⚡</div>
-      <h3 style="font-size:clamp(1.125rem, 1.5vw, 1.375rem);color:var(--sol-green);">Solana = 唯一能用的链</h3>
+      <h3 style="font-size:clamp(1.125rem, 1.5vw, 1.375rem);color:var(--sol-green);">Solana = 唯一能跑的链</h3>
       <p style="flex:1;font-size:clamp(0.8125rem, 1vw, 0.9375rem);">
         400ms 出块 + $0.000005 手续费 + Phantom 无密码 UX。<strong style="color:var(--text-primary);">在 ETH 上做语音支付，gas 比小费还贵</strong>。
       </p>
@@ -1156,7 +1159,6 @@
     </div>
   </div>
 
-  <!-- Bottom callout -->
   <div style="margin-top:clamp(1.25rem, 2.5vh, 1.875rem);background:linear-gradient(135deg, rgba(153,69,255,0.10), rgba(20,241,149,0.06));border:1px solid var(--border-bright);border-radius:1rem;padding:clamp(1rem, 2vh, 1.5rem) clamp(1.25rem, 2.5vw, 2rem);text-align:center;">
     <div style="font-family:'Space Grotesk',sans-serif;font-size:clamp(1rem, 1.6vw, 1.375rem);font-weight:600;color:var(--text-primary);line-height:1.45;">
       硬件按键是 <span class="gradient-purple" style="font-weight:800;">人类意图的最低延迟接口</span> · Solana 是 <span class="gradient-text" style="font-weight:800;">价值传输的最低延迟基建</span>
@@ -1168,28 +1170,27 @@
 
   <div class="slide-line"></div>
   <div class="brand">EINCLAW × SOL</div>
-  <div class="slide-number">09 / 11</div>
+  <div class="slide-number">10 / 13</div>
 </div>
 
-<!-- ==================== SLIDE 10: WHAT'S NEXT / ROADMAP ==================== -->
+<!-- ==================== SLIDE 11: TECHNICAL ROADMAP ==================== -->
 <div class="slide">
-  <div class="label label-purple">Roadmap · Next 90 Days</div>
+  <div class="label label-purple">Roadmap · 技术路线</div>
   <h2>Hackathon 之后：从 demo 到 daily-driver</h2>
   <div class="meme-hint" style="margin-bottom:clamp(1.25rem, 2.5vh, 1.875rem);">
     冲 <span class="hl">Solana Frontier Hackathon</span> · 截止 May 11, 2026 · $30k Grand Prize · $2.5M Colosseum 风投池
   </div>
 
   <div class="grid-3" style="flex:1;align-items:stretch;">
-    <!-- Now -->
     <div class="card card-green" style="display:flex;flex-direction:column;">
       <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.875rem;">
-        <span class="tag tag-green">NOW</span>
-        <span style="font-family:'JetBrains Mono',monospace;font-size:0.7rem;color:var(--text-dim);">APR 2026</span>
+        <span class="tag tag-green">现在</span>
+        <span style="font-family:'JetBrains Mono',monospace;font-size:0.7rem;color:var(--text-dim);">2026 / 04</span>
       </div>
-      <h3 style="color:var(--sol-green);font-size:clamp(1.0625rem, 1.4vw, 1.25rem);">Voice → Onchain MVP</h3>
+      <h3 style="color:var(--sol-green);font-size:clamp(1.0625rem, 1.4vw, 1.25rem);">语音 → 链上 MVP</h3>
       <ul class="bullet-list" style="flex:1;margin-top:0.5rem;font-size:clamp(0.8125rem, 1vw, 0.9375rem);">
         <li><strong style="color:var(--text-primary);">crypto-price</strong> · DexScreener 反 wash</li>
-        <li><strong style="color:var(--text-primary);">solana-pay</strong> · custody wallet + caps</li>
+        <li><strong style="color:var(--text-primary);">solana-pay</strong> · 托管钱包 + caps</li>
         <li><strong style="color:var(--text-primary);">solana-contacts</strong> · base58 / .sol</li>
         <li>ASR 热词 · 42 个 crypto 专名</li>
         <li>devnet 端到端跑通</li>
@@ -1197,30 +1198,28 @@
       <div style="margin-top:0.75rem;font-family:'JetBrains Mono',monospace;font-size:0.7rem;color:var(--sol-green);">★ shipped ✓</div>
     </div>
 
-    <!-- Next 2 weeks -->
     <div class="card card-purple" style="display:flex;flex-direction:column;">
       <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.875rem;">
-        <span class="tag tag-purple">2 WKS</span>
+        <span class="tag tag-purple">2 周内</span>
         <span style="font-family:'JetBrains Mono',monospace;font-size:0.7rem;color:var(--text-dim);">→ MAY 11</span>
       </div>
-      <h3 style="color:var(--sol-purple-light);font-size:clamp(1.0625rem, 1.4vw, 1.25rem);">Hackathon Push</h3>
+      <h3 style="color:var(--sol-purple-light);font-size:clamp(1.0625rem, 1.4vw, 1.25rem);">Hackathon 冲刺</h3>
       <ul class="bullet-list" style="flex:1;margin-top:0.5rem;font-size:clamp(0.8125rem, 1vw, 0.9375rem);">
         <li><strong style="color:var(--text-primary);">x402</strong> 付费墙 · USDC 微支付按调用计费</li>
         <li><strong style="color:var(--text-primary);">A2A</strong> · einclaw 设备之间互转</li>
         <li>提交 <code style="color:var(--sol-purple-light);">solana.com/skills</code></li>
         <li>提交 <code style="color:var(--sol-purple-light);">skillmarket.space</code></li>
-        <li>录 demo video · 投 Colosseum</li>
+        <li>录 demo 视频 · 投 Colosseum</li>
       </ul>
       <div style="margin-top:0.75rem;font-family:'JetBrains Mono',monospace;font-size:0.7rem;color:var(--sol-purple-light);">★ in progress</div>
     </div>
 
-    <!-- Q3+ -->
     <div class="card" style="border-color:var(--border);display:flex;flex-direction:column;background:linear-gradient(135deg, rgba(255,210,63,0.04), rgba(21,23,42,0.96));">
       <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.875rem;">
         <span class="tag tag-amber">Q3 2026</span>
-        <span style="font-family:'JetBrains Mono',monospace;font-size:0.7rem;color:var(--text-dim);">+90 DAYS</span>
+        <span style="font-family:'JetBrains Mono',monospace;font-size:0.7rem;color:var(--text-dim);">+90 天</span>
       </div>
-      <h3 style="color:var(--amber);font-size:clamp(1.0625rem, 1.4vw, 1.25rem);">Mainnet & Scale</h3>
+      <h3 style="color:var(--amber);font-size:clamp(1.0625rem, 1.4vw, 1.25rem);">主网与放量</h3>
       <ul class="bullet-list" style="flex:1;margin-top:0.5rem;font-size:clamp(0.8125rem, 1vw, 0.9375rem);">
         <li>Mainnet beta · 100 内测用户</li>
         <li><strong style="color:var(--text-primary);">Jupiter Swap</strong> Skill · 语音换币</li>
@@ -1232,24 +1231,122 @@
     </div>
   </div>
 
-  <!-- Hackathon callout -->
   <div style="margin-top:clamp(1rem, 2vh, 1.5rem);background:linear-gradient(135deg, rgba(153,69,255,0.12), rgba(220,31,255,0.06));border:1px solid var(--border-purple);border-radius:1rem;padding:1rem 1.5rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.75rem;">
     <div>
       <div style="font-family:'JetBrains Mono',monospace;font-size:0.7rem;color:var(--sol-purple-light);letter-spacing:2px;text-transform:uppercase;">DEADLINE</div>
-      <div style="font-family:'Space Grotesk',sans-serif;font-size:clamp(1.125rem, 1.6vw, 1.375rem);font-weight:700;color:var(--text-primary);">Solana Frontier · May 11, 2026</div>
+      <div style="font-family:'Space Grotesk',sans-serif;font-size:clamp(1.125rem, 1.6vw, 1.375rem);font-weight:700;color:var(--text-primary);">Solana Frontier · 2026-05-11</div>
     </div>
     <div style="display:flex;gap:0.625rem;flex-wrap:wrap;">
       <span class="pill-glow">$30k Grand Prize</span>
-      <span class="pill-glow" style="background:var(--sol-green-glow);color:var(--sol-green);border-color:var(--border-green);box-shadow:0 0 24px var(--sol-green-glow);">$2.5M Colosseum Pool</span>
+      <span class="pill-glow" style="background:var(--sol-green-glow);color:var(--sol-green);border-color:var(--border-green);box-shadow:0 0 24px var(--sol-green-glow);">$2.5M Colosseum 资金池</span>
     </div>
   </div>
 
   <div class="slide-line"></div>
   <div class="brand">EINCLAW × SOL</div>
-  <div class="slide-number">10 / 11</div>
+  <div class="slide-number">11 / 13</div>
 </div>
 
-<!-- ==================== SLIDE 11: GM / CLOSING ==================== -->
+<!-- ==================== SLIDE 12: MEME SCENARIOS ROADMAP ==================== -->
+<div class="slide">
+  <div class="label label-pink">Meme 玩法路线图 · Future Scenarios</div>
+  <h2>有了语音 + agent 钱包，下一步能玩什么？</h2>
+  <div class="meme-hint" style="margin-bottom:clamp(1.25rem, 2.5vh, 1.875rem);">
+    每一个都是 <span class="hl">"按一下、说一句"</span> 就完事的剧本 · 能不能站住脚要看用户笑不笑
+  </div>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;grid-template-rows:1fr 1fr;gap:clamp(0.75rem, 1.4vw, 1.125rem);flex:1;">
+
+    <!-- 1. Dust disrespect (shipped logic) -->
+    <div class="card card-pink" style="padding:1rem 1.25rem;display:flex;flex-direction:column;">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.5rem;">
+        <span class="tag tag-pink">v1.0 · 已能跑</span>
+        <span style="font-size:1.25rem;">💀</span>
+      </div>
+      <h3 style="font-size:clamp(0.9375rem, 1.2vw, 1.125rem);color:var(--hot-pink);margin-bottom:0.4rem;">粉尘 disrespect</h3>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:clamp(0.7rem, 0.8vw, 0.8125rem);color:var(--text-muted);margin-bottom:0.625rem;font-style:italic;">"给那个 ngmi 的发 0.0001 SOL"</div>
+      <p style="font-size:clamp(0.75rem, 0.95vw, 0.875rem);flex:1;line-height:1.55;color:var(--text-secondary);">
+        最具外科手术精度的 web3 disrespect。0.0001 SOL = 链上永久 L 章。<strong style="color:var(--text-primary);">solana-pay 已经能做</strong>，下版加 Memo Program 让备注上链。
+      </p>
+    </div>
+
+    <!-- 2. Tip / 打赏 -->
+    <div class="card card-green" style="padding:1rem 1.25rem;display:flex;flex-direction:column;">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.5rem;">
+        <span class="tag tag-green">v1.0 · 已能跑</span>
+        <span style="font-size:1.25rem;">💰</span>
+      </div>
+      <h3 style="font-size:clamp(0.9375rem, 1.2vw, 1.125rem);color:var(--sol-green);margin-bottom:0.4rem;">语音打赏</h3>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:clamp(0.7rem, 0.8vw, 0.8125rem);color:var(--text-muted);margin-bottom:0.625rem;font-style:italic;">"给主播 alice 打 0.02 SOL"</div>
+      <p style="font-size:clamp(0.75rem, 0.95vw, 0.875rem);flex:1;line-height:1.55;color:var(--text-secondary);">
+        看直播 / 听 Space / 路演听完，按一下就打赏。比 Twitch bits 快 100 倍，主播 0 抽成、即时到账。
+      </p>
+    </div>
+
+    <!-- 3. AA split -->
+    <div class="card card-purple" style="padding:1rem 1.25rem;display:flex;flex-direction:column;">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.5rem;">
+        <span class="tag tag-purple">v1.1 · 1 周</span>
+        <span style="font-size:1.25rem;">🍱</span>
+      </div>
+      <h3 style="font-size:clamp(0.9375rem, 1.2vw, 1.125rem);color:var(--sol-purple-light);margin-bottom:0.4rem;">AA 制平账</h3>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:clamp(0.7rem, 0.8vw, 0.8125rem);color:var(--text-muted);margin-bottom:0.625rem;font-style:italic;">"把这顿 0.3 SOL 平分给 alice、bob、me"</div>
+      <p style="font-size:clamp(0.75rem, 0.95vw, 0.875rem);flex:1;line-height:1.55;color:var(--text-secondary);">
+        饭后那个永远算不清的瞬间 — 一句话搞定，多人收款人 + 自动均分 + 一次广播。Splitwise on Solana。
+      </p>
+    </div>
+
+    <!-- 4. Voice red packet -->
+    <div class="card" style="padding:1rem 1.25rem;display:flex;flex-direction:column;background:linear-gradient(135deg, rgba(255,77,77,0.08), rgba(21,23,42,0.96));border-color:rgba(255,77,77,0.3);">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.5rem;">
+        <span class="tag" style="background:rgba(255,77,77,0.18);color:#FF8585;border:1px solid rgba(255,77,77,0.4);">v1.2 · 2 周</span>
+        <span style="font-size:1.25rem;">🧧</span>
+      </div>
+      <h3 style="font-size:clamp(0.9375rem, 1.2vw, 1.125rem);color:#FF8585;margin-bottom:0.4rem;">语音红包</h3>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:clamp(0.7rem, 0.8vw, 0.8125rem);color:var(--text-muted);margin-bottom:0.625rem;font-style:italic;">"发 100 个 0.001 SOL 红包到 alpha 群"</div>
+      <p style="font-size:clamp(0.75rem, 0.95vw, 0.875rem);flex:1;line-height:1.55;color:var(--text-secondary);">
+        春节、社区空投、群员庆祝 — 一句话开 100 个红包链接，群里抢到地址就到账。中国人对红包的肌肉记忆 + Solana。
+      </p>
+    </div>
+
+    <!-- 5. Voice swap -->
+    <div class="card card-purple" style="padding:1rem 1.25rem;display:flex;flex-direction:column;">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.5rem;">
+        <span class="tag tag-purple">Q3 · Jupiter</span>
+        <span style="font-size:1.25rem;">🔄</span>
+      </div>
+      <h3 style="font-size:clamp(0.9375rem, 1.2vw, 1.125rem);color:var(--sol-purple-light);margin-bottom:0.4rem;">语音换币</h3>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:clamp(0.7rem, 0.8vw, 0.8125rem);color:var(--text-muted);margin-bottom:0.625rem;font-style:italic;">"用 0.1 SOL 买点 BONK"</div>
+      <p style="font-size:clamp(0.75rem, 0.95vw, 0.875rem);flex:1;line-height:1.55;color:var(--text-secondary);">
+        通过 Jupiter Aggregator 一句话 swap。"听到 alpha 立刻进场"成立 — DEX UI 永远跟不上一张嘴。
+      </p>
+    </div>
+
+    <!-- 6. Sentiment oracle -->
+    <div class="card" style="padding:1rem 1.25rem;display:flex;flex-direction:column;background:linear-gradient(135deg, rgba(0,224,255,0.06), rgba(21,23,42,0.96));border-color:rgba(0,224,255,0.3);">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.5rem;">
+        <span class="tag" style="background:var(--cyan-glow);color:var(--cyan);border:1px solid rgba(0,224,255,0.3);">Q3 · 长期</span>
+        <span style="font-size:1.25rem;">📡</span>
+      </div>
+      <h3 style="font-size:clamp(0.9375rem, 1.2vw, 1.125rem);color:var(--cyan);margin-bottom:0.4rem;">真人情绪预言机</h3>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:clamp(0.7rem, 0.8vw, 0.8125rem);color:var(--text-muted);margin-bottom:0.625rem;font-style:italic;">10 万根麦 → token 情绪 oracle feed</div>
+      <p style="font-size:clamp(0.75rem, 0.95vw, 0.875rem);flex:1;line-height:1.55;color:var(--text-secondary);">
+        每次"X 这个值得买吗"都是<strong style="color:var(--text-primary);">人类意图信号</strong>。去标识聚合后变成 oracle，bot 假不出来。Switchboard / Pyth 没法 cover 的领域。
+      </p>
+    </div>
+  </div>
+
+  <!-- Bottom: aspirational tagline -->
+  <div style="margin-top:clamp(1rem, 2vh, 1.5rem);text-align:center;font-family:'Space Grotesk',sans-serif;font-size:clamp(0.9375rem, 1.3vw, 1.125rem);color:var(--text-secondary);font-style:italic;">
+    一根麦把 crypto 从 dApp 拉回到 <strong class="gradient-text" style="font-weight:700;font-style:normal;">人话 layer</strong>。剩下的就看脑洞。
+  </div>
+
+  <div class="slide-line"></div>
+  <div class="brand">EINCLAW × SOL</div>
+  <div class="slide-number">12 / 13</div>
+</div>
+
+<!-- ==================== SLIDE 13: GM / CLOSING ==================== -->
 <div class="slide cover-slide">
   <div style="display:flex;flex-direction:column;align-items:center;gap:clamp(1rem, 2.5vh, 1.875rem);">
     <div class="pill-glow" style="background:var(--amber-glow);color:var(--amber);border-color:rgba(255,210,63,0.4);box-shadow:0 0 30px var(--amber-glow);">
@@ -1261,32 +1358,30 @@
     </h1>
 
     <div style="font-family:'Space Grotesk',sans-serif;font-size:clamp(1rem, 1.6vw, 1.375rem);color:var(--text-secondary);font-weight:500;max-width:min(48rem, 90vw);line-height:1.5;">
-      we built a voice-first crypto agent on a 4G mic.<br>
-      it's running on devnet right now. <span style="color:var(--sol-green);font-weight:700;">try it.</span>
+      我们在一根 4G 麦克风上做了一个语音 crypto agent，<br>
+      现在跑在 devnet 上 — <span style="color:var(--sol-green);font-weight:700;">来按一下试试</span>。
     </div>
 
-    <!-- Demo info -->
     <div class="grid-3" style="margin-top:clamp(1rem, 2vh, 1.5rem);width:min(56rem, 92vw);gap:0.75rem;">
       <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:0.875rem;padding:1rem;text-align:left;">
         <div style="font-family:'JetBrains Mono',monospace;font-size:0.7rem;color:var(--text-muted);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:6px;">Try The Demo</div>
         <div style="font-family:'Space Grotesk',sans-serif;font-size:clamp(0.875rem, 1.1vw, 1.0625rem);font-weight:600;color:var(--text-primary);">EinClaw Mic</div>
-        <div style="font-family:'JetBrains Mono',monospace;font-size:clamp(0.75rem, 0.9vw, 0.875rem);color:var(--sol-green);margin-top:4px;">press · talk · settled</div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:clamp(0.75rem, 0.9vw, 0.875rem);color:var(--sol-green);margin-top:4px;">按一下 · 说一句 · 完事</div>
       </div>
 
       <div style="background:var(--bg-card);border:1px solid var(--border-purple);border-radius:0.875rem;padding:1rem;text-align:left;">
         <div style="font-family:'JetBrains Mono',monospace;font-size:0.7rem;color:var(--sol-purple-light);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:6px;">Built On</div>
         <div style="font-family:'Space Grotesk',sans-serif;font-size:clamp(0.875rem, 1.1vw, 1.0625rem);font-weight:600;color:var(--text-primary);">Solana Devnet</div>
-        <div style="font-family:'JetBrains Mono',monospace;font-size:clamp(0.75rem, 0.9vw, 0.875rem);color:var(--sol-purple-light);margin-top:4px;">no contract deploy needed</div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:clamp(0.75rem, 0.9vw, 0.875rem);color:var(--sol-purple-light);margin-top:4px;">不部署任何合约</div>
       </div>
 
       <div style="background:var(--bg-card);border:1px solid var(--border-green);border-radius:0.875rem;padding:1rem;text-align:left;">
         <div style="font-family:'JetBrains Mono',monospace;font-size:0.7rem;color:var(--sol-green);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:6px;">Made With</div>
         <div style="font-family:'Space Grotesk',sans-serif;font-size:clamp(0.875rem, 1.1vw, 1.0625rem);font-weight:600;color:var(--text-primary);">OpenClaw + Skills</div>
-        <div style="font-family:'JetBrains Mono',monospace;font-size:clamp(0.75rem, 0.9vw, 0.875rem);color:var(--sol-green);margin-top:4px;">3 skills · 0 cap</div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:clamp(0.75rem, 0.9vw, 0.875rem);color:var(--sol-green);margin-top:4px;">3 个 Skill · no cap</div>
       </div>
     </div>
 
-    <!-- Footer credits -->
     <div style="margin-top:clamp(1.25rem, 2.5vh, 2rem);font-family:'JetBrains Mono',monospace;font-size:clamp(0.75rem, 0.95vw, 0.875rem);color:var(--text-muted);letter-spacing:1px;text-align:center;line-height:1.7;">
       <span style="color:var(--text-secondary);">EinClaw Team · Solana Frontier Hackathon 2026</span><br>
       hardware × voice × onchain — built different.
@@ -1305,7 +1400,7 @@
     </div>
   </div>
   <div class="brand">EINCLAW × SOL</div>
-  <div class="slide-number">11 / 11</div>
+  <div class="slide-number">13 / 13</div>
 </div>
 
 </body>
