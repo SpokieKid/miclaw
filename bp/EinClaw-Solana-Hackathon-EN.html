@@ -1,0 +1,1412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EinClaw × Solana — talk shit, send SOL</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+  :root {
+    --bg-deep: #07070C;
+    --bg-surface: #0F1020;
+    --bg-card: #15172A;
+    --bg-card-2: #1B1E36;
+    --bg-elevated: #232645;
+
+    --sol-purple: #9945FF;
+    --sol-purple-deep: #7C2FE8;
+    --sol-purple-light: #B47BFF;
+    --sol-purple-glow: rgba(153, 69, 255, 0.20);
+    --sol-purple-glow-strong: rgba(153, 69, 255, 0.45);
+    --sol-green: #14F195;
+    --sol-green-deep: #0FCC7E;
+    --sol-green-glow: rgba(20, 241, 149, 0.18);
+    --sol-magenta: #DC1FFF;
+
+    --hot-pink: #FF3D71;
+    --hot-pink-glow: rgba(255, 61, 113, 0.18);
+    --cyan: #00E0FF;
+    --cyan-glow: rgba(0, 224, 255, 0.16);
+    --amber: #FFD23F;
+    --amber-glow: rgba(255, 210, 63, 0.18);
+    --red: #FF4D4D;
+
+    --text-primary: #F5F5F7;
+    --text-secondary: #BFC0D1;
+    --text-muted: #7A7B96;
+    --text-dim: #4A4B66;
+
+    --border: rgba(255, 255, 255, 0.08);
+    --border-bright: rgba(255, 255, 255, 0.16);
+    --border-purple: rgba(153, 69, 255, 0.30);
+    --border-green: rgba(20, 241, 149, 0.30);
+
+    --gradient-sol: linear-gradient(135deg, #9945FF 0%, #14F195 100%);
+    --gradient-purple: linear-gradient(135deg, #9945FF, #DC1FFF);
+    --gradient-pink: linear-gradient(135deg, #FF3D71, #FF6B9D);
+    --gradient-green: linear-gradient(135deg, #14F195, #0FCC7E);
+    --gradient-amber: linear-gradient(135deg, #FFD23F, #FFA500);
+
+    --shadow-card: 0 8px 32px rgba(0, 0, 0, 0.4), 0 1px 0 rgba(255, 255, 255, 0.04) inset;
+    --shadow-glow-purple: 0 0 0 1px rgba(153, 69, 255, 0.4), 0 8px 40px rgba(153, 69, 255, 0.18);
+    --shadow-glow-green: 0 0 0 1px rgba(20, 241, 149, 0.3), 0 8px 40px rgba(20, 241, 149, 0.15);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  @page { size: landscape; margin: 0; }
+
+  html { font-size: 16px; }
+  @media (max-height: 900px) { html { font-size: 15px; } }
+  @media (max-height: 800px) { html { font-size: 14px; } }
+  @media (max-height: 700px) { html { font-size: 13px; } }
+  @media (max-width: 1200px) { html { font-size: 14px; } }
+  @media (max-width: 1024px) { html { font-size: 13px; } }
+
+  body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: var(--bg-deep);
+    color: var(--text-primary);
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+    width: 100%;
+    overflow-x: hidden;
+  }
+
+  .slide {
+    width: 100%;
+    min-height: 100vh;
+    height: auto;
+    padding: clamp(20px, 4vh, 56px) clamp(28px, 4vw, 64px);
+    position: relative;
+    overflow: hidden;
+    page-break-after: always;
+    page-break-inside: avoid;
+    background:
+      radial-gradient(ellipse at 15% 0%, rgba(153,69,255,0.12), transparent 55%),
+      radial-gradient(ellipse at 90% 100%, rgba(20,241,149,0.08), transparent 55%),
+      var(--bg-deep);
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+  }
+
+  .slide::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+    background-size: 48px 48px;
+    pointer-events: none;
+    mask-image: radial-gradient(ellipse at center, black 30%, transparent 80%);
+    -webkit-mask-image: radial-gradient(ellipse at center, black 30%, transparent 80%);
+  }
+
+  .slide::after {
+    content: '';
+    position: absolute;
+    top: -200px; right: -200px;
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(153,69,255,0.15), transparent 70%);
+    filter: blur(80px);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .slide > * { position: relative; z-index: 1; }
+
+  .brand {
+    position: absolute;
+    bottom: clamp(18px, 3vh, 28px);
+    left: clamp(28px, 4vw, 48px);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: clamp(9px, 0.85vw, 11px);
+    color: var(--text-dim);
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    z-index: 2;
+  }
+
+  .slide-number {
+    position: absolute;
+    bottom: clamp(18px, 3vh, 28px);
+    right: clamp(28px, 4vw, 48px);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: clamp(11px, 1vw, 13px);
+    color: var(--text-muted);
+    font-weight: 500;
+    letter-spacing: 2px;
+    z-index: 2;
+  }
+
+  .slide-line {
+    position: absolute;
+    bottom: clamp(38px, 5vh, 52px);
+    left: clamp(28px, 4vw, 48px);
+    right: clamp(28px, 4vw, 48px);
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--border), transparent);
+    z-index: 1;
+  }
+
+  h1 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(2rem, 4vw, 3.25rem);
+    font-weight: 700;
+    line-height: 1.05;
+    letter-spacing: -1.5px;
+    color: var(--text-primary);
+  }
+
+  h2 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(1.5rem, 2.6vw, 2.125rem);
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.8px;
+    color: var(--text-primary);
+    margin-bottom: clamp(0.5rem, 1vh, 0.75rem);
+  }
+
+  h3 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(1rem, 1.3vw, 1.25rem);
+    font-weight: 600;
+    line-height: 1.3;
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+  }
+
+  p { line-height: 1.65; color: var(--text-secondary); }
+
+  code, .mono { font-family: 'JetBrains Mono', monospace; font-size: 0.92em; }
+
+  .label {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: clamp(0.6875rem, 0.85vw, 0.8125rem);
+    color: var(--sol-green);
+    font-weight: 500;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    padding: clamp(0.375rem, 0.6vh, 0.5rem) clamp(0.75rem, 1vw, 1rem);
+    background: var(--sol-green-glow);
+    border: 1px solid var(--border-green);
+    border-radius: 999px;
+    margin-bottom: clamp(0.75rem, 1.5vh, 1.125rem);
+    width: fit-content;
+  }
+  .label::before {
+    content: '';
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--sol-green);
+    box-shadow: 0 0 8px var(--sol-green);
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+
+  .label-purple { color: var(--sol-purple-light); background: var(--sol-purple-glow); border-color: var(--border-purple); }
+  .label-purple::before { background: var(--sol-purple-light); box-shadow: 0 0 8px var(--sol-purple-light); }
+
+  .label-pink { color: var(--hot-pink); background: var(--hot-pink-glow); border-color: rgba(255,61,113,0.3); }
+  .label-pink::before { background: var(--hot-pink); box-shadow: 0 0 8px var(--hot-pink); }
+
+  .label-amber { color: var(--amber); background: var(--amber-glow); border-color: rgba(255,210,63,0.3); }
+  .label-amber::before { background: var(--amber); box-shadow: 0 0 8px var(--amber); }
+
+  .card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: clamp(0.875rem, 1.5vw, 1.25rem);
+    padding: clamp(1.125rem, 2.5vh, 1.75rem) clamp(1.25rem, 2.5vw, 2rem);
+    box-shadow: var(--shadow-card);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .card-purple {
+    background: linear-gradient(135deg, rgba(153,69,255,0.06), rgba(21,23,42,0.96));
+    border-color: var(--border-purple);
+  }
+
+  .card-green {
+    background: linear-gradient(135deg, rgba(20,241,149,0.05), rgba(21,23,42,0.96));
+    border-color: var(--border-green);
+  }
+
+  .card-pink {
+    background: linear-gradient(135deg, rgba(255,61,113,0.06), rgba(21,23,42,0.96));
+    border-color: rgba(255,61,113,0.30);
+  }
+
+  .gradient-text {
+    background: var(--gradient-sol);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .gradient-purple {
+    background: var(--gradient-purple);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: clamp(0.6875rem, 0.8vw, 0.75rem);
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 999px;
+    letter-spacing: 0.5px;
+  }
+  .tag-green { background: var(--sol-green-glow); color: var(--sol-green); border: 1px solid var(--border-green); }
+  .tag-purple { background: var(--sol-purple-glow); color: var(--sol-purple-light); border: 1px solid var(--border-purple); }
+  .tag-pink { background: var(--hot-pink-glow); color: var(--hot-pink); border: 1px solid rgba(255,61,113,0.3); }
+  .tag-amber { background: var(--amber-glow); color: var(--amber); border: 1px solid rgba(255,210,63,0.3); }
+
+  .terminal {
+    background: #050608;
+    border: 1px solid rgba(20,241,149,0.2);
+    border-radius: clamp(0.75rem, 1.2vw, 1rem);
+    padding: clamp(0.875rem, 1.5vh, 1.25rem);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: clamp(0.75rem, 0.95vw, 0.9375rem);
+    color: var(--sol-green);
+    line-height: 1.7;
+    box-shadow: 0 0 0 1px rgba(20,241,149,0.08), 0 0 60px rgba(20,241,149,0.04) inset;
+    position: relative;
+  }
+  .terminal::before {
+    content: '● ● ●';
+    position: absolute;
+    top: 0.5rem;
+    left: 1rem;
+    color: var(--text-dim);
+    font-size: 12px;
+    letter-spacing: 4px;
+  }
+  .terminal-body { margin-top: 1.4rem; }
+  .terminal-prompt { color: var(--sol-purple-light); }
+  .terminal-comment { color: var(--text-muted); }
+  .terminal-string { color: var(--amber); }
+  .terminal-output { color: var(--text-primary); }
+
+  .voice-bubble {
+    background: linear-gradient(135deg, rgba(153,69,255,0.10), rgba(220,31,255,0.06));
+    border: 1px solid var(--border-purple);
+    border-radius: clamp(1rem, 1.8vw, 1.5rem);
+    padding: clamp(1rem, 1.8vh, 1.5rem) clamp(1.25rem, 2vw, 1.75rem);
+    position: relative;
+  }
+  .voice-bubble::before {
+    content: '🎤';
+    position: absolute;
+    top: -10px;
+    left: 18px;
+    font-size: clamp(1rem, 1.4vw, 1.25rem);
+    background: var(--bg-card);
+    padding: 0 8px;
+    border-radius: 999px;
+  }
+
+  .pill-glow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: clamp(0.5rem, 0.8vh, 0.625rem) clamp(0.875rem, 1.2vw, 1.125rem);
+    background: var(--sol-purple-glow);
+    border: 1px solid var(--border-purple);
+    border-radius: 999px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: clamp(0.75rem, 0.9vw, 0.875rem);
+    color: var(--sol-purple-light);
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    box-shadow: 0 0 24px rgba(153,69,255,0.18);
+  }
+
+  .big-num {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: -1.5px;
+  }
+
+  .cover-slide {
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+  .cover-slide::after {
+    width: 800px; height: 800px;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    background:
+      radial-gradient(circle at 30% 30%, rgba(153,69,255,0.25), transparent 50%),
+      radial-gradient(circle at 70% 70%, rgba(20,241,149,0.18), transparent 50%);
+    filter: blur(60px);
+  }
+
+  .meme-hint {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: clamp(0.75rem, 0.95vw, 0.9375rem);
+    color: var(--text-muted);
+    letter-spacing: 0.5px;
+  }
+  .meme-hint .hl { color: var(--sol-green); }
+  .meme-hint .hl-pink { color: var(--hot-pink); }
+  .meme-hint .hl-amber { color: var(--amber); }
+
+  .arrow {
+    font-size: clamp(1.5rem, 3vw, 2.5rem);
+    color: var(--sol-purple-light);
+    font-weight: 300;
+    text-shadow: 0 0 20px var(--sol-purple-glow-strong);
+  }
+
+  .step-num {
+    display: inline-flex;
+    width: clamp(1.875rem, 2.4vw, 2.25rem);
+    height: clamp(1.875rem, 2.4vw, 2.25rem);
+    align-items: center;
+    justify-content: center;
+    border-radius: 999px;
+    background: var(--gradient-purple);
+    color: white;
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: clamp(0.875rem, 1.1vw, 1rem);
+    box-shadow: 0 4px 20px rgba(153,69,255,0.4);
+  }
+
+  ul.bullet-list { list-style: none; padding: 0; }
+  ul.bullet-list li {
+    position: relative;
+    padding-left: 1.4rem;
+    margin-bottom: 0.6rem;
+    color: var(--text-secondary);
+    line-height: 1.65;
+  }
+  ul.bullet-list li::before {
+    content: '▸';
+    position: absolute;
+    left: 0;
+    color: var(--sol-green);
+    font-weight: 700;
+  }
+
+  .grid-3 {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: clamp(0.875rem, 1.5vw, 1.25rem);
+  }
+
+  .grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(0.875rem, 1.5vw, 1.25rem);
+  }
+
+  .ticker {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: clamp(0.75rem, 0.95vw, 0.875rem);
+    color: var(--text-muted);
+    display: inline-flex;
+    gap: 1.5rem;
+    align-items: center;
+  }
+  .ticker .up { color: var(--sol-green); }
+  .ticker .down { color: var(--hot-pink); }
+
+</style>
+</head>
+<body>
+
+<!-- ==================== SLIDE 1: COVER ==================== -->
+<div class="slide cover-slide">
+  <div style="display:flex;flex-direction:column;align-items:center;gap:clamp(1rem, 2.5vh, 2rem);">
+    <div style="display:flex;gap:0.75rem;align-items:center;">
+      <div class="pill-glow" style="background: var(--sol-green-glow); color: var(--sol-green); border-color: var(--border-green); box-shadow: 0 0 24px var(--sol-green-glow);">
+        ● SOLANA FRONTIER · APR 2026
+      </div>
+      <div class="pill-glow" style="background: var(--hot-pink-glow); color: var(--hot-pink); border-color: rgba(255,61,113,0.3); box-shadow: 0 0 24px var(--hot-pink-glow);">
+        DEVNET · LIVE
+      </div>
+    </div>
+
+    <h1 style="font-size:clamp(3rem, 7vw, 6rem);font-weight:800;letter-spacing:-3px;line-height:0.95;">
+      EinClaw <span class="gradient-text">×</span> Solana
+    </h1>
+
+    <div style="font-family:'Space Grotesk',sans-serif;font-size:clamp(1.25rem, 2.4vw, 2rem);color:var(--text-secondary);font-weight:500;letter-spacing:-0.5px;">
+      <span class="gradient-purple" style="font-weight:700;">talk shit</span>, <span style="color:var(--sol-green);font-weight:700;">send SOL</span>.
+    </div>
+
+    <div style="font-family:'JetBrains Mono',monospace;font-size:clamp(0.875rem, 1.2vw, 1rem);color:var(--text-muted);max-width:min(40rem, 88vw);line-height:1.7;letter-spacing:0.3px;">
+      voice-first onchain agent on a 4G mic.<br>
+      press button → speak → tx confirmed in 3s. no app, no gas wars, no cap.
+    </div>
+
+    <div class="ticker" style="margin-top:clamp(0.5rem, 1.5vh, 1.25rem);flex-wrap:wrap;justify-content:center;">
+      <span>$BONK <span class="up">+12.4%</span></span>
+      <span style="color: var(--text-dim);">|</span>
+      <span>$WIF <span class="up">+8.7%</span></span>
+      <span style="color: var(--text-dim);">|</span>
+      <span>$FARTCOIN <span class="down">-2.3%</span></span>
+      <span style="color: var(--text-dim);">|</span>
+      <span>$JUP <span class="up">+4.1%</span></span>
+      <span style="color: var(--text-dim);">|</span>
+      <span>gm ☀️</span>
+    </div>
+
+    <div style="margin-top:clamp(1rem, 2vh, 1.5rem);font-family:'JetBrains Mono',monospace;font-size:clamp(0.75rem, 0.95vw, 0.875rem);color:var(--text-dim);letter-spacing:2px;text-transform:uppercase;">
+      EinClaw Mic · OpenClaw Agent · Solana Devnet
+    </div>
+  </div>
+  <div class="brand">EINCLAW × SOL</div>
+  <div class="slide-number">01 / 13</div>
+</div>
+
+<!-- ==================== SLIDE 2: THE HOOK / PROBLEM ==================== -->
+<div class="slide">
+  <div class="label label-pink">The Vibes Are Off</div>
+  <h2 style="margin-bottom:clamp(0.5rem, 1vh, 0.75rem);">"send 0.01 SOL to alice" should not take 90 seconds</h2>
+  <div class="meme-hint" style="margin-bottom:clamp(1.5rem, 3vh, 2.25rem);">
+    <span class="hl-pink">POV:</span> you're on the subway, want to send a friend some SOL · here's what it actually takes ↓
+  </div>
+
+  <div class="grid-2" style="flex:1;align-items:stretch;gap:clamp(1.5rem, 3vw, 2.25rem);">
+    <!-- Old way -->
+    <div class="card card-pink" style="display:flex;flex-direction:column;">
+      <div style="display:flex;align-items:center;gap:0.75rem;margin-bottom:1rem;">
+        <span class="tag tag-pink">NGMI</span>
+        <h3 style="margin:0;color:var(--hot-pink);">The Old Way — 90s of wallet PTSD</h3>
+      </div>
+      <ul class="bullet-list" style="flex:1;font-size:clamp(0.8125rem, 1.05vw, 0.9375rem);">
+        <li>Unlock phone → open Phantom → enter password</li>
+        <li>Swap to alice's Telegram, copy that 44-char address</li>
+        <li>Paste back into Phantom, <strong style="color:var(--hot-pink);">manually verify first 4 + last 4</strong> (or get rugged)</li>
+        <li>Type 0.01 → confirm fee → sign → wait</li>
+        <li>Screenshot it for alice as proof</li>
+        <li>She replies: "is this address right?" → you verify again</li>
+      </ul>
+      <div style="margin-top:1rem;padding-top:1rem;border-top:1px dashed var(--border-bright);font-family:'JetBrains Mono',monospace;font-size:clamp(0.8125rem, 1vw, 0.9375rem);color:var(--text-muted);">
+        ⏱️ <strong style="color:var(--hot-pink);">~90s</strong> · 7 steps · 0 fun
+      </div>
+    </div>
+
+    <!-- EinClaw -->
+    <div class="card card-green" style="display:flex;flex-direction:column;">
+      <div style="display:flex;align-items:center;gap:0.75rem;margin-bottom:1rem;">
+        <span class="tag tag-green">WAGMI</span>
+        <h3 style="margin:0;color:var(--sol-green);">EinClaw — press once, say one thing</h3>
+      </div>
+
+      <div class="voice-bubble" style="margin-top:0.75rem;margin-bottom:1rem;">
+        <div style="font-size:clamp(0.75rem, 0.85vw, 0.8125rem);color:var(--sol-purple-light);font-family:'JetBrains Mono',monospace;letter-spacing:1px;text-transform:uppercase;margin-bottom:6px;">user · 4G mic</div>
+        <div style="font-size:clamp(1rem, 1.5vw, 1.25rem);color:var(--text-primary);font-weight:500;line-height:1.5;">
+          "send 0.01 SOL to alice"
+        </div>
+      </div>
+
+      <div class="terminal" style="flex:1;">
+        <div class="terminal-body">
+          <span class="terminal-prompt">agent</span> <span class="terminal-output">→</span> resolving <span class="terminal-string">"alice"</span>...<br>
+          <span class="terminal-comment"># matched contacts.json (last 4: a7Bk)</span><br>
+          <span class="terminal-prompt">agent</span> <span class="terminal-output">→</span> caps OK · signing · broadcasting...<br>
+          <span class="terminal-output" style="color:var(--sol-green);">✓ tx confirmed · sig last 4: NJM3</span>
+        </div>
+      </div>
+
+      <div style="margin-top:1rem;padding-top:1rem;border-top:1px dashed var(--border-green);font-family:'JetBrains Mono',monospace;font-size:clamp(0.8125rem, 1vw, 0.9375rem);color:var(--text-secondary);">
+        ⚡ <strong style="color:var(--sol-green);">~3s</strong> · 1 sentence · 30x faster
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-top:clamp(1.25rem, 2.5vh, 2rem);text-align:center;font-family:'Space Grotesk',sans-serif;font-size:clamp(1rem, 1.6vw, 1.375rem);color:var(--text-secondary);font-style:italic;">
+    we're not building another wallet. <strong class="gradient-text" style="font-weight:700;font-style:normal;">we're killing the wallet UI.</strong>
+  </div>
+
+  <div class="slide-line"></div>
+  <div class="brand">EINCLAW × SOL</div>
+  <div class="slide-number">02 / 13</div>
+</div>
+
+<!-- ==================== SLIDE 3: WHAT WE SHIPPED ==================== -->
+<div class="slide">
+  <div class="label">What We Shipped</div>
+  <h2>Three skills, one mic, fully onchain</h2>
+  <div class="meme-hint" style="margin-bottom:clamp(1.25rem, 2.5vh, 1.875rem);">
+    Drop into OpenClaw's <code style="color:var(--sol-green);">~/.agents/skills/</code> and start talking — <span class="hl-pink">zero smart contracts deployed</span>, hackathon-grade 7-day sprint.
+  </div>
+
+  <div class="grid-3" style="flex:1;align-items:stretch;">
+    <!-- crypto-price -->
+    <div class="card card-green" style="display:flex;flex-direction:column;">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;">
+        <span class="tag tag-green">SHIPPED</span>
+        <span style="font-family:'JetBrains Mono',monospace;font-size:0.7rem;color:var(--text-dim);">01</span>
+      </div>
+      <div style="font-size:2.25rem;margin-bottom:0.5rem;">📈</div>
+      <h3 style="font-size:clamp(1.125rem, 1.6vw, 1.375rem);margin-bottom:0.4rem;">crypto-price</h3>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:clamp(0.75rem, 0.85vw, 0.8125rem);color:var(--sol-green);margin-bottom:0.75rem;">DexScreener · anti-wash-trading</div>
+      <p style="font-size:clamp(0.8125rem, 1vw, 0.9375rem);flex:1;line-height:1.6;">
+        Speak the token name, hear price, mcap, 24h delta in 3s. Ranks by <strong style="color:var(--sol-green);">min(volume, liquidity)</strong> to kill counterfeit tickers.
+      </p>
+      <div style="margin-top:0.875rem;padding-top:0.875rem;border-top:1px dashed var(--border-green);font-family:'JetBrains Mono',monospace;font-size:0.75rem;color:var(--text-muted);">
+        "how much is BONK right now?"
+      </div>
+    </div>
+
+    <!-- solana-pay -->
+    <div class="card card-purple" style="display:flex;flex-direction:column;">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;">
+        <span class="tag tag-purple">SHIPPED</span>
+        <span style="font-family:'JetBrains Mono',monospace;font-size:0.7rem;color:var(--text-dim);">02</span>
+      </div>
+      <div style="font-size:2.25rem;margin-bottom:0.5rem;">💸</div>
+      <h3 style="font-size:clamp(1.125rem, 1.6vw, 1.375rem);margin-bottom:0.4rem;">solana-pay</h3>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:clamp(0.75rem, 0.85vw, 0.8125rem);color:var(--sol-purple-light);margin-bottom:0.75rem;">Hot wallet · Fernet-encrypted · Caps</div>
+      <p style="font-size:clamp(0.8125rem, 1vw, 0.9375rem);flex:1;line-height:1.6;">
+        Agent has its own pocket wallet. <strong style="color:var(--sol-purple-light);">0.05 SOL/tx · 0.2 SOL/day</strong> caps + audit log. Treat it like an allowance card — never blows up.
+      </p>
+      <div style="margin-top:0.875rem;padding-top:0.875rem;border-top:1px dashed var(--border-purple);font-family:'JetBrains Mono',monospace;font-size:0.75rem;color:var(--text-muted);">
+        "send 0.005 SOL to alice"
+      </div>
+    </div>
+
+    <!-- solana-contacts -->
+    <div class="card card-pink" style="display:flex;flex-direction:column;">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;">
+        <span class="tag tag-pink">SHIPPED</span>
+        <span style="font-family:'JetBrains Mono',monospace;font-size:0.7rem;color:var(--text-dim);">03</span>
+      </div>
+      <div style="font-size:2.25rem;margin-bottom:0.5rem;">📒</div>
+      <h3 style="font-size:clamp(1.125rem, 1.6vw, 1.375rem);margin-bottom:0.4rem;">solana-contacts</h3>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:clamp(0.75rem, 0.85vw, 0.8125rem);color:var(--hot-pink);margin-bottom:0.75rem;">Address book · base58 + .sol domains</div>
+      <p style="font-size:clamp(0.8125rem, 1vw, 0.9375rem);flex:1;line-height:1.6;">
+        Just say "add X to contacts." Supports base58 addresses and SNS .sol domains. <strong style="color:var(--hot-pink);">Reads back the last 4 chars</strong> for verbal confirm — no more typo rugs.
+      </p>
+      <div style="margin-top:0.875rem;padding-top:0.875rem;border-top:1px dashed rgba(255,61,113,0.3);font-family:'JetBrains Mono',monospace;font-size:0.75rem;color:var(--text-muted);">
+        "add vault.sol as alpha"
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-top:clamp(1rem, 2vh, 1.5rem);display:flex;gap:0.5rem;flex-wrap:wrap;align-items:center;">
+    <span class="tag tag-amber">+ BONUS</span>
+    <span style="font-family:'JetBrains Mono',monospace;font-size:clamp(0.75rem, 0.9vw, 0.875rem);color:var(--text-secondary);">
+      ASR hotword injection — Qwen no longer mistranscribes "<span style="color:var(--text-dim);">Solana</span>" or "<span style="color:var(--text-dim);">BONK</span>" into garbage
+    </span>
+  </div>
+
+  <div class="slide-line"></div>
+  <div class="brand">EINCLAW × SOL</div>
+  <div class="slide-number">03 / 13</div>
+</div>
+
+<!-- ==================== SLIDE 4: DEMO 1 - PRICE ==================== -->
+<div class="slide">
+  <div class="label">Demo · 01</div>
+  <h2>"how much is BONK right now?"</h2>
+  <div class="meme-hint" style="margin-bottom:clamp(1.25rem, 2.5vh, 1.875rem);">
+    DexScreener anti-wash · price, mcap, 24h delta in one TTS line — never reads the base58 (TTS would cry)
+  </div>
+
+  <div style="display:grid;grid-template-columns:1fr auto 1.2fr;gap:clamp(1rem, 2vw, 1.75rem);align-items:center;flex:1;">
+    <div>
+      <div class="voice-bubble" style="text-align:left;">
+        <div style="font-size:clamp(0.75rem, 0.85vw, 0.8125rem);color:var(--sol-purple-light);font-family:'JetBrains Mono',monospace;letter-spacing:1px;text-transform:uppercase;margin-bottom:6px;">USER · PRESS-TO-TALK</div>
+        <div style="font-size:clamp(1.125rem, 1.7vw, 1.5rem);color:var(--text-primary);font-weight:500;line-height:1.45;">
+          "how much is<br>BONK right now?"
+        </div>
+      </div>
+      <div style="margin-top:1rem;font-family:'JetBrains Mono',monospace;font-size:clamp(0.75rem, 0.9vw, 0.875rem);color:var(--text-muted);">
+        🎤 ASR · hotword hit on BONK<br>
+        🔌 4G LTE · independent network
+      </div>
+    </div>
+
+    <div style="text-align:center;">
+      <div class="arrow">→</div>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:0.75rem;color:var(--sol-green);margin-top:6px;">3.2s</div>
+    </div>
+
+    <div class="card card-green">
+      <div style="display:flex;align-items:center;gap:0.75rem;margin-bottom:1rem;">
+        <div style="width:clamp(2.5rem, 3.5vw, 3.25rem);height:clamp(2.5rem, 3.5vw, 3.25rem);border-radius:50%;background:linear-gradient(135deg, #FFC107, #FF8A00);display:flex;align-items:center;justify-content:center;font-size:clamp(1.25rem, 1.8vw, 1.5rem);box-shadow:0 4px 20px rgba(255,138,0,0.3);">🐶</div>
+        <div style="flex:1;">
+          <div style="font-family:'Space Grotesk',sans-serif;font-size:clamp(1.125rem, 1.5vw, 1.375rem);font-weight:700;color:var(--text-primary);">Bonk · BONK</div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:clamp(0.75rem, 0.85vw, 0.8125rem);color:var(--text-muted);">DezX...c4n9 · Solana SPL</div>
+        </div>
+        <span class="tag tag-green">VERIFIED</span>
+      </div>
+
+      <div class="grid-3" style="gap:0.625rem;">
+        <div style="background:var(--bg-elevated);border:1px solid var(--border);border-radius:0.625rem;padding:0.75rem;text-align:center;">
+          <div style="font-family:'Space Grotesk',sans-serif;font-size:clamp(1rem, 1.4vw, 1.25rem);font-weight:700;color:var(--text-primary);">$0.00002145</div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.8px;margin-top:2px;">Price</div>
+        </div>
+        <div style="background:var(--bg-elevated);border:1px solid var(--border-green);border-radius:0.625rem;padding:0.75rem;text-align:center;">
+          <div style="font-family:'Space Grotesk',sans-serif;font-size:clamp(1rem, 1.4vw, 1.25rem);font-weight:700;color:var(--sol-green);">+12.4%</div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.8px;margin-top:2px;">24h</div>
+        </div>
+        <div style="background:var(--bg-elevated);border:1px solid var(--border);border-radius:0.625rem;padding:0.75rem;text-align:center;">
+          <div style="font-family:'Space Grotesk',sans-serif;font-size:clamp(1rem, 1.4vw, 1.25rem);font-weight:700;color:var(--text-primary);">$1.6B</div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.8px;margin-top:2px;">Mcap</div>
+        </div>
+      </div>
+
+      <div class="terminal" style="margin-top:1rem;">
+        <div class="terminal-body">
+          <span class="terminal-prompt">tts</span> <span class="terminal-output">→</span> <span class="terminal-string">"BONK is at $0.00002145, up 12.4% in 24 hours, $1.6B mcap."</span>
+        </div>
+      </div>
+
+      <div style="margin-top:0.75rem;font-family:'JetBrains Mono',monospace;font-size:clamp(0.6875rem, 0.8vw, 0.75rem);color:var(--text-muted);line-height:1.6;">
+        <span style="color:var(--sol-green);">✓</span> Anti-wash-trading: <code style="color:var(--text-secondary);">rank by min(vol24h, liquidity)</code><br>
+        <span style="color:var(--sol-green);">✓</span> 5 fake BONKs in search results — real BONK leads by 25,000x
+      </div>
+    </div>
+  </div>
+
+  <div class="slide-line"></div>
+  <div class="brand">EINCLAW × SOL</div>
+  <div class="slide-number">04 / 13</div>
+</div>
+
+<!-- ==================== SLIDE 5: DEMO 2 - PAY ==================== -->
+<div class="slide">
+  <div class="label label-purple">Demo · 02</div>
+  <h2>"send 0.005 SOL to alice"</h2>
+  <div class="meme-hint" style="margin-bottom:clamp(1.25rem, 2.5vh, 1.875rem);">
+    Agent signs, broadcasts, reconciles. User hears one line — Tx last 4 + balance. Done.
+  </div>
+
+  <div style="display:grid;grid-template-columns:1fr auto 1.2fr;gap:clamp(1rem, 2vw, 1.75rem);align-items:center;flex:1;">
+    <div>
+      <div class="voice-bubble">
+        <div style="font-size:clamp(0.75rem, 0.85vw, 0.8125rem);color:var(--sol-purple-light);font-family:'JetBrains Mono',monospace;letter-spacing:1px;text-transform:uppercase;margin-bottom:6px;">USER</div>
+        <div style="font-size:clamp(1.125rem, 1.7vw, 1.5rem);color:var(--text-primary);font-weight:500;line-height:1.45;">
+          "send 0.005 SOL<br>to alice"
+        </div>
+      </div>
+      <div style="margin-top:1rem;font-family:'JetBrains Mono',monospace;font-size:clamp(0.75rem, 0.9vw, 0.875rem);color:var(--text-muted);">
+        🎯 nickname → contacts.json<br>
+        🔐 hot wallet · Fernet at-rest<br>
+        ✅ caps: 0.05/tx · 0.2/day
+      </div>
+    </div>
+
+    <div style="text-align:center;">
+      <div class="arrow">→</div>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:0.75rem;color:var(--sol-purple-light);margin-top:6px;">~5s</div>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:0.625rem;">
+      <div style="display:flex;gap:0.875rem;align-items:flex-start;background:var(--bg-card);border:1px solid var(--border);border-radius:0.875rem;padding:0.75rem 1rem;">
+        <span class="step-num">1</span>
+        <div style="flex:1;">
+          <div style="font-family:'Space Grotesk',sans-serif;font-weight:600;color:var(--text-primary);font-size:clamp(0.875rem, 1.1vw, 1rem);">Resolve</div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:clamp(0.75rem, 0.85vw, 0.8125rem);color:var(--text-secondary);">
+            <span style="color:var(--sol-green);">alice</span> → <code style="color:var(--text-muted);">CGf3...S6DJ</code> <span class="tag tag-green" style="font-size:0.625rem;padding:2px 6px;">contact</span>
+          </div>
+        </div>
+      </div>
+
+      <div style="display:flex;gap:0.875rem;align-items:flex-start;background:var(--bg-card);border:1px solid var(--border);border-radius:0.875rem;padding:0.75rem 1rem;">
+        <span class="step-num">2</span>
+        <div style="flex:1;">
+          <div style="font-family:'Space Grotesk',sans-serif;font-weight:600;color:var(--text-primary);font-size:clamp(0.875rem, 1.1vw, 1rem);">Caps Check</div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:clamp(0.75rem, 0.85vw, 0.8125rem);color:var(--text-secondary);">
+            0.005 ≤ 0.05/tx ✓ · daily 0.013 + 0.005 ≤ 0.2 ✓
+          </div>
+        </div>
+      </div>
+
+      <div style="display:flex;gap:0.875rem;align-items:flex-start;background:var(--bg-card-2);border:1px solid var(--border-purple);border-radius:0.875rem;padding:0.75rem 1rem;">
+        <span class="step-num">3</span>
+        <div style="flex:1;">
+          <div style="font-family:'Space Grotesk',sans-serif;font-weight:600;color:var(--text-primary);font-size:clamp(0.875rem, 1.1vw, 1rem);">Sign &amp; Broadcast</div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:clamp(0.75rem, 0.85vw, 0.8125rem);color:var(--text-secondary);">
+            ed25519 sig · devnet RPC · confirmed in 400ms
+          </div>
+        </div>
+      </div>
+
+      <div style="display:flex;gap:0.875rem;align-items:flex-start;background:linear-gradient(135deg, rgba(20,241,149,0.07), rgba(21,23,42,0.96));border:1px solid var(--border-green);border-radius:0.875rem;padding:0.875rem 1rem;box-shadow:0 0 30px rgba(20,241,149,0.08);">
+        <span class="step-num" style="background:var(--gradient-green);box-shadow:0 4px 20px rgba(20,241,149,0.4);">✓</span>
+        <div style="flex:1;">
+          <div style="font-family:'Space Grotesk',sans-serif;font-weight:700;color:var(--sol-green);font-size:clamp(0.9375rem, 1.2vw, 1.0625rem);">TTS Verbatim</div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:clamp(0.8125rem, 1vw, 0.9375rem);color:var(--text-primary);font-style:italic;line-height:1.55;margin-top:4px;">
+            "Sent 0.005 SOL to alice.<br>Tx last 4 NJM3,<br>agent wallet has 4.987980 SOL left."
+          </div>
+        </div>
+      </div>
+
+      <div style="display:flex;gap:0.5rem;flex-wrap:wrap;font-family:'JetBrains Mono',monospace;font-size:0.7rem;color:var(--text-muted);">
+        <span class="tag tag-purple">audit.jsonl ✓</span>
+        <span class="tag tag-green">on-chain explorer ✓</span>
+        <span class="tag tag-amber">no app opened</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide-line"></div>
+  <div class="brand">EINCLAW × SOL</div>
+  <div class="slide-number">05 / 13</div>
+</div>
+
+<!-- ==================== SLIDE 6: DEMO 3 - CONTACTS ==================== -->
+<div class="slide">
+  <div class="label label-pink">Demo · 03</div>
+  <h2>"add vault.sol to contacts as alpha"</h2>
+  <div class="meme-hint" style="margin-bottom:clamp(1.25rem, 2.5vh, 1.875rem);">
+    base58 / SNS .sol both work. Reads back the last 4 chars for verbal confirm — no more spelling out 44 characters.
+  </div>
+
+  <div style="display:grid;grid-template-columns:1fr auto 1.1fr;gap:clamp(1rem, 2vw, 1.75rem);align-items:center;flex:1;">
+    <div>
+      <div class="voice-bubble">
+        <div style="font-size:clamp(0.75rem, 0.85vw, 0.8125rem);color:var(--sol-purple-light);font-family:'JetBrains Mono',monospace;letter-spacing:1px;text-transform:uppercase;margin-bottom:6px;">USER</div>
+        <div style="font-size:clamp(1rem, 1.5vw, 1.25rem);color:var(--text-primary);font-weight:500;line-height:1.5;">
+          "add <code style="color:var(--cyan);">CGf3z...S6DJ</code> to contacts, call it <span style="color:var(--hot-pink);">alpha</span>"
+        </div>
+      </div>
+      <div style="margin-top:1rem;font-family:'JetBrains Mono',monospace;font-size:clamp(0.75rem, 0.9vw, 0.875rem);color:var(--text-muted);">
+        🔍 base58 regex validation<br>
+        💾 contacts.json (local)<br>
+        🔁 normalize: 'Alpha' → 'alpha'
+      </div>
+    </div>
+
+    <div style="text-align:center;">
+      <div class="arrow" style="color:var(--hot-pink);text-shadow:0 0 20px var(--hot-pink-glow);">→</div>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:0.75rem;color:var(--hot-pink);margin-top:6px;">~1.5s</div>
+    </div>
+
+    <div class="card card-pink">
+      <div style="display:flex;align-items:center;gap:0.875rem;margin-bottom:1rem;">
+        <div style="width:clamp(2.75rem, 3.8vw, 3.5rem);height:clamp(2.75rem, 3.8vw, 3.5rem);border-radius:50%;background:var(--gradient-pink);display:flex;align-items:center;justify-content:center;font-family:'Space Grotesk',sans-serif;font-weight:700;color:white;font-size:clamp(1rem, 1.3vw, 1.25rem);box-shadow:0 4px 20px var(--hot-pink-glow);">A</div>
+        <div style="flex:1;">
+          <div style="font-family:'Space Grotesk',sans-serif;font-size:clamp(1.125rem, 1.5vw, 1.375rem);font-weight:700;color:var(--text-primary);">alpha</div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:clamp(0.75rem, 0.85vw, 0.8125rem);color:var(--text-muted);">added · just now</div>
+        </div>
+        <span class="tag tag-pink">NEW</span>
+      </div>
+
+      <div style="background:var(--bg-elevated);border:1px solid var(--border);border-radius:0.75rem;padding:0.875rem 1rem;margin-bottom:0.875rem;">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:0.7rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;">Solana Address</div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:clamp(0.8125rem, 1vw, 0.9375rem);color:var(--text-secondary);word-break:break-all;line-height:1.55;">
+          CGf3zdWChWeQdV38UjvPTqBRpiaJvrceKx9sUfcm<span style="color:var(--hot-pink);background:var(--hot-pink-glow);padding:1px 4px;border-radius:4px;font-weight:700;">S6DJ</span>
+        </div>
+      </div>
+
+      <div class="terminal" style="margin-bottom:0;">
+        <div class="terminal-body">
+          <span class="terminal-prompt">tts</span> <span class="terminal-output">→</span> <span class="terminal-string">"Added alpha. Last 4 of address: S6DJ. Right?"</span><br>
+          <span class="terminal-prompt">user</span> <span class="terminal-output">→</span> <span class="terminal-string">"yep"</span><br>
+          <span class="terminal-output" style="color:var(--sol-green);">✓ saved.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-top:clamp(1rem, 2vh, 1.5rem);display:flex;gap:0.75rem;flex-wrap:wrap;">
+    <div style="flex:1;min-width:14rem;background:var(--bg-card);border:1px solid var(--border);border-radius:0.75rem;padding:0.75rem 1rem;">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:0.7rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;">now you can</div>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:clamp(0.8125rem, 1vw, 0.9375rem);color:var(--sol-green);">"send 0.01 SOL to alpha"</div>
+    </div>
+    <div style="flex:1;min-width:14rem;background:var(--bg-card);border:1px solid var(--border);border-radius:0.75rem;padding:0.75rem 1rem;">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:0.7rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;">SNS works too</div>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:clamp(0.8125rem, 1vw, 0.9375rem);color:var(--sol-purple-light);">"add vault.sol as vault"</div>
+    </div>
+  </div>
+
+  <div class="slide-line"></div>
+  <div class="brand">EINCLAW × SOL</div>
+  <div class="slide-number">06 / 13</div>
+</div>
+
+<!-- ==================== SLIDE 7: BONUS DEMO - DUST DISRESPECT ==================== -->
+<div class="slide">
+  <div class="label label-pink">Bonus Demo · Meme Mode</div>
+  <h2 style="margin-bottom:clamp(0.5rem, 1vh, 0.75rem);">Don't like someone? Send 'em some <span class="gradient-purple" style="font-weight:800;">dust</span> 💸</h2>
+  <div class="meme-hint" style="margin-bottom:clamp(1.25rem, 2.5vh, 1.875rem);">
+    <span class="hl-pink">the most surgical disrespect in web3</span> · no fight, no insults — just an onchain receipt · 0.0001 SOL is the <span class="hl-amber">insult</span>, not the gift
+  </div>
+
+  <div style="display:grid;grid-template-columns:1fr auto 1.2fr;gap:clamp(1rem, 2vw, 1.75rem);align-items:center;flex:1;">
+    <!-- LHS: voice -->
+    <div>
+      <div class="voice-bubble">
+        <div style="font-size:clamp(0.75rem, 0.85vw, 0.8125rem);color:var(--sol-purple-light);font-family:'JetBrains Mono',monospace;letter-spacing:1px;text-transform:uppercase;margin-bottom:6px;">USER · just saw that cringe in the group</div>
+        <div style="font-size:clamp(1.0625rem, 1.6vw, 1.4375rem);color:var(--text-primary);font-weight:500;line-height:1.5;">
+          "send that <span style="color:var(--hot-pink);">ngmi</span> guy<br>0.0001 SOL,<br>memo <span style="color:var(--amber);">'cope harder'</span>"
+        </div>
+      </div>
+      <div style="margin-top:1rem;font-family:'JetBrains Mono',monospace;font-size:clamp(0.75rem, 0.9vw, 0.875rem);color:var(--text-muted);line-height:1.7;">
+        🎯 enemy is in contacts<br>
+        💸 0.0001 ≪ 0.05 cap · no confirm needed<br>
+        🪶 memo in audit log (v1.1: onchain Memo Program)
+      </div>
+    </div>
+
+    <!-- Arrow -->
+    <div style="text-align:center;">
+      <div class="arrow" style="color:var(--hot-pink);text-shadow:0 0 20px var(--hot-pink-glow);">→</div>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:0.75rem;color:var(--hot-pink);margin-top:6px;">~3s</div>
+    </div>
+
+    <!-- RHS: dust receipt -->
+    <div class="card card-pink" style="position:relative;">
+      <!-- L Bozo stamp -->
+      <div style="position:absolute;top:1rem;right:1rem;transform:rotate(8deg);background:var(--hot-pink-glow);border:2px solid var(--hot-pink);border-radius:0.5rem;padding:0.25rem 0.625rem;font-family:'Space Grotesk',sans-serif;font-weight:800;font-size:clamp(0.75rem, 0.95vw, 0.875rem);color:var(--hot-pink);letter-spacing:1px;">L + BOZO</div>
+
+      <div style="display:flex;align-items:center;gap:0.75rem;margin-bottom:1rem;">
+        <div style="font-size:2rem;">💀</div>
+        <div style="flex:1;">
+          <div style="font-family:'Space Grotesk',sans-serif;font-size:clamp(1.0625rem, 1.4vw, 1.25rem);font-weight:700;color:var(--text-primary);">dusted ✓</div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:clamp(0.7rem, 0.8vw, 0.75rem);color:var(--text-muted);">recipient: enemy.sol</div>
+        </div>
+      </div>
+
+      <!-- Tx receipt -->
+      <div style="background:var(--bg-elevated);border:1px solid var(--border);border-radius:0.75rem;padding:0.875rem 1rem;margin-bottom:0.875rem;">
+        <div style="display:grid;grid-template-columns:auto 1fr;gap:0.5rem 1rem;font-family:'JetBrains Mono',monospace;font-size:clamp(0.75rem, 0.9vw, 0.875rem);">
+          <div style="color:var(--text-muted);">Amount</div>
+          <div style="color:var(--text-primary);font-weight:700;">0.0001 SOL <span style="color:var(--text-muted);font-weight:400;">(≈ $0.018)</span></div>
+          <div style="color:var(--text-muted);">Fee</div>
+          <div style="color:var(--text-primary);">0.000005 SOL <span style="color:var(--sol-green);">(psy-ops cost)</span></div>
+          <div style="color:var(--text-muted);">Memo</div>
+          <div style="color:var(--amber);font-style:italic;">"cope harder"</div>
+          <div style="color:var(--text-muted);">Tx</div>
+          <div style="color:var(--sol-purple-light);">...sig last 4 <strong>L007</strong> ✓</div>
+        </div>
+      </div>
+
+      <div class="terminal" style="margin-bottom:0;">
+        <div class="terminal-body">
+          <span class="terminal-prompt">tts</span> <span class="terminal-output">→</span> <span class="terminal-string">"Sent 0.0001 SOL to enemy. It's on his wallet for life."</span>
+        </div>
+      </div>
+
+      <div style="margin-top:0.75rem;font-family:'JetBrains Mono',monospace;font-size:clamp(0.6875rem, 0.8vw, 0.75rem);color:var(--text-muted);line-height:1.6;">
+        <span style="color:var(--hot-pink);">★</span> Onchain history = permanent receipt — Phantom shows it forever<br>
+        <span style="color:var(--hot-pink);">★</span> Too small to be worth returning · can't be deleted either
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom punchline strip -->
+  <div style="margin-top:clamp(1rem, 2vh, 1.5rem);background:linear-gradient(135deg, rgba(255,61,113,0.08), rgba(153,69,255,0.05));border:1px dashed rgba(255,61,113,0.4);border-radius:0.875rem;padding:0.875rem 1.25rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.75rem;">
+    <div style="font-family:'Space Grotesk',sans-serif;font-size:clamp(0.9375rem, 1.3vw, 1.125rem);color:var(--text-secondary);">
+      <strong style="color:var(--hot-pink);">Try this on ETH</strong>: gas $5, that's 250x the cost of the insult itself — <span style="color:var(--text-muted);font-style:italic;">ngmi.</span>
+    </div>
+    <div style="font-family:'JetBrains Mono',monospace;font-size:clamp(0.75rem, 0.9vw, 0.875rem);color:var(--sol-green);">
+      Solana fee: $0.0001 · <strong>20,000x value-for-disrespect</strong>
+    </div>
+  </div>
+
+  <div class="slide-line"></div>
+  <div class="brand">EINCLAW × SOL</div>
+  <div class="slide-number">07 / 13</div>
+</div>
+
+<!-- ==================== SLIDE 8: ARCHITECTURE ==================== -->
+<div class="slide">
+  <div class="label label-purple">Under The Hood · Architecture</div>
+  <h2>5-Layer Stack — Everything Runs</h2>
+  <div class="meme-hint" style="margin-bottom:clamp(1.25rem, 2.5vh, 1.875rem);">
+    No AWS · no docker-compose · no smart contracts — Python + RPC + a 4G mic
+  </div>
+
+  <div style="flex:1;display:flex;flex-direction:column;gap:clamp(0.625rem, 1.2vh, 0.875rem);">
+
+    <div style="display:flex;align-items:center;gap:1rem;background:var(--bg-card);border:1px solid var(--border);border-radius:0.875rem;padding:0.75rem 1rem;">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:clamp(0.75rem, 0.85vw, 0.8125rem);color:var(--text-muted);min-width:5rem;letter-spacing:1px;">L1 · DEVICE</div>
+      <div style="font-size:1.5rem;">🎤</div>
+      <div style="flex:1;">
+        <div style="font-family:'Space Grotesk',sans-serif;font-weight:600;color:var(--text-primary);font-size:clamp(0.9375rem, 1.15vw, 1.0625rem);">EinClaw Mic — ESP32-S3 + 4G LTE</div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:clamp(0.75rem, 0.9vw, 0.875rem);color:var(--text-secondary);">Push-to-talk → record → 4G direct to backend, no phone / WiFi needed</div>
+      </div>
+      <span class="tag tag-green">RUNNING</span>
+    </div>
+
+    <div style="display:flex;align-items:center;gap:1rem;background:var(--bg-card);border:1px solid var(--border);border-radius:0.875rem;padding:0.75rem 1rem;">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:clamp(0.75rem, 0.85vw, 0.8125rem);color:var(--text-muted);min-width:5rem;letter-spacing:1px;">L2 · ASR</div>
+      <div style="font-size:1.5rem;">🗣️</div>
+      <div style="flex:1;">
+        <div style="font-family:'Space Grotesk',sans-serif;font-weight:600;color:var(--text-primary);font-size:clamp(0.9375rem, 1.15vw, 1.0625rem);">Qwen3 ASR Flash + 42 crypto hotwords</div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:clamp(0.75rem, 0.9vw, 0.875rem);color:var(--text-secondary);">Solana / BONK / WIF / FARTCOIN / .sol / vault — no more mistranscriptions</div>
+      </div>
+      <span class="tag tag-amber">HOTWORDS</span>
+    </div>
+
+    <div style="display:flex;align-items:center;gap:1rem;background:var(--bg-card-2);border:1px solid var(--border-purple);border-radius:0.875rem;padding:0.875rem 1rem;box-shadow:0 0 24px rgba(153,69,255,0.08);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:clamp(0.75rem, 0.85vw, 0.8125rem);color:var(--sol-purple-light);min-width:5rem;letter-spacing:1px;">L3 · AGENT</div>
+      <div style="font-size:1.5rem;">🤖</div>
+      <div style="flex:1;">
+        <div style="font-family:'Space Grotesk',sans-serif;font-weight:700;color:var(--text-primary);font-size:clamp(0.9375rem, 1.2vw, 1.125rem);">OpenClaw + 3 Skills</div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:clamp(0.75rem, 0.9vw, 0.875rem);color:var(--text-secondary);">
+          <code style="color:var(--sol-green);">crypto-price</code> ·
+          <code style="color:var(--sol-purple-light);">solana-pay</code> ·
+          <code style="color:var(--hot-pink);">solana-contacts</code>
+          <span style="color:var(--text-muted);">— SKILL.md frontmatter, hot-reload via session invalidation</span>
+        </div>
+      </div>
+      <span class="tag tag-purple">CORE</span>
+    </div>
+
+    <div class="grid-2" style="gap:0.625rem;">
+      <div style="display:flex;align-items:center;gap:1rem;background:var(--bg-card);border:1px solid var(--border);border-radius:0.875rem;padding:0.75rem 1rem;">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:clamp(0.75rem, 0.85vw, 0.8125rem);color:var(--text-muted);letter-spacing:1px;">L4a</div>
+        <div style="font-size:1.25rem;">📊</div>
+        <div style="flex:1;">
+          <div style="font-family:'Space Grotesk',sans-serif;font-weight:600;color:var(--text-primary);font-size:clamp(0.875rem, 1.05vw, 1rem);">DexScreener API</div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:clamp(0.7rem, 0.85vw, 0.8125rem);color:var(--text-secondary);">/tokens/v1/solana/{mint} · direct lookup</div>
+        </div>
+      </div>
+      <div style="display:flex;align-items:center;gap:1rem;background:var(--bg-card);border:1px solid var(--border);border-radius:0.875rem;padding:0.75rem 1rem;">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:clamp(0.75rem, 0.85vw, 0.8125rem);color:var(--text-muted);letter-spacing:1px;">L4b</div>
+        <div style="font-size:1.25rem;">🌐</div>
+        <div style="flex:1;">
+          <div style="font-family:'Space Grotesk',sans-serif;font-weight:600;color:var(--text-primary);font-size:clamp(0.875rem, 1.05vw, 1rem);">SNS via Bonfida proxy</div>
+          <div style="font-family:'JetBrains Mono',monospace;font-size:clamp(0.7rem, 0.85vw, 0.8125rem);color:var(--text-secondary);">.sol → pubkey · cross-network compatible</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="display:flex;align-items:center;gap:1rem;background:linear-gradient(135deg, rgba(20,241,149,0.06), rgba(153,69,255,0.06), rgba(21,23,42,0.96));border:1px solid var(--border-green);border-radius:0.875rem;padding:0.875rem 1rem;box-shadow:0 0 24px rgba(20,241,149,0.08);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:clamp(0.75rem, 0.85vw, 0.8125rem);color:var(--sol-green);min-width:5rem;letter-spacing:1px;">L5 · CHAIN</div>
+      <div style="font-size:1.5rem;">⚡</div>
+      <div style="flex:1;">
+        <div style="font-family:'Space Grotesk',sans-serif;font-weight:700;color:var(--text-primary);font-size:clamp(0.9375rem, 1.2vw, 1.125rem);">Solana Devnet · solders + solana-py</div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:clamp(0.75rem, 0.9vw, 0.875rem);color:var(--text-secondary);">SystemProgram.transfer · Fernet-encrypted hot wallet · audit.jsonl trail</div>
+      </div>
+      <span class="tag tag-green">DEVNET</span>
+    </div>
+
+  </div>
+
+  <div class="slide-line"></div>
+  <div class="brand">EINCLAW × SOL</div>
+  <div class="slide-number">08 / 13</div>
+</div>
+
+<!-- ==================== SLIDE 9: SAFETY ==================== -->
+<div class="slide">
+  <div class="label label-amber">Safety / Custody</div>
+  <h2>Don't Let The Agent Rug You — Custody-Light Design</h2>
+  <div class="meme-hint" style="margin-bottom:clamp(1.25rem, 2.5vh, 1.875rem);">
+    Treat the hot wallet like an allowance card · low total · per-tx cap · daily cap · every attempt logged · main wallet never appears
+  </div>
+
+  <div class="grid-2" style="flex:1;gap:clamp(1rem, 2vw, 1.5rem);align-items:stretch;">
+    <!-- LHS: defense layers -->
+    <div style="display:flex;flex-direction:column;gap:0.75rem;">
+      <div class="card" style="padding:1rem 1.25rem;">
+        <div style="display:flex;align-items:center;gap:0.625rem;margin-bottom:0.5rem;">
+          <span class="tag tag-amber">LAYER 1</span>
+          <h3 style="margin:0;font-size:clamp(0.9375rem, 1.15vw, 1.0625rem);">Per-Tx Cap</h3>
+        </div>
+        <div style="display:flex;align-items:baseline;gap:0.625rem;">
+          <span class="big-num" style="color:var(--amber);">0.05</span>
+          <span style="font-family:'JetBrains Mono',monospace;color:var(--text-muted);">SOL / tx</span>
+        </div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:0.8rem;color:var(--text-secondary);margin-top:0.4rem;">Above this needs explicit <code style="color:var(--amber);">--confirm</code></div>
+      </div>
+
+      <div class="card" style="padding:1rem 1.25rem;">
+        <div style="display:flex;align-items:center;gap:0.625rem;margin-bottom:0.5rem;">
+          <span class="tag tag-pink">LAYER 2</span>
+          <h3 style="margin:0;font-size:clamp(0.9375rem, 1.15vw, 1.0625rem);">Per-Day Cap</h3>
+        </div>
+        <div style="display:flex;align-items:baseline;gap:0.625rem;">
+          <span class="big-num" style="color:var(--hot-pink);">0.2</span>
+          <span style="font-family:'JetBrains Mono',monospace;color:var(--text-muted);">SOL / day · UTC</span>
+        </div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:0.8rem;color:var(--text-secondary);margin-top:0.4rem;">Hard limit · aggregated from audit log live</div>
+      </div>
+
+      <div class="card" style="padding:1rem 1.25rem;">
+        <div style="display:flex;align-items:center;gap:0.625rem;margin-bottom:0.5rem;">
+          <span class="tag tag-purple">LAYER 3</span>
+          <h3 style="margin:0;font-size:clamp(0.9375rem, 1.15vw, 1.0625rem);">Encrypted At Rest</h3>
+        </div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:clamp(0.75rem, 0.9vw, 0.875rem);color:var(--text-secondary);">
+          <code style="color:var(--sol-purple-light);">wallet.bin</code> = Fernet(secret_key)<br>
+          <code style="color:var(--text-muted);">chmod 0600</code> · prevents cat / grep / log accidents
+        </div>
+      </div>
+
+      <div class="card" style="padding:1rem 1.25rem;">
+        <div style="display:flex;align-items:center;gap:0.625rem;margin-bottom:0.5rem;">
+          <span class="tag tag-green">LAYER 4</span>
+          <h3 style="margin:0;font-size:clamp(0.9375rem, 1.15vw, 1.0625rem);">Append-Only Audit</h3>
+        </div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:clamp(0.75rem, 0.9vw, 0.875rem);color:var(--text-secondary);">
+          Every attempt (success / reject / error) writes to <code style="color:var(--sol-green);">audit.jsonl</code> — fully accountable
+        </div>
+      </div>
+    </div>
+
+    <!-- RHS: rugcheck-style score -->
+    <div class="card" style="padding:clamp(1.125rem, 2.5vh, 1.625rem);background:linear-gradient(180deg, rgba(20,241,149,0.04), rgba(21,23,42,0.96));border-color:var(--border-green);display:flex;flex-direction:column;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem;">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:clamp(0.75rem, 0.9vw, 0.875rem);color:var(--sol-green);letter-spacing:2px;text-transform:uppercase;">★ AGENT WALLET RUGCHECK</div>
+        <span class="tag tag-green">GOOD</span>
+      </div>
+
+      <div style="text-align:center;margin:1rem 0;">
+        <div style="font-family:'Space Grotesk',sans-serif;font-size:clamp(3.5rem, 7vw, 5.5rem);font-weight:800;line-height:1;color:var(--sol-green);text-shadow:0 0 40px rgba(20,241,149,0.4);">94<span style="font-size:0.4em;color:var(--text-muted);">/100</span></div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:clamp(0.8125rem, 1vw, 0.9375rem);color:var(--text-secondary);margin-top:0.4rem;">total trust score · self-audit</div>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:0.5rem;font-family:'JetBrains Mono',monospace;font-size:clamp(0.75rem, 0.9vw, 0.875rem);">
+        <div style="display:flex;justify-content:space-between;padding:0.4rem 0.625rem;background:var(--bg-elevated);border-radius:0.5rem;">
+          <span style="color:var(--text-secondary);">Caps enforced before sign</span>
+          <span style="color:var(--sol-green);font-weight:700;">+25</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;padding:0.4rem 0.625rem;background:var(--bg-elevated);border-radius:0.5rem;">
+          <span style="color:var(--text-secondary);">Devnet only · mainnet locked</span>
+          <span style="color:var(--sol-green);font-weight:700;">+20</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;padding:0.4rem 0.625rem;background:var(--bg-elevated);border-radius:0.5rem;">
+          <span style="color:var(--text-secondary);">Audit log immutable (append-only)</span>
+          <span style="color:var(--sol-green);font-weight:700;">+18</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;padding:0.4rem 0.625rem;background:var(--bg-elevated);border-radius:0.5rem;">
+          <span style="color:var(--text-secondary);">Separate from main Phantom wallet</span>
+          <span style="color:var(--sol-green);font-weight:700;">+16</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;padding:0.4rem 0.625rem;background:var(--bg-elevated);border-radius:0.5rem;">
+          <span style="color:var(--text-secondary);">Unknown recipient = hard reject</span>
+          <span style="color:var(--sol-green);font-weight:700;">+15</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;padding:0.4rem 0.625rem;background:rgba(255,210,63,0.08);border-radius:0.5rem;">
+          <span style="color:var(--text-secondary);">Fernet is obfuscation, not HSM</span>
+          <span style="color:var(--amber);font-weight:700;">−6</span>
+        </div>
+      </div>
+
+      <div style="margin-top:auto;padding-top:1rem;font-family:'JetBrains Mono',monospace;font-size:0.7rem;color:var(--text-muted);text-align:center;line-height:1.6;">
+        💡 <span style="color:var(--text-secondary);">"treat balance as expendable, keep caps tight."</span><br>
+        Inspired by Solana Agent Kit / ElizaOS custodial agent patterns
+      </div>
+    </div>
+  </div>
+
+  <div class="slide-line"></div>
+  <div class="brand">EINCLAW × SOL</div>
+  <div class="slide-number">09 / 13</div>
+</div>
+
+<!-- ==================== SLIDE 10: WHY THIS MATTERS ==================== -->
+<div class="slide">
+  <div class="label">Why This Slaps</div>
+  <h2>Three things colliding: <span class="gradient-text">Voice + Hardware + Solana</span></h2>
+  <div class="meme-hint" style="margin-bottom:clamp(1.25rem, 2.5vh, 1.875rem);">
+    Take any one out and it falls apart. Together: "press once, settled onchain" actually works.
+  </div>
+
+  <div class="grid-3" style="flex:1;align-items:stretch;">
+    <div class="card card-purple" style="display:flex;flex-direction:column;">
+      <div style="font-size:2.5rem;margin-bottom:0.625rem;">🎙️</div>
+      <h3 style="font-size:clamp(1.125rem, 1.5vw, 1.375rem);color:var(--sol-purple-light);">Voice = Lowest Friction</h3>
+      <p style="flex:1;font-size:clamp(0.8125rem, 1vw, 0.9375rem);">
+        Speaking is 6x faster than typing, 10x easier than opening an app. "Say it as you think it" is the only interface for capturing <strong style="color:var(--text-primary);">instantaneous intent</strong>.
+      </p>
+      <div style="margin-top:0.875rem;padding-top:0.875rem;border-top:1px dashed var(--border-purple);font-family:'JetBrains Mono',monospace;font-size:0.75rem;color:var(--text-muted);font-style:italic;">
+        "you don't open Twitter,<br>you just <span style="color:var(--sol-purple-light);">tweet in your head</span>."
+      </div>
+    </div>
+
+    <div class="card card-pink" style="display:flex;flex-direction:column;">
+      <div style="font-size:2.5rem;margin-bottom:0.625rem;">📡</div>
+      <h3 style="font-size:clamp(1.125rem, 1.5vw, 1.375rem);color:var(--hot-pink);">Hardware = Always-On</h3>
+      <p style="flex:1;font-size:clamp(0.8125rem, 1vw, 0.9375rem);">
+        4G mic doesn't depend on phone / WiFi. Subway, night runs, construction sites, cafes. <strong style="color:var(--text-primary);">A physical button = physical proof of intent</strong> — way more reliable than wake words.
+      </p>
+      <div style="margin-top:0.875rem;padding-top:0.875rem;border-top:1px dashed rgba(255,61,113,0.3);font-family:'JetBrains Mono',monospace;font-size:0.75rem;color:var(--text-muted);font-style:italic;">
+        "ambient AI ≠ Siri.<br>ambient AI = <span style="color:var(--hot-pink);">a button you press</span>."
+      </div>
+    </div>
+
+    <div class="card card-green" style="display:flex;flex-direction:column;">
+      <div style="font-size:2.5rem;margin-bottom:0.625rem;">⚡</div>
+      <h3 style="font-size:clamp(1.125rem, 1.5vw, 1.375rem);color:var(--sol-green);">Solana = the only chain that works</h3>
+      <p style="flex:1;font-size:clamp(0.8125rem, 1vw, 0.9375rem);">
+        400ms blocks + $0.000005 fees + Phantom passwordless UX. <strong style="color:var(--text-primary);">On ETH, gas alone is more than the tip itself</strong>.
+      </p>
+      <div style="margin-top:0.875rem;padding-top:0.875rem;border-top:1px dashed var(--border-green);font-family:'JetBrains Mono',monospace;font-size:0.75rem;color:var(--text-muted);font-style:italic;">
+        "voice-driven micropay only<br>works on <span style="color:var(--sol-green);">Solana</span>. fr fr."
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom callout -->
+  <div style="margin-top:clamp(1.25rem, 2.5vh, 1.875rem);background:linear-gradient(135deg, rgba(153,69,255,0.10), rgba(20,241,149,0.06));border:1px solid var(--border-bright);border-radius:1rem;padding:clamp(1rem, 2vh, 1.5rem) clamp(1.25rem, 2.5vw, 2rem);text-align:center;">
+    <div style="font-family:'Space Grotesk',sans-serif;font-size:clamp(1rem, 1.6vw, 1.375rem);font-weight:600;color:var(--text-primary);line-height:1.45;">
+      A button is the <span class="gradient-purple" style="font-weight:800;">lowest-latency interface for human intent</span> · Solana is the <span class="gradient-text" style="font-weight:800;">lowest-latency rail for value transfer</span>
+    </div>
+    <div style="font-family:'JetBrains Mono',monospace;font-size:clamp(0.8125rem, 1vw, 0.9375rem);color:var(--text-muted);margin-top:0.5rem;">
+      Wire those two together, and you finally get real voice-first crypto UX.
+    </div>
+  </div>
+
+  <div class="slide-line"></div>
+  <div class="brand">EINCLAW × SOL</div>
+  <div class="slide-number">10 / 13</div>
+</div>
+
+<!-- ==================== SLIDE 11: TECHNICAL ROADMAP ==================== -->
+<div class="slide">
+  <div class="label label-purple">Roadmap · Technical</div>
+  <h2>After the hackathon: from demo to daily-driver</h2>
+  <div class="meme-hint" style="margin-bottom:clamp(1.25rem, 2.5vh, 1.875rem);">
+    Aiming for <span class="hl">Solana Frontier Hackathon</span> · deadline May 11, 2026 · $30k Grand Prize · $2.5M Colosseum venture pool
+  </div>
+
+  <div class="grid-3" style="flex:1;align-items:stretch;">
+    <!-- Now -->
+    <div class="card card-green" style="display:flex;flex-direction:column;">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.875rem;">
+        <span class="tag tag-green">NOW</span>
+        <span style="font-family:'JetBrains Mono',monospace;font-size:0.7rem;color:var(--text-dim);">APR 2026</span>
+      </div>
+      <h3 style="color:var(--sol-green);font-size:clamp(1.0625rem, 1.4vw, 1.25rem);">Voice → Onchain MVP</h3>
+      <ul class="bullet-list" style="flex:1;margin-top:0.5rem;font-size:clamp(0.8125rem, 1vw, 0.9375rem);">
+        <li><strong style="color:var(--text-primary);">crypto-price</strong> · DexScreener anti-wash</li>
+        <li><strong style="color:var(--text-primary);">solana-pay</strong> · custodial wallet + caps</li>
+        <li><strong style="color:var(--text-primary);">solana-contacts</strong> · base58 / .sol</li>
+        <li>ASR hotwords · 42 crypto names</li>
+        <li>End-to-end on devnet</li>
+      </ul>
+      <div style="margin-top:0.75rem;font-family:'JetBrains Mono',monospace;font-size:0.7rem;color:var(--sol-green);">★ shipped ✓</div>
+    </div>
+
+    <!-- 2 weeks -->
+    <div class="card card-purple" style="display:flex;flex-direction:column;">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.875rem;">
+        <span class="tag tag-purple">2 WKS</span>
+        <span style="font-family:'JetBrains Mono',monospace;font-size:0.7rem;color:var(--text-dim);">→ MAY 11</span>
+      </div>
+      <h3 style="color:var(--sol-purple-light);font-size:clamp(1.0625rem, 1.4vw, 1.25rem);">Hackathon Push</h3>
+      <ul class="bullet-list" style="flex:1;margin-top:0.5rem;font-size:clamp(0.8125rem, 1vw, 0.9375rem);">
+        <li><strong style="color:var(--text-primary);">x402</strong> paywall · USDC micropay per call</li>
+        <li><strong style="color:var(--text-primary);">A2A</strong> · einclaw-to-einclaw transfers</li>
+        <li>Submit to <code style="color:var(--sol-purple-light);">solana.com/skills</code></li>
+        <li>Submit to <code style="color:var(--sol-purple-light);">skillmarket.space</code></li>
+        <li>Demo video · Colosseum entry</li>
+      </ul>
+      <div style="margin-top:0.75rem;font-family:'JetBrains Mono',monospace;font-size:0.7rem;color:var(--sol-purple-light);">★ in progress</div>
+    </div>
+
+    <!-- Q3+ -->
+    <div class="card" style="border-color:var(--border);display:flex;flex-direction:column;background:linear-gradient(135deg, rgba(255,210,63,0.04), rgba(21,23,42,0.96));">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.875rem;">
+        <span class="tag tag-amber">Q3 2026</span>
+        <span style="font-family:'JetBrains Mono',monospace;font-size:0.7rem;color:var(--text-dim);">+90 DAYS</span>
+      </div>
+      <h3 style="color:var(--amber);font-size:clamp(1.0625rem, 1.4vw, 1.25rem);">Mainnet &amp; Scale</h3>
+      <ul class="bullet-list" style="flex:1;margin-top:0.5rem;font-size:clamp(0.8125rem, 1vw, 0.9375rem);">
+        <li>Mainnet beta · 100 internal users</li>
+        <li><strong style="color:var(--text-primary);">Jupiter Swap</strong> Skill · voice trading</li>
+        <li><strong style="color:var(--text-primary);">Sentiment Oracle</strong> · human signal feed</li>
+        <li>cNFT "early discovery" badge</li>
+        <li>Hardware crowdfund mass shipment</li>
+      </ul>
+      <div style="margin-top:0.75rem;font-family:'JetBrains Mono',monospace;font-size:0.7rem;color:var(--amber);">★ planned</div>
+    </div>
+  </div>
+
+  <!-- Hackathon callout -->
+  <div style="margin-top:clamp(1rem, 2vh, 1.5rem);background:linear-gradient(135deg, rgba(153,69,255,0.12), rgba(220,31,255,0.06));border:1px solid var(--border-purple);border-radius:1rem;padding:1rem 1.5rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.75rem;">
+    <div>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:0.7rem;color:var(--sol-purple-light);letter-spacing:2px;text-transform:uppercase;">DEADLINE</div>
+      <div style="font-family:'Space Grotesk',sans-serif;font-size:clamp(1.125rem, 1.6vw, 1.375rem);font-weight:700;color:var(--text-primary);">Solana Frontier · May 11, 2026</div>
+    </div>
+    <div style="display:flex;gap:0.625rem;flex-wrap:wrap;">
+      <span class="pill-glow">$30k Grand Prize</span>
+      <span class="pill-glow" style="background:var(--sol-green-glow);color:var(--sol-green);border-color:var(--border-green);box-shadow:0 0 24px var(--sol-green-glow);">$2.5M Colosseum Pool</span>
+    </div>
+  </div>
+
+  <div class="slide-line"></div>
+  <div class="brand">EINCLAW × SOL</div>
+  <div class="slide-number">11 / 13</div>
+</div>
+
+<!-- ==================== SLIDE 12: MEME SCENARIOS ROADMAP ==================== -->
+<div class="slide">
+  <div class="label label-pink">Meme Mode Roadmap · Future Scenarios</div>
+  <h2>With voice + agent wallet, what else could we ship?</h2>
+  <div class="meme-hint" style="margin-bottom:clamp(1.25rem, 2.5vh, 1.875rem);">
+    Every one is a <span class="hl">"press once, say one thing"</span> script · Whether it lands depends on whether users laugh
+  </div>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;grid-template-rows:1fr 1fr;gap:clamp(0.75rem, 1.4vw, 1.125rem);flex:1;">
+
+    <!-- 1. Dust disrespect -->
+    <div class="card card-pink" style="padding:1rem 1.25rem;display:flex;flex-direction:column;">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.5rem;">
+        <span class="tag tag-pink">v1.0 · live</span>
+        <span style="font-size:1.25rem;">💀</span>
+      </div>
+      <h3 style="font-size:clamp(0.9375rem, 1.2vw, 1.125rem);color:var(--hot-pink);margin-bottom:0.4rem;">Dust disrespect</h3>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:clamp(0.7rem, 0.8vw, 0.8125rem);color:var(--text-muted);margin-bottom:0.625rem;font-style:italic;">"send that ngmi guy 0.0001 SOL"</div>
+      <p style="font-size:clamp(0.75rem, 0.95vw, 0.875rem);flex:1;line-height:1.55;color:var(--text-secondary);">
+        Most surgical disrespect in web3. 0.0001 SOL = permanent L on their wallet. <strong style="color:var(--text-primary);">solana-pay can already do this</strong>; v1.1 puts the memo onchain via Memo Program.
+      </p>
+    </div>
+
+    <!-- 2. Voice tipping -->
+    <div class="card card-green" style="padding:1rem 1.25rem;display:flex;flex-direction:column;">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.5rem;">
+        <span class="tag tag-green">v1.0 · live</span>
+        <span style="font-size:1.25rem;">💰</span>
+      </div>
+      <h3 style="font-size:clamp(0.9375rem, 1.2vw, 1.125rem);color:var(--sol-green);margin-bottom:0.4rem;">Voice tipping</h3>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:clamp(0.7rem, 0.8vw, 0.8125rem);color:var(--text-muted);margin-bottom:0.625rem;font-style:italic;">"tip 0.02 SOL to streamer alice"</div>
+      <p style="font-size:clamp(0.75rem, 0.95vw, 0.875rem);flex:1;line-height:1.55;color:var(--text-secondary);">
+        Watching a stream / Space / talk — press once, tip. 100x faster than Twitch bits, streamer keeps 100%, instant settlement.
+      </p>
+    </div>
+
+    <!-- 3. Split bill -->
+    <div class="card card-purple" style="padding:1rem 1.25rem;display:flex;flex-direction:column;">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.5rem;">
+        <span class="tag tag-purple">v1.1 · 1 wk</span>
+        <span style="font-size:1.25rem;">🍱</span>
+      </div>
+      <h3 style="font-size:clamp(0.9375rem, 1.2vw, 1.125rem);color:var(--sol-purple-light);margin-bottom:0.4rem;">Split the bill</h3>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:clamp(0.7rem, 0.8vw, 0.8125rem);color:var(--text-muted);margin-bottom:0.625rem;font-style:italic;">"split 0.3 SOL between alice, bob, me"</div>
+      <p style="font-size:clamp(0.75rem, 0.95vw, 0.875rem);flex:1;line-height:1.55;color:var(--text-secondary);">
+        That post-dinner moment that always takes forever — done in one sentence. Multi-recipient + auto-split + one broadcast. Splitwise on Solana.
+      </p>
+    </div>
+
+    <!-- 4. Voice red packets -->
+    <div class="card" style="padding:1rem 1.25rem;display:flex;flex-direction:column;background:linear-gradient(135deg, rgba(255,77,77,0.08), rgba(21,23,42,0.96));border-color:rgba(255,77,77,0.3);">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.5rem;">
+        <span class="tag" style="background:rgba(255,77,77,0.18);color:#FF8585;border:1px solid rgba(255,77,77,0.4);">v1.2 · 2 wks</span>
+        <span style="font-size:1.25rem;">🧧</span>
+      </div>
+      <h3 style="font-size:clamp(0.9375rem, 1.2vw, 1.125rem);color:#FF8585;margin-bottom:0.4rem;">Voice red packets</h3>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:clamp(0.7rem, 0.8vw, 0.8125rem);color:var(--text-muted);margin-bottom:0.625rem;font-style:italic;">"drop 100 × 0.001 SOL packets in alpha group"</div>
+      <p style="font-size:clamp(0.75rem, 0.95vw, 0.875rem);flex:1;line-height:1.55;color:var(--text-secondary);">
+        Lunar New Year, community airdrops, group celebrations — open 100 packet links in one sentence, first to grab gets it. Chinese hongbao muscle memory + Solana.
+      </p>
+    </div>
+
+    <!-- 5. Voice swap -->
+    <div class="card card-purple" style="padding:1rem 1.25rem;display:flex;flex-direction:column;">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.5rem;">
+        <span class="tag tag-purple">Q3 · Jupiter</span>
+        <span style="font-size:1.25rem;">🔄</span>
+      </div>
+      <h3 style="font-size:clamp(0.9375rem, 1.2vw, 1.125rem);color:var(--sol-purple-light);margin-bottom:0.4rem;">Voice swap</h3>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:clamp(0.7rem, 0.8vw, 0.8125rem);color:var(--text-muted);margin-bottom:0.625rem;font-style:italic;">"swap 0.1 SOL for some BONK"</div>
+      <p style="font-size:clamp(0.75rem, 0.95vw, 0.875rem);flex:1;line-height:1.55;color:var(--text-secondary);">
+        One-sentence swap via Jupiter Aggregator. "Hear alpha, enter immediately" finally works — no DEX UI keeps up with one mouth.
+      </p>
+    </div>
+
+    <!-- 6. Sentiment oracle -->
+    <div class="card" style="padding:1rem 1.25rem;display:flex;flex-direction:column;background:linear-gradient(135deg, rgba(0,224,255,0.06), rgba(21,23,42,0.96));border-color:rgba(0,224,255,0.3);">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.5rem;">
+        <span class="tag" style="background:var(--cyan-glow);color:var(--cyan);border:1px solid rgba(0,224,255,0.3);">Q3 · long-term</span>
+        <span style="font-size:1.25rem;">📡</span>
+      </div>
+      <h3 style="font-size:clamp(0.9375rem, 1.2vw, 1.125rem);color:var(--cyan);margin-bottom:0.4rem;">Human sentiment oracle</h3>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:clamp(0.7rem, 0.8vw, 0.8125rem);color:var(--text-muted);margin-bottom:0.625rem;font-style:italic;">100k mics → token sentiment oracle feed</div>
+      <p style="font-size:clamp(0.75rem, 0.95vw, 0.875rem);flex:1;line-height:1.55;color:var(--text-secondary);">
+        Every "is X worth buying?" is a <strong style="color:var(--text-primary);">human-intent signal</strong>. Anonymized + aggregated → oracle feed bots can't fake. The space Switchboard / Pyth can't cover.
+      </p>
+    </div>
+  </div>
+
+  <!-- Bottom tagline -->
+  <div style="margin-top:clamp(1rem, 2vh, 1.5rem);text-align:center;font-family:'Space Grotesk',sans-serif;font-size:clamp(0.9375rem, 1.3vw, 1.125rem);color:var(--text-secondary);font-style:italic;">
+    One mic pulls crypto from dApp back to the <strong class="gradient-text" style="font-weight:700;font-style:normal;">human-language layer</strong>. The rest is just imagination.
+  </div>
+
+  <div class="slide-line"></div>
+  <div class="brand">EINCLAW × SOL</div>
+  <div class="slide-number">12 / 13</div>
+</div>
+
+<!-- ==================== SLIDE 13: GM / CLOSING ==================== -->
+<div class="slide cover-slide">
+  <div style="display:flex;flex-direction:column;align-items:center;gap:clamp(1rem, 2.5vh, 1.875rem);">
+    <div class="pill-glow" style="background:var(--amber-glow);color:var(--amber);border-color:rgba(255,210,63,0.4);box-shadow:0 0 30px var(--amber-glow);">
+      ★ THANKS FOR LISTENING, SER ★
+    </div>
+
+    <h1 style="font-size:clamp(3.5rem, 8vw, 7rem);font-weight:800;letter-spacing:-3px;line-height:0.95;">
+      gm. <span class="gradient-text">now go ship.</span>
+    </h1>
+
+    <div style="font-family:'Space Grotesk',sans-serif;font-size:clamp(1rem, 1.6vw, 1.375rem);color:var(--text-secondary);font-weight:500;max-width:min(48rem, 90vw);line-height:1.5;">
+      We built a voice-first crypto agent on a 4G mic.<br>
+      It's running on devnet right now — <span style="color:var(--sol-green);font-weight:700;">come press the button</span>.
+    </div>
+
+    <div class="grid-3" style="margin-top:clamp(1rem, 2vh, 1.5rem);width:min(56rem, 92vw);gap:0.75rem;">
+      <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:0.875rem;padding:1rem;text-align:left;">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:0.7rem;color:var(--text-muted);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:6px;">Try The Demo</div>
+        <div style="font-family:'Space Grotesk',sans-serif;font-size:clamp(0.875rem, 1.1vw, 1.0625rem);font-weight:600;color:var(--text-primary);">EinClaw Mic</div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:clamp(0.75rem, 0.9vw, 0.875rem);color:var(--sol-green);margin-top:4px;">press · talk · settled</div>
+      </div>
+
+      <div style="background:var(--bg-card);border:1px solid var(--border-purple);border-radius:0.875rem;padding:1rem;text-align:left;">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:0.7rem;color:var(--sol-purple-light);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:6px;">Built On</div>
+        <div style="font-family:'Space Grotesk',sans-serif;font-size:clamp(0.875rem, 1.1vw, 1.0625rem);font-weight:600;color:var(--text-primary);">Solana Devnet</div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:clamp(0.75rem, 0.9vw, 0.875rem);color:var(--sol-purple-light);margin-top:4px;">no contract deploy needed</div>
+      </div>
+
+      <div style="background:var(--bg-card);border:1px solid var(--border-green);border-radius:0.875rem;padding:1rem;text-align:left;">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:0.7rem;color:var(--sol-green);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:6px;">Made With</div>
+        <div style="font-family:'Space Grotesk',sans-serif;font-size:clamp(0.875rem, 1.1vw, 1.0625rem);font-weight:600;color:var(--text-primary);">OpenClaw + Skills</div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:clamp(0.75rem, 0.9vw, 0.875rem);color:var(--sol-green);margin-top:4px;">3 skills · no cap</div>
+      </div>
+    </div>
+
+    <div style="margin-top:clamp(1.25rem, 2.5vh, 2rem);font-family:'JetBrains Mono',monospace;font-size:clamp(0.75rem, 0.95vw, 0.875rem);color:var(--text-muted);letter-spacing:1px;text-align:center;line-height:1.7;">
+      <span style="color:var(--text-secondary);">EinClaw Team · Solana Frontier Hackathon 2026</span><br>
+      hardware × voice × onchain — built different.
+    </div>
+
+    <div class="ticker" style="margin-top:0.625rem;flex-wrap:wrap;justify-content:center;color:var(--text-dim);">
+      <span>wagmi</span>
+      <span style="color: var(--text-dim);">·</span>
+      <span>lfg</span>
+      <span style="color: var(--text-dim);">·</span>
+      <span>no cap</span>
+      <span style="color: var(--text-dim);">·</span>
+      <span>fr fr</span>
+      <span style="color: var(--text-dim);">·</span>
+      <span>ship it 🚢</span>
+    </div>
+  </div>
+  <div class="brand">EINCLAW × SOL</div>
+  <div class="slide-number">13 / 13</div>
+</div>
+
+</body>
+</html>
