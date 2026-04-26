@@ -1,0 +1,1820 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VoiceFund — Voice-Native Knowledge Marketplace</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500&family=Noto+Serif+SC:wght@400;500;600;700;900&family=Source+Sans+3:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap');
+
+  :root {
+    /* Warm cream palette */
+    --bg-cream: #FFFBF0;
+    --bg-cream-deep: #FFF8E7;
+    --bg-cream-accent: #FEF3C7;
+    --bg-white: #FFFFFF;
+    --bg-warm-light: #FEFCF6;
+
+    /* Accent colors */
+    --amber: #D97706;
+    --amber-deep: #B45309;
+    --amber-light: #F59E0B;
+    --amber-glow: rgba(217, 119, 6, 0.08);
+    --amber-glow-strong: rgba(217, 119, 6, 0.15);
+    --terracotta: #C2410C;
+    --terracotta-light: #EA580C;
+    --terracotta-glow: rgba(194, 65, 12, 0.08);
+
+    /* Text */
+    --text-primary: #1C1917;
+    --text-secondary: #57534E;
+    --text-muted: #78716C;
+    --text-light: #A8A29E;
+
+    /* Greens */
+    --sage: #65A30D;
+    --sage-deep: #4D7C0F;
+    --sage-glow: rgba(101, 163, 13, 0.10);
+
+    /* Borders & shadows */
+    --border: #E7E5E4;
+    --border-light: #F5F5F4;
+    --shadow-soft: 0 2px 16px rgba(28, 25, 23, 0.04);
+    --shadow-card: 0 1px 8px rgba(28, 25, 23, 0.06);
+    --shadow-elevated: 0 4px 24px rgba(28, 25, 23, 0.08);
+
+    /* Gradients */
+    --gradient-warm: linear-gradient(180deg, #FFFBF0 0%, #FFF8E7 100%);
+    --gradient-cream: linear-gradient(135deg, #FFFBF0 0%, #FEF3C7 100%);
+    --gradient-amber: linear-gradient(135deg, #D97706, #F59E0B);
+    --gradient-sage: linear-gradient(135deg, #65A30D, #84CC16);
+    --gradient-terracotta: linear-gradient(135deg, #C2410C, #EA580C);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  @page {
+    size: landscape;
+    margin: 0;
+  }
+
+  /* Root scaling for different screen sizes */
+  html {
+    font-size: 16px;
+  }
+
+  @media (max-height: 900px) {
+    html { font-size: 15px; }
+  }
+
+  @media (max-height: 800px) {
+    html { font-size: 14px; }
+  }
+
+  @media (max-height: 700px) {
+    html { font-size: 13px; }
+  }
+
+  @media (max-width: 1200px) {
+    html { font-size: 14px; }
+  }
+
+  @media (max-width: 1024px) {
+    html { font-size: 13px; }
+  }
+
+  body {
+    font-family: 'Source Sans 3', 'Noto Serif SC', -apple-system, sans-serif;
+    background: var(--bg-cream);
+    color: var(--text-primary);
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+    width: 100%;
+    overflow-x: hidden;
+  }
+
+  .slide {
+    width: 100%;
+    min-height: 100vh;
+    height: auto;
+    padding: clamp(16px, 3vh, 40px) clamp(24px, 3.5vw, 56px);
+    position: relative;
+    overflow: hidden;
+    page-break-after: always;
+    page-break-inside: avoid;
+    background: var(--gradient-warm);
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+  }
+
+  /* Scale content based on viewport */
+  .slide > * {
+    max-width: 100%;
+  }
+
+  /* Subtle warm texture overlay */
+  .slide::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(ellipse at 80% 20%, rgba(254, 243, 199, 0.4) 0%, transparent 50%);
+    pointer-events: none;
+  }
+
+  /* Page number */
+  .slide-number {
+    position: absolute;
+    bottom: clamp(16px, 3vh, 28px);
+    right: clamp(24px, 4vw, 48px);
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(11px, 1vw, 13px);
+    color: var(--text-light);
+    font-weight: 400;
+    letter-spacing: 1px;
+    font-style: italic;
+  }
+
+  /* Brand watermark */
+  .brand {
+    position: absolute;
+    bottom: clamp(16px, 3vh, 28px);
+    left: clamp(24px, 4vw, 48px);
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: clamp(9px, 0.85vw, 11px);
+    color: var(--text-light);
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+  }
+
+  /* Thin decorative line at bottom */
+  .slide-line {
+    position: absolute;
+    bottom: clamp(36px, 5vh, 52px);
+    left: clamp(24px, 4vw, 48px);
+    right: clamp(24px, 4vw, 48px);
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* Typography */
+  h1 {
+    font-family: 'Playfair Display', 'Noto Serif SC', serif;
+    font-size: clamp(1.5rem, 2.8vw, 2.5rem);
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.5px;
+    color: var(--text-primary);
+    margin-bottom: clamp(0.375rem, 1vh, 0.625rem);
+  }
+
+  h2 {
+    font-family: 'Playfair Display', 'Noto Serif SC', serif;
+    font-size: clamp(1.25rem, 2.2vw, 1.75rem);
+    font-weight: 600;
+    line-height: 1.25;
+    letter-spacing: -0.3px;
+    color: var(--text-primary);
+    margin-bottom: clamp(0.375rem, 0.8vh, 0.5rem);
+  }
+
+  h3 {
+    font-family: 'Source Sans 3', 'Noto Serif SC', sans-serif;
+    font-size: clamp(0.875rem, 1.2vw, 1.125rem);
+    font-weight: 600;
+    line-height: 1.3;
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+  }
+
+  .subtitle {
+    font-size: clamp(0.8125rem, 1.2vw, 1.0625rem);
+    color: var(--text-secondary);
+    font-weight: 400;
+    line-height: 1.6;
+    max-width: min(680px, 90%);
+  }
+
+  .label {
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: clamp(0.5625rem, 0.8vw, 0.6875rem);
+    font-weight: 600;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--amber);
+    margin-bottom: 0.625rem;
+  }
+
+  .highlight {
+    color: var(--amber-deep);
+    font-weight: 600;
+  }
+
+  .highlight-green {
+    color: var(--sage-deep);
+    font-weight: 600;
+  }
+
+  /* Layout helpers */
+  .flex { display: flex; }
+  .flex-1 { flex: 1; }
+  .gap-12 { gap: clamp(8px, 1vw, 12px); }
+  .gap-16 { gap: clamp(10px, 1.3vw, 16px); }
+  .gap-20 { gap: clamp(12px, 1.6vw, 20px); }
+  .gap-24 { gap: clamp(14px, 2vw, 24px); }
+  .gap-28 { gap: clamp(16px, 2.2vw, 28px); }
+  .gap-32 { gap: clamp(18px, 2.5vw, 32px); }
+  .gap-40 { gap: clamp(24px, 3vw, 40px); }
+  .items-center { align-items: center; }
+  .justify-center { justify-content: center; }
+  .content-area { flex: 1; display: flex; flex-direction: column; }
+
+  /* Cards */
+  .card {
+    background: var(--bg-white);
+    border: 1px solid var(--border);
+    border-radius: clamp(0.625rem, 1.2vw, 0.875rem);
+    padding: clamp(0.875rem, 1.6vw, 1.25rem);
+    box-shadow: var(--shadow-soft);
+  }
+
+  .card-sm {
+    background: var(--bg-white);
+    border: 1px solid var(--border);
+    border-radius: 0.75rem;
+    padding: clamp(0.75rem, 1.5vw, 1rem) clamp(0.875rem, 1.6vw, 1.125rem);
+    box-shadow: var(--shadow-card);
+  }
+
+  .card-amber {
+    border-color: rgba(217, 119, 6, 0.25);
+    background: linear-gradient(135deg, rgba(254, 243, 199, 0.5), rgba(255, 251, 240, 0.8));
+  }
+
+  .card-sage {
+    border-color: rgba(101, 163, 13, 0.25);
+    background: linear-gradient(135deg, rgba(101, 163, 13, 0.05), rgba(132, 204, 22, 0.03));
+  }
+
+  .card-terracotta {
+    border-color: rgba(194, 65, 12, 0.2);
+    background: linear-gradient(135deg, rgba(194, 65, 12, 0.04), rgba(234, 88, 12, 0.02));
+  }
+
+  /* Table */
+  .table-container {
+    width: 100%;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow-card);
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: clamp(0.6875rem, 1vw, 0.8125rem);
+  }
+
+  th {
+    background: var(--bg-cream-deep);
+    padding: 0.625rem 0.875rem;
+    text-align: left;
+    font-weight: 600;
+    color: var(--text-muted);
+    font-size: 0.6875rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    border-bottom: 1px solid var(--border);
+  }
+
+  td {
+    padding: 0.625rem 0.875rem;
+    border-bottom: 1px solid var(--border-light);
+    color: var(--text-secondary);
+    line-height: 1.4;
+    background: var(--bg-white);
+  }
+
+  tr:last-child td {
+    border-bottom: none;
+  }
+
+  tr:nth-child(even) td {
+    background: var(--bg-warm-light);
+  }
+
+  /* Tags */
+  .tag {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+  }
+
+  .tag-amber {
+    background: var(--amber-glow);
+    color: var(--amber-deep);
+    border: 1px solid rgba(217, 119, 6, 0.2);
+  }
+
+  .tag-sage {
+    background: var(--sage-glow);
+    color: var(--sage-deep);
+    border: 1px solid rgba(101, 163, 13, 0.2);
+  }
+
+  .tag-terracotta {
+    background: var(--terracotta-glow);
+    color: var(--terracotta);
+    border: 1px solid rgba(194, 65, 12, 0.2);
+  }
+
+  /* Stat blocks */
+  .stat {
+    text-align: center;
+  }
+
+  .stat-value {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.5rem, 2.8vw, 2.375rem);
+    font-weight: 700;
+    line-height: 1;
+    margin-bottom: 0.375rem;
+    color: var(--text-primary);
+  }
+
+  .stat-label {
+    font-size: clamp(0.625rem, 0.9vw, 0.75rem);
+    color: var(--text-muted);
+    font-weight: 500;
+  }
+
+  /* Flow diagram */
+  .flow-step {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 4px;
+  }
+
+  .flow-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  .flow-icon-amber {
+    background: var(--amber-glow);
+    color: var(--amber-deep);
+    border: 1px solid rgba(217, 119, 6, 0.2);
+  }
+
+  .flow-icon-sage {
+    background: var(--sage-glow);
+    color: var(--sage-deep);
+    border: 1px solid rgba(101, 163, 13, 0.2);
+  }
+
+  .flow-icon-terracotta {
+    background: var(--terracotta-glow);
+    color: var(--terracotta);
+    border: 1px solid rgba(194, 65, 12, 0.2);
+  }
+
+  .flow-text {
+    font-size: 13px;
+    line-height: 1.4;
+    color: var(--text-secondary);
+  }
+
+  .flow-connector {
+    width: 2px;
+    height: 8px;
+    background: var(--border);
+    margin-left: 15px;
+    margin-bottom: 4px;
+  }
+
+  /* Timeline */
+  .timeline {
+    display: flex;
+    gap: 0;
+    position: relative;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    top: 20px;
+    left: 40px;
+    right: 40px;
+    height: 2px;
+    background: var(--border);
+    z-index: 0;
+  }
+
+  .timeline-item {
+    flex: 1;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+  }
+
+  .timeline-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    margin: 14px auto 14px;
+    border: 2px solid var(--bg-cream);
+    box-shadow: 0 0 0 2px var(--border);
+  }
+
+  .timeline-dot-amber { background: var(--amber); box-shadow: 0 0 0 2px var(--amber); }
+  .timeline-dot-sage { background: var(--sage); box-shadow: 0 0 0 2px var(--sage); }
+  .timeline-dot-terracotta { background: var(--terracotta); box-shadow: 0 0 0 2px var(--terracotta); }
+
+  .timeline-title {
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 2px;
+  }
+
+  .timeline-desc {
+    font-size: 11px;
+    color: var(--text-muted);
+    line-height: 1.5;
+    padding: 0 6px;
+  }
+
+  /* Bullet list */
+  .bullet-list {
+    list-style: none;
+    padding: 0;
+  }
+
+  .bullet-list li {
+    padding: 5px 0 5px 20px;
+    position: relative;
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--text-secondary);
+  }
+
+  .bullet-list li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 13px;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--amber);
+  }
+
+  /* Cover special */
+  .cover-slide {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background: linear-gradient(180deg, #FFFBF0 0%, #FEF3C7 50%, #FFF8E7 100%);
+    min-height: 100vh;
+    height: auto;
+  }
+
+  .cover-slide::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: min(800px, 90vw);
+    height: min(800px, 90vh);
+    background: radial-gradient(circle, rgba(217, 119, 6, 0.06) 0%, transparent 60%);
+  }
+
+  .cover-slide h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.75rem, 4vw, 3.5rem);
+    font-weight: 700;
+    letter-spacing: -1px;
+    color: var(--text-primary);
+    margin-bottom: clamp(0.5rem, 1.5vh, 1rem);
+  }
+
+  .cover-tagline {
+    font-family: 'Noto Serif SC', serif;
+    font-size: clamp(15px, 1.6vw, 20px);
+    color: var(--text-secondary);
+    font-weight: 400;
+    margin-bottom: clamp(16px, 3vh, 28px);
+    letter-spacing: 1px;
+  }
+
+  .cover-meta {
+    font-size: 13px;
+    color: var(--text-muted);
+    font-weight: 400;
+    letter-spacing: 0.5px;
+  }
+
+  /* Quote */
+  .quote {
+    font-family: 'Playfair Display', 'Noto Serif SC', serif;
+    font-size: clamp(16px, 1.8vw, 22px);
+    font-weight: 500;
+    font-style: italic;
+    line-height: 1.5;
+    color: var(--text-primary);
+    border-left: 3px solid var(--amber);
+    padding-left: clamp(16px, 2vw, 24px);
+    margin: clamp(12px, 2vh, 20px) 0;
+  }
+
+  /* Grid */
+  .grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(16px, 2vw, 24px);
+  }
+
+  .grid-3 {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: clamp(12px, 1.6vw, 20px);
+  }
+
+  .grid-4 {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: clamp(10px, 1.2vw, 14px);
+  }
+
+  /* Number circle */
+  .icon-circle {
+    width: clamp(32px, 4vw, 40px);
+    height: clamp(32px, 4vw, 40px);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(14px, 1.6vw, 16px);
+    font-weight: 600;
+    margin: 0 auto 12px;
+    color: var(--amber-deep);
+    background: var(--amber-glow-strong);
+    border: 1px solid rgba(217, 119, 6, 0.15);
+  }
+
+  /* Divider */
+  .divider {
+    width: 48px;
+    height: 2px;
+    background: var(--gradient-amber);
+    border-radius: 1px;
+    margin: 12px 0;
+  }
+
+  /* Decorative horizontal rule */
+  .ornament {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 16px 0;
+  }
+
+  .ornament::before,
+  .ornament::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  .ornament-dot {
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: var(--amber);
+  }
+
+  /* Progress items */
+  .progress-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 6px 0;
+    font-size: 13px;
+    color: var(--text-secondary);
+  }
+
+  .progress-check {
+    width: 20px;
+    height: 20px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    flex-shrink: 0;
+  }
+
+  .progress-done {
+    background: var(--sage-glow);
+    color: var(--sage-deep);
+    border: 1px solid rgba(101, 163, 13, 0.25);
+  }
+
+  .progress-wip {
+    background: var(--amber-glow);
+    color: var(--amber);
+    border: 1px solid rgba(217, 119, 6, 0.25);
+  }
+
+  /* Browser window mockup */
+  .browser-window {
+    background: #1C1917;
+    border-radius: clamp(0.75rem, 1.2vw, 1rem);
+    overflow: hidden;
+    box-shadow: var(--shadow-elevated);
+    border: 1px solid rgba(0,0,0,0.1);
+  }
+
+  .browser-chrome {
+    background: #2A2622;
+    padding: clamp(0.5rem, 0.8vh, 0.625rem) clamp(0.625rem, 1vw, 0.875rem);
+    display: flex;
+    align-items: center;
+    gap: clamp(0.375rem, 0.5vw, 0.5rem);
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+
+  .browser-dot {
+    width: clamp(9px, 0.8vw, 11px);
+    height: clamp(9px, 0.8vw, 11px);
+    border-radius: 50%;
+  }
+
+  .browser-dot-red { background: #FF5F57; }
+  .browser-dot-yellow { background: #FEBC2E; }
+  .browser-dot-green { background: #28C840; }
+
+  .browser-title {
+    margin-left: auto;
+    margin-right: auto;
+    font-size: clamp(0.625rem, 0.75vw, 0.75rem);
+    color: rgba(255,255,255,0.45);
+    font-family: 'Source Sans 3', sans-serif;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+  }
+
+  .browser-body {
+    background: #14110F;
+    padding: clamp(0.75rem, 1.5vh, 1.125rem);
+    color: #F5F5F4;
+    min-height: clamp(130px, 22vh, 200px);
+  }
+
+  /* MacBook Pro and high-res laptop optimizations */
+  @media (min-width: 1440px) {
+    .slide {
+      padding: clamp(1.5rem, 4vh, 3.5rem) clamp(2.5rem, 5vw, 5rem);
+    }
+  }
+
+  @media (max-width: 1728px) and (min-height: 900px) {
+    html { font-size: 15px; }
+  }
+
+  @media (max-width: 1512px) {
+    html { font-size: 14px; }
+    .slide {
+      padding: clamp(1rem, 2.5vh, 2.25rem) clamp(1.5rem, 3.5vw, 3rem);
+    }
+    h1 {
+      font-size: clamp(1.375rem, 2.6vw, 2.25rem);
+    }
+    h2 {
+      font-size: clamp(1.125rem, 2vw, 1.625rem);
+    }
+  }
+
+  @media (max-width: 1280px) {
+    html { font-size: 13px; }
+    .slide {
+      padding: clamp(0.875rem, 2vh, 1.75rem) clamp(1.25rem, 3vw, 2.5rem);
+    }
+    .card {
+      padding: clamp(0.75rem, 1.4vw, 1rem);
+    }
+    .cover-slide h1 {
+      font-size: clamp(1.5rem, 4vw, 2.75rem);
+    }
+  }
+
+  @media (max-height: 800px) {
+    html { font-size: 12px; }
+    .slide {
+      padding: clamp(0.75rem, 2vh, 1.5rem) clamp(1rem, 2.5vw, 2rem);
+    }
+  }
+
+  @media (max-width: 1200px) {
+    .grid-4 {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  @media (max-width: 992px) {
+    .grid-3 {
+      grid-template-columns: 1fr 1fr;
+    }
+    .grid-2 {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 768px) {
+    html { font-size: 14px; }
+    .slide {
+      padding: 1.125rem 1.375rem;
+      height: auto;
+      min-height: 100vh;
+    }
+    .grid-4,
+    .grid-3 {
+      grid-template-columns: 1fr;
+    }
+    .cover-slide h1 {
+      font-size: clamp(1.625rem, 7vw, 2.375rem);
+    }
+    h1 {
+      font-size: clamp(1.375rem, 5.5vw, 1.75rem);
+    }
+    h2 {
+      font-size: clamp(1.125rem, 4.5vw, 1.5rem);
+    }
+  }
+
+  @media (max-width: 480px) {
+    html { font-size: 13px; }
+    .slide {
+      padding: 0.875rem 1.125rem;
+    }
+    .card {
+      padding: 0.75rem;
+    }
+    .cover-slide h1 {
+      font-size: 1.5rem;
+    }
+    h1 {
+      font-size: 1.25rem;
+    }
+    h2 {
+      font-size: 1.0625rem;
+    }
+    .bullet-list li {
+      font-size: 0.8125rem;
+    }
+  }
+
+  @media (min-aspect-ratio: 16/10) and (max-height: 900px) {
+    .slide {
+      padding: clamp(0.75rem, 2vh, 1.75rem) clamp(1.25rem, 3vw, 3rem);
+    }
+    .card {
+      padding: clamp(0.75rem, 1.4vw, 1.125rem);
+    }
+  }
+
+  @media (max-height: 700px) {
+    html { font-size: 11px; }
+    .slide {
+      padding: 0.625rem 1rem;
+    }
+  }
+
+  @media (max-width: 1512px) and (max-height: 982px) {
+    html { font-size: 13px; }
+  }
+
+  @media (min-width: 1728px) and (min-height: 1000px) {
+    html { font-size: 15px; }
+  }
+
+  @media (max-height: 800px) and (min-width: 1000px) {
+    html { font-size: 12px; }
+  }
+
+  @media (max-height: 750px) and (min-width: 900px) {
+    html { font-size: 11px; }
+    .slide {
+      padding: 0.5rem 1rem;
+    }
+  }
+</style>
+</head>
+<body>
+
+<!-- ==================== SLIDE 1: COVER ==================== -->
+<div class="slide cover-slide">
+  <div style="position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:clamp(0.75rem, 2vh, 1.25rem);">
+    <div class="label" style="margin-bottom:clamp(0.5rem, 1vh, 0.75rem);letter-spacing:clamp(3px, 0.4vw, 5px);">Voice-Native Knowledge Marketplace</div>
+    <h1 style="font-size:clamp(2.5rem, 5.5vw, 4.5rem);margin-bottom:clamp(0.5rem, 1vh, 0.75rem);">VoiceFund</h1>
+    <div style="font-family:'Playfair Display',serif;font-style:italic;font-size:clamp(14px, 1.4vw, 18px);color:var(--amber-deep);font-weight:500;letter-spacing:0.5px;">Turn Your Voice Into Tradeable Knowledge</div>
+    <div class="ornament" style="width:min(200px, 40vw);margin:clamp(0.5rem, 1vh, 0.75rem) 0;">
+      <div class="ornament-dot"></div>
+    </div>
+    <div class="cover-meta">Hackathon Demo &middot; 2026 Q2</div>
+  </div>
+  <div class="slide-line"></div>
+  <div class="brand">VOICEFUND</div>
+  <div class="slide-number">01</div>
+</div>
+
+<!-- ==================== SLIDE 2: THE PROBLEM ==================== -->
+<div class="slide">
+  <div class="label">The Problem</div>
+  <h2>The Problem</h2>
+  <div style="height:clamp(0.75rem, 2vh, 1.25rem);"></div>
+
+  <div class="content-area" style="justify-content:flex-start;">
+    <div class="grid-2" style="align-items:stretch;">
+      <div class="card card-terracotta" style="padding:clamp(1.25rem,2.5vw,1.875rem) clamp(1.375rem,2.8vw,2rem);display:flex;flex-direction:column;">
+        <div style="display:flex;align-items:center;gap:clamp(0.5rem, 0.8vw, 0.75rem);margin-bottom:clamp(1rem, 1.8vh, 1.375rem);">
+          <div style="width:clamp(2.25rem, 3vw, 2.75rem);height:clamp(2.25rem, 3vw, 2.75rem);border-radius:0.875rem;background:var(--terracotta-glow);border:1px solid rgba(194,65,12,0.2);display:flex;align-items:center;justify-content:center;font-size:clamp(0.875rem, 1vw, 1rem);font-weight:700;color:var(--terracotta);">!</div>
+          <div style="font-family:'Playfair Display','Noto Serif SC',serif;font-size:clamp(1.125rem,2vw,1.5rem);font-weight:700;color:var(--text-primary);">The Pain</div>
+        </div>
+        <ul class="bullet-list" style="flex:1;">
+          <li style="font-size:clamp(0.8125rem,1.2vw,0.9375rem);line-height:1.65;">Everyone has valuable thoughts in their head, but they <strong style="color:var(--terracotta);">never get captured</strong></li>
+          <li style="font-size:clamp(0.8125rem,1.2vw,0.9375rem);line-height:1.65;">Writing it down is brutal: <strong style="color:var(--terracotta);">3 hours</strong> for a report vs <strong style="color:var(--terracotta);">30 seconds</strong> to say the core idea</li>
+          <li style="font-size:clamp(0.8125rem,1.2vw,0.9375rem);line-height:1.65;">No one knows <strong style="color:var(--terracotta);">what their insight is worth</strong></li>
+          <li style="font-size:clamp(0.8125rem,1.2vw,0.9375rem);line-height:1.65;">No idea <strong style="color:var(--terracotta);">who the buyers are or how to price</strong></li>
+          <li style="font-size:clamp(0.8125rem,1.2vw,0.9375rem);line-height:1.65;">Traditional platforms (Substack, etc.) have <strong style="color:var(--terracotta);">high barriers and slow settlement</strong></li>
+        </ul>
+      </div>
+
+      <div class="card card-sage" style="padding:clamp(1.25rem,2.5vw,1.875rem) clamp(1.375rem,2.8vw,2rem);display:flex;flex-direction:column;">
+        <div style="display:flex;align-items:center;gap:clamp(0.5rem, 0.8vw, 0.75rem);margin-bottom:clamp(1rem, 1.8vh, 1.375rem);">
+          <div style="width:clamp(2.25rem, 3vw, 2.75rem);height:clamp(2.25rem, 3vw, 2.75rem);border-radius:0.875rem;background:var(--sage-glow);border:1px solid rgba(101,163,13,0.2);display:flex;align-items:center;justify-content:center;font-size:clamp(0.875rem, 1vw, 1rem);font-weight:700;color:var(--sage-deep);">V</div>
+          <div style="font-family:'Playfair Display','Noto Serif SC',serif;font-size:clamp(1.125rem,2vw,1.5rem);font-weight:700;color:var(--text-primary);">VoiceFund's Solution</div>
+        </div>
+        <ul class="bullet-list" style="flex:1;">
+          <li style="font-size:clamp(0.8125rem,1.2vw,0.9375rem);line-height:1.65;">Speak for <strong style="color:var(--sage-deep);">30 seconds</strong> &rarr; AI generates a <strong style="color:var(--sage-deep);">3-page professional report</strong></li>
+          <li style="font-size:clamp(0.8125rem,1.2vw,0.9375rem);line-height:1.65;">AI reads the market and suggests a <strong style="color:var(--sage-deep);">fair price</strong></li>
+          <li style="font-size:clamp(0.8125rem,1.2vw,0.9375rem);line-height:1.65;">Solana-powered <strong style="color:var(--sage-deep);">instant global settlement</strong> (vs 7-day holds)</li>
+          <li style="font-size:clamp(0.8125rem,1.2vw,0.9375rem);line-height:1.65;">Wallet address is your identity &mdash; <strong style="color:var(--sage-deep);">anonymous, zero onboarding</strong></li>
+          <li style="font-size:clamp(0.8125rem,1.2vw,0.9375rem);line-height:1.65;">Works for <strong style="color:var(--sage-deep);">any domain</strong>, not just crypto</li>
+        </ul>
+      </div>
+    </div>
+
+    <div style="margin-top:clamp(1rem, 2vh, 1.5rem);">
+      <div class="quote">
+        Turn the invisible assets in your head into liquid digital wealth.
+      </div>
+    </div>
+  </div>
+  <div class="slide-line"></div>
+  <div class="brand">VOICEFUND</div>
+  <div class="slide-number">02</div>
+</div>
+
+<!-- ==================== SLIDE 3: SCENARIO 1 — FOUNDER THOUGHT ==================== -->
+<div class="slide cover-slide">
+  <div style="position:relative;z-index:1;width:100%;max-width:min(80rem, 94vw);margin:0 auto;display:flex;flex-direction:column;justify-content:center;gap:clamp(1.25rem, 3vh, 2.125rem);flex:1;">
+
+    <div style="max-width:min(70rem, 90vw);margin:0 auto;text-align:center;">
+      <div style="font-size:clamp(20px, 3vw, 36px);color:var(--text-secondary);font-weight:500;letter-spacing:-0.8px;line-height:1.12;">Scenario 1: A Founder's Insight</div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr minmax(3.75rem, 6vw) 1.1fr;align-items:center;gap:0;max-width:min(75rem, 92vw);margin:0 auto;">
+
+      <!-- Left: User speaks -->
+      <div style="background:var(--bg-white);border-radius:clamp(1rem, 2vw, 1.625rem);border:1.5px solid var(--border);padding:clamp(1.25rem, 2.5vh, 2.5rem) clamp(1.25rem, 2vw, 2.625rem);box-shadow:var(--shadow-elevated);text-align:center;">
+        <div style="display:inline-flex;align-items:center;gap:clamp(0.375rem, 0.5vw, 0.5rem);margin-bottom:clamp(1rem, 1.8vh, 1.5rem);padding:clamp(0.5rem, 0.8vh, 0.6875rem) clamp(0.875rem, 1.2vw, 1.25rem);border-radius:999px;background:var(--bg-cream-deep);border:1px solid var(--border);font-size:clamp(0.75rem, 0.9vw, 0.875rem);letter-spacing:1.5px;color:var(--text-muted);text-transform:uppercase;">Voice Capture</div>
+        <div style="font-size:clamp(1.125rem, 2.2vw, 1.75rem);font-weight:700;color:var(--text-primary);margin-bottom:clamp(0.75rem, 1.2vh, 1.125rem);">On the way to a meeting &mdash; press, speak, done.</div>
+        <div style="background:var(--bg-cream-deep);border-radius:clamp(0.875rem, 1.5vw, 1.125rem);padding:clamp(1rem, 1.8vh, 1.5rem) clamp(1.125rem, 1.8vw, 1.625rem);font-size:clamp(0.75rem, 1.1vw, 0.9375rem);color:var(--text-primary);line-height:1.65;font-style:italic;text-align:left;">
+          "The biggest trap in AI Agent startups is chasing generality. Vertical scenarios find PMF faster. Over the past year I fell into three traps: trying to build a universal assistant, going multi-agent too early, and ignoring latency. Users' patience window for an agent is only 3 seconds..."
+        </div>
+        <div style="margin-top:clamp(1rem, 1.8vh, 1.25rem);font-size:clamp(0.8125rem, 1vw, 0.9375rem);color:var(--text-muted);">EinClaw Mic &middot; 30-second voice input &middot; No typing</div>
+      </div>
+
+      <!-- Arrow -->
+      <div style="display:flex;flex-direction:column;align-items:center;gap:clamp(0.5rem, 0.8vh, 0.625rem);">
+        <div style="font-size:clamp(2rem, 4vw, 3.125rem);color:var(--amber);font-weight:300;">&rarr;</div>
+        <div style="font-size:clamp(0.75rem, 1vw, 0.875rem);color:var(--text-muted);writing-mode:horizontal-tb;">30s</div>
+      </div>
+
+      <!-- Right: AI output -->
+      <div style="background:var(--bg-white);border-radius:clamp(1rem, 2vw, 1.625rem);border:1.5px solid var(--border);padding:clamp(1.125rem, 2vh, 2rem) clamp(1.25rem, 2.2vw, 2.25rem);box-shadow:var(--shadow-elevated);text-align:left;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:clamp(0.875rem, 1.5vh, 1rem);">
+          <div style="font-size:clamp(0.625rem, 0.75vw, 0.75rem);color:var(--sage-deep);font-weight:700;letter-spacing:1.2px;text-transform:uppercase;">AI-Generated Document &middot; 30s</div>
+          <div class="tag tag-amber">New asset</div>
+        </div>
+
+        <!-- Generated file card -->
+        <div style="border:1px solid var(--border-light);border-radius:clamp(0.875rem, 1.3vw, 1rem);padding:clamp(1rem, 1.8vh, 1.25rem) clamp(1.125rem, 1.5vw, 1.375rem);background:var(--bg-warm-light);margin-bottom:clamp(0.75rem, 1.2vh, 1rem);">
+          <div style="display:flex;align-items:center;gap:clamp(0.5rem, 0.7vw, 0.625rem);margin-bottom:clamp(0.5rem, 0.8vh, 0.625rem);">
+            <div style="width:clamp(1.75rem, 2.4vw, 2.125rem);height:clamp(1.75rem, 2.4vw, 2.125rem);border-radius:0.5rem;background:var(--amber-glow);border:1px solid rgba(217,119,6,0.2);display:flex;align-items:center;justify-content:center;font-size:clamp(0.625rem, 0.75vw, 0.75rem);font-weight:700;color:var(--amber-deep);">MD</div>
+            <div style="font-family:'Source Sans 3',monospace;font-size:clamp(0.6875rem, 0.85vw, 0.8125rem);color:var(--text-muted);">ai-agent-founder-field-guide.md</div>
+          </div>
+          <div style="font-family:'Playfair Display','Noto Serif SC',serif;font-size:clamp(0.9375rem, 1.3vw, 1.125rem);font-weight:700;color:var(--text-primary);line-height:1.35;margin-bottom:clamp(0.75rem, 1.2vh, 1rem);">
+            AI Agent Founder's Field Guide: 7 Fatal Mistakes from 0 to 1
+          </div>
+
+          <!-- Quality score -->
+          <div style="margin-bottom:clamp(0.625rem, 1vh, 0.75rem);">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">
+              <span style="font-size:clamp(0.625rem, 0.75vw, 0.6875rem);color:var(--text-muted);font-weight:700;letter-spacing:1px;text-transform:uppercase;">Quality Score</span>
+              <span style="font-size:clamp(0.8125rem, 1vw, 0.9375rem);color:var(--sage-deep);font-weight:700;">92/100</span>
+            </div>
+            <div style="height:6px;background:var(--bg-cream-deep);border-radius:3px;overflow:hidden;">
+              <div style="height:100%;width:92%;background:var(--gradient-sage);border-radius:3px;"></div>
+            </div>
+          </div>
+
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:clamp(0.5rem, 0.8vw, 0.75rem);">
+            <div style="text-align:center;padding:clamp(0.5rem, 0.8vh, 0.75rem);background:var(--bg-white);border-radius:0.625rem;border:1px solid var(--border-light);">
+              <div style="font-family:'Playfair Display',serif;font-size:clamp(1.125rem, 1.8vw, 1.5rem);font-weight:700;color:var(--amber-deep);">0.25 SOL</div>
+              <div style="font-size:clamp(0.625rem, 0.75vw, 0.6875rem);color:var(--text-muted);text-transform:uppercase;letter-spacing:0.5px;">Suggested Price</div>
+            </div>
+            <div style="text-align:center;padding:clamp(0.5rem, 0.8vh, 0.75rem);background:var(--bg-white);border-radius:0.625rem;border:1px solid var(--border-light);display:flex;flex-direction:column;justify-content:center;gap:4px;">
+              <div><span class="tag tag-amber" style="font-size:10px;">Business</span></div>
+              <div style="font-size:clamp(0.625rem, 0.75vw, 0.6875rem);color:var(--sage-deep);font-weight:600;">Listed on marketplace</div>
+            </div>
+          </div>
+        </div>
+
+        <div style="font-size:clamp(0.625rem, 0.75vw, 0.75rem);color:var(--text-muted);font-family:'Source Sans 3',monospace;text-align:right;">
+          solana.com/...tx/3fKz...
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <div class="slide-line"></div>
+  <div class="brand">VOICEFUND</div>
+  <div class="slide-number">03</div>
+</div>
+
+<!-- ==================== SLIDE 4: SCENARIO 2 — INVESTOR MARKET VIEW ==================== -->
+<div class="slide cover-slide">
+  <div style="position:relative;z-index:1;width:100%;max-width:min(80rem, 94vw);margin:0 auto;display:flex;flex-direction:column;justify-content:center;gap:clamp(1.25rem, 3vh, 2.125rem);flex:1;">
+
+    <div style="max-width:min(70rem, 90vw);margin:0 auto;text-align:center;">
+      <div style="font-size:clamp(20px, 3vw, 36px);color:var(--text-secondary);font-weight:500;letter-spacing:-0.8px;line-height:1.12;">Scenario 2: An Investor's Market Read</div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr minmax(3.75rem, 6vw) 1.1fr;align-items:center;gap:0;max-width:min(75rem, 92vw);margin:0 auto;">
+
+      <!-- Left: User speaks -->
+      <div style="background:var(--bg-white);border-radius:clamp(1rem, 2vw, 1.625rem);border:1.5px solid var(--border);padding:clamp(1.25rem, 2.5vh, 2.5rem) clamp(1.25rem, 2vw, 2.625rem);box-shadow:var(--shadow-elevated);text-align:center;">
+        <div style="display:inline-flex;align-items:center;gap:clamp(0.375rem, 0.5vw, 0.5rem);margin-bottom:clamp(1rem, 1.8vh, 1.5rem);padding:clamp(0.5rem, 0.8vh, 0.6875rem) clamp(0.875rem, 1.2vw, 1.25rem);border-radius:999px;background:var(--bg-cream-deep);border:1px solid var(--border);font-size:clamp(0.75rem, 0.9vw, 0.875rem);letter-spacing:1.5px;color:var(--text-muted);text-transform:uppercase;">Market Analysis</div>
+        <div style="font-size:clamp(1.125rem, 2.2vw, 1.75rem);font-weight:700;color:var(--text-primary);margin-bottom:clamp(0.75rem, 1.2vh, 1.125rem);">Leaving a closed-door VC session, recording in the cab.</div>
+        <div style="background:var(--bg-cream-deep);border-radius:clamp(0.875rem, 1.5vw, 1.125rem);padding:clamp(1rem, 1.8vh, 1.5rem) clamp(1.125rem, 1.8vw, 1.625rem);font-size:clamp(0.75rem, 1.1vw, 0.9375rem);color:var(--text-primary);line-height:1.65;font-style:italic;text-align:left;">
+          "Talked to three US funds today &mdash; all looking at RWA. Consensus is Q3 SEC clarity will be the iPhone moment. Emerging markets are underestimated &mdash; Southeast Asia lacks traditional financial rails. BlackRock's BUIDL fund crossed $10B, and Solana's RWA positioning is more aggressive than Ethereum's..."
+        </div>
+        <div style="margin-top:clamp(1rem, 1.8vh, 1.25rem);font-size:clamp(0.8125rem, 1vw, 0.9375rem);color:var(--text-muted);">EinClaw Mic &middot; First-hand signal &middot; Captured on the spot</div>
+      </div>
+
+      <!-- Arrow -->
+      <div style="display:flex;flex-direction:column;align-items:center;gap:clamp(0.5rem, 0.8vh, 0.625rem);">
+        <div style="font-size:clamp(2rem, 4vw, 3.125rem);color:var(--amber);font-weight:300;">&rarr;</div>
+        <div style="font-size:clamp(0.75rem, 1vw, 0.875rem);color:var(--text-muted);writing-mode:horizontal-tb;">30s</div>
+      </div>
+
+      <!-- Right: AI output -->
+      <div style="background:var(--bg-white);border-radius:clamp(1rem, 2vw, 1.625rem);border:1.5px solid var(--border);padding:clamp(1.125rem, 2vh, 2rem) clamp(1.25rem, 2.2vw, 2.25rem);box-shadow:var(--shadow-elevated);text-align:left;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:clamp(0.875rem, 1.5vh, 1rem);">
+          <div style="font-size:clamp(0.625rem, 0.75vw, 0.75rem);color:var(--sage-deep);font-weight:700;letter-spacing:1.2px;text-transform:uppercase;">AI-Generated Document &middot; 30s</div>
+          <div class="tag tag-sage">6 sold in 1h</div>
+        </div>
+
+        <!-- Generated file card -->
+        <div style="border:1px solid var(--border-light);border-radius:clamp(0.875rem, 1.3vw, 1rem);padding:clamp(1rem, 1.8vh, 1.25rem) clamp(1.125rem, 1.5vw, 1.375rem);background:var(--bg-warm-light);margin-bottom:clamp(0.75rem, 1.2vh, 1rem);">
+          <div style="display:flex;align-items:center;gap:clamp(0.5rem, 0.7vw, 0.625rem);margin-bottom:clamp(0.5rem, 0.8vh, 0.625rem);">
+            <div style="width:clamp(1.75rem, 2.4vw, 2.125rem);height:clamp(1.75rem, 2.4vw, 2.125rem);border-radius:0.5rem;background:var(--terracotta-glow);border:1px solid rgba(194,65,12,0.2);display:flex;align-items:center;justify-content:center;font-size:clamp(0.625rem, 0.75vw, 0.75rem);font-weight:700;color:var(--terracotta);">MD</div>
+            <div style="font-family:'Source Sans 3',monospace;font-size:clamp(0.6875rem, 0.85vw, 0.8125rem);color:var(--text-muted);">rwa-2026q2-deep-dive.md</div>
+          </div>
+          <div style="font-family:'Playfair Display','Noto Serif SC',serif;font-size:clamp(0.9375rem, 1.3vw, 1.125rem);font-weight:700;color:var(--text-primary);line-height:1.35;margin-bottom:clamp(0.75rem, 1.2vh, 1rem);">
+            RWA Q2 2026 Deep Dive: The Compliance-to-Execution Turning Point
+          </div>
+
+          <!-- Quality score -->
+          <div style="margin-bottom:clamp(0.625rem, 1vh, 0.75rem);">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">
+              <span style="font-size:clamp(0.625rem, 0.75vw, 0.6875rem);color:var(--text-muted);font-weight:700;letter-spacing:1px;text-transform:uppercase;">Quality Score</span>
+              <span style="font-size:clamp(0.8125rem, 1vw, 0.9375rem);color:var(--sage-deep);font-weight:700;">88/100</span>
+            </div>
+            <div style="height:6px;background:var(--bg-cream-deep);border-radius:3px;overflow:hidden;">
+              <div style="height:100%;width:88%;background:var(--gradient-sage);border-radius:3px;"></div>
+            </div>
+          </div>
+
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:clamp(0.5rem, 0.8vw, 0.75rem);">
+            <div style="text-align:center;padding:clamp(0.5rem, 0.8vh, 0.75rem);background:var(--bg-white);border-radius:0.625rem;border:1px solid var(--border-light);">
+              <div style="font-family:'Playfair Display',serif;font-size:clamp(1.125rem, 1.8vw, 1.5rem);font-weight:700;color:var(--amber-deep);">0.15 SOL</div>
+              <div style="font-size:clamp(0.625rem, 0.75vw, 0.6875rem);color:var(--text-muted);text-transform:uppercase;letter-spacing:0.5px;">Suggested Price</div>
+            </div>
+            <div style="text-align:center;padding:clamp(0.5rem, 0.8vh, 0.75rem);background:var(--bg-white);border-radius:0.625rem;border:1px solid var(--border-light);display:flex;flex-direction:column;justify-content:center;gap:4px;">
+              <div><span class="tag tag-terracotta" style="font-size:10px;">Market Analysis</span></div>
+              <div style="font-size:clamp(0.625rem, 0.75vw, 0.6875rem);color:var(--sage-deep);font-weight:600;">0.9 SOL earned</div>
+            </div>
+          </div>
+        </div>
+
+        <div style="font-size:clamp(0.6875rem, 0.85vw, 0.8125rem);color:var(--text-secondary);line-height:1.5;padding:clamp(0.5rem, 0.8vh, 0.625rem) clamp(0.75rem, 1vw, 0.875rem);background:linear-gradient(180deg, rgba(255,251,240,0.96), rgba(254,243,199,0.46));border:1px solid rgba(217,119,6,0.14);border-radius:0.625rem;">
+          <strong style="color:var(--amber-deep);">Buyer stats:</strong> 6 sold in first hour &middot; 0.9 SOL earned
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <div class="slide-line"></div>
+  <div class="brand">VOICEFUND</div>
+  <div class="slide-number">04</div>
+</div>
+
+<!-- ==================== SLIDE 5: SCENARIO 3 — TECHNICAL KNOWLEDGE ==================== -->
+<div class="slide cover-slide">
+  <div style="position:relative;z-index:1;width:100%;max-width:min(80rem, 94vw);margin:0 auto;display:flex;flex-direction:column;justify-content:center;gap:clamp(1.25rem, 3vh, 2.125rem);flex:1;">
+
+    <div style="max-width:min(70rem, 90vw);margin:0 auto;text-align:center;">
+      <div style="font-size:clamp(20px, 3vw, 36px);color:var(--text-secondary);font-weight:500;letter-spacing:-0.8px;line-height:1.12;">Scenario 3: An Engineer's Hard-Won Lesson</div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr minmax(3.75rem, 6vw) 1.1fr;align-items:center;gap:0;max-width:min(75rem, 92vw);margin:0 auto;">
+
+      <!-- Left: User speaks -->
+      <div style="background:var(--bg-white);border-radius:clamp(1rem, 2vw, 1.625rem);border:1.5px solid var(--border);padding:clamp(1.25rem, 2.5vh, 2.5rem) clamp(1.25rem, 2vw, 2.625rem);box-shadow:var(--shadow-elevated);text-align:center;">
+        <div style="display:inline-flex;align-items:center;gap:clamp(0.375rem, 0.5vw, 0.5rem);margin-bottom:clamp(1rem, 1.8vh, 1.5rem);padding:clamp(0.5rem, 0.8vh, 0.6875rem) clamp(0.875rem, 1.2vw, 1.25rem);border-radius:999px;background:var(--bg-cream-deep);border:1px solid var(--border);font-size:clamp(0.75rem, 0.9vw, 0.875rem);letter-spacing:1.5px;color:var(--text-muted);text-transform:uppercase;">Technical Knowledge</div>
+        <div style="font-size:clamp(1.125rem, 2.2vw, 1.75rem);font-weight:700;color:var(--text-primary);margin-bottom:clamp(0.75rem, 1.2vh, 1.125rem);">Just debugged a gnarly problem &mdash; log it before it fades.</div>
+        <div style="background:var(--bg-cream-deep);border-radius:clamp(0.875rem, 1.5vw, 1.125rem);padding:clamp(1rem, 1.8vh, 1.5rem) clamp(1.125rem, 1.8vw, 1.625rem);font-size:clamp(0.75rem, 1.1vw, 0.9375rem);color:var(--text-primary);line-height:1.65;font-style:italic;text-align:left;">
+          "We built a full SaaS in 3 days with Claude Code. The key wasn't letting AI write all the code &mdash; it was using AI for architecture decisions. Most productive mode: AI scaffolds &rarr; human judges product &rarr; AI fills details &rarr; human final-debugs. Stack selection matters 10x more than writing code..."
+        </div>
+        <div style="margin-top:clamp(1rem, 1.8vh, 1.25rem);font-size:clamp(0.8125rem, 1vw, 0.9375rem);color:var(--text-muted);">EinClaw Mic &middot; Field-tested playbook &middot; Listed instantly</div>
+      </div>
+
+      <!-- Arrow -->
+      <div style="display:flex;flex-direction:column;align-items:center;gap:clamp(0.5rem, 0.8vh, 0.625rem);">
+        <div style="font-size:clamp(2rem, 4vw, 3.125rem);color:var(--amber);font-weight:300;">&rarr;</div>
+        <div style="font-size:clamp(0.75rem, 1vw, 0.875rem);color:var(--text-muted);writing-mode:horizontal-tb;">30s</div>
+      </div>
+
+      <!-- Right: AI output -->
+      <div style="background:var(--bg-white);border-radius:clamp(1rem, 2vw, 1.625rem);border:1.5px solid var(--border);padding:clamp(1.125rem, 2vh, 2rem) clamp(1.25rem, 2.2vw, 2.25rem);box-shadow:var(--shadow-elevated);text-align:left;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:clamp(0.875rem, 1.5vh, 1rem);">
+          <div style="font-size:clamp(0.625rem, 0.75vw, 0.75rem);color:var(--sage-deep);font-weight:700;letter-spacing:1.2px;text-transform:uppercase;">AI-Generated Document &middot; 30s</div>
+          <div class="tag tag-sage">23 sold</div>
+        </div>
+
+        <!-- Generated file card -->
+        <div style="border:1px solid var(--border-light);border-radius:clamp(0.875rem, 1.3vw, 1rem);padding:clamp(1rem, 1.8vh, 1.25rem) clamp(1.125rem, 1.5vw, 1.375rem);background:var(--bg-warm-light);margin-bottom:clamp(0.75rem, 1.2vh, 1rem);">
+          <div style="display:flex;align-items:center;gap:clamp(0.5rem, 0.7vw, 0.625rem);margin-bottom:clamp(0.5rem, 0.8vh, 0.625rem);">
+            <div style="width:clamp(1.75rem, 2.4vw, 2.125rem);height:clamp(1.75rem, 2.4vw, 2.125rem);border-radius:0.5rem;background:var(--sage-glow);border:1px solid rgba(101,163,13,0.2);display:flex;align-items:center;justify-content:center;font-size:clamp(0.625rem, 0.75vw, 0.75rem);font-weight:700;color:var(--sage-deep);">MD</div>
+            <div style="font-family:'Source Sans 3',monospace;font-size:clamp(0.6875rem, 0.85vw, 0.8125rem);color:var(--text-muted);">claude-code-saas-playbook.md</div>
+          </div>
+          <div style="font-family:'Playfair Display','Noto Serif SC',serif;font-size:clamp(0.9375rem, 1.3vw, 1.125rem);font-weight:700;color:var(--text-primary);line-height:1.35;margin-bottom:clamp(0.75rem, 1.2vh, 1rem);">
+            How to Ship a Full SaaS in 3 Days with Claude Code
+          </div>
+
+          <!-- Quality score -->
+          <div style="margin-bottom:clamp(0.625rem, 1vh, 0.75rem);">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">
+              <span style="font-size:clamp(0.625rem, 0.75vw, 0.6875rem);color:var(--text-muted);font-weight:700;letter-spacing:1px;text-transform:uppercase;">Quality Score</span>
+              <span style="font-size:clamp(0.8125rem, 1vw, 0.9375rem);color:var(--amber-deep);font-weight:700;">78/100</span>
+            </div>
+            <div style="height:6px;background:var(--bg-cream-deep);border-radius:3px;overflow:hidden;">
+              <div style="height:100%;width:78%;background:var(--gradient-amber);border-radius:3px;"></div>
+            </div>
+          </div>
+
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:clamp(0.5rem, 0.8vw, 0.75rem);">
+            <div style="text-align:center;padding:clamp(0.5rem, 0.8vh, 0.75rem);background:var(--bg-white);border-radius:0.625rem;border:1px solid var(--border-light);">
+              <div style="font-family:'Playfair Display',serif;font-size:clamp(1.125rem, 1.8vw, 1.5rem);font-weight:700;color:var(--amber-deep);">0.08 SOL</div>
+              <div style="font-size:clamp(0.625rem, 0.75vw, 0.6875rem);color:var(--text-muted);text-transform:uppercase;letter-spacing:0.5px;">Suggested Price</div>
+            </div>
+            <div style="text-align:center;padding:clamp(0.5rem, 0.8vh, 0.75rem);background:var(--bg-white);border-radius:0.625rem;border:1px solid var(--border-light);display:flex;flex-direction:column;justify-content:center;gap:4px;">
+              <div><span class="tag tag-sage" style="font-size:10px;">Technical</span></div>
+              <div style="font-size:clamp(0.625rem, 0.75vw, 0.6875rem);color:var(--sage-deep);font-weight:600;">1.84 SOL total</div>
+            </div>
+          </div>
+        </div>
+
+        <div style="font-size:clamp(0.6875rem, 0.85vw, 0.8125rem);color:var(--text-secondary);line-height:1.5;padding:clamp(0.5rem, 0.8vh, 0.625rem) clamp(0.75rem, 1vw, 0.875rem);background:var(--sage-glow);border:1px solid rgba(101,163,13,0.18);border-radius:0.625rem;">
+          <strong style="color:var(--sage-deep);">Sales trend:</strong> 23 buyers so far &middot; still selling after 7 days
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <div class="slide-line"></div>
+  <div class="brand">VOICEFUND</div>
+  <div class="slide-number">05</div>
+</div>
+
+<!-- ==================== SLIDE 6: END-TO-END PRODUCT FLOW ==================== -->
+<div class="slide">
+  <div class="label">End-to-End Flow</div>
+  <h2>End-to-End Product Flow</h2>
+  <div style="height:clamp(0.5rem, 1.2vh, 0.75rem);"></div>
+
+  <div class="content-area" style="justify-content:flex-start;">
+    <!-- Pipeline flow -->
+    <div class="card" style="padding:clamp(1rem, 2vh, 1.5rem) clamp(1rem, 2vw, 1.75rem);margin-bottom:clamp(1rem, 2vh, 1.5rem);">
+      <div style="font-size:clamp(0.625rem, 0.75vw, 0.75rem);color:var(--text-muted);font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:clamp(0.75rem, 1.2vh, 1rem);">Voice &rarr; Tradeable Knowledge Pipeline</div>
+      <div style="display:grid;grid-template-columns:1fr auto 1fr auto 1fr auto 1fr auto 1fr auto 1fr;align-items:stretch;gap:clamp(0.25rem, 0.4vw, 0.375rem);">
+
+        <div style="text-align:center;padding:clamp(0.75rem, 1.2vh, 1rem) clamp(0.5rem, 0.7vw, 0.625rem);background:var(--amber-glow);border:1px solid rgba(217,119,6,0.2);border-radius:0.75rem;display:flex;flex-direction:column;justify-content:center;">
+          <div style="font-size:clamp(1rem, 1.5vw, 1.375rem);font-weight:700;color:var(--amber-deep);font-family:'Playfair Display',serif;margin-bottom:4px;">1</div>
+          <div style="font-size:clamp(0.75rem, 0.9vw, 0.875rem);font-weight:700;color:var(--text-primary);">Speak</div>
+          <div style="font-size:clamp(0.625rem, 0.75vw, 0.6875rem);color:var(--text-muted);margin-top:2px;">Voice / Text</div>
+          <div style="font-size:clamp(0.625rem, 0.7vw, 0.6875rem);color:var(--amber-deep);font-weight:600;margin-top:4px;">~10s</div>
+        </div>
+
+        <div style="font-size:clamp(0.875rem, 1.2vw, 1.125rem);color:var(--amber);font-weight:300;display:flex;align-items:center;justify-content:center;">&rarr;</div>
+
+        <div style="text-align:center;padding:clamp(0.75rem, 1.2vh, 1rem) clamp(0.5rem, 0.7vw, 0.625rem);background:var(--sage-glow);border:1px solid rgba(101,163,13,0.2);border-radius:0.75rem;display:flex;flex-direction:column;justify-content:center;">
+          <div style="font-size:clamp(1rem, 1.5vw, 1.375rem);font-weight:700;color:var(--sage-deep);font-family:'Playfair Display',serif;margin-bottom:4px;">2</div>
+          <div style="font-size:clamp(0.75rem, 0.9vw, 0.875rem);font-weight:700;color:var(--text-primary);">AI Structures</div>
+          <div style="font-size:clamp(0.625rem, 0.75vw, 0.6875rem);color:var(--text-muted);margin-top:2px;">Qwen LLM</div>
+          <div style="font-size:clamp(0.625rem, 0.7vw, 0.6875rem);color:var(--sage-deep);font-weight:600;margin-top:4px;">~30s</div>
+        </div>
+
+        <div style="font-size:clamp(0.875rem, 1.2vw, 1.125rem);color:var(--amber);font-weight:300;display:flex;align-items:center;justify-content:center;">&rarr;</div>
+
+        <div style="text-align:center;padding:clamp(0.75rem, 1.2vh, 1rem) clamp(0.5rem, 0.7vw, 0.625rem);background:var(--terracotta-glow);border:1px solid rgba(194,65,12,0.2);border-radius:0.75rem;display:flex;flex-direction:column;justify-content:center;">
+          <div style="font-size:clamp(1rem, 1.5vw, 1.375rem);font-weight:700;color:var(--terracotta);font-family:'Playfair Display',serif;margin-bottom:4px;">3</div>
+          <div style="font-size:clamp(0.75rem, 0.9vw, 0.875rem);font-weight:700;color:var(--text-primary);">AI Prices</div>
+          <div style="font-size:clamp(0.625rem, 0.75vw, 0.6875rem);color:var(--text-muted);margin-top:2px;">Market analysis</div>
+          <div style="font-size:clamp(0.625rem, 0.7vw, 0.6875rem);color:var(--terracotta);font-weight:600;margin-top:4px;">~5s</div>
+        </div>
+
+        <div style="font-size:clamp(0.875rem, 1.2vw, 1.125rem);color:var(--amber);font-weight:300;display:flex;align-items:center;justify-content:center;">&rarr;</div>
+
+        <div style="text-align:center;padding:clamp(0.75rem, 1.2vh, 1rem) clamp(0.5rem, 0.7vw, 0.625rem);background:var(--amber-glow);border:1px solid rgba(217,119,6,0.2);border-radius:0.75rem;display:flex;flex-direction:column;justify-content:center;">
+          <div style="font-size:clamp(1rem, 1.5vw, 1.375rem);font-weight:700;color:var(--amber-deep);font-family:'Playfair Display',serif;margin-bottom:4px;">4</div>
+          <div style="font-size:clamp(0.75rem, 0.9vw, 0.875rem);font-weight:700;color:var(--text-primary);">List On-chain</div>
+          <div style="font-size:clamp(0.625rem, 0.75vw, 0.6875rem);color:var(--text-muted);margin-top:2px;">Solana Pay</div>
+          <div style="font-size:clamp(0.625rem, 0.7vw, 0.6875rem);color:var(--amber-deep);font-weight:600;margin-top:4px;">instant</div>
+        </div>
+
+        <div style="font-size:clamp(0.875rem, 1.2vw, 1.125rem);color:var(--amber);font-weight:300;display:flex;align-items:center;justify-content:center;">&rarr;</div>
+
+        <div style="text-align:center;padding:clamp(0.75rem, 1.2vh, 1rem) clamp(0.5rem, 0.7vw, 0.625rem);background:var(--sage-glow);border:1px solid rgba(101,163,13,0.2);border-radius:0.75rem;display:flex;flex-direction:column;justify-content:center;">
+          <div style="font-size:clamp(1rem, 1.5vw, 1.375rem);font-weight:700;color:var(--sage-deep);font-family:'Playfair Display',serif;margin-bottom:4px;">5</div>
+          <div style="font-size:clamp(0.75rem, 0.9vw, 0.875rem);font-weight:700;color:var(--text-primary);">Buyer Purchases</div>
+          <div style="font-size:clamp(0.625rem, 0.75vw, 0.6875rem);color:var(--text-muted);margin-top:2px;">Phantom signing</div>
+          <div style="font-size:clamp(0.625rem, 0.7vw, 0.6875rem);color:var(--sage-deep);font-weight:600;margin-top:4px;">~5s</div>
+        </div>
+
+        <div style="font-size:clamp(0.875rem, 1.2vw, 1.125rem);color:var(--amber);font-weight:300;display:flex;align-items:center;justify-content:center;">&rarr;</div>
+
+        <div style="text-align:center;padding:clamp(0.75rem, 1.2vh, 1rem) clamp(0.5rem, 0.7vw, 0.625rem);background:linear-gradient(135deg, rgba(217,119,6,0.08), rgba(101,163,13,0.08));border:1px solid var(--border);border-radius:0.75rem;display:flex;flex-direction:column;justify-content:center;">
+          <div style="font-size:clamp(1rem, 1.5vw, 1.375rem);font-weight:700;color:var(--text-primary);font-family:'Playfair Display',serif;margin-bottom:4px;">6</div>
+          <div style="font-size:clamp(0.75rem, 0.9vw, 0.875rem);font-weight:700;color:var(--text-primary);">Instant Settlement</div>
+          <div style="font-size:clamp(0.625rem, 0.75vw, 0.6875rem);color:var(--text-muted);margin-top:2px;">SOL received</div>
+          <div style="font-size:clamp(0.625rem, 0.7vw, 0.6875rem);color:var(--sage-deep);font-weight:600;margin-top:4px;">instant</div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- 3 key statistics -->
+    <div class="grid-3" style="align-items:stretch;">
+      <div class="card card-amber" style="padding:clamp(1.125rem, 2vh, 1.5rem) clamp(1.25rem, 2vw, 1.625rem);text-align:center;display:flex;flex-direction:column;justify-content:center;">
+        <div style="font-size:clamp(0.625rem, 0.75vw, 0.75rem);color:var(--amber-deep);font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:clamp(0.5rem, 0.8vh, 0.625rem);">Publishing Speed</div>
+        <div style="font-family:'Playfair Display',serif;font-size:clamp(1.5rem, 2.8vw, 2.25rem);font-weight:700;color:var(--amber-deep);line-height:1;margin-bottom:clamp(0.375rem, 0.6vh, 0.5rem);">&lt; 1 minute</div>
+        <div style="font-size:clamp(0.75rem, 0.9vw, 0.875rem);color:var(--text-secondary);line-height:1.5;">
+          Average time to publish<br>
+          <span style="color:var(--text-muted);">vs 3 hours on Substack</span>
+        </div>
+      </div>
+
+      <div class="card card-sage" style="padding:clamp(1.125rem, 2vh, 1.5rem) clamp(1.25rem, 2vw, 1.625rem);text-align:center;display:flex;flex-direction:column;justify-content:center;">
+        <div style="font-size:clamp(0.625rem, 0.75vw, 0.75rem);color:var(--sage-deep);font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:clamp(0.5rem, 0.8vh, 0.625rem);">Settlement Speed</div>
+        <div style="font-family:'Playfair Display',serif;font-size:clamp(1.5rem, 2.8vw, 2.25rem);font-weight:700;color:var(--sage-deep);line-height:1;margin-bottom:clamp(0.375rem, 0.6vh, 0.5rem);">Instant</div>
+        <div style="font-size:clamp(0.75rem, 0.9vw, 0.875rem);color:var(--text-secondary);line-height:1.5;">
+          Funds in wallet immediately<br>
+          <span style="color:var(--text-muted);">vs 7-day holds elsewhere</span>
+        </div>
+      </div>
+
+      <div class="card card-terracotta" style="padding:clamp(1.125rem, 2vh, 1.5rem) clamp(1.25rem, 2vw, 1.625rem);text-align:center;display:flex;flex-direction:column;justify-content:center;">
+        <div style="font-size:clamp(0.625rem, 0.75vw, 0.75rem);color:var(--terracotta);font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:clamp(0.5rem, 0.8vh, 0.625rem);">Global Reach</div>
+        <div style="font-family:'Playfair Display',serif;font-size:clamp(1.5rem, 2.8vw, 2.25rem);font-weight:700;color:var(--terracotta);line-height:1;margin-bottom:clamp(0.375rem, 0.6vh, 0.5rem);">Global market</div>
+        <div style="font-size:clamp(0.75rem, 0.9vw, 0.875rem);color:var(--text-secondary);line-height:1.5;">
+          Anyone with a Solana wallet<br>
+          <span style="color:var(--text-muted);">can buy, from anywhere</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-line"></div>
+  <div class="brand">VOICEFUND</div>
+  <div class="slide-number">06</div>
+</div>
+
+<!-- ==================== SLIDE 7: PRICING AGENT LOGIC ==================== -->
+<div class="slide">
+  <div class="label">Pricing Agent Logic</div>
+  <h2>AI-Driven Pricing &mdash; Users shouldn't guess at pricing. The agent does it.</h2>
+  <div style="height:clamp(0.5rem, 1.2vh, 0.75rem);"></div>
+
+  <div class="content-area" style="justify-content:flex-start;">
+    <!-- 3 columns of factors -->
+    <div class="grid-3" style="margin-bottom:clamp(1rem, 2vh, 1.5rem);align-items:stretch;">
+
+      <div class="card card-amber" style="padding:clamp(1rem, 1.8vh, 1.375rem) clamp(1.125rem, 1.8vw, 1.5rem);display:flex;flex-direction:column;">
+        <div style="display:flex;align-items:center;gap:clamp(0.5rem, 0.6vw, 0.625rem);margin-bottom:clamp(0.75rem, 1.2vh, 1rem);">
+          <div class="flow-icon flow-icon-amber">1</div>
+          <div style="font-size:clamp(0.875rem, 1.15vw, 1.0625rem);font-weight:700;color:var(--text-primary);">Content Quality</div>
+        </div>
+        <div style="font-size:clamp(0.625rem, 0.75vw, 0.75rem);color:var(--amber-deep);font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:clamp(0.5rem, 0.8vh, 0.625rem);">Content Quality</div>
+        <div style="display:grid;gap:clamp(0.375rem, 0.6vh, 0.5rem);flex:1;">
+          <div style="padding:clamp(0.375rem, 0.5vh, 0.5rem) clamp(0.5rem, 0.7vw, 0.625rem);background:var(--bg-white);border-radius:0.5rem;border:1px solid var(--border-light);display:flex;justify-content:space-between;align-items:center;">
+            <span style="font-size:clamp(0.75rem, 0.9vw, 0.875rem);color:var(--text-primary);">Originality</span>
+            <span style="font-size:clamp(0.6875rem, 0.8vw, 0.8125rem);color:var(--text-muted);font-weight:600;">0-100</span>
+          </div>
+          <div style="padding:clamp(0.375rem, 0.5vh, 0.5rem) clamp(0.5rem, 0.7vw, 0.625rem);background:var(--bg-white);border-radius:0.5rem;border:1px solid var(--border-light);display:flex;justify-content:space-between;align-items:center;">
+            <span style="font-size:clamp(0.75rem, 0.9vw, 0.875rem);color:var(--text-primary);">Depth</span>
+            <span style="font-size:clamp(0.6875rem, 0.8vw, 0.8125rem);color:var(--text-muted);font-weight:600;">0-100</span>
+          </div>
+          <div style="padding:clamp(0.375rem, 0.5vh, 0.5rem) clamp(0.5rem, 0.7vw, 0.625rem);background:var(--bg-white);border-radius:0.5rem;border:1px solid var(--border-light);display:flex;justify-content:space-between;align-items:center;">
+            <span style="font-size:clamp(0.75rem, 0.9vw, 0.875rem);color:var(--text-primary);">Actionability</span>
+            <span style="font-size:clamp(0.6875rem, 0.8vw, 0.8125rem);color:var(--text-muted);font-weight:600;">0-100</span>
+          </div>
+          <div style="padding:clamp(0.375rem, 0.5vh, 0.5rem) clamp(0.5rem, 0.7vw, 0.625rem);background:var(--bg-white);border-radius:0.5rem;border:1px solid var(--border-light);display:flex;justify-content:space-between;align-items:center;">
+            <span style="font-size:clamp(0.75rem, 0.9vw, 0.875rem);color:var(--text-primary);">Timeliness</span>
+            <span style="font-size:clamp(0.6875rem, 0.8vw, 0.8125rem);color:var(--text-muted);font-weight:600;">0-100</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card card-sage" style="padding:clamp(1rem, 1.8vh, 1.375rem) clamp(1.125rem, 1.8vw, 1.5rem);display:flex;flex-direction:column;">
+        <div style="display:flex;align-items:center;gap:clamp(0.5rem, 0.6vw, 0.625rem);margin-bottom:clamp(0.75rem, 1.2vh, 1rem);">
+          <div class="flow-icon flow-icon-sage">2</div>
+          <div style="font-size:clamp(0.875rem, 1.15vw, 1.0625rem);font-weight:700;color:var(--text-primary);">Market Demand</div>
+        </div>
+        <div style="font-size:clamp(0.625rem, 0.75vw, 0.75rem);color:var(--sage-deep);font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:clamp(0.5rem, 0.8vh, 0.625rem);">Market Demand</div>
+        <div style="display:grid;gap:clamp(0.375rem, 0.6vh, 0.5rem);flex:1;">
+          <div style="padding:clamp(0.5rem, 0.7vh, 0.625rem) clamp(0.5rem, 0.7vw, 0.625rem);background:var(--bg-white);border-radius:0.5rem;border:1px solid var(--border-light);">
+            <div style="font-size:clamp(0.75rem, 0.9vw, 0.875rem);color:var(--text-primary);line-height:1.4;">Recent sales on similar topics</div>
+          </div>
+          <div style="padding:clamp(0.5rem, 0.7vh, 0.625rem) clamp(0.5rem, 0.7vw, 0.625rem);background:var(--bg-white);border-radius:0.5rem;border:1px solid var(--border-light);">
+            <div style="font-size:clamp(0.75rem, 0.9vw, 0.875rem);color:var(--text-primary);line-height:1.4;">Current attention trend</div>
+          </div>
+          <div style="padding:clamp(0.5rem, 0.7vh, 0.625rem) clamp(0.5rem, 0.7vw, 0.625rem);background:var(--bg-white);border-radius:0.5rem;border:1px solid var(--border-light);">
+            <div style="font-size:clamp(0.75rem, 0.9vw, 0.875rem);color:var(--text-primary);line-height:1.4;">Competitor price range</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card card-terracotta" style="padding:clamp(1rem, 1.8vh, 1.375rem) clamp(1.125rem, 1.8vw, 1.5rem);display:flex;flex-direction:column;">
+        <div style="display:flex;align-items:center;gap:clamp(0.5rem, 0.6vw, 0.625rem);margin-bottom:clamp(0.75rem, 1.2vh, 1rem);">
+          <div class="flow-icon flow-icon-terracotta">3</div>
+          <div style="font-size:clamp(0.875rem, 1.15vw, 1.0625rem);font-weight:700;color:var(--text-primary);">Seller Credit</div>
+        </div>
+        <div style="font-size:clamp(0.625rem, 0.75vw, 0.75rem);color:var(--terracotta);font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:clamp(0.5rem, 0.8vh, 0.625rem);">Seller Credit</div>
+        <div style="display:grid;gap:clamp(0.375rem, 0.6vh, 0.5rem);flex:1;">
+          <div style="padding:clamp(0.5rem, 0.7vh, 0.625rem) clamp(0.5rem, 0.7vw, 0.625rem);background:var(--bg-white);border-radius:0.5rem;border:1px solid var(--border-light);">
+            <div style="font-size:clamp(0.75rem, 0.9vw, 0.875rem);color:var(--text-primary);line-height:1.4;">Historical avg rating</div>
+          </div>
+          <div style="padding:clamp(0.5rem, 0.7vh, 0.625rem) clamp(0.5rem, 0.7vw, 0.625rem);background:var(--bg-white);border-radius:0.5rem;border:1px solid var(--border-light);">
+            <div style="font-size:clamp(0.75rem, 0.9vw, 0.875rem);color:var(--text-primary);line-height:1.4;">Refund rate</div>
+          </div>
+          <div style="padding:clamp(0.5rem, 0.7vh, 0.625rem) clamp(0.5rem, 0.7vw, 0.625rem);background:var(--bg-white);border-radius:0.5rem;border:1px solid var(--border-light);">
+            <div style="font-size:clamp(0.75rem, 0.9vw, 0.875rem);color:var(--text-primary);line-height:1.4;">Cumulative sales</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pricing tiers table -->
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th style="width:18%;">Tier</th>
+            <th style="width:22%;">Quality Score</th>
+            <th style="width:30%;">Price Range</th>
+            <th style="width:30%;">Use Case</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="font-weight:700;color:var(--text-primary);">Basic</td>
+            <td>&lt; 60</td>
+            <td style="color:var(--amber-deep);font-weight:600;">0.01 - 0.03 SOL</td>
+            <td>Intro notes, single observations</td>
+          </tr>
+          <tr>
+            <td style="font-weight:700;color:var(--text-primary);">Standard</td>
+            <td>60 - 75</td>
+            <td style="color:var(--amber-deep);font-weight:600;">0.05 - 0.1 SOL</td>
+            <td>Field-tested insight, industry takes</td>
+          </tr>
+          <tr>
+            <td style="font-weight:700;color:var(--text-primary);">Premium</td>
+            <td>75 - 90</td>
+            <td style="color:var(--amber-deep);font-weight:600;">0.1 - 0.5 SOL</td>
+            <td>Deep analysis, complete frameworks</td>
+          </tr>
+          <tr>
+            <td style="font-weight:700;color:var(--sage-deep);">Exceptional</td>
+            <td style="color:var(--sage-deep);font-weight:600;">&gt; 90</td>
+            <td style="color:var(--sage-deep);font-weight:700;">0.5 - 2.0 SOL</td>
+            <td style="color:var(--sage-deep);">Exclusive signal, first-hand alpha</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="slide-line"></div>
+  <div class="brand">VOICEFUND</div>
+  <div class="slide-number">07</div>
+</div>
+
+<!-- ==================== SLIDE 8: ON-CHAIN DESIGN ==================== -->
+<div class="slide">
+  <div class="label">On-chain Design</div>
+  <h2>On-Chain Design: Why Solana Pay Over NFTs</h2>
+  <div style="height:clamp(0.75rem, 2vh, 1.25rem);"></div>
+
+  <div class="content-area" style="justify-content:flex-start;">
+    <div style="font-size:clamp(0.8125rem, 1vw, 0.9375rem);color:var(--text-secondary);margin-bottom:clamp(0.75rem, 1.2vh, 1rem);">
+      Three on-chain approaches compared:
+    </div>
+
+    <div class="table-container" style="margin-bottom:clamp(1rem, 2vh, 1.5rem);">
+      <table>
+        <thead>
+          <tr>
+            <th style="width:22%;">Dimension</th>
+            <th style="width:24%;">Custom Anchor Program</th>
+            <th style="width:24%;">NFT Model (Metaplex)</th>
+            <th style="width:30%;background:rgba(217,119,6,0.12);color:var(--amber-deep);">Solana Pay (Chosen) &check;</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="font-weight:700;color:var(--text-primary);">Dev time</td>
+            <td>1-2 weeks</td>
+            <td>3-5 days</td>
+            <td style="font-weight:600;color:var(--amber-deep);">Hours</td>
+          </tr>
+          <tr>
+            <td style="font-weight:700;color:var(--text-primary);">Audit risk</td>
+            <td style="color:var(--terracotta);">High</td>
+            <td style="color:var(--amber-deep);">Medium</td>
+            <td style="font-weight:600;color:var(--sage-deep);">None</td>
+          </tr>
+          <tr>
+            <td style="font-weight:700;color:var(--text-primary);">On-chain verifiable</td>
+            <td style="color:var(--sage-deep);">&check;</td>
+            <td style="color:var(--sage-deep);">&check;</td>
+            <td style="font-weight:600;color:var(--sage-deep);">&check;</td>
+          </tr>
+          <tr>
+            <td style="font-weight:700;color:var(--text-primary);">Explorer queryable</td>
+            <td style="color:var(--sage-deep);">&check;</td>
+            <td style="color:var(--sage-deep);">&check;</td>
+            <td style="font-weight:600;color:var(--sage-deep);">&check;</td>
+          </tr>
+          <tr>
+            <td style="font-weight:700;color:var(--text-primary);">Instant seller payout</td>
+            <td style="color:var(--sage-deep);">&check;</td>
+            <td style="color:var(--terracotta);">Delayed</td>
+            <td style="font-weight:600;color:var(--sage-deep);">&check;</td>
+          </tr>
+          <tr>
+            <td style="font-weight:700;color:var(--text-primary);">cNFT upgradability</td>
+            <td>&mdash;</td>
+            <td>&mdash;</td>
+            <td style="font-weight:600;color:var(--amber-deep);">Future path</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="quote">
+      Solana Pay for hackathon PMF validation. Upgrade to cNFT + royalty mechanism post-traction.
+    </div>
+
+    <div class="grid-2" style="margin-top:clamp(0.75rem, 1.5vh, 1rem);">
+      <div class="card card-sage" style="padding:clamp(0.875rem, 1.5vw, 1.125rem);text-align:center;">
+        <div style="font-size:clamp(0.625rem, 0.7vw, 0.6875rem);color:var(--sage-deep);font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:clamp(0.25rem, 0.4vh, 0.375rem);">Phase 1 &middot; Hackathon</div>
+        <div style="font-size:clamp(0.875rem, 1.1vw, 1.0625rem);color:var(--text-primary);font-weight:600;line-height:1.5;">
+          Solana Pay for instant settlement. <em style="color:var(--sage-deep);">Validate PMF first.</em>
+        </div>
+      </div>
+      <div class="card card-amber" style="padding:clamp(0.875rem, 1.5vw, 1.125rem);text-align:center;">
+        <div style="font-size:clamp(0.625rem, 0.7vw, 0.6875rem);color:var(--amber-deep);font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:clamp(0.25rem, 0.4vh, 0.375rem);">Phase 2 &middot; Scale</div>
+        <div style="font-size:clamp(0.875rem, 1.1vw, 1.0625rem);color:var(--text-primary);font-weight:600;line-height:1.5;">
+          cNFT + creator royalties + secondary market. <em style="color:var(--amber-deep);">Composability unlocked.</em>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-line"></div>
+  <div class="brand">VOICEFUND</div>
+  <div class="slide-number">08</div>
+</div>
+
+<!-- ==================== SLIDE 9: PRODUCT SCREENSHOTS ==================== -->
+<div class="slide">
+  <div class="label">Product Screens</div>
+  <h2>Product Walkthrough</h2>
+  <div style="height:clamp(0.5rem, 1.2vh, 0.75rem);"></div>
+
+  <div class="content-area" style="justify-content:flex-start;">
+    <div class="grid-2" style="align-items:stretch;gap:clamp(0.875rem, 1.6vw, 1.125rem);">
+
+      <!-- Screen 1: Marketplace Browse -->
+      <div class="browser-window">
+        <div class="browser-chrome">
+          <div class="browser-dot browser-dot-red"></div>
+          <div class="browser-dot browser-dot-yellow"></div>
+          <div class="browser-dot browser-dot-green"></div>
+          <div class="browser-title">voicefund.xyz / marketplace</div>
+        </div>
+        <div class="browser-body">
+          <div style="font-size:clamp(0.5625rem, 0.65vw, 0.6875rem);color:rgba(255,255,255,0.35);font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:clamp(0.5rem, 0.8vh, 0.625rem);">1. Marketplace Browse</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:clamp(0.375rem, 0.6vw, 0.5rem);">
+            <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:0.5rem;padding:clamp(0.5rem, 0.8vh, 0.625rem);">
+              <div style="display:flex;gap:4px;margin-bottom:6px;">
+                <span style="font-size:9px;padding:2px 6px;border-radius:10px;background:rgba(217,119,6,0.2);color:#F59E0B;font-weight:600;">Business</span>
+              </div>
+              <div style="font-size:clamp(0.625rem, 0.75vw, 0.75rem);color:#F5F5F4;font-weight:700;line-height:1.3;margin-bottom:4px;">AI Agent Field Guide</div>
+              <div style="font-size:clamp(0.5rem, 0.65vw, 0.625rem);color:rgba(255,255,255,0.45);line-height:1.4;">7 fatal mistakes &middot; Deep analysis</div>
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-top:6px;">
+                <span style="font-size:clamp(0.5rem, 0.65vw, 0.625rem);color:#84CC16;font-weight:700;">Q 92</span>
+                <span style="font-size:clamp(0.5625rem, 0.7vw, 0.6875rem);color:#F59E0B;font-weight:700;">0.25 SOL</span>
+              </div>
+            </div>
+            <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:0.5rem;padding:clamp(0.5rem, 0.8vh, 0.625rem);">
+              <div style="display:flex;gap:4px;margin-bottom:6px;">
+                <span style="font-size:9px;padding:2px 6px;border-radius:10px;background:rgba(194,65,12,0.25);color:#EA580C;font-weight:600;">Market</span>
+              </div>
+              <div style="font-size:clamp(0.625rem, 0.75vw, 0.75rem);color:#F5F5F4;font-weight:700;line-height:1.3;margin-bottom:4px;">RWA Q2 2026 Outlook</div>
+              <div style="font-size:clamp(0.5rem, 0.65vw, 0.625rem);color:rgba(255,255,255,0.45);line-height:1.4;">SEC turning point &middot; VC view</div>
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-top:6px;">
+                <span style="font-size:clamp(0.5rem, 0.65vw, 0.625rem);color:#84CC16;font-weight:700;">Q 88</span>
+                <span style="font-size:clamp(0.5625rem, 0.7vw, 0.6875rem);color:#F59E0B;font-weight:700;">0.15 SOL</span>
+              </div>
+            </div>
+            <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:0.5rem;padding:clamp(0.5rem, 0.8vh, 0.625rem);">
+              <div style="display:flex;gap:4px;margin-bottom:6px;">
+                <span style="font-size:9px;padding:2px 6px;border-radius:10px;background:rgba(101,163,13,0.25);color:#84CC16;font-weight:600;">Technical</span>
+              </div>
+              <div style="font-size:clamp(0.625rem, 0.75vw, 0.75rem);color:#F5F5F4;font-weight:700;line-height:1.3;margin-bottom:4px;">Claude Code Playbook</div>
+              <div style="font-size:clamp(0.5rem, 0.65vw, 0.625rem);color:rgba(255,255,255,0.45);line-height:1.4;">Full SaaS in 3 days</div>
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-top:6px;">
+                <span style="font-size:clamp(0.5rem, 0.65vw, 0.625rem);color:#F59E0B;font-weight:700;">Q 78</span>
+                <span style="font-size:clamp(0.5625rem, 0.7vw, 0.6875rem);color:#F59E0B;font-weight:700;">0.08 SOL</span>
+              </div>
+            </div>
+            <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:0.5rem;padding:clamp(0.5rem, 0.8vh, 0.625rem);">
+              <div style="display:flex;gap:4px;margin-bottom:6px;">
+                <span style="font-size:9px;padding:2px 6px;border-radius:10px;background:rgba(217,119,6,0.2);color:#F59E0B;font-weight:600;">Business</span>
+              </div>
+              <div style="font-size:clamp(0.625rem, 0.75vw, 0.75rem);color:#F5F5F4;font-weight:700;line-height:1.3;margin-bottom:4px;">DAO Governance Handbook</div>
+              <div style="font-size:clamp(0.5rem, 0.65vw, 0.625rem);color:rgba(255,255,255,0.45);line-height:1.4;">Proposal to execution</div>
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-top:6px;">
+                <span style="font-size:clamp(0.5rem, 0.65vw, 0.625rem);color:#84CC16;font-weight:700;">Q 85</span>
+                <span style="font-size:clamp(0.5625rem, 0.7vw, 0.6875rem);color:#F59E0B;font-weight:700;">0.12 SOL</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Screen 2: Create Flow (AI Processing) -->
+      <div class="browser-window">
+        <div class="browser-chrome">
+          <div class="browser-dot browser-dot-red"></div>
+          <div class="browser-dot browser-dot-yellow"></div>
+          <div class="browser-dot browser-dot-green"></div>
+          <div class="browser-title">voicefund.xyz / create</div>
+        </div>
+        <div class="browser-body">
+          <div style="font-size:clamp(0.5625rem, 0.65vw, 0.6875rem);color:rgba(255,255,255,0.35);font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:clamp(0.5rem, 0.8vh, 0.625rem);">2. Create Flow &middot; AI Processing</div>
+          <div style="display:flex;flex-direction:column;gap:clamp(0.375rem, 0.6vh, 0.5rem);">
+            <div style="display:flex;align-items:center;gap:clamp(0.5rem, 0.7vw, 0.625rem);padding:clamp(0.5rem, 0.8vh, 0.625rem);background:rgba(101,163,13,0.15);border:1px solid rgba(101,163,13,0.3);border-radius:0.5rem;">
+              <div style="width:18px;height:18px;border-radius:50%;background:#84CC16;display:flex;align-items:center;justify-content:center;font-size:10px;color:#14110F;font-weight:700;">&check;</div>
+              <div style="font-size:clamp(0.625rem, 0.8vw, 0.75rem);color:#F5F5F4;font-weight:600;flex:1;">Transcribing audio...</div>
+              <div style="font-size:clamp(0.5rem, 0.65vw, 0.625rem);color:rgba(255,255,255,0.45);">10s</div>
+            </div>
+            <div style="display:flex;align-items:center;gap:clamp(0.5rem, 0.7vw, 0.625rem);padding:clamp(0.5rem, 0.8vh, 0.625rem);background:rgba(101,163,13,0.15);border:1px solid rgba(101,163,13,0.3);border-radius:0.5rem;">
+              <div style="width:18px;height:18px;border-radius:50%;background:#84CC16;display:flex;align-items:center;justify-content:center;font-size:10px;color:#14110F;font-weight:700;">&check;</div>
+              <div style="font-size:clamp(0.625rem, 0.8vw, 0.75rem);color:#F5F5F4;font-weight:600;flex:1;">Analyzing content...</div>
+              <div style="font-size:clamp(0.5rem, 0.65vw, 0.625rem);color:rgba(255,255,255,0.45);">8s</div>
+            </div>
+            <div style="display:flex;align-items:center;gap:clamp(0.5rem, 0.7vw, 0.625rem);padding:clamp(0.5rem, 0.8vh, 0.625rem);background:rgba(217,119,6,0.15);border:1px solid rgba(217,119,6,0.4);border-radius:0.5rem;">
+              <div style="width:18px;height:18px;border-radius:50%;border:2px solid #F59E0B;border-top-color:transparent;animation:spin 1s linear infinite;"></div>
+              <div style="font-size:clamp(0.625rem, 0.8vw, 0.75rem);color:#F5F5F4;font-weight:600;flex:1;">Structuring document...</div>
+              <div style="font-size:clamp(0.5rem, 0.65vw, 0.625rem);color:#F59E0B;font-weight:600;">~15s</div>
+            </div>
+            <div style="display:flex;align-items:center;gap:clamp(0.5rem, 0.7vw, 0.625rem);padding:clamp(0.5rem, 0.8vh, 0.625rem);background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:0.5rem;opacity:0.55;">
+              <div style="width:18px;height:18px;border-radius:50%;border:1px dashed rgba(255,255,255,0.4);"></div>
+              <div style="font-size:clamp(0.625rem, 0.8vw, 0.75rem);color:rgba(255,255,255,0.65);font-weight:600;flex:1;">Assessing quality...</div>
+              <div style="font-size:clamp(0.5rem, 0.65vw, 0.625rem);color:rgba(255,255,255,0.35);">pending</div>
+            </div>
+          </div>
+          <div style="margin-top:clamp(0.625rem, 1vh, 0.875rem);padding-top:clamp(0.5rem, 0.8vh, 0.625rem);border-top:1px solid rgba(255,255,255,0.08);">
+            <div style="display:flex;justify-content:space-between;align-items:center;font-size:clamp(0.5625rem, 0.7vw, 0.6875rem);">
+              <span style="color:rgba(255,255,255,0.5);">Step 3 of 4</span>
+              <span style="color:#F59E0B;font-weight:600;">45% complete</span>
+            </div>
+            <div style="height:4px;background:rgba(255,255,255,0.08);border-radius:2px;overflow:hidden;margin-top:4px;">
+              <div style="height:100%;width:45%;background:linear-gradient(90deg, #D97706, #F59E0B);border-radius:2px;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Screen 3: Asset Detail with Purchase -->
+      <div class="browser-window">
+        <div class="browser-chrome">
+          <div class="browser-dot browser-dot-red"></div>
+          <div class="browser-dot browser-dot-yellow"></div>
+          <div class="browser-dot browser-dot-green"></div>
+          <div class="browser-title">voicefund.xyz / asset / rwa-2026q2</div>
+        </div>
+        <div class="browser-body">
+          <div style="font-size:clamp(0.5625rem, 0.65vw, 0.6875rem);color:rgba(255,255,255,0.35);font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:clamp(0.5rem, 0.8vh, 0.625rem);">3. Asset Detail + Phantom Signing</div>
+          <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:0.5rem;padding:clamp(0.625rem, 1vh, 0.75rem);margin-bottom:clamp(0.5rem, 0.8vh, 0.625rem);">
+            <div style="font-size:clamp(0.6875rem, 0.85vw, 0.8125rem);color:#F5F5F4;font-weight:700;line-height:1.35;margin-bottom:4px;">RWA Q2 2026 Deep Dive</div>
+            <div style="font-size:clamp(0.5rem, 0.65vw, 0.625rem);color:rgba(255,255,255,0.5);line-height:1.5;">3-page deep analysis &middot; First-hand VC signal &middot; SEC turning point</div>
+            <div style="display:flex;gap:6px;margin-top:6px;">
+              <span style="font-size:9px;padding:2px 6px;border-radius:10px;background:rgba(194,65,12,0.25);color:#EA580C;font-weight:600;">Market Analysis</span>
+              <span style="font-size:9px;padding:2px 6px;border-radius:10px;background:rgba(101,163,13,0.25);color:#84CC16;font-weight:600;">Q 88</span>
+            </div>
+          </div>
+
+          <!-- Phantom modal mock -->
+          <div style="background:linear-gradient(135deg, #4A3AFF, #8B6FFF);border-radius:0.625rem;padding:clamp(0.625rem, 1vh, 0.875rem);box-shadow:0 4px 20px rgba(74,58,255,0.35);">
+            <div style="display:flex;align-items:center;gap:6px;margin-bottom:6px;">
+              <div style="width:16px;height:16px;border-radius:4px;background:rgba(255,255,255,0.25);display:flex;align-items:center;justify-content:center;font-size:9px;color:#fff;font-weight:700;">P</div>
+              <div style="font-size:clamp(0.5625rem, 0.7vw, 0.6875rem);color:#fff;font-weight:700;letter-spacing:0.5px;">Phantom &middot; Confirm Transaction</div>
+            </div>
+            <div style="font-size:clamp(0.625rem, 0.8vw, 0.75rem);color:#fff;line-height:1.45;margin-bottom:6px;">
+              Send <strong>0.15 SOL</strong> to<br>
+              <span style="font-family:monospace;font-size:10px;opacity:0.85;">7xKz...pQ9m</span>
+            </div>
+            <button style="width:100%;padding:clamp(0.375rem, 0.6vh, 0.5rem);background:#fff;color:#4A3AFF;border:none;border-radius:0.375rem;font-weight:700;font-size:clamp(0.625rem, 0.8vw, 0.75rem);cursor:pointer;">Buy for 0.15 SOL</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Screen 4: Creator Dashboard -->
+      <div class="browser-window">
+        <div class="browser-chrome">
+          <div class="browser-dot browser-dot-red"></div>
+          <div class="browser-dot browser-dot-yellow"></div>
+          <div class="browser-dot browser-dot-green"></div>
+          <div class="browser-title">voicefund.xyz / dashboard</div>
+        </div>
+        <div class="browser-body">
+          <div style="font-size:clamp(0.5625rem, 0.65vw, 0.6875rem);color:rgba(255,255,255,0.35);font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:clamp(0.5rem, 0.8vh, 0.625rem);">4. Creator Dashboard</div>
+
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:clamp(0.375rem, 0.5vw, 0.5rem);margin-bottom:clamp(0.625rem, 1vh, 0.75rem);">
+            <div style="background:rgba(217,119,6,0.12);border:1px solid rgba(217,119,6,0.28);border-radius:0.5rem;padding:clamp(0.5rem, 0.8vh, 0.625rem);text-align:center;">
+              <div style="font-family:'Playfair Display',serif;font-size:clamp(0.8125rem, 1.1vw, 1.0625rem);color:#F59E0B;font-weight:700;">4.2 SOL</div>
+              <div style="font-size:clamp(0.5rem, 0.65vw, 0.625rem);color:rgba(255,255,255,0.55);text-transform:uppercase;letter-spacing:0.5px;">Total Earned</div>
+            </div>
+            <div style="background:rgba(101,163,13,0.12);border:1px solid rgba(101,163,13,0.28);border-radius:0.5rem;padding:clamp(0.5rem, 0.8vh, 0.625rem);text-align:center;">
+              <div style="font-family:'Playfair Display',serif;font-size:clamp(0.8125rem, 1.1vw, 1.0625rem);color:#84CC16;font-weight:700;">47</div>
+              <div style="font-size:clamp(0.5rem, 0.65vw, 0.625rem);color:rgba(255,255,255,0.55);text-transform:uppercase;letter-spacing:0.5px;">Sales</div>
+            </div>
+            <div style="background:rgba(194,65,12,0.12);border:1px solid rgba(194,65,12,0.28);border-radius:0.5rem;padding:clamp(0.5rem, 0.8vh, 0.625rem);text-align:center;">
+              <div style="font-family:'Playfair Display',serif;font-size:clamp(0.8125rem, 1.1vw, 1.0625rem);color:#EA580C;font-weight:700;">12</div>
+              <div style="font-size:clamp(0.5rem, 0.65vw, 0.625rem);color:rgba(255,255,255,0.55);text-transform:uppercase;letter-spacing:0.5px;">Assets</div>
+            </div>
+          </div>
+
+          <div style="display:flex;flex-direction:column;gap:clamp(0.25rem, 0.4vh, 0.375rem);">
+            <div style="display:flex;justify-content:space-between;align-items:center;padding:clamp(0.375rem, 0.6vh, 0.5rem) clamp(0.5rem, 0.7vw, 0.625rem);background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:0.5rem;">
+              <span style="font-size:clamp(0.5625rem, 0.75vw, 0.6875rem);color:#F5F5F4;font-weight:600;">AI Agent Field Guide</span>
+              <span style="font-size:clamp(0.5rem, 0.65vw, 0.625rem);color:#84CC16;font-weight:700;">12 sold</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:center;padding:clamp(0.375rem, 0.6vh, 0.5rem) clamp(0.5rem, 0.7vw, 0.625rem);background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:0.5rem;">
+              <span style="font-size:clamp(0.5625rem, 0.75vw, 0.6875rem);color:#F5F5F4;font-weight:600;">RWA Q2 2026 Outlook</span>
+              <span style="font-size:clamp(0.5rem, 0.65vw, 0.625rem);color:#84CC16;font-weight:700;">6 sold</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:center;padding:clamp(0.375rem, 0.6vh, 0.5rem) clamp(0.5rem, 0.7vw, 0.625rem);background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:0.5rem;">
+              <span style="font-size:clamp(0.5625rem, 0.75vw, 0.6875rem);color:#F5F5F4;font-weight:600;">Claude Code Playbook</span>
+              <span style="font-size:clamp(0.5rem, 0.65vw, 0.625rem);color:#84CC16;font-weight:700;">23 sold</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <div class="slide-line"></div>
+  <div class="brand">VOICEFUND</div>
+  <div class="slide-number">09</div>
+</div>
+
+<!-- ==================== SLIDE 10: BUSINESS MODEL + COMPETITION ==================== -->
+<div class="slide">
+  <div class="label">Business Model &amp; Benchmarks</div>
+  <h2>Business Model &amp; Competitive Landscape</h2>
+  <div style="height:clamp(0.75rem, 2vh, 1.25rem);"></div>
+
+  <div class="content-area" style="justify-content:flex-start;">
+    <div class="grid-2" style="align-items:stretch;">
+
+      <!-- Business Model -->
+      <div class="card card-amber" style="padding:clamp(1.25rem,2.5vw,1.875rem) clamp(1.375rem,2.8vw,2rem);display:flex;flex-direction:column;">
+        <div style="display:flex;align-items:center;gap:clamp(0.5rem, 0.8vw, 0.75rem);margin-bottom:clamp(1rem, 1.8vh, 1.375rem);">
+          <div style="width:clamp(2.25rem, 3vw, 2.75rem);height:clamp(2.25rem, 3vw, 2.75rem);border-radius:0.875rem;background:var(--amber-glow-strong);border:1px solid rgba(217,119,6,0.2);display:flex;align-items:center;justify-content:center;font-size:clamp(0.875rem, 1vw, 1rem);font-weight:700;color:var(--amber-deep);">$</div>
+          <div style="font-family:'Playfair Display','Noto Serif SC',serif;font-size:clamp(1.125rem,2vw,1.5rem);font-weight:700;color:var(--text-primary);">Business Model</div>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:clamp(0.625rem, 1vh, 0.875rem);flex:1;">
+          <div style="padding:clamp(0.75rem, 1.2vh, 1rem) clamp(0.875rem, 1.2vw, 1.125rem);background:var(--bg-white);border-radius:0.75rem;border:1px solid var(--border-light);">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">
+              <span style="font-size:clamp(0.8125rem, 1vw, 0.9375rem);font-weight:700;color:var(--text-primary);">Platform fee</span>
+              <span style="font-family:'Playfair Display',serif;font-size:clamp(1.125rem, 1.6vw, 1.375rem);color:var(--amber-deep);font-weight:700;">5%</span>
+            </div>
+            <div style="font-size:clamp(0.6875rem, 0.85vw, 0.8125rem);color:var(--text-muted);line-height:1.5;">Taken per transaction &middot; Sellers receive 95% directly in SOL / USDC</div>
+          </div>
+
+          <div style="padding:clamp(0.75rem, 1.2vh, 1rem) clamp(0.875rem, 1.2vw, 1.125rem);background:var(--bg-white);border-radius:0.75rem;border:1px solid var(--border-light);">
+            <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px;">
+              <span style="font-size:clamp(0.8125rem, 1vw, 0.9375rem);font-weight:700;color:var(--text-primary);">Creator subscriptions (Phase 2)</span>
+              <span class="tag tag-sage" style="font-size:9px;">Future</span>
+            </div>
+            <div style="font-size:clamp(0.6875rem, 0.85vw, 0.8125rem);color:var(--text-muted);line-height:1.5;">Top creators offer monthly subscriptions &mdash; readers unlock all new drops</div>
+          </div>
+
+          <div style="padding:clamp(0.75rem, 1.2vh, 1rem) clamp(0.875rem, 1.2vw, 1.125rem);background:var(--bg-white);border-radius:0.75rem;border:1px solid var(--border-light);">
+            <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px;">
+              <span style="font-size:clamp(0.8125rem, 1vw, 0.9375rem);font-weight:700;color:var(--text-primary);">NFT secondary-market royalties</span>
+              <span class="tag tag-sage" style="font-size:9px;">Future</span>
+            </div>
+            <div style="font-size:clamp(0.6875rem, 0.85vw, 0.8125rem);color:var(--text-muted);line-height:1.5;">Content resold on secondary markets &mdash; creators earn 2.5% royalty</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Competition -->
+      <div class="card" style="padding:clamp(1.125rem,2.2vw,1.625rem) clamp(1.25rem,2.5vw,1.75rem);display:flex;flex-direction:column;">
+        <div style="display:flex;align-items:center;gap:clamp(0.5rem, 0.8vw, 0.75rem);margin-bottom:clamp(0.875rem, 1.5vh, 1.125rem);">
+          <div style="width:clamp(2.25rem, 3vw, 2.75rem);height:clamp(2.25rem, 3vw, 2.75rem);border-radius:0.875rem;background:var(--terracotta-glow);border:1px solid rgba(194,65,12,0.2);display:flex;align-items:center;justify-content:center;font-size:clamp(0.875rem, 1vw, 1rem);font-weight:700;color:var(--terracotta);">C</div>
+          <div style="font-family:'Playfair Display','Noto Serif SC',serif;font-size:clamp(1.125rem,2vw,1.5rem);font-weight:700;color:var(--text-primary);">Competitive Landscape</div>
+        </div>
+
+        <div class="table-container" style="flex:1;">
+          <table>
+            <thead>
+              <tr>
+                <th style="width:30%;">Product</th>
+                <th style="width:35%;">Pain Point</th>
+                <th style="width:35%;background:rgba(217,119,6,0.12);color:var(--amber-deep);">VoiceFund</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td style="font-weight:700;color:var(--text-primary);">Substack</td>
+                <td>Long-form writing barrier</td>
+                <td style="font-weight:600;color:var(--amber-deep);">Voice + AI</td>
+              </tr>
+              <tr>
+                <td style="font-weight:700;color:var(--text-primary);">eBay / Xianyu</td>
+                <td>Physical goods only</td>
+                <td style="font-weight:600;color:var(--amber-deep);">Intangible knowledge</td>
+              </tr>
+              <tr>
+                <td style="font-weight:700;color:var(--text-primary);">Gumroad / Teachable</td>
+                <td>Centralized, slow settlement</td>
+                <td style="font-weight:600;color:var(--amber-deep);">On-chain, instant</td>
+              </tr>
+              <tr>
+                <td style="font-weight:700;color:var(--text-primary);">Solana content platforms (DRiP, etc.)</td>
+                <td>Serves existing creators only</td>
+                <td style="font-weight:600;color:var(--amber-deep);">AI empowers everyone</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <div class="slide-line"></div>
+  <div class="brand">VOICEFUND</div>
+  <div class="slide-number">10</div>
+</div>
+
+<!-- ==================== SLIDE 11: ROADMAP & FUNDRAISING ==================== -->
+<div class="slide">
+  <div class="label">Roadmap &amp; Fundraising</div>
+  <h2>Roadmap &amp; Fundraising</h2>
+  <div style="height:clamp(0.75rem, 2vh, 1.25rem);"></div>
+
+  <div class="content-area" style="justify-content:flex-start;">
+    <!-- Timeline -->
+    <div class="card" style="padding:clamp(1.125rem, 2vh, 1.5rem) clamp(1.25rem, 2vw, 1.75rem);margin-bottom:clamp(1rem, 2vh, 1.5rem);">
+      <div class="timeline">
+        <div class="timeline-item">
+          <div style="font-size:clamp(0.625rem, 0.75vw, 0.6875rem);color:var(--sage-deep);font-weight:700;letter-spacing:1px;text-transform:uppercase;">Q2 2026</div>
+          <div class="timeline-dot timeline-dot-sage"></div>
+          <div class="timeline-title" style="color:var(--sage-deep);">Hackathon Demo</div>
+          <div class="timeline-desc">
+            Completed<br>
+            6 seed assets<br>
+            Full flow live<br>
+            Solana Pay integrated
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div style="font-size:clamp(0.625rem, 0.75vw, 0.6875rem);color:var(--amber-deep);font-weight:700;letter-spacing:1px;text-transform:uppercase;">Q3 2026</div>
+          <div class="timeline-dot timeline-dot-amber"></div>
+          <div class="timeline-title" style="color:var(--amber-deep);">Mainnet Launch</div>
+          <div class="timeline-desc">
+            100 creator cold-start<br>
+            EinClaw Mic integration<br>
+            Open beta<br>
+            Category expansion
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div style="font-size:clamp(0.625rem, 0.75vw, 0.6875rem);color:var(--terracotta);font-weight:700;letter-spacing:1px;text-transform:uppercase;">Q4 2026</div>
+          <div class="timeline-dot timeline-dot-terracotta"></div>
+          <div class="timeline-title" style="color:var(--terracotta);">cNFT Upgrade</div>
+          <div class="timeline-desc">
+            cNFT + royalty mechanism<br>
+            Secondary market open<br>
+            Subscription tier<br>
+            Discovery algorithm
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div style="font-size:clamp(0.625rem, 0.75vw, 0.6875rem);color:var(--text-muted);font-weight:700;letter-spacing:1px;text-transform:uppercase;">2027</div>
+          <div class="timeline-dot"></div>
+          <div class="timeline-title">DAO Governance</div>
+          <div class="timeline-desc">
+            Multi-language support<br>
+            Multi-domain content<br>
+            DAO governance<br>
+            Global creator network
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Fundraising -->
+    <div class="card card-amber" style="padding:clamp(1.75rem, 3.5vh, 2.5rem) clamp(2rem, 4vw, 3rem);text-align:center;">
+      <div style="font-size:clamp(0.75rem, 1vw, 0.875rem);color:var(--text-muted);font-weight:700;letter-spacing:1.6px;text-transform:uppercase;margin-bottom:clamp(0.75rem, 1.5vh, 1rem);">Target Angel Round</div>
+      <div style="font-family:'Playfair Display',serif;font-size:clamp(2.25rem, 5.5vw, 4rem);font-weight:700;color:var(--amber-deep);line-height:0.95;margin-bottom:clamp(0.875rem, 1.8vh, 1.25rem);">0.5 ~ 1M USD</div>
+      <div style="font-size:clamp(0.8125rem, 1vw, 0.9375rem);color:var(--text-secondary);margin-bottom:clamp(0.75rem, 1.5vh, 1.125rem);line-height:1.5;">
+        Use of funds: product development + creator cold-start incentives + Solana ecosystem partnerships
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:clamp(0.75rem, 1.2vw, 1rem);margin-top:clamp(0.75rem, 1.5vh, 1.125rem);">
+        <div style="padding:clamp(0.625rem, 1vh, 0.875rem);background:rgba(255,255,255,0.7);border-radius:0.625rem;border:1px solid var(--border-light);">
+          <div style="font-family:'Playfair Display',serif;font-size:clamp(0.9375rem, 1.2vw, 1.125rem);font-weight:700;color:var(--text-primary);">45%</div>
+          <div style="font-size:clamp(0.6875rem, 0.8vw, 0.75rem);color:var(--text-muted);">Product development</div>
+        </div>
+        <div style="padding:clamp(0.625rem, 1vh, 0.875rem);background:rgba(255,255,255,0.7);border-radius:0.625rem;border:1px solid var(--border-light);">
+          <div style="font-family:'Playfair Display',serif;font-size:clamp(0.9375rem, 1.2vw, 1.125rem);font-weight:700;color:var(--text-primary);">35%</div>
+          <div style="font-size:clamp(0.6875rem, 0.8vw, 0.75rem);color:var(--text-muted);">Creator cold-start</div>
+        </div>
+        <div style="padding:clamp(0.625rem, 1vh, 0.875rem);background:rgba(255,255,255,0.7);border-radius:0.625rem;border:1px solid var(--border-light);">
+          <div style="font-family:'Playfair Display',serif;font-size:clamp(0.9375rem, 1.2vw, 1.125rem);font-weight:700;color:var(--text-primary);">20%</div>
+          <div style="font-size:clamp(0.6875rem, 0.8vw, 0.75rem);color:var(--text-muted);">Solana ecosystem partnerships</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-line"></div>
+  <div class="brand">VOICEFUND</div>
+  <div class="slide-number">11</div>
+</div>
+
+<style>
+  @keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+</style>
+
+</body>
+</html>

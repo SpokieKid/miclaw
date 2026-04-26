@@ -1,0 +1,1821 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VoiceFund - 语音驱动的知识资产交易市场</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500&family=Noto+Serif+SC:wght@400;500;600;700;900&family=Source+Sans+3:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap');
+
+  :root {
+    /* Warm cream palette */
+    --bg-cream: #FFFBF0;
+    --bg-cream-deep: #FFF8E7;
+    --bg-cream-accent: #FEF3C7;
+    --bg-white: #FFFFFF;
+    --bg-warm-light: #FEFCF6;
+
+    /* Accent colors */
+    --amber: #D97706;
+    --amber-deep: #B45309;
+    --amber-light: #F59E0B;
+    --amber-glow: rgba(217, 119, 6, 0.08);
+    --amber-glow-strong: rgba(217, 119, 6, 0.15);
+    --terracotta: #C2410C;
+    --terracotta-light: #EA580C;
+    --terracotta-glow: rgba(194, 65, 12, 0.08);
+
+    /* Text */
+    --text-primary: #1C1917;
+    --text-secondary: #57534E;
+    --text-muted: #78716C;
+    --text-light: #A8A29E;
+
+    /* Greens */
+    --sage: #65A30D;
+    --sage-deep: #4D7C0F;
+    --sage-glow: rgba(101, 163, 13, 0.10);
+
+    /* Borders & shadows */
+    --border: #E7E5E4;
+    --border-light: #F5F5F4;
+    --shadow-soft: 0 2px 16px rgba(28, 25, 23, 0.04);
+    --shadow-card: 0 1px 8px rgba(28, 25, 23, 0.06);
+    --shadow-elevated: 0 4px 24px rgba(28, 25, 23, 0.08);
+
+    /* Gradients */
+    --gradient-warm: linear-gradient(180deg, #FFFBF0 0%, #FFF8E7 100%);
+    --gradient-cream: linear-gradient(135deg, #FFFBF0 0%, #FEF3C7 100%);
+    --gradient-amber: linear-gradient(135deg, #D97706, #F59E0B);
+    --gradient-sage: linear-gradient(135deg, #65A30D, #84CC16);
+    --gradient-terracotta: linear-gradient(135deg, #C2410C, #EA580C);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  @page {
+    size: landscape;
+    margin: 0;
+  }
+
+  /* Root scaling for different screen sizes */
+  html {
+    font-size: 16px;
+  }
+
+  @media (max-height: 900px) {
+    html { font-size: 15px; }
+  }
+
+  @media (max-height: 800px) {
+    html { font-size: 14px; }
+  }
+
+  @media (max-height: 700px) {
+    html { font-size: 13px; }
+  }
+
+  @media (max-width: 1200px) {
+    html { font-size: 14px; }
+  }
+
+  @media (max-width: 1024px) {
+    html { font-size: 13px; }
+  }
+
+  body {
+    font-family: 'Source Sans 3', 'Noto Serif SC', -apple-system, sans-serif;
+    background: var(--bg-cream);
+    color: var(--text-primary);
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+    width: 100%;
+    overflow-x: hidden;
+  }
+
+  .slide {
+    width: 100%;
+    min-height: 100vh;
+    height: auto;
+    padding: clamp(16px, 3vh, 40px) clamp(24px, 3.5vw, 56px);
+    position: relative;
+    overflow: hidden;
+    page-break-after: always;
+    page-break-inside: avoid;
+    background: var(--gradient-warm);
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+  }
+
+  /* Scale content based on viewport */
+  .slide > * {
+    max-width: 100%;
+  }
+
+  /* Subtle warm texture overlay */
+  .slide::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(ellipse at 80% 20%, rgba(254, 243, 199, 0.4) 0%, transparent 50%);
+    pointer-events: none;
+  }
+
+  /* Page number */
+  .slide-number {
+    position: absolute;
+    bottom: clamp(16px, 3vh, 28px);
+    right: clamp(24px, 4vw, 48px);
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(11px, 1vw, 13px);
+    color: var(--text-light);
+    font-weight: 400;
+    letter-spacing: 1px;
+    font-style: italic;
+  }
+
+  /* Brand watermark */
+  .brand {
+    position: absolute;
+    bottom: clamp(16px, 3vh, 28px);
+    left: clamp(24px, 4vw, 48px);
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: clamp(9px, 0.85vw, 11px);
+    color: var(--text-light);
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+  }
+
+  /* Thin decorative line at bottom */
+  .slide-line {
+    position: absolute;
+    bottom: clamp(36px, 5vh, 52px);
+    left: clamp(24px, 4vw, 48px);
+    right: clamp(24px, 4vw, 48px);
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* Typography */
+  h1 {
+    font-family: 'Playfair Display', 'Noto Serif SC', serif;
+    font-size: clamp(1.5rem, 2.8vw, 2.5rem);
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.5px;
+    color: var(--text-primary);
+    margin-bottom: clamp(0.375rem, 1vh, 0.625rem);
+  }
+
+  h2 {
+    font-family: 'Playfair Display', 'Noto Serif SC', serif;
+    font-size: clamp(1.25rem, 2.2vw, 1.75rem);
+    font-weight: 600;
+    line-height: 1.25;
+    letter-spacing: -0.3px;
+    color: var(--text-primary);
+    margin-bottom: clamp(0.375rem, 0.8vh, 0.5rem);
+  }
+
+  h3 {
+    font-family: 'Source Sans 3', 'Noto Serif SC', sans-serif;
+    font-size: clamp(0.875rem, 1.2vw, 1.125rem);
+    font-weight: 600;
+    line-height: 1.3;
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+  }
+
+  .subtitle {
+    font-size: clamp(0.8125rem, 1.2vw, 1.0625rem);
+    color: var(--text-secondary);
+    font-weight: 400;
+    line-height: 1.6;
+    max-width: min(680px, 90%);
+  }
+
+  .label {
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: clamp(0.5625rem, 0.8vw, 0.6875rem);
+    font-weight: 600;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--amber);
+    margin-bottom: 0.625rem;
+  }
+
+  .highlight {
+    color: var(--amber-deep);
+    font-weight: 600;
+  }
+
+  .highlight-green {
+    color: var(--sage-deep);
+    font-weight: 600;
+  }
+
+  /* Layout helpers */
+  .flex { display: flex; }
+  .flex-1 { flex: 1; }
+  .gap-12 { gap: clamp(8px, 1vw, 12px); }
+  .gap-16 { gap: clamp(10px, 1.3vw, 16px); }
+  .gap-20 { gap: clamp(12px, 1.6vw, 20px); }
+  .gap-24 { gap: clamp(14px, 2vw, 24px); }
+  .gap-28 { gap: clamp(16px, 2.2vw, 28px); }
+  .gap-32 { gap: clamp(18px, 2.5vw, 32px); }
+  .gap-40 { gap: clamp(24px, 3vw, 40px); }
+  .items-center { align-items: center; }
+  .justify-center { justify-content: center; }
+  .content-area { flex: 1; display: flex; flex-direction: column; }
+
+  /* Cards */
+  .card {
+    background: var(--bg-white);
+    border: 1px solid var(--border);
+    border-radius: clamp(0.625rem, 1.2vw, 0.875rem);
+    padding: clamp(0.875rem, 1.6vw, 1.25rem);
+    box-shadow: var(--shadow-soft);
+  }
+
+  .card-sm {
+    background: var(--bg-white);
+    border: 1px solid var(--border);
+    border-radius: 0.75rem;
+    padding: clamp(0.75rem, 1.5vw, 1rem) clamp(0.875rem, 1.6vw, 1.125rem);
+    box-shadow: var(--shadow-card);
+  }
+
+  .card-amber {
+    border-color: rgba(217, 119, 6, 0.25);
+    background: linear-gradient(135deg, rgba(254, 243, 199, 0.5), rgba(255, 251, 240, 0.8));
+  }
+
+  .card-sage {
+    border-color: rgba(101, 163, 13, 0.25);
+    background: linear-gradient(135deg, rgba(101, 163, 13, 0.05), rgba(132, 204, 22, 0.03));
+  }
+
+  .card-terracotta {
+    border-color: rgba(194, 65, 12, 0.2);
+    background: linear-gradient(135deg, rgba(194, 65, 12, 0.04), rgba(234, 88, 12, 0.02));
+  }
+
+  /* Table */
+  .table-container {
+    width: 100%;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow-card);
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: clamp(0.6875rem, 1vw, 0.8125rem);
+  }
+
+  th {
+    background: var(--bg-cream-deep);
+    padding: 0.625rem 0.875rem;
+    text-align: left;
+    font-weight: 600;
+    color: var(--text-muted);
+    font-size: 0.6875rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    border-bottom: 1px solid var(--border);
+  }
+
+  td {
+    padding: 0.625rem 0.875rem;
+    border-bottom: 1px solid var(--border-light);
+    color: var(--text-secondary);
+    line-height: 1.4;
+    background: var(--bg-white);
+  }
+
+  tr:last-child td {
+    border-bottom: none;
+  }
+
+  tr:nth-child(even) td {
+    background: var(--bg-warm-light);
+  }
+
+  /* Tags */
+  .tag {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+  }
+
+  .tag-amber {
+    background: var(--amber-glow);
+    color: var(--amber-deep);
+    border: 1px solid rgba(217, 119, 6, 0.2);
+  }
+
+  .tag-sage {
+    background: var(--sage-glow);
+    color: var(--sage-deep);
+    border: 1px solid rgba(101, 163, 13, 0.2);
+  }
+
+  .tag-terracotta {
+    background: var(--terracotta-glow);
+    color: var(--terracotta);
+    border: 1px solid rgba(194, 65, 12, 0.2);
+  }
+
+  /* Stat blocks */
+  .stat {
+    text-align: center;
+  }
+
+  .stat-value {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.5rem, 2.8vw, 2.375rem);
+    font-weight: 700;
+    line-height: 1;
+    margin-bottom: 0.375rem;
+    color: var(--text-primary);
+  }
+
+  .stat-label {
+    font-size: clamp(0.625rem, 0.9vw, 0.75rem);
+    color: var(--text-muted);
+    font-weight: 500;
+  }
+
+  /* Flow diagram */
+  .flow-step {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 4px;
+  }
+
+  .flow-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  .flow-icon-amber {
+    background: var(--amber-glow);
+    color: var(--amber-deep);
+    border: 1px solid rgba(217, 119, 6, 0.2);
+  }
+
+  .flow-icon-sage {
+    background: var(--sage-glow);
+    color: var(--sage-deep);
+    border: 1px solid rgba(101, 163, 13, 0.2);
+  }
+
+  .flow-icon-terracotta {
+    background: var(--terracotta-glow);
+    color: var(--terracotta);
+    border: 1px solid rgba(194, 65, 12, 0.2);
+  }
+
+  .flow-text {
+    font-size: 13px;
+    line-height: 1.4;
+    color: var(--text-secondary);
+  }
+
+  .flow-connector {
+    width: 2px;
+    height: 8px;
+    background: var(--border);
+    margin-left: 15px;
+    margin-bottom: 4px;
+  }
+
+  /* Timeline */
+  .timeline {
+    display: flex;
+    gap: 0;
+    position: relative;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    top: 20px;
+    left: 40px;
+    right: 40px;
+    height: 2px;
+    background: var(--border);
+    z-index: 0;
+  }
+
+  .timeline-item {
+    flex: 1;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+  }
+
+  .timeline-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    margin: 14px auto 14px;
+    border: 2px solid var(--bg-cream);
+    box-shadow: 0 0 0 2px var(--border);
+  }
+
+  .timeline-dot-amber { background: var(--amber); box-shadow: 0 0 0 2px var(--amber); }
+  .timeline-dot-sage { background: var(--sage); box-shadow: 0 0 0 2px var(--sage); }
+  .timeline-dot-terracotta { background: var(--terracotta); box-shadow: 0 0 0 2px var(--terracotta); }
+
+  .timeline-title {
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 2px;
+  }
+
+  .timeline-desc {
+    font-size: 11px;
+    color: var(--text-muted);
+    line-height: 1.5;
+    padding: 0 6px;
+  }
+
+  /* Bullet list */
+  .bullet-list {
+    list-style: none;
+    padding: 0;
+  }
+
+  .bullet-list li {
+    padding: 5px 0 5px 20px;
+    position: relative;
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--text-secondary);
+  }
+
+  .bullet-list li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 13px;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--amber);
+  }
+
+  /* Cover special */
+  .cover-slide {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background: linear-gradient(180deg, #FFFBF0 0%, #FEF3C7 50%, #FFF8E7 100%);
+    min-height: 100vh;
+    height: auto;
+  }
+
+  .cover-slide::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: min(800px, 90vw);
+    height: min(800px, 90vh);
+    background: radial-gradient(circle, rgba(217, 119, 6, 0.06) 0%, transparent 60%);
+  }
+
+  .cover-slide h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.75rem, 4vw, 3.5rem);
+    font-weight: 700;
+    letter-spacing: -1px;
+    color: var(--text-primary);
+    margin-bottom: clamp(0.5rem, 1.5vh, 1rem);
+  }
+
+  .cover-tagline {
+    font-family: 'Noto Serif SC', serif;
+    font-size: clamp(15px, 1.6vw, 20px);
+    color: var(--text-secondary);
+    font-weight: 400;
+    margin-bottom: clamp(16px, 3vh, 28px);
+    letter-spacing: 1px;
+  }
+
+  .cover-meta {
+    font-size: 13px;
+    color: var(--text-muted);
+    font-weight: 400;
+    letter-spacing: 0.5px;
+  }
+
+  /* Quote */
+  .quote {
+    font-family: 'Playfair Display', 'Noto Serif SC', serif;
+    font-size: clamp(16px, 1.8vw, 22px);
+    font-weight: 500;
+    font-style: italic;
+    line-height: 1.5;
+    color: var(--text-primary);
+    border-left: 3px solid var(--amber);
+    padding-left: clamp(16px, 2vw, 24px);
+    margin: clamp(12px, 2vh, 20px) 0;
+  }
+
+  /* Grid */
+  .grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(16px, 2vw, 24px);
+  }
+
+  .grid-3 {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: clamp(12px, 1.6vw, 20px);
+  }
+
+  .grid-4 {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: clamp(10px, 1.2vw, 14px);
+  }
+
+  /* Number circle */
+  .icon-circle {
+    width: clamp(32px, 4vw, 40px);
+    height: clamp(32px, 4vw, 40px);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(14px, 1.6vw, 16px);
+    font-weight: 600;
+    margin: 0 auto 12px;
+    color: var(--amber-deep);
+    background: var(--amber-glow-strong);
+    border: 1px solid rgba(217, 119, 6, 0.15);
+  }
+
+  /* Divider */
+  .divider {
+    width: 48px;
+    height: 2px;
+    background: var(--gradient-amber);
+    border-radius: 1px;
+    margin: 12px 0;
+  }
+
+  /* Decorative horizontal rule */
+  .ornament {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 16px 0;
+  }
+
+  .ornament::before,
+  .ornament::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  .ornament-dot {
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: var(--amber);
+  }
+
+  /* Progress items */
+  .progress-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 6px 0;
+    font-size: 13px;
+    color: var(--text-secondary);
+  }
+
+  .progress-check {
+    width: 20px;
+    height: 20px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    flex-shrink: 0;
+  }
+
+  .progress-done {
+    background: var(--sage-glow);
+    color: var(--sage-deep);
+    border: 1px solid rgba(101, 163, 13, 0.25);
+  }
+
+  .progress-wip {
+    background: var(--amber-glow);
+    color: var(--amber);
+    border: 1px solid rgba(217, 119, 6, 0.25);
+  }
+
+  /* Browser window mockup */
+  .browser-window {
+    background: #1C1917;
+    border-radius: clamp(0.75rem, 1.2vw, 1rem);
+    overflow: hidden;
+    box-shadow: var(--shadow-elevated);
+    border: 1px solid rgba(0,0,0,0.1);
+  }
+
+  .browser-chrome {
+    background: #2A2622;
+    padding: clamp(0.5rem, 0.8vh, 0.625rem) clamp(0.625rem, 1vw, 0.875rem);
+    display: flex;
+    align-items: center;
+    gap: clamp(0.375rem, 0.5vw, 0.5rem);
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+
+  .browser-dot {
+    width: clamp(9px, 0.8vw, 11px);
+    height: clamp(9px, 0.8vw, 11px);
+    border-radius: 50%;
+  }
+
+  .browser-dot-red { background: #FF5F57; }
+  .browser-dot-yellow { background: #FEBC2E; }
+  .browser-dot-green { background: #28C840; }
+
+  .browser-title {
+    margin-left: auto;
+    margin-right: auto;
+    font-size: clamp(0.625rem, 0.75vw, 0.75rem);
+    color: rgba(255,255,255,0.45);
+    font-family: 'Source Sans 3', sans-serif;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+  }
+
+  .browser-body {
+    background: #14110F;
+    padding: clamp(0.75rem, 1.5vh, 1.125rem);
+    color: #F5F5F4;
+    min-height: clamp(130px, 22vh, 200px);
+  }
+
+  /* MacBook Pro and high-res laptop optimizations */
+  @media (min-width: 1440px) {
+    .slide {
+      padding: clamp(1.5rem, 4vh, 3.5rem) clamp(2.5rem, 5vw, 5rem);
+    }
+  }
+
+  @media (max-width: 1728px) and (min-height: 900px) {
+    html { font-size: 15px; }
+  }
+
+  @media (max-width: 1512px) {
+    html { font-size: 14px; }
+    .slide {
+      padding: clamp(1rem, 2.5vh, 2.25rem) clamp(1.5rem, 3.5vw, 3rem);
+    }
+    h1 {
+      font-size: clamp(1.375rem, 2.6vw, 2.25rem);
+    }
+    h2 {
+      font-size: clamp(1.125rem, 2vw, 1.625rem);
+    }
+  }
+
+  @media (max-width: 1280px) {
+    html { font-size: 13px; }
+    .slide {
+      padding: clamp(0.875rem, 2vh, 1.75rem) clamp(1.25rem, 3vw, 2.5rem);
+    }
+    .card {
+      padding: clamp(0.75rem, 1.4vw, 1rem);
+    }
+    .cover-slide h1 {
+      font-size: clamp(1.5rem, 4vw, 2.75rem);
+    }
+  }
+
+  @media (max-height: 800px) {
+    html { font-size: 12px; }
+    .slide {
+      padding: clamp(0.75rem, 2vh, 1.5rem) clamp(1rem, 2.5vw, 2rem);
+    }
+  }
+
+  @media (max-width: 1200px) {
+    .grid-4 {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  @media (max-width: 992px) {
+    .grid-3 {
+      grid-template-columns: 1fr 1fr;
+    }
+    .grid-2 {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 768px) {
+    html { font-size: 14px; }
+    .slide {
+      padding: 1.125rem 1.375rem;
+      height: auto;
+      min-height: 100vh;
+    }
+    .grid-4,
+    .grid-3 {
+      grid-template-columns: 1fr;
+    }
+    .cover-slide h1 {
+      font-size: clamp(1.625rem, 7vw, 2.375rem);
+    }
+    h1 {
+      font-size: clamp(1.375rem, 5.5vw, 1.75rem);
+    }
+    h2 {
+      font-size: clamp(1.125rem, 4.5vw, 1.5rem);
+    }
+  }
+
+  @media (max-width: 480px) {
+    html { font-size: 13px; }
+    .slide {
+      padding: 0.875rem 1.125rem;
+    }
+    .card {
+      padding: 0.75rem;
+    }
+    .cover-slide h1 {
+      font-size: 1.5rem;
+    }
+    h1 {
+      font-size: 1.25rem;
+    }
+    h2 {
+      font-size: 1.0625rem;
+    }
+    .bullet-list li {
+      font-size: 0.8125rem;
+    }
+  }
+
+  @media (min-aspect-ratio: 16/10) and (max-height: 900px) {
+    .slide {
+      padding: clamp(0.75rem, 2vh, 1.75rem) clamp(1.25rem, 3vw, 3rem);
+    }
+    .card {
+      padding: clamp(0.75rem, 1.4vw, 1.125rem);
+    }
+  }
+
+  @media (max-height: 700px) {
+    html { font-size: 11px; }
+    .slide {
+      padding: 0.625rem 1rem;
+    }
+  }
+
+  @media (max-width: 1512px) and (max-height: 982px) {
+    html { font-size: 13px; }
+  }
+
+  @media (min-width: 1728px) and (min-height: 1000px) {
+    html { font-size: 15px; }
+  }
+
+  @media (max-height: 800px) and (min-width: 1000px) {
+    html { font-size: 12px; }
+  }
+
+  @media (max-height: 750px) and (min-width: 900px) {
+    html { font-size: 11px; }
+    .slide {
+      padding: 0.5rem 1rem;
+    }
+  }
+</style>
+</head>
+<body>
+
+<!-- ==================== SLIDE 1: COVER ==================== -->
+<div class="slide cover-slide">
+  <div style="position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:clamp(0.75rem, 2vh, 1.25rem);">
+    <div class="label" style="margin-bottom:clamp(0.5rem, 1vh, 0.75rem);letter-spacing:clamp(3px, 0.4vw, 5px);">Voice-Native Knowledge Marketplace</div>
+    <h1 style="font-size:clamp(2.5rem, 5.5vw, 4.5rem);margin-bottom:clamp(0.5rem, 1vh, 0.75rem);">VoiceFund</h1>
+    <div class="cover-tagline">语音驱动的知识资产交易市场</div>
+    <div style="font-family:'Playfair Display',serif;font-style:italic;font-size:clamp(14px, 1.4vw, 18px);color:var(--amber-deep);font-weight:500;letter-spacing:0.5px;">Turn Your Voice Into Tradeable Knowledge</div>
+    <div class="ornament" style="width:min(200px, 40vw);margin:clamp(0.5rem, 1vh, 0.75rem) 0;">
+      <div class="ornament-dot"></div>
+    </div>
+    <div class="cover-meta">Hackathon Demo &middot; 2026 Q2</div>
+  </div>
+  <div class="slide-line"></div>
+  <div class="brand">VOICEFUND</div>
+  <div class="slide-number">01</div>
+</div>
+
+<!-- ==================== SLIDE 2: THE PROBLEM ==================== -->
+<div class="slide">
+  <div class="label">The Problem</div>
+  <h2>用户的痛点</h2>
+  <div style="height:clamp(0.75rem, 2vh, 1.25rem);"></div>
+
+  <div class="content-area" style="justify-content:flex-start;">
+    <div class="grid-2" style="align-items:stretch;">
+      <div class="card card-terracotta" style="padding:clamp(1.25rem,2.5vw,1.875rem) clamp(1.375rem,2.8vw,2rem);display:flex;flex-direction:column;">
+        <div style="display:flex;align-items:center;gap:clamp(0.5rem, 0.8vw, 0.75rem);margin-bottom:clamp(1rem, 1.8vh, 1.375rem);">
+          <div style="width:clamp(2.25rem, 3vw, 2.75rem);height:clamp(2.25rem, 3vw, 2.75rem);border-radius:0.875rem;background:var(--terracotta-glow);border:1px solid rgba(194,65,12,0.2);display:flex;align-items:center;justify-content:center;font-size:clamp(0.875rem, 1vw, 1rem);font-weight:700;color:var(--terracotta);">!</div>
+          <div style="font-family:'Playfair Display','Noto Serif SC',serif;font-size:clamp(1.125rem,2vw,1.5rem);font-weight:700;color:var(--text-primary);">现状问题</div>
+        </div>
+        <ul class="bullet-list" style="flex:1;">
+          <li style="font-size:clamp(0.8125rem,1.2vw,0.9375rem);line-height:1.65;">每个人脑子里都有值钱的想法，但 <strong style="color:var(--terracotta);">无法变现</strong></li>
+          <li style="font-size:clamp(0.8125rem,1.2vw,0.9375rem);line-height:1.65;">写成文字太费劲：<strong style="color:var(--terracotta);">3 小时</strong> 写一篇报告 vs <strong style="color:var(--terracotta);">30 秒</strong> 说出核心观点</li>
+          <li style="font-size:clamp(0.8125rem,1.2vw,0.9375rem);line-height:1.65;">不知道自己的想法 <strong style="color:var(--terracotta);">有多值钱</strong></li>
+          <li style="font-size:clamp(0.8125rem,1.2vw,0.9375rem);line-height:1.65;">不知道 <strong style="color:var(--terracotta);">卖给谁、怎么定价</strong></li>
+          <li style="font-size:clamp(0.8125rem,1.2vw,0.9375rem);line-height:1.65;">传统平台（Substack/知乎）<strong style="color:var(--terracotta);">门槛高、结算慢</strong></li>
+        </ul>
+      </div>
+
+      <div class="card card-sage" style="padding:clamp(1.25rem,2.5vw,1.875rem) clamp(1.375rem,2.8vw,2rem);display:flex;flex-direction:column;">
+        <div style="display:flex;align-items:center;gap:clamp(0.5rem, 0.8vw, 0.75rem);margin-bottom:clamp(1rem, 1.8vh, 1.375rem);">
+          <div style="width:clamp(2.25rem, 3vw, 2.75rem);height:clamp(2.25rem, 3vw, 2.75rem);border-radius:0.875rem;background:var(--sage-glow);border:1px solid rgba(101,163,13,0.2);display:flex;align-items:center;justify-content:center;font-size:clamp(0.875rem, 1vw, 1rem);font-weight:700;color:var(--sage-deep);">V</div>
+          <div style="font-family:'Playfair Display','Noto Serif SC',serif;font-size:clamp(1.125rem,2vw,1.5rem);font-weight:700;color:var(--text-primary);">VoiceFund 的解法</div>
+        </div>
+        <ul class="bullet-list" style="flex:1;">
+          <li style="font-size:clamp(0.8125rem,1.2vw,0.9375rem);line-height:1.65;">说 <strong style="color:var(--sage-deep);">30 秒</strong> &rarr; AI 生成 <strong style="color:var(--sage-deep);">3 页专业报告</strong></li>
+          <li style="font-size:clamp(0.8125rem,1.2vw,0.9375rem);line-height:1.65;">AI 分析市场，给出 <strong style="color:var(--sage-deep);">合理定价</strong></li>
+          <li style="font-size:clamp(0.8125rem,1.2vw,0.9375rem);line-height:1.65;">Solana <strong style="color:var(--sage-deep);">全球即时结算</strong>（闲鱼 T+7 vs 即时）</li>
+          <li style="font-size:clamp(0.8125rem,1.2vw,0.9375rem);line-height:1.65;">钱包地址就是身份，<strong style="color:var(--sage-deep);">匿名发布零门槛</strong></li>
+          <li style="font-size:clamp(0.8125rem,1.2vw,0.9375rem);line-height:1.65;">内容可以是 <strong style="color:var(--sage-deep);">任何领域</strong>，不限 crypto</li>
+        </ul>
+      </div>
+    </div>
+
+    <div style="margin-top:clamp(1rem, 2vh, 1.5rem);">
+      <div class="quote">
+        让每个人脑子里的无形资产变成可变现的数字资产
+      </div>
+    </div>
+  </div>
+  <div class="slide-line"></div>
+  <div class="brand">VOICEFUND</div>
+  <div class="slide-number">02</div>
+</div>
+
+<!-- ==================== SLIDE 3: SCENARIO 1 — FOUNDER THOUGHT ==================== -->
+<div class="slide cover-slide">
+  <div style="position:relative;z-index:1;width:100%;max-width:min(80rem, 94vw);margin:0 auto;display:flex;flex-direction:column;justify-content:center;gap:clamp(1.25rem, 3vh, 2.125rem);flex:1;">
+
+    <div style="max-width:min(70rem, 90vw);margin:0 auto;text-align:center;">
+      <div style="font-size:clamp(20px, 3vw, 36px);color:var(--text-secondary);font-weight:500;letter-spacing:-0.8px;line-height:1.12;">场景一：创业者的一段思考</div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr minmax(3.75rem, 6vw) 1.1fr;align-items:center;gap:0;max-width:min(75rem, 92vw);margin:0 auto;">
+
+      <!-- Left: User speaks -->
+      <div style="background:var(--bg-white);border-radius:clamp(1rem, 2vw, 1.625rem);border:1.5px solid var(--border);padding:clamp(1.25rem, 2.5vh, 2.5rem) clamp(1.25rem, 2vw, 2.625rem);box-shadow:var(--shadow-elevated);text-align:center;">
+        <div style="display:inline-flex;align-items:center;gap:clamp(0.375rem, 0.5vw, 0.5rem);margin-bottom:clamp(1rem, 1.8vh, 1.5rem);padding:clamp(0.5rem, 0.8vh, 0.6875rem) clamp(0.875rem, 1.2vw, 1.25rem);border-radius:999px;background:var(--bg-cream-deep);border:1px solid var(--border);font-size:clamp(0.75rem, 0.9vw, 0.875rem);letter-spacing:1.5px;color:var(--text-muted);text-transform:uppercase;">Voice Capture</div>
+        <div style="font-size:clamp(1.125rem, 2.2vw, 1.75rem);font-weight:700;color:var(--text-primary);margin-bottom:clamp(0.75rem, 1.2vh, 1.125rem);">开会路上，按下按键，说出你的想法</div>
+        <div style="background:var(--bg-cream-deep);border-radius:clamp(0.875rem, 1.5vw, 1.125rem);padding:clamp(1rem, 1.8vh, 1.5rem) clamp(1.125rem, 1.8vw, 1.625rem);font-size:clamp(0.75rem, 1.1vw, 0.9375rem);color:var(--text-primary);line-height:1.65;font-style:italic;text-align:left;">
+          "我觉得现在做 AI Agent 创业最大的坑是过度追求通用性。垂直场景才有 PMF。我过去一年踩了三个坑：第一是想做全能助手，第二是过早做 multi-agent，第三是忽视延迟。用户对 agent 的耐心窗口只有 3 秒..."
+        </div>
+        <div style="margin-top:clamp(1rem, 1.8vh, 1.25rem);font-size:clamp(0.8125rem, 1vw, 0.9375rem);color:var(--text-muted);">EinClaw Mic &middot; 30 秒语音输入 &middot; 无需打字</div>
+      </div>
+
+      <!-- Arrow -->
+      <div style="display:flex;flex-direction:column;align-items:center;gap:clamp(0.5rem, 0.8vh, 0.625rem);">
+        <div style="font-size:clamp(2rem, 4vw, 3.125rem);color:var(--amber);font-weight:300;">&rarr;</div>
+        <div style="font-size:clamp(0.75rem, 1vw, 0.875rem);color:var(--text-muted);writing-mode:horizontal-tb;">30s</div>
+      </div>
+
+      <!-- Right: AI output -->
+      <div style="background:var(--bg-white);border-radius:clamp(1rem, 2vw, 1.625rem);border:1.5px solid var(--border);padding:clamp(1.125rem, 2vh, 2rem) clamp(1.25rem, 2.2vw, 2.25rem);box-shadow:var(--shadow-elevated);text-align:left;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:clamp(0.875rem, 1.5vh, 1rem);">
+          <div style="font-size:clamp(0.625rem, 0.75vw, 0.75rem);color:var(--sage-deep);font-weight:700;letter-spacing:1.2px;text-transform:uppercase;">AI 生成文档 &middot; 30s</div>
+          <div class="tag tag-amber">New asset</div>
+        </div>
+
+        <!-- Generated file card -->
+        <div style="border:1px solid var(--border-light);border-radius:clamp(0.875rem, 1.3vw, 1rem);padding:clamp(1rem, 1.8vh, 1.25rem) clamp(1.125rem, 1.5vw, 1.375rem);background:var(--bg-warm-light);margin-bottom:clamp(0.75rem, 1.2vh, 1rem);">
+          <div style="display:flex;align-items:center;gap:clamp(0.5rem, 0.7vw, 0.625rem);margin-bottom:clamp(0.5rem, 0.8vh, 0.625rem);">
+            <div style="width:clamp(1.75rem, 2.4vw, 2.125rem);height:clamp(1.75rem, 2.4vw, 2.125rem);border-radius:0.5rem;background:var(--amber-glow);border:1px solid rgba(217,119,6,0.2);display:flex;align-items:center;justify-content:center;font-size:clamp(0.625rem, 0.75vw, 0.75rem);font-weight:700;color:var(--amber-deep);">MD</div>
+            <div style="font-family:'Source Sans 3',monospace;font-size:clamp(0.6875rem, 0.85vw, 0.8125rem);color:var(--text-muted);">AI Agent 创业避坑指南.md</div>
+          </div>
+          <div style="font-family:'Playfair Display','Noto Serif SC',serif;font-size:clamp(0.9375rem, 1.3vw, 1.125rem);font-weight:700;color:var(--text-primary);line-height:1.35;margin-bottom:clamp(0.75rem, 1.2vh, 1rem);">
+            AI Agent 创业避坑指南：从 0 到 1 的 7 个致命错误
+          </div>
+
+          <!-- Quality score -->
+          <div style="margin-bottom:clamp(0.625rem, 1vh, 0.75rem);">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">
+              <span style="font-size:clamp(0.625rem, 0.75vw, 0.6875rem);color:var(--text-muted);font-weight:700;letter-spacing:1px;text-transform:uppercase;">Quality Score</span>
+              <span style="font-size:clamp(0.8125rem, 1vw, 0.9375rem);color:var(--sage-deep);font-weight:700;">92/100</span>
+            </div>
+            <div style="height:6px;background:var(--bg-cream-deep);border-radius:3px;overflow:hidden;">
+              <div style="height:100%;width:92%;background:var(--gradient-sage);border-radius:3px;"></div>
+            </div>
+          </div>
+
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:clamp(0.5rem, 0.8vw, 0.75rem);">
+            <div style="text-align:center;padding:clamp(0.5rem, 0.8vh, 0.75rem);background:var(--bg-white);border-radius:0.625rem;border:1px solid var(--border-light);">
+              <div style="font-family:'Playfair Display',serif;font-size:clamp(1.125rem, 1.8vw, 1.5rem);font-weight:700;color:var(--amber-deep);">0.25 SOL</div>
+              <div style="font-size:clamp(0.625rem, 0.75vw, 0.6875rem);color:var(--text-muted);text-transform:uppercase;letter-spacing:0.5px;">Suggested Price</div>
+            </div>
+            <div style="text-align:center;padding:clamp(0.5rem, 0.8vh, 0.75rem);background:var(--bg-white);border-radius:0.625rem;border:1px solid var(--border-light);display:flex;flex-direction:column;justify-content:center;gap:4px;">
+              <div><span class="tag tag-amber" style="font-size:10px;">Business</span></div>
+              <div style="font-size:clamp(0.625rem, 0.75vw, 0.6875rem);color:var(--sage-deep);font-weight:600;">Listed on marketplace</div>
+            </div>
+          </div>
+        </div>
+
+        <div style="font-size:clamp(0.625rem, 0.75vw, 0.75rem);color:var(--text-muted);font-family:'Source Sans 3',monospace;text-align:right;">
+          solana.com/...tx/3fKz...
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <div class="slide-line"></div>
+  <div class="brand">VOICEFUND</div>
+  <div class="slide-number">03</div>
+</div>
+
+<!-- ==================== SLIDE 4: SCENARIO 2 — INVESTOR MARKET VIEW ==================== -->
+<div class="slide cover-slide">
+  <div style="position:relative;z-index:1;width:100%;max-width:min(80rem, 94vw);margin:0 auto;display:flex;flex-direction:column;justify-content:center;gap:clamp(1.25rem, 3vh, 2.125rem);flex:1;">
+
+    <div style="max-width:min(70rem, 90vw);margin:0 auto;text-align:center;">
+      <div style="font-size:clamp(20px, 3vw, 36px);color:var(--text-secondary);font-weight:500;letter-spacing:-0.8px;line-height:1.12;">场景二：投资人的行业观察</div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr minmax(3.75rem, 6vw) 1.1fr;align-items:center;gap:0;max-width:min(75rem, 92vw);margin:0 auto;">
+
+      <!-- Left: User speaks -->
+      <div style="background:var(--bg-white);border-radius:clamp(1rem, 2vw, 1.625rem);border:1.5px solid var(--border);padding:clamp(1.25rem, 2.5vh, 2.5rem) clamp(1.25rem, 2vw, 2.625rem);box-shadow:var(--shadow-elevated);text-align:center;">
+        <div style="display:inline-flex;align-items:center;gap:clamp(0.375rem, 0.5vw, 0.5rem);margin-bottom:clamp(1rem, 1.8vh, 1.5rem);padding:clamp(0.5rem, 0.8vh, 0.6875rem) clamp(0.875rem, 1.2vw, 1.25rem);border-radius:999px;background:var(--bg-cream-deep);border:1px solid var(--border);font-size:clamp(0.75rem, 0.9vw, 0.875rem);letter-spacing:1.5px;color:var(--text-muted);text-transform:uppercase;">Market Analysis</div>
+        <div style="font-size:clamp(1.125rem, 2.2vw, 1.75rem);font-weight:700;color:var(--text-primary);margin-bottom:clamp(0.75rem, 1.2vh, 1.125rem);">参加完 VC 闭门会，在出租车上录一段</div>
+        <div style="background:var(--bg-cream-deep);border-radius:clamp(0.875rem, 1.5vw, 1.125rem);padding:clamp(1rem, 1.8vh, 1.5rem) clamp(1.125rem, 1.8vw, 1.625rem);font-size:clamp(0.75rem, 1.1vw, 0.9375rem);color:var(--text-primary);line-height:1.65;font-style:italic;text-align:left;">
+          "今天聊了三个美元基金都在看 RWA，共识是 Q3 SEC 监管明确后会是 iPhone moment。新兴市场需求被低估，东南亚缺乏传统金融基础设施。BlackRock 的 BUIDL 基金规模已破百亿，Solana 的 RWA 布局比 Ethereum 更激进..."
+        </div>
+        <div style="margin-top:clamp(1rem, 1.8vh, 1.25rem);font-size:clamp(0.8125rem, 1vw, 0.9375rem);color:var(--text-muted);">EinClaw Mic &middot; 一手信息 &middot; 即时沉淀</div>
+      </div>
+
+      <!-- Arrow -->
+      <div style="display:flex;flex-direction:column;align-items:center;gap:clamp(0.5rem, 0.8vh, 0.625rem);">
+        <div style="font-size:clamp(2rem, 4vw, 3.125rem);color:var(--amber);font-weight:300;">&rarr;</div>
+        <div style="font-size:clamp(0.75rem, 1vw, 0.875rem);color:var(--text-muted);writing-mode:horizontal-tb;">30s</div>
+      </div>
+
+      <!-- Right: AI output -->
+      <div style="background:var(--bg-white);border-radius:clamp(1rem, 2vw, 1.625rem);border:1.5px solid var(--border);padding:clamp(1.125rem, 2vh, 2rem) clamp(1.25rem, 2.2vw, 2.25rem);box-shadow:var(--shadow-elevated);text-align:left;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:clamp(0.875rem, 1.5vh, 1rem);">
+          <div style="font-size:clamp(0.625rem, 0.75vw, 0.75rem);color:var(--sage-deep);font-weight:700;letter-spacing:1.2px;text-transform:uppercase;">AI 生成文档 &middot; 30s</div>
+          <div class="tag tag-sage">6 sold in 1h</div>
+        </div>
+
+        <!-- Generated file card -->
+        <div style="border:1px solid var(--border-light);border-radius:clamp(0.875rem, 1.3vw, 1rem);padding:clamp(1rem, 1.8vh, 1.25rem) clamp(1.125rem, 1.5vw, 1.375rem);background:var(--bg-warm-light);margin-bottom:clamp(0.75rem, 1.2vh, 1rem);">
+          <div style="display:flex;align-items:center;gap:clamp(0.5rem, 0.7vw, 0.625rem);margin-bottom:clamp(0.5rem, 0.8vh, 0.625rem);">
+            <div style="width:clamp(1.75rem, 2.4vw, 2.125rem);height:clamp(1.75rem, 2.4vw, 2.125rem);border-radius:0.5rem;background:var(--terracotta-glow);border:1px solid rgba(194,65,12,0.2);display:flex;align-items:center;justify-content:center;font-size:clamp(0.625rem, 0.75vw, 0.75rem);font-weight:700;color:var(--terracotta);">MD</div>
+            <div style="font-family:'Source Sans 3',monospace;font-size:clamp(0.6875rem, 0.85vw, 0.8125rem);color:var(--text-muted);">RWA-2026Q2-深度观察.md</div>
+          </div>
+          <div style="font-family:'Playfair Display','Noto Serif SC',serif;font-size:clamp(0.9375rem, 1.3vw, 1.125rem);font-weight:700;color:var(--text-primary);line-height:1.35;margin-bottom:clamp(0.75rem, 1.2vh, 1rem);">
+            RWA 赛道 2026 Q2 深度观察：从合规到落地的关键拐点
+          </div>
+
+          <!-- Quality score -->
+          <div style="margin-bottom:clamp(0.625rem, 1vh, 0.75rem);">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">
+              <span style="font-size:clamp(0.625rem, 0.75vw, 0.6875rem);color:var(--text-muted);font-weight:700;letter-spacing:1px;text-transform:uppercase;">Quality Score</span>
+              <span style="font-size:clamp(0.8125rem, 1vw, 0.9375rem);color:var(--sage-deep);font-weight:700;">88/100</span>
+            </div>
+            <div style="height:6px;background:var(--bg-cream-deep);border-radius:3px;overflow:hidden;">
+              <div style="height:100%;width:88%;background:var(--gradient-sage);border-radius:3px;"></div>
+            </div>
+          </div>
+
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:clamp(0.5rem, 0.8vw, 0.75rem);">
+            <div style="text-align:center;padding:clamp(0.5rem, 0.8vh, 0.75rem);background:var(--bg-white);border-radius:0.625rem;border:1px solid var(--border-light);">
+              <div style="font-family:'Playfair Display',serif;font-size:clamp(1.125rem, 1.8vw, 1.5rem);font-weight:700;color:var(--amber-deep);">0.15 SOL</div>
+              <div style="font-size:clamp(0.625rem, 0.75vw, 0.6875rem);color:var(--text-muted);text-transform:uppercase;letter-spacing:0.5px;">Suggested Price</div>
+            </div>
+            <div style="text-align:center;padding:clamp(0.5rem, 0.8vh, 0.75rem);background:var(--bg-white);border-radius:0.625rem;border:1px solid var(--border-light);display:flex;flex-direction:column;justify-content:center;gap:4px;">
+              <div><span class="tag tag-terracotta" style="font-size:10px;">Market Analysis</span></div>
+              <div style="font-size:clamp(0.625rem, 0.75vw, 0.6875rem);color:var(--sage-deep);font-weight:600;">0.9 SOL earned</div>
+            </div>
+          </div>
+        </div>
+
+        <div style="font-size:clamp(0.6875rem, 0.85vw, 0.8125rem);color:var(--text-secondary);line-height:1.5;padding:clamp(0.5rem, 0.8vh, 0.625rem) clamp(0.75rem, 1vw, 0.875rem);background:linear-gradient(180deg, rgba(255,251,240,0.96), rgba(254,243,199,0.46));border:1px solid rgba(217,119,6,0.14);border-radius:0.625rem;">
+          <strong style="color:var(--amber-deep);">Buyer stats:</strong> 6 sold in first hour &middot; 0.9 SOL earned
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <div class="slide-line"></div>
+  <div class="brand">VOICEFUND</div>
+  <div class="slide-number">04</div>
+</div>
+
+<!-- ==================== SLIDE 5: SCENARIO 3 — TECHNICAL KNOWLEDGE ==================== -->
+<div class="slide cover-slide">
+  <div style="position:relative;z-index:1;width:100%;max-width:min(80rem, 94vw);margin:0 auto;display:flex;flex-direction:column;justify-content:center;gap:clamp(1.25rem, 3vh, 2.125rem);flex:1;">
+
+    <div style="max-width:min(70rem, 90vw);margin:0 auto;text-align:center;">
+      <div style="font-size:clamp(20px, 3vw, 36px);color:var(--text-secondary);font-weight:500;letter-spacing:-0.8px;line-height:1.12;">场景三：技术人的经验沉淀</div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr minmax(3.75rem, 6vw) 1.1fr;align-items:center;gap:0;max-width:min(75rem, 92vw);margin:0 auto;">
+
+      <!-- Left: User speaks -->
+      <div style="background:var(--bg-white);border-radius:clamp(1rem, 2vw, 1.625rem);border:1.5px solid var(--border);padding:clamp(1.25rem, 2.5vh, 2.5rem) clamp(1.25rem, 2vw, 2.625rem);box-shadow:var(--shadow-elevated);text-align:center;">
+        <div style="display:inline-flex;align-items:center;gap:clamp(0.375rem, 0.5vw, 0.5rem);margin-bottom:clamp(1rem, 1.8vh, 1.5rem);padding:clamp(0.5rem, 0.8vh, 0.6875rem) clamp(0.875rem, 1.2vw, 1.25rem);border-radius:999px;background:var(--bg-cream-deep);border:1px solid var(--border);font-size:clamp(0.75rem, 0.9vw, 0.875rem);letter-spacing:1.5px;color:var(--text-muted);text-transform:uppercase;">Technical Knowledge</div>
+        <div style="font-size:clamp(1.125rem, 2.2vw, 1.75rem);font-weight:700;color:var(--text-primary);margin-bottom:clamp(0.75rem, 1.2vh, 1.125rem);">debug 完一个难题，顺手记录</div>
+        <div style="background:var(--bg-cream-deep);border-radius:clamp(0.875rem, 1.5vw, 1.125rem);padding:clamp(1rem, 1.8vh, 1.5rem) clamp(1.125rem, 1.8vw, 1.625rem);font-size:clamp(0.75rem, 1.1vw, 0.9375rem);color:var(--text-primary);line-height:1.65;font-style:italic;text-align:left;">
+          "我们用 Claude Code 三天搭了一个完整 SaaS。关键不是让 AI 写全部代码，而是做架构决策。最高效模式是 AI 搭骨架 &rarr; 人做产品判断 &rarr; AI 填细节 &rarr; 人做最终调试。技术栈选择比写代码重要 10 倍..."
+        </div>
+        <div style="margin-top:clamp(1rem, 1.8vh, 1.25rem);font-size:clamp(0.8125rem, 1vw, 0.9375rem);color:var(--text-muted);">EinClaw Mic &middot; 实战心得 &middot; 即刻上架</div>
+      </div>
+
+      <!-- Arrow -->
+      <div style="display:flex;flex-direction:column;align-items:center;gap:clamp(0.5rem, 0.8vh, 0.625rem);">
+        <div style="font-size:clamp(2rem, 4vw, 3.125rem);color:var(--amber);font-weight:300;">&rarr;</div>
+        <div style="font-size:clamp(0.75rem, 1vw, 0.875rem);color:var(--text-muted);writing-mode:horizontal-tb;">30s</div>
+      </div>
+
+      <!-- Right: AI output -->
+      <div style="background:var(--bg-white);border-radius:clamp(1rem, 2vw, 1.625rem);border:1.5px solid var(--border);padding:clamp(1.125rem, 2vh, 2rem) clamp(1.25rem, 2.2vw, 2.25rem);box-shadow:var(--shadow-elevated);text-align:left;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:clamp(0.875rem, 1.5vh, 1rem);">
+          <div style="font-size:clamp(0.625rem, 0.75vw, 0.75rem);color:var(--sage-deep);font-weight:700;letter-spacing:1.2px;text-transform:uppercase;">AI 生成文档 &middot; 30s</div>
+          <div class="tag tag-sage">23 sold</div>
+        </div>
+
+        <!-- Generated file card -->
+        <div style="border:1px solid var(--border-light);border-radius:clamp(0.875rem, 1.3vw, 1rem);padding:clamp(1rem, 1.8vh, 1.25rem) clamp(1.125rem, 1.5vw, 1.375rem);background:var(--bg-warm-light);margin-bottom:clamp(0.75rem, 1.2vh, 1rem);">
+          <div style="display:flex;align-items:center;gap:clamp(0.5rem, 0.7vw, 0.625rem);margin-bottom:clamp(0.5rem, 0.8vh, 0.625rem);">
+            <div style="width:clamp(1.75rem, 2.4vw, 2.125rem);height:clamp(1.75rem, 2.4vw, 2.125rem);border-radius:0.5rem;background:var(--sage-glow);border:1px solid rgba(101,163,13,0.2);display:flex;align-items:center;justify-content:center;font-size:clamp(0.625rem, 0.75vw, 0.75rem);font-weight:700;color:var(--sage-deep);">MD</div>
+            <div style="font-family:'Source Sans 3',monospace;font-size:clamp(0.6875rem, 0.85vw, 0.8125rem);color:var(--text-muted);">Claude-Code-实战记录.md</div>
+          </div>
+          <div style="font-family:'Playfair Display','Noto Serif SC',serif;font-size:clamp(0.9375rem, 1.3vw, 1.125rem);font-weight:700;color:var(--text-primary);line-height:1.35;margin-bottom:clamp(0.75rem, 1.2vh, 1rem);">
+            如何用 Claude Code 3 天搭建一个完整的 SaaS 产品
+          </div>
+
+          <!-- Quality score -->
+          <div style="margin-bottom:clamp(0.625rem, 1vh, 0.75rem);">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">
+              <span style="font-size:clamp(0.625rem, 0.75vw, 0.6875rem);color:var(--text-muted);font-weight:700;letter-spacing:1px;text-transform:uppercase;">Quality Score</span>
+              <span style="font-size:clamp(0.8125rem, 1vw, 0.9375rem);color:var(--amber-deep);font-weight:700;">78/100</span>
+            </div>
+            <div style="height:6px;background:var(--bg-cream-deep);border-radius:3px;overflow:hidden;">
+              <div style="height:100%;width:78%;background:var(--gradient-amber);border-radius:3px;"></div>
+            </div>
+          </div>
+
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:clamp(0.5rem, 0.8vw, 0.75rem);">
+            <div style="text-align:center;padding:clamp(0.5rem, 0.8vh, 0.75rem);background:var(--bg-white);border-radius:0.625rem;border:1px solid var(--border-light);">
+              <div style="font-family:'Playfair Display',serif;font-size:clamp(1.125rem, 1.8vw, 1.5rem);font-weight:700;color:var(--amber-deep);">0.08 SOL</div>
+              <div style="font-size:clamp(0.625rem, 0.75vw, 0.6875rem);color:var(--text-muted);text-transform:uppercase;letter-spacing:0.5px;">Suggested Price</div>
+            </div>
+            <div style="text-align:center;padding:clamp(0.5rem, 0.8vh, 0.75rem);background:var(--bg-white);border-radius:0.625rem;border:1px solid var(--border-light);display:flex;flex-direction:column;justify-content:center;gap:4px;">
+              <div><span class="tag tag-sage" style="font-size:10px;">Technical</span></div>
+              <div style="font-size:clamp(0.625rem, 0.75vw, 0.6875rem);color:var(--sage-deep);font-weight:600;">1.84 SOL total</div>
+            </div>
+          </div>
+        </div>
+
+        <div style="font-size:clamp(0.6875rem, 0.85vw, 0.8125rem);color:var(--text-secondary);line-height:1.5;padding:clamp(0.5rem, 0.8vh, 0.625rem) clamp(0.75rem, 1vw, 0.875rem);background:var(--sage-glow);border:1px solid rgba(101,163,13,0.18);border-radius:0.625rem;">
+          <strong style="color:var(--sage-deep);">销售动态：</strong>已有 23 人购买 &middot; 为期 7 天仍在销售
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <div class="slide-line"></div>
+  <div class="brand">VOICEFUND</div>
+  <div class="slide-number">05</div>
+</div>
+
+<!-- ==================== SLIDE 6: END-TO-END PRODUCT FLOW ==================== -->
+<div class="slide">
+  <div class="label">End-to-End Flow</div>
+  <h2>端到端产品流程</h2>
+  <div style="height:clamp(0.5rem, 1.2vh, 0.75rem);"></div>
+
+  <div class="content-area" style="justify-content:flex-start;">
+    <!-- Pipeline flow -->
+    <div class="card" style="padding:clamp(1rem, 2vh, 1.5rem) clamp(1rem, 2vw, 1.75rem);margin-bottom:clamp(1rem, 2vh, 1.5rem);">
+      <div style="font-size:clamp(0.625rem, 0.75vw, 0.75rem);color:var(--text-muted);font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:clamp(0.75rem, 1.2vh, 1rem);">Voice &rarr; Tradeable Knowledge Pipeline</div>
+      <div style="display:grid;grid-template-columns:1fr auto 1fr auto 1fr auto 1fr auto 1fr auto 1fr;align-items:stretch;gap:clamp(0.25rem, 0.4vw, 0.375rem);">
+
+        <div style="text-align:center;padding:clamp(0.75rem, 1.2vh, 1rem) clamp(0.5rem, 0.7vw, 0.625rem);background:var(--amber-glow);border:1px solid rgba(217,119,6,0.2);border-radius:0.75rem;display:flex;flex-direction:column;justify-content:center;">
+          <div style="font-size:clamp(1rem, 1.5vw, 1.375rem);font-weight:700;color:var(--amber-deep);font-family:'Playfair Display',serif;margin-bottom:4px;">1</div>
+          <div style="font-size:clamp(0.75rem, 0.9vw, 0.875rem);font-weight:700;color:var(--text-primary);">说话</div>
+          <div style="font-size:clamp(0.625rem, 0.75vw, 0.6875rem);color:var(--text-muted);margin-top:2px;">语音 / 文本</div>
+          <div style="font-size:clamp(0.625rem, 0.7vw, 0.6875rem);color:var(--amber-deep);font-weight:600;margin-top:4px;">~10s</div>
+        </div>
+
+        <div style="font-size:clamp(0.875rem, 1.2vw, 1.125rem);color:var(--amber);font-weight:300;display:flex;align-items:center;justify-content:center;">&rarr;</div>
+
+        <div style="text-align:center;padding:clamp(0.75rem, 1.2vh, 1rem) clamp(0.5rem, 0.7vw, 0.625rem);background:var(--sage-glow);border:1px solid rgba(101,163,13,0.2);border-radius:0.75rem;display:flex;flex-direction:column;justify-content:center;">
+          <div style="font-size:clamp(1rem, 1.5vw, 1.375rem);font-weight:700;color:var(--sage-deep);font-family:'Playfair Display',serif;margin-bottom:4px;">2</div>
+          <div style="font-size:clamp(0.75rem, 0.9vw, 0.875rem);font-weight:700;color:var(--text-primary);">AI 结构化</div>
+          <div style="font-size:clamp(0.625rem, 0.75vw, 0.6875rem);color:var(--text-muted);margin-top:2px;">Qwen LLM</div>
+          <div style="font-size:clamp(0.625rem, 0.7vw, 0.6875rem);color:var(--sage-deep);font-weight:600;margin-top:4px;">~30s</div>
+        </div>
+
+        <div style="font-size:clamp(0.875rem, 1.2vw, 1.125rem);color:var(--amber);font-weight:300;display:flex;align-items:center;justify-content:center;">&rarr;</div>
+
+        <div style="text-align:center;padding:clamp(0.75rem, 1.2vh, 1rem) clamp(0.5rem, 0.7vw, 0.625rem);background:var(--terracotta-glow);border:1px solid rgba(194,65,12,0.2);border-radius:0.75rem;display:flex;flex-direction:column;justify-content:center;">
+          <div style="font-size:clamp(1rem, 1.5vw, 1.375rem);font-weight:700;color:var(--terracotta);font-family:'Playfair Display',serif;margin-bottom:4px;">3</div>
+          <div style="font-size:clamp(0.75rem, 0.9vw, 0.875rem);font-weight:700;color:var(--text-primary);">AI 定价</div>
+          <div style="font-size:clamp(0.625rem, 0.75vw, 0.6875rem);color:var(--text-muted);margin-top:2px;">市场分析</div>
+          <div style="font-size:clamp(0.625rem, 0.7vw, 0.6875rem);color:var(--terracotta);font-weight:600;margin-top:4px;">~5s</div>
+        </div>
+
+        <div style="font-size:clamp(0.875rem, 1.2vw, 1.125rem);color:var(--amber);font-weight:300;display:flex;align-items:center;justify-content:center;">&rarr;</div>
+
+        <div style="text-align:center;padding:clamp(0.75rem, 1.2vh, 1rem) clamp(0.5rem, 0.7vw, 0.625rem);background:var(--amber-glow);border:1px solid rgba(217,119,6,0.2);border-radius:0.75rem;display:flex;flex-direction:column;justify-content:center;">
+          <div style="font-size:clamp(1rem, 1.5vw, 1.375rem);font-weight:700;color:var(--amber-deep);font-family:'Playfair Display',serif;margin-bottom:4px;">4</div>
+          <div style="font-size:clamp(0.75rem, 0.9vw, 0.875rem);font-weight:700;color:var(--text-primary);">链上上架</div>
+          <div style="font-size:clamp(0.625rem, 0.75vw, 0.6875rem);color:var(--text-muted);margin-top:2px;">Solana Pay</div>
+          <div style="font-size:clamp(0.625rem, 0.7vw, 0.6875rem);color:var(--amber-deep);font-weight:600;margin-top:4px;">instant</div>
+        </div>
+
+        <div style="font-size:clamp(0.875rem, 1.2vw, 1.125rem);color:var(--amber);font-weight:300;display:flex;align-items:center;justify-content:center;">&rarr;</div>
+
+        <div style="text-align:center;padding:clamp(0.75rem, 1.2vh, 1rem) clamp(0.5rem, 0.7vw, 0.625rem);background:var(--sage-glow);border:1px solid rgba(101,163,13,0.2);border-radius:0.75rem;display:flex;flex-direction:column;justify-content:center;">
+          <div style="font-size:clamp(1rem, 1.5vw, 1.375rem);font-weight:700;color:var(--sage-deep);font-family:'Playfair Display',serif;margin-bottom:4px;">5</div>
+          <div style="font-size:clamp(0.75rem, 0.9vw, 0.875rem);font-weight:700;color:var(--text-primary);">买家购买</div>
+          <div style="font-size:clamp(0.625rem, 0.75vw, 0.6875rem);color:var(--text-muted);margin-top:2px;">Phantom 签名</div>
+          <div style="font-size:clamp(0.625rem, 0.7vw, 0.6875rem);color:var(--sage-deep);font-weight:600;margin-top:4px;">~5s</div>
+        </div>
+
+        <div style="font-size:clamp(0.875rem, 1.2vw, 1.125rem);color:var(--amber);font-weight:300;display:flex;align-items:center;justify-content:center;">&rarr;</div>
+
+        <div style="text-align:center;padding:clamp(0.75rem, 1.2vh, 1rem) clamp(0.5rem, 0.7vw, 0.625rem);background:linear-gradient(135deg, rgba(217,119,6,0.08), rgba(101,163,13,0.08));border:1px solid var(--border);border-radius:0.75rem;display:flex;flex-direction:column;justify-content:center;">
+          <div style="font-size:clamp(1rem, 1.5vw, 1.375rem);font-weight:700;color:var(--text-primary);font-family:'Playfair Display',serif;margin-bottom:4px;">6</div>
+          <div style="font-size:clamp(0.75rem, 0.9vw, 0.875rem);font-weight:700;color:var(--text-primary);">即时结算</div>
+          <div style="font-size:clamp(0.625rem, 0.75vw, 0.6875rem);color:var(--text-muted);margin-top:2px;">SOL 到账</div>
+          <div style="font-size:clamp(0.625rem, 0.7vw, 0.6875rem);color:var(--sage-deep);font-weight:600;margin-top:4px;">instant</div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- 3 key statistics -->
+    <div class="grid-3" style="align-items:stretch;">
+      <div class="card card-amber" style="padding:clamp(1.125rem, 2vh, 1.5rem) clamp(1.25rem, 2vw, 1.625rem);text-align:center;display:flex;flex-direction:column;justify-content:center;">
+        <div style="font-size:clamp(0.625rem, 0.75vw, 0.75rem);color:var(--amber-deep);font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:clamp(0.5rem, 0.8vh, 0.625rem);">Publishing Speed</div>
+        <div style="font-family:'Playfair Display',serif;font-size:clamp(1.5rem, 2.8vw, 2.25rem);font-weight:700;color:var(--amber-deep);line-height:1;margin-bottom:clamp(0.375rem, 0.6vh, 0.5rem);">&lt; 1 分钟</div>
+        <div style="font-size:clamp(0.75rem, 0.9vw, 0.875rem);color:var(--text-secondary);line-height:1.5;">
+          平均发布耗时<br>
+          <span style="color:var(--text-muted);">对比 Substack 的 3 小时</span>
+        </div>
+      </div>
+
+      <div class="card card-sage" style="padding:clamp(1.125rem, 2vh, 1.5rem) clamp(1.25rem, 2vw, 1.625rem);text-align:center;display:flex;flex-direction:column;justify-content:center;">
+        <div style="font-size:clamp(0.625rem, 0.75vw, 0.75rem);color:var(--sage-deep);font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:clamp(0.5rem, 0.8vh, 0.625rem);">Settlement Speed</div>
+        <div style="font-family:'Playfair Display',serif;font-size:clamp(1.5rem, 2.8vw, 2.25rem);font-weight:700;color:var(--sage-deep);line-height:1;margin-bottom:clamp(0.375rem, 0.6vh, 0.5rem);">即时</div>
+        <div style="font-size:clamp(0.75rem, 0.9vw, 0.875rem);color:var(--text-secondary);line-height:1.5;">
+          结算速度<br>
+          <span style="color:var(--text-muted);">对比闲鱼 T+7</span>
+        </div>
+      </div>
+
+      <div class="card card-terracotta" style="padding:clamp(1.125rem, 2vh, 1.5rem) clamp(1.25rem, 2vw, 1.625rem);text-align:center;display:flex;flex-direction:column;justify-content:center;">
+        <div style="font-size:clamp(0.625rem, 0.75vw, 0.75rem);color:var(--terracotta);font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:clamp(0.5rem, 0.8vh, 0.625rem);">Global Reach</div>
+        <div style="font-family:'Playfair Display',serif;font-size:clamp(1.5rem, 2.8vw, 2.25rem);font-weight:700;color:var(--terracotta);line-height:1;margin-bottom:clamp(0.375rem, 0.6vh, 0.5rem);">全球市场</div>
+        <div style="font-size:clamp(0.75rem, 0.9vw, 0.875rem);color:var(--text-secondary);line-height:1.5;">
+          任何有 Solana 钱包的人<br>
+          <span style="color:var(--text-muted);">都能购买</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-line"></div>
+  <div class="brand">VOICEFUND</div>
+  <div class="slide-number">06</div>
+</div>
+
+<!-- ==================== SLIDE 7: PRICING AGENT LOGIC ==================== -->
+<div class="slide">
+  <div class="label">Pricing Agent Logic</div>
+  <h2>Agent 定价逻辑 &mdash; AI 不让用户拍脑袋定价</h2>
+  <div style="height:clamp(0.5rem, 1.2vh, 0.75rem);"></div>
+
+  <div class="content-area" style="justify-content:flex-start;">
+    <!-- 3 columns of factors -->
+    <div class="grid-3" style="margin-bottom:clamp(1rem, 2vh, 1.5rem);align-items:stretch;">
+
+      <div class="card card-amber" style="padding:clamp(1rem, 1.8vh, 1.375rem) clamp(1.125rem, 1.8vw, 1.5rem);display:flex;flex-direction:column;">
+        <div style="display:flex;align-items:center;gap:clamp(0.5rem, 0.6vw, 0.625rem);margin-bottom:clamp(0.75rem, 1.2vh, 1rem);">
+          <div class="flow-icon flow-icon-amber">1</div>
+          <div style="font-size:clamp(0.875rem, 1.15vw, 1.0625rem);font-weight:700;color:var(--text-primary);">内容质量</div>
+        </div>
+        <div style="font-size:clamp(0.625rem, 0.75vw, 0.75rem);color:var(--amber-deep);font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:clamp(0.5rem, 0.8vh, 0.625rem);">Content Quality</div>
+        <div style="display:grid;gap:clamp(0.375rem, 0.6vh, 0.5rem);flex:1;">
+          <div style="padding:clamp(0.375rem, 0.5vh, 0.5rem) clamp(0.5rem, 0.7vw, 0.625rem);background:var(--bg-white);border-radius:0.5rem;border:1px solid var(--border-light);display:flex;justify-content:space-between;align-items:center;">
+            <span style="font-size:clamp(0.75rem, 0.9vw, 0.875rem);color:var(--text-primary);">原创性</span>
+            <span style="font-size:clamp(0.6875rem, 0.8vw, 0.8125rem);color:var(--text-muted);font-weight:600;">0-100</span>
+          </div>
+          <div style="padding:clamp(0.375rem, 0.5vh, 0.5rem) clamp(0.5rem, 0.7vw, 0.625rem);background:var(--bg-white);border-radius:0.5rem;border:1px solid var(--border-light);display:flex;justify-content:space-between;align-items:center;">
+            <span style="font-size:clamp(0.75rem, 0.9vw, 0.875rem);color:var(--text-primary);">深度</span>
+            <span style="font-size:clamp(0.6875rem, 0.8vw, 0.8125rem);color:var(--text-muted);font-weight:600;">0-100</span>
+          </div>
+          <div style="padding:clamp(0.375rem, 0.5vh, 0.5rem) clamp(0.5rem, 0.7vw, 0.625rem);background:var(--bg-white);border-radius:0.5rem;border:1px solid var(--border-light);display:flex;justify-content:space-between;align-items:center;">
+            <span style="font-size:clamp(0.75rem, 0.9vw, 0.875rem);color:var(--text-primary);">可操作性</span>
+            <span style="font-size:clamp(0.6875rem, 0.8vw, 0.8125rem);color:var(--text-muted);font-weight:600;">0-100</span>
+          </div>
+          <div style="padding:clamp(0.375rem, 0.5vh, 0.5rem) clamp(0.5rem, 0.7vw, 0.625rem);background:var(--bg-white);border-radius:0.5rem;border:1px solid var(--border-light);display:flex;justify-content:space-between;align-items:center;">
+            <span style="font-size:clamp(0.75rem, 0.9vw, 0.875rem);color:var(--text-primary);">时效性</span>
+            <span style="font-size:clamp(0.6875rem, 0.8vw, 0.8125rem);color:var(--text-muted);font-weight:600;">0-100</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card card-sage" style="padding:clamp(1rem, 1.8vh, 1.375rem) clamp(1.125rem, 1.8vw, 1.5rem);display:flex;flex-direction:column;">
+        <div style="display:flex;align-items:center;gap:clamp(0.5rem, 0.6vw, 0.625rem);margin-bottom:clamp(0.75rem, 1.2vh, 1rem);">
+          <div class="flow-icon flow-icon-sage">2</div>
+          <div style="font-size:clamp(0.875rem, 1.15vw, 1.0625rem);font-weight:700;color:var(--text-primary);">市场热度</div>
+        </div>
+        <div style="font-size:clamp(0.625rem, 0.75vw, 0.75rem);color:var(--sage-deep);font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:clamp(0.5rem, 0.8vh, 0.625rem);">Market Demand</div>
+        <div style="display:grid;gap:clamp(0.375rem, 0.6vh, 0.5rem);flex:1;">
+          <div style="padding:clamp(0.5rem, 0.7vh, 0.625rem) clamp(0.5rem, 0.7vw, 0.625rem);background:var(--bg-white);border-radius:0.5rem;border:1px solid var(--border-light);">
+            <div style="font-size:clamp(0.75rem, 0.9vw, 0.875rem);color:var(--text-primary);line-height:1.4;">类似主题最近销量</div>
+          </div>
+          <div style="padding:clamp(0.5rem, 0.7vh, 0.625rem) clamp(0.5rem, 0.7vw, 0.625rem);background:var(--bg-white);border-radius:0.5rem;border:1px solid var(--border-light);">
+            <div style="font-size:clamp(0.75rem, 0.9vw, 0.875rem);color:var(--text-primary);line-height:1.4;">当前关注度趋势</div>
+          </div>
+          <div style="padding:clamp(0.5rem, 0.7vh, 0.625rem) clamp(0.5rem, 0.7vw, 0.625rem);background:var(--bg-white);border-radius:0.5rem;border:1px solid var(--border-light);">
+            <div style="font-size:clamp(0.75rem, 0.9vw, 0.875rem);color:var(--text-primary);line-height:1.4;">竞品定价区间</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card card-terracotta" style="padding:clamp(1rem, 1.8vh, 1.375rem) clamp(1.125rem, 1.8vw, 1.5rem);display:flex;flex-direction:column;">
+        <div style="display:flex;align-items:center;gap:clamp(0.5rem, 0.6vw, 0.625rem);margin-bottom:clamp(0.75rem, 1.2vh, 1rem);">
+          <div class="flow-icon flow-icon-terracotta">3</div>
+          <div style="font-size:clamp(0.875rem, 1.15vw, 1.0625rem);font-weight:700;color:var(--text-primary);">作者信用</div>
+        </div>
+        <div style="font-size:clamp(0.625rem, 0.75vw, 0.75rem);color:var(--terracotta);font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:clamp(0.5rem, 0.8vh, 0.625rem);">Seller Credit</div>
+        <div style="display:grid;gap:clamp(0.375rem, 0.6vh, 0.5rem);flex:1;">
+          <div style="padding:clamp(0.5rem, 0.7vh, 0.625rem) clamp(0.5rem, 0.7vw, 0.625rem);background:var(--bg-white);border-radius:0.5rem;border:1px solid var(--border-light);">
+            <div style="font-size:clamp(0.75rem, 0.9vw, 0.875rem);color:var(--text-primary);line-height:1.4;">历史平均评分</div>
+          </div>
+          <div style="padding:clamp(0.5rem, 0.7vh, 0.625rem) clamp(0.5rem, 0.7vw, 0.625rem);background:var(--bg-white);border-radius:0.5rem;border:1px solid var(--border-light);">
+            <div style="font-size:clamp(0.75rem, 0.9vw, 0.875rem);color:var(--text-primary);line-height:1.4;">退款率</div>
+          </div>
+          <div style="padding:clamp(0.5rem, 0.7vh, 0.625rem) clamp(0.5rem, 0.7vw, 0.625rem);background:var(--bg-white);border-radius:0.5rem;border:1px solid var(--border-light);">
+            <div style="font-size:clamp(0.75rem, 0.9vw, 0.875rem);color:var(--text-primary);line-height:1.4;">累计销量</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pricing tiers table -->
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th style="width:18%;">Tier</th>
+            <th style="width:22%;">Quality Score</th>
+            <th style="width:30%;">Price Range</th>
+            <th style="width:30%;">Use Case</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="font-weight:700;color:var(--text-primary);">Basic</td>
+            <td>&lt; 60</td>
+            <td style="color:var(--amber-deep);font-weight:600;">0.01 - 0.03 SOL</td>
+            <td>入门笔记、单点观察</td>
+          </tr>
+          <tr>
+            <td style="font-weight:700;color:var(--text-primary);">Standard</td>
+            <td>60 - 75</td>
+            <td style="color:var(--amber-deep);font-weight:600;">0.05 - 0.1 SOL</td>
+            <td>实战经验、行业 insight</td>
+          </tr>
+          <tr>
+            <td style="font-weight:700;color:var(--text-primary);">Premium</td>
+            <td>75 - 90</td>
+            <td style="color:var(--amber-deep);font-weight:600;">0.1 - 0.5 SOL</td>
+            <td>深度分析、完整方法论</td>
+          </tr>
+          <tr>
+            <td style="font-weight:700;color:var(--sage-deep);">Exceptional</td>
+            <td style="color:var(--sage-deep);font-weight:600;">&gt; 90</td>
+            <td style="color:var(--sage-deep);font-weight:700;">0.5 - 2.0 SOL</td>
+            <td style="color:var(--sage-deep);">独家信息、一手 alpha</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="slide-line"></div>
+  <div class="brand">VOICEFUND</div>
+  <div class="slide-number">07</div>
+</div>
+
+<!-- ==================== SLIDE 8: ON-CHAIN DESIGN ==================== -->
+<div class="slide">
+  <div class="label">On-chain Design</div>
+  <h2>为什么用 Solana Pay 而不是 NFT</h2>
+  <div style="height:clamp(0.75rem, 2vh, 1.25rem);"></div>
+
+  <div class="content-area" style="justify-content:flex-start;">
+    <div style="font-size:clamp(0.8125rem, 1vw, 0.9375rem);color:var(--text-secondary);margin-bottom:clamp(0.75rem, 1.2vh, 1rem);">
+      三种链上方案对比：
+    </div>
+
+    <div class="table-container" style="margin-bottom:clamp(1rem, 2vh, 1.5rem);">
+      <table>
+        <thead>
+          <tr>
+            <th style="width:22%;">维度</th>
+            <th style="width:24%;">自定义 Anchor 合约</th>
+            <th style="width:24%;">NFT 模式 (Metaplex)</th>
+            <th style="width:30%;background:rgba(217,119,6,0.12);color:var(--amber-deep);">Solana Pay 模式 &check;</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="font-weight:700;color:var(--text-primary);">开发时间</td>
+            <td>1-2 周</td>
+            <td>3-5 天</td>
+            <td style="font-weight:600;color:var(--amber-deep);">几小时</td>
+          </tr>
+          <tr>
+            <td style="font-weight:700;color:var(--text-primary);">合约审计风险</td>
+            <td style="color:var(--terracotta);">高</td>
+            <td style="color:var(--amber-deep);">中</td>
+            <td style="font-weight:600;color:var(--sage-deep);">无</td>
+          </tr>
+          <tr>
+            <td style="font-weight:700;color:var(--text-primary);">链上可查</td>
+            <td style="color:var(--sage-deep);">&check;</td>
+            <td style="color:var(--sage-deep);">&check;</td>
+            <td style="font-weight:600;color:var(--sage-deep);">&check;</td>
+          </tr>
+          <tr>
+            <td style="font-weight:700;color:var(--text-primary);">Explorer 验证</td>
+            <td style="color:var(--sage-deep);">&check;</td>
+            <td style="color:var(--sage-deep);">&check;</td>
+            <td style="font-weight:600;color:var(--sage-deep);">&check;</td>
+          </tr>
+          <tr>
+            <td style="font-weight:700;color:var(--text-primary);">卖家秒收款</td>
+            <td style="color:var(--sage-deep);">&check;</td>
+            <td style="color:var(--terracotta);">否（延迟）</td>
+            <td style="font-weight:600;color:var(--sage-deep);">&check;</td>
+          </tr>
+          <tr>
+            <td style="font-weight:700;color:var(--text-primary);">可扩展到 cNFT</td>
+            <td>-</td>
+            <td>-</td>
+            <td style="font-weight:600;color:var(--amber-deep);">未来可升级</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="quote">
+      黑客松阶段用 Solana Pay，验证 PMF 后再升级到 cNFT + 版税机制
+    </div>
+
+    <div class="grid-2" style="margin-top:clamp(0.75rem, 1.5vh, 1rem);">
+      <div class="card card-sage" style="padding:clamp(0.875rem, 1.5vw, 1.125rem);text-align:center;">
+        <div style="font-size:clamp(0.625rem, 0.7vw, 0.6875rem);color:var(--sage-deep);font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:clamp(0.25rem, 0.4vh, 0.375rem);">Phase 1 &middot; Hackathon</div>
+        <div style="font-size:clamp(0.875rem, 1.1vw, 1.0625rem);color:var(--text-primary);font-weight:600;line-height:1.5;">
+          Solana Pay for instant settlement. <em style="color:var(--sage-deep);">Validate PMF first.</em>
+        </div>
+      </div>
+      <div class="card card-amber" style="padding:clamp(0.875rem, 1.5vw, 1.125rem);text-align:center;">
+        <div style="font-size:clamp(0.625rem, 0.7vw, 0.6875rem);color:var(--amber-deep);font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:clamp(0.25rem, 0.4vh, 0.375rem);">Phase 2 &middot; Scale</div>
+        <div style="font-size:clamp(0.875rem, 1.1vw, 1.0625rem);color:var(--text-primary);font-weight:600;line-height:1.5;">
+          cNFT + creator royalties + secondary market. <em style="color:var(--amber-deep);">Composability unlocked.</em>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-line"></div>
+  <div class="brand">VOICEFUND</div>
+  <div class="slide-number">08</div>
+</div>
+
+<!-- ==================== SLIDE 9: PRODUCT SCREENSHOTS ==================== -->
+<div class="slide">
+  <div class="label">Product Screens</div>
+  <h2>Demo 截图 / 产品界面</h2>
+  <div style="height:clamp(0.5rem, 1.2vh, 0.75rem);"></div>
+
+  <div class="content-area" style="justify-content:flex-start;">
+    <div class="grid-2" style="align-items:stretch;gap:clamp(0.875rem, 1.6vw, 1.125rem);">
+
+      <!-- Screen 1: Marketplace Browse -->
+      <div class="browser-window">
+        <div class="browser-chrome">
+          <div class="browser-dot browser-dot-red"></div>
+          <div class="browser-dot browser-dot-yellow"></div>
+          <div class="browser-dot browser-dot-green"></div>
+          <div class="browser-title">voicefund.xyz / marketplace</div>
+        </div>
+        <div class="browser-body">
+          <div style="font-size:clamp(0.5625rem, 0.65vw, 0.6875rem);color:rgba(255,255,255,0.35);font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:clamp(0.5rem, 0.8vh, 0.625rem);">1. Marketplace Browse</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:clamp(0.375rem, 0.6vw, 0.5rem);">
+            <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:0.5rem;padding:clamp(0.5rem, 0.8vh, 0.625rem);">
+              <div style="display:flex;gap:4px;margin-bottom:6px;">
+                <span style="font-size:9px;padding:2px 6px;border-radius:10px;background:rgba(217,119,6,0.2);color:#F59E0B;font-weight:600;">Business</span>
+              </div>
+              <div style="font-size:clamp(0.625rem, 0.75vw, 0.75rem);color:#F5F5F4;font-weight:700;line-height:1.3;margin-bottom:4px;">AI Agent 避坑指南</div>
+              <div style="font-size:clamp(0.5rem, 0.65vw, 0.625rem);color:rgba(255,255,255,0.45);line-height:1.4;">7 个致命错误 &middot; 深度分析</div>
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-top:6px;">
+                <span style="font-size:clamp(0.5rem, 0.65vw, 0.625rem);color:#84CC16;font-weight:700;">Q 92</span>
+                <span style="font-size:clamp(0.5625rem, 0.7vw, 0.6875rem);color:#F59E0B;font-weight:700;">0.25 SOL</span>
+              </div>
+            </div>
+            <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:0.5rem;padding:clamp(0.5rem, 0.8vh, 0.625rem);">
+              <div style="display:flex;gap:4px;margin-bottom:6px;">
+                <span style="font-size:9px;padding:2px 6px;border-radius:10px;background:rgba(194,65,12,0.25);color:#EA580C;font-weight:600;">Market</span>
+              </div>
+              <div style="font-size:clamp(0.625rem, 0.75vw, 0.75rem);color:#F5F5F4;font-weight:700;line-height:1.3;margin-bottom:4px;">RWA 2026 Q2 观察</div>
+              <div style="font-size:clamp(0.5rem, 0.65vw, 0.625rem);color:rgba(255,255,255,0.45);line-height:1.4;">SEC 监管拐点 &middot; VC 视角</div>
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-top:6px;">
+                <span style="font-size:clamp(0.5rem, 0.65vw, 0.625rem);color:#84CC16;font-weight:700;">Q 88</span>
+                <span style="font-size:clamp(0.5625rem, 0.7vw, 0.6875rem);color:#F59E0B;font-weight:700;">0.15 SOL</span>
+              </div>
+            </div>
+            <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:0.5rem;padding:clamp(0.5rem, 0.8vh, 0.625rem);">
+              <div style="display:flex;gap:4px;margin-bottom:6px;">
+                <span style="font-size:9px;padding:2px 6px;border-radius:10px;background:rgba(101,163,13,0.25);color:#84CC16;font-weight:600;">Technical</span>
+              </div>
+              <div style="font-size:clamp(0.625rem, 0.75vw, 0.75rem);color:#F5F5F4;font-weight:700;line-height:1.3;margin-bottom:4px;">Claude Code 实战</div>
+              <div style="font-size:clamp(0.5rem, 0.65vw, 0.625rem);color:rgba(255,255,255,0.45);line-height:1.4;">3 天搭完整 SaaS</div>
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-top:6px;">
+                <span style="font-size:clamp(0.5rem, 0.65vw, 0.625rem);color:#F59E0B;font-weight:700;">Q 78</span>
+                <span style="font-size:clamp(0.5625rem, 0.7vw, 0.6875rem);color:#F59E0B;font-weight:700;">0.08 SOL</span>
+              </div>
+            </div>
+            <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:0.5rem;padding:clamp(0.5rem, 0.8vh, 0.625rem);">
+              <div style="display:flex;gap:4px;margin-bottom:6px;">
+                <span style="font-size:9px;padding:2px 6px;border-radius:10px;background:rgba(217,119,6,0.2);color:#F59E0B;font-weight:600;">Business</span>
+              </div>
+              <div style="font-size:clamp(0.625rem, 0.75vw, 0.75rem);color:#F5F5F4;font-weight:700;line-height:1.3;margin-bottom:4px;">DAO 治理手册</div>
+              <div style="font-size:clamp(0.5rem, 0.65vw, 0.625rem);color:rgba(255,255,255,0.45);line-height:1.4;">从提案到执行</div>
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-top:6px;">
+                <span style="font-size:clamp(0.5rem, 0.65vw, 0.625rem);color:#84CC16;font-weight:700;">Q 85</span>
+                <span style="font-size:clamp(0.5625rem, 0.7vw, 0.6875rem);color:#F59E0B;font-weight:700;">0.12 SOL</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Screen 2: Create Flow (AI Processing) -->
+      <div class="browser-window">
+        <div class="browser-chrome">
+          <div class="browser-dot browser-dot-red"></div>
+          <div class="browser-dot browser-dot-yellow"></div>
+          <div class="browser-dot browser-dot-green"></div>
+          <div class="browser-title">voicefund.xyz / create</div>
+        </div>
+        <div class="browser-body">
+          <div style="font-size:clamp(0.5625rem, 0.65vw, 0.6875rem);color:rgba(255,255,255,0.35);font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:clamp(0.5rem, 0.8vh, 0.625rem);">2. Create Flow &middot; AI Processing</div>
+          <div style="display:flex;flex-direction:column;gap:clamp(0.375rem, 0.6vh, 0.5rem);">
+            <div style="display:flex;align-items:center;gap:clamp(0.5rem, 0.7vw, 0.625rem);padding:clamp(0.5rem, 0.8vh, 0.625rem);background:rgba(101,163,13,0.15);border:1px solid rgba(101,163,13,0.3);border-radius:0.5rem;">
+              <div style="width:18px;height:18px;border-radius:50%;background:#84CC16;display:flex;align-items:center;justify-content:center;font-size:10px;color:#14110F;font-weight:700;">&check;</div>
+              <div style="font-size:clamp(0.625rem, 0.8vw, 0.75rem);color:#F5F5F4;font-weight:600;flex:1;">Transcribing audio...</div>
+              <div style="font-size:clamp(0.5rem, 0.65vw, 0.625rem);color:rgba(255,255,255,0.45);">10s</div>
+            </div>
+            <div style="display:flex;align-items:center;gap:clamp(0.5rem, 0.7vw, 0.625rem);padding:clamp(0.5rem, 0.8vh, 0.625rem);background:rgba(101,163,13,0.15);border:1px solid rgba(101,163,13,0.3);border-radius:0.5rem;">
+              <div style="width:18px;height:18px;border-radius:50%;background:#84CC16;display:flex;align-items:center;justify-content:center;font-size:10px;color:#14110F;font-weight:700;">&check;</div>
+              <div style="font-size:clamp(0.625rem, 0.8vw, 0.75rem);color:#F5F5F4;font-weight:600;flex:1;">Analyzing content...</div>
+              <div style="font-size:clamp(0.5rem, 0.65vw, 0.625rem);color:rgba(255,255,255,0.45);">8s</div>
+            </div>
+            <div style="display:flex;align-items:center;gap:clamp(0.5rem, 0.7vw, 0.625rem);padding:clamp(0.5rem, 0.8vh, 0.625rem);background:rgba(217,119,6,0.15);border:1px solid rgba(217,119,6,0.4);border-radius:0.5rem;">
+              <div style="width:18px;height:18px;border-radius:50%;border:2px solid #F59E0B;border-top-color:transparent;animation:spin 1s linear infinite;"></div>
+              <div style="font-size:clamp(0.625rem, 0.8vw, 0.75rem);color:#F5F5F4;font-weight:600;flex:1;">Structuring document...</div>
+              <div style="font-size:clamp(0.5rem, 0.65vw, 0.625rem);color:#F59E0B;font-weight:600;">~15s</div>
+            </div>
+            <div style="display:flex;align-items:center;gap:clamp(0.5rem, 0.7vw, 0.625rem);padding:clamp(0.5rem, 0.8vh, 0.625rem);background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:0.5rem;opacity:0.55;">
+              <div style="width:18px;height:18px;border-radius:50%;border:1px dashed rgba(255,255,255,0.4);"></div>
+              <div style="font-size:clamp(0.625rem, 0.8vw, 0.75rem);color:rgba(255,255,255,0.65);font-weight:600;flex:1;">Assessing quality...</div>
+              <div style="font-size:clamp(0.5rem, 0.65vw, 0.625rem);color:rgba(255,255,255,0.35);">pending</div>
+            </div>
+          </div>
+          <div style="margin-top:clamp(0.625rem, 1vh, 0.875rem);padding-top:clamp(0.5rem, 0.8vh, 0.625rem);border-top:1px solid rgba(255,255,255,0.08);">
+            <div style="display:flex;justify-content:space-between;align-items:center;font-size:clamp(0.5625rem, 0.7vw, 0.6875rem);">
+              <span style="color:rgba(255,255,255,0.5);">Step 3 of 4</span>
+              <span style="color:#F59E0B;font-weight:600;">45% complete</span>
+            </div>
+            <div style="height:4px;background:rgba(255,255,255,0.08);border-radius:2px;overflow:hidden;margin-top:4px;">
+              <div style="height:100%;width:45%;background:linear-gradient(90deg, #D97706, #F59E0B);border-radius:2px;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Screen 3: Asset Detail with Purchase -->
+      <div class="browser-window">
+        <div class="browser-chrome">
+          <div class="browser-dot browser-dot-red"></div>
+          <div class="browser-dot browser-dot-yellow"></div>
+          <div class="browser-dot browser-dot-green"></div>
+          <div class="browser-title">voicefund.xyz / asset / rwa-2026q2</div>
+        </div>
+        <div class="browser-body">
+          <div style="font-size:clamp(0.5625rem, 0.65vw, 0.6875rem);color:rgba(255,255,255,0.35);font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:clamp(0.5rem, 0.8vh, 0.625rem);">3. Asset Detail + Phantom Signing</div>
+          <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:0.5rem;padding:clamp(0.625rem, 1vh, 0.75rem);margin-bottom:clamp(0.5rem, 0.8vh, 0.625rem);">
+            <div style="font-size:clamp(0.6875rem, 0.85vw, 0.8125rem);color:#F5F5F4;font-weight:700;line-height:1.35;margin-bottom:4px;">RWA 赛道 2026 Q2 深度观察</div>
+            <div style="font-size:clamp(0.5rem, 0.65vw, 0.625rem);color:rgba(255,255,255,0.5);line-height:1.5;">3 页深度分析 &middot; VC 一手信息 &middot; SEC 监管拐点</div>
+            <div style="display:flex;gap:6px;margin-top:6px;">
+              <span style="font-size:9px;padding:2px 6px;border-radius:10px;background:rgba(194,65,12,0.25);color:#EA580C;font-weight:600;">Market Analysis</span>
+              <span style="font-size:9px;padding:2px 6px;border-radius:10px;background:rgba(101,163,13,0.25);color:#84CC16;font-weight:600;">Q 88</span>
+            </div>
+          </div>
+
+          <!-- Phantom modal mock -->
+          <div style="background:linear-gradient(135deg, #4A3AFF, #8B6FFF);border-radius:0.625rem;padding:clamp(0.625rem, 1vh, 0.875rem);box-shadow:0 4px 20px rgba(74,58,255,0.35);">
+            <div style="display:flex;align-items:center;gap:6px;margin-bottom:6px;">
+              <div style="width:16px;height:16px;border-radius:4px;background:rgba(255,255,255,0.25);display:flex;align-items:center;justify-content:center;font-size:9px;color:#fff;font-weight:700;">P</div>
+              <div style="font-size:clamp(0.5625rem, 0.7vw, 0.6875rem);color:#fff;font-weight:700;letter-spacing:0.5px;">Phantom &middot; Confirm Transaction</div>
+            </div>
+            <div style="font-size:clamp(0.625rem, 0.8vw, 0.75rem);color:#fff;line-height:1.45;margin-bottom:6px;">
+              Send <strong>0.15 SOL</strong> to<br>
+              <span style="font-family:monospace;font-size:10px;opacity:0.85;">7xKz...pQ9m</span>
+            </div>
+            <button style="width:100%;padding:clamp(0.375rem, 0.6vh, 0.5rem);background:#fff;color:#4A3AFF;border:none;border-radius:0.375rem;font-weight:700;font-size:clamp(0.625rem, 0.8vw, 0.75rem);cursor:pointer;">Buy for 0.15 SOL</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Screen 4: Creator Dashboard -->
+      <div class="browser-window">
+        <div class="browser-chrome">
+          <div class="browser-dot browser-dot-red"></div>
+          <div class="browser-dot browser-dot-yellow"></div>
+          <div class="browser-dot browser-dot-green"></div>
+          <div class="browser-title">voicefund.xyz / dashboard</div>
+        </div>
+        <div class="browser-body">
+          <div style="font-size:clamp(0.5625rem, 0.65vw, 0.6875rem);color:rgba(255,255,255,0.35);font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:clamp(0.5rem, 0.8vh, 0.625rem);">4. Creator Dashboard</div>
+
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:clamp(0.375rem, 0.5vw, 0.5rem);margin-bottom:clamp(0.625rem, 1vh, 0.75rem);">
+            <div style="background:rgba(217,119,6,0.12);border:1px solid rgba(217,119,6,0.28);border-radius:0.5rem;padding:clamp(0.5rem, 0.8vh, 0.625rem);text-align:center;">
+              <div style="font-family:'Playfair Display',serif;font-size:clamp(0.8125rem, 1.1vw, 1.0625rem);color:#F59E0B;font-weight:700;">4.2 SOL</div>
+              <div style="font-size:clamp(0.5rem, 0.65vw, 0.625rem);color:rgba(255,255,255,0.55);text-transform:uppercase;letter-spacing:0.5px;">Total Earned</div>
+            </div>
+            <div style="background:rgba(101,163,13,0.12);border:1px solid rgba(101,163,13,0.28);border-radius:0.5rem;padding:clamp(0.5rem, 0.8vh, 0.625rem);text-align:center;">
+              <div style="font-family:'Playfair Display',serif;font-size:clamp(0.8125rem, 1.1vw, 1.0625rem);color:#84CC16;font-weight:700;">47</div>
+              <div style="font-size:clamp(0.5rem, 0.65vw, 0.625rem);color:rgba(255,255,255,0.55);text-transform:uppercase;letter-spacing:0.5px;">Sales</div>
+            </div>
+            <div style="background:rgba(194,65,12,0.12);border:1px solid rgba(194,65,12,0.28);border-radius:0.5rem;padding:clamp(0.5rem, 0.8vh, 0.625rem);text-align:center;">
+              <div style="font-family:'Playfair Display',serif;font-size:clamp(0.8125rem, 1.1vw, 1.0625rem);color:#EA580C;font-weight:700;">12</div>
+              <div style="font-size:clamp(0.5rem, 0.65vw, 0.625rem);color:rgba(255,255,255,0.55);text-transform:uppercase;letter-spacing:0.5px;">Assets</div>
+            </div>
+          </div>
+
+          <div style="display:flex;flex-direction:column;gap:clamp(0.25rem, 0.4vh, 0.375rem);">
+            <div style="display:flex;justify-content:space-between;align-items:center;padding:clamp(0.375rem, 0.6vh, 0.5rem) clamp(0.5rem, 0.7vw, 0.625rem);background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:0.5rem;">
+              <span style="font-size:clamp(0.5625rem, 0.75vw, 0.6875rem);color:#F5F5F4;font-weight:600;">AI Agent 避坑指南</span>
+              <span style="font-size:clamp(0.5rem, 0.65vw, 0.625rem);color:#84CC16;font-weight:700;">12 sold</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:center;padding:clamp(0.375rem, 0.6vh, 0.5rem) clamp(0.5rem, 0.7vw, 0.625rem);background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:0.5rem;">
+              <span style="font-size:clamp(0.5625rem, 0.75vw, 0.6875rem);color:#F5F5F4;font-weight:600;">RWA 2026 Q2 观察</span>
+              <span style="font-size:clamp(0.5rem, 0.65vw, 0.625rem);color:#84CC16;font-weight:700;">6 sold</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:center;padding:clamp(0.375rem, 0.6vh, 0.5rem) clamp(0.5rem, 0.7vw, 0.625rem);background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:0.5rem;">
+              <span style="font-size:clamp(0.5625rem, 0.75vw, 0.6875rem);color:#F5F5F4;font-weight:600;">Claude Code 实战</span>
+              <span style="font-size:clamp(0.5rem, 0.65vw, 0.625rem);color:#84CC16;font-weight:700;">23 sold</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <div class="slide-line"></div>
+  <div class="brand">VOICEFUND</div>
+  <div class="slide-number">09</div>
+</div>
+
+<!-- ==================== SLIDE 10: BUSINESS MODEL + COMPETITION ==================== -->
+<div class="slide">
+  <div class="label">Business Model &amp; Benchmarks</div>
+  <h2>商业模式 + 对标</h2>
+  <div style="height:clamp(0.75rem, 2vh, 1.25rem);"></div>
+
+  <div class="content-area" style="justify-content:flex-start;">
+    <div class="grid-2" style="align-items:stretch;">
+
+      <!-- Business Model -->
+      <div class="card card-amber" style="padding:clamp(1.25rem,2.5vw,1.875rem) clamp(1.375rem,2.8vw,2rem);display:flex;flex-direction:column;">
+        <div style="display:flex;align-items:center;gap:clamp(0.5rem, 0.8vw, 0.75rem);margin-bottom:clamp(1rem, 1.8vh, 1.375rem);">
+          <div style="width:clamp(2.25rem, 3vw, 2.75rem);height:clamp(2.25rem, 3vw, 2.75rem);border-radius:0.875rem;background:var(--amber-glow-strong);border:1px solid rgba(217,119,6,0.2);display:flex;align-items:center;justify-content:center;font-size:clamp(0.875rem, 1vw, 1rem);font-weight:700;color:var(--amber-deep);">$</div>
+          <div style="font-family:'Playfair Display','Noto Serif SC',serif;font-size:clamp(1.125rem,2vw,1.5rem);font-weight:700;color:var(--text-primary);">商业模式</div>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:clamp(0.625rem, 1vh, 0.875rem);flex:1;">
+          <div style="padding:clamp(0.75rem, 1.2vh, 1rem) clamp(0.875rem, 1.2vw, 1.125rem);background:var(--bg-white);border-radius:0.75rem;border:1px solid var(--border-light);">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">
+              <span style="font-size:clamp(0.8125rem, 1vw, 0.9375rem);font-weight:700;color:var(--text-primary);">平台抽成</span>
+              <span style="font-family:'Playfair Display',serif;font-size:clamp(1.125rem, 1.6vw, 1.375rem);color:var(--amber-deep);font-weight:700;">5%</span>
+            </div>
+            <div style="font-size:clamp(0.6875rem, 0.85vw, 0.8125rem);color:var(--text-muted);line-height:1.5;">每笔交易手续费 &middot; 卖家直接收到 95% SOL/USDC</div>
+          </div>
+
+          <div style="padding:clamp(0.75rem, 1.2vh, 1rem) clamp(0.875rem, 1.2vw, 1.125rem);background:var(--bg-white);border-radius:0.75rem;border:1px solid var(--border-light);">
+            <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px;">
+              <span style="font-size:clamp(0.8125rem, 1vw, 0.9375rem);font-weight:700;color:var(--text-primary);">订阅制作者（Phase 2）</span>
+              <span class="tag tag-sage" style="font-size:9px;">Future</span>
+            </div>
+            <div style="font-size:clamp(0.6875rem, 0.85vw, 0.8125rem);color:var(--text-muted);line-height:1.5;">优质创作者月费订阅，读者解锁所有新内容</div>
+          </div>
+
+          <div style="padding:clamp(0.75rem, 1.2vh, 1rem) clamp(0.875rem, 1.2vw, 1.125rem);background:var(--bg-white);border-radius:0.75rem;border:1px solid var(--border-light);">
+            <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px;">
+              <span style="font-size:clamp(0.8125rem, 1vw, 0.9375rem);font-weight:700;color:var(--text-primary);">NFT 二级市场版税</span>
+              <span class="tag tag-sage" style="font-size:9px;">Future</span>
+            </div>
+            <div style="font-size:clamp(0.6875rem, 0.85vw, 0.8125rem);color:var(--text-muted);line-height:1.5;">内容转手交易，创作者获得 2.5% 版税</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Competition -->
+      <div class="card" style="padding:clamp(1.125rem,2.2vw,1.625rem) clamp(1.25rem,2.5vw,1.75rem);display:flex;flex-direction:column;">
+        <div style="display:flex;align-items:center;gap:clamp(0.5rem, 0.8vw, 0.75rem);margin-bottom:clamp(0.875rem, 1.5vh, 1.125rem);">
+          <div style="width:clamp(2.25rem, 3vw, 2.75rem);height:clamp(2.25rem, 3vw, 2.75rem);border-radius:0.875rem;background:var(--terracotta-glow);border:1px solid rgba(194,65,12,0.2);display:flex;align-items:center;justify-content:center;font-size:clamp(0.875rem, 1vw, 1rem);font-weight:700;color:var(--terracotta);">C</div>
+          <div style="font-family:'Playfair Display','Noto Serif SC',serif;font-size:clamp(1.125rem,2vw,1.5rem);font-weight:700;color:var(--text-primary);">对标分析</div>
+        </div>
+
+        <div class="table-container" style="flex:1;">
+          <table>
+            <thead>
+              <tr>
+                <th style="width:30%;">产品</th>
+                <th style="width:35%;">痛点</th>
+                <th style="width:35%;background:rgba(217,119,6,0.12);color:var(--amber-deep);">VoiceFund</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td style="font-weight:700;color:var(--text-primary);">Substack</td>
+                <td>需写长文高门槛</td>
+                <td style="font-weight:600;color:var(--amber-deep);">语音 + AI</td>
+              </tr>
+              <tr>
+                <td style="font-weight:700;color:var(--text-primary);">闲鱼</td>
+                <td>只能卖实物</td>
+                <td style="font-weight:600;color:var(--amber-deep);">卖无形知识</td>
+              </tr>
+              <tr>
+                <td style="font-weight:700;color:var(--text-primary);">得到 / 知乎付费</td>
+                <td>中心化，T+7 结算</td>
+                <td style="font-weight:600;color:var(--amber-deep);">链上即时</td>
+              </tr>
+              <tr>
+                <td style="font-weight:700;color:var(--text-primary);">Solana 内容平台</td>
+                <td>只服务创作者</td>
+                <td style="font-weight:600;color:var(--amber-deep);">AI 帮所有人变创作者</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <div class="slide-line"></div>
+  <div class="brand">VOICEFUND</div>
+  <div class="slide-number">10</div>
+</div>
+
+<!-- ==================== SLIDE 11: ROADMAP & FUNDRAISING ==================== -->
+<div class="slide">
+  <div class="label">Roadmap &amp; Fundraising</div>
+  <h2>路线图与融资</h2>
+  <div style="height:clamp(0.75rem, 2vh, 1.25rem);"></div>
+
+  <div class="content-area" style="justify-content:flex-start;">
+    <!-- Timeline -->
+    <div class="card" style="padding:clamp(1.125rem, 2vh, 1.5rem) clamp(1.25rem, 2vw, 1.75rem);margin-bottom:clamp(1rem, 2vh, 1.5rem);">
+      <div class="timeline">
+        <div class="timeline-item">
+          <div style="font-size:clamp(0.625rem, 0.75vw, 0.6875rem);color:var(--sage-deep);font-weight:700;letter-spacing:1px;text-transform:uppercase;">Q2 2026</div>
+          <div class="timeline-dot timeline-dot-sage"></div>
+          <div class="timeline-title" style="color:var(--sage-deep);">Hackathon Demo</div>
+          <div class="timeline-desc">
+            已完成<br>
+            6 条 seed 数据<br>
+            全链路跑通<br>
+            Solana Pay 集成
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div style="font-size:clamp(0.625rem, 0.75vw, 0.6875rem);color:var(--amber-deep);font-weight:700;letter-spacing:1px;text-transform:uppercase;">Q3 2026</div>
+          <div class="timeline-dot timeline-dot-amber"></div>
+          <div class="timeline-title" style="color:var(--amber-deep);">Mainnet 发布</div>
+          <div class="timeline-desc">
+            创作者冷启动 100 人<br>
+            接入 EinClaw Mic<br>
+            开放公测<br>
+            品类拓展
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div style="font-size:clamp(0.625rem, 0.75vw, 0.6875rem);color:var(--terracotta);font-weight:700;letter-spacing:1px;text-transform:uppercase;">Q4 2026</div>
+          <div class="timeline-dot timeline-dot-terracotta"></div>
+          <div class="timeline-title" style="color:var(--terracotta);">cNFT 升级</div>
+          <div class="timeline-desc">
+            cNFT + 版税机制<br>
+            二级市场开放<br>
+            订阅制创作者<br>
+            发现算法优化
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div style="font-size:clamp(0.625rem, 0.75vw, 0.6875rem);color:var(--text-muted);font-weight:700;letter-spacing:1px;text-transform:uppercase;">2027</div>
+          <div class="timeline-dot"></div>
+          <div class="timeline-title">DAO 治理</div>
+          <div class="timeline-desc">
+            多语言支持<br>
+            多领域内容<br>
+            DAO 治理<br>
+            全球创作者网络
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Fundraising -->
+    <div class="card card-amber" style="padding:clamp(1.75rem, 3.5vh, 2.5rem) clamp(2rem, 4vw, 3rem);text-align:center;">
+      <div style="font-size:clamp(0.75rem, 1vw, 0.875rem);color:var(--text-muted);font-weight:700;letter-spacing:1.6px;text-transform:uppercase;margin-bottom:clamp(0.75rem, 1.5vh, 1rem);">预期融资金额</div>
+      <div style="font-family:'Playfair Display',serif;font-size:clamp(2.25rem, 5.5vw, 4rem);font-weight:700;color:var(--amber-deep);line-height:0.95;margin-bottom:clamp(0.875rem, 1.8vh, 1.25rem);">0.5 ~ 1M USD</div>
+      <div style="font-size:clamp(0.8125rem, 1vw, 0.9375rem);color:var(--text-secondary);margin-bottom:clamp(0.75rem, 1.5vh, 1.125rem);line-height:1.5;">
+        用途：产品开发 + 冷启动创作者激励 + Solana 生态合作
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:clamp(0.75rem, 1.2vw, 1rem);margin-top:clamp(0.75rem, 1.5vh, 1.125rem);">
+        <div style="padding:clamp(0.625rem, 1vh, 0.875rem);background:rgba(255,255,255,0.7);border-radius:0.625rem;border:1px solid var(--border-light);">
+          <div style="font-family:'Playfair Display',serif;font-size:clamp(0.9375rem, 1.2vw, 1.125rem);font-weight:700;color:var(--text-primary);">45%</div>
+          <div style="font-size:clamp(0.6875rem, 0.8vw, 0.75rem);color:var(--text-muted);">产品开发</div>
+        </div>
+        <div style="padding:clamp(0.625rem, 1vh, 0.875rem);background:rgba(255,255,255,0.7);border-radius:0.625rem;border:1px solid var(--border-light);">
+          <div style="font-family:'Playfair Display',serif;font-size:clamp(0.9375rem, 1.2vw, 1.125rem);font-weight:700;color:var(--text-primary);">35%</div>
+          <div style="font-size:clamp(0.6875rem, 0.8vw, 0.75rem);color:var(--text-muted);">创作者冷启动</div>
+        </div>
+        <div style="padding:clamp(0.625rem, 1vh, 0.875rem);background:rgba(255,255,255,0.7);border-radius:0.625rem;border:1px solid var(--border-light);">
+          <div style="font-family:'Playfair Display',serif;font-size:clamp(0.9375rem, 1.2vw, 1.125rem);font-weight:700;color:var(--text-primary);">20%</div>
+          <div style="font-size:clamp(0.6875rem, 0.8vw, 0.75rem);color:var(--text-muted);">Solana 生态合作</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-line"></div>
+  <div class="brand">VOICEFUND</div>
+  <div class="slide-number">11</div>
+</div>
+
+<style>
+  @keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+</style>
+
+</body>
+</html>
