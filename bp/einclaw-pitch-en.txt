@@ -1,0 +1,9 @@
+Anytime, anywhere, press a button — the full pipeline from voice to execution to result.
+
+You're driving, an idea hits, you press the button: "That product of ours — feature X could use a Y change. Log it to Linear / Feishu, then open a PR for me."
+
+You keep driving, and by the time you're back at your desk, a logged task and a PR are already waiting.
+
+Does everyone think it looks good / works well?
+
+https://www.einclaw.com

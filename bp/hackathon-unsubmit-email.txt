@@ -1,0 +1,23 @@
+Subject: Request to Re-open Submission for Editing — EinClaw × Solana
+
+Hi [Hackathon Team / Organizer Name],
+
+I'm writing to ask if you could help re-open my submission for the Solana Frontier Hackathon so I can make a few edits.
+
+I accidentally hit the submit button before I had finished filling in all the fields, and there are several answers I need to revise and complete before the deadline. The project itself is ready, but the submission form is not where I want it to be.
+
+Submission details:
+
+  Project name: EinClaw × Solana
+  Submitter: Arvin Chen
+  Email: arvinchen98@gmail.com
+  GitHub: https://github.com/SpokieKid/einclaw-solana
+  Submitted at: [approximate time of accidental submission]
+
+Could you please move the submission back to draft / editable status, or let me know the right way to update the fields? I'm happy to provide any additional information you need to verify the request.
+
+Apologies for the extra work, and thank you for the help.
+
+Best,
+Arvin Chen
+arvinchen98@gmail.com

@@ -1,0 +1,1447 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Einclaw - 商业计划书 v5</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500&family=Noto+Serif+SC:wght@400;500;600;700;900&family=Source+Sans+3:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap');
+
+  :root {
+    --bg-cream: #FFFBF0;
+    --bg-cream-deep: #FFF8E7;
+    --bg-cream-accent: #FEF3C7;
+    --bg-white: #FFFFFF;
+    --bg-warm-light: #FEFCF6;
+
+    --amber: #D97706;
+    --amber-deep: #B45309;
+    --amber-light: #F59E0B;
+    --amber-glow: rgba(217, 119, 6, 0.08);
+    --amber-glow-strong: rgba(217, 119, 6, 0.15);
+    --terracotta: #C2410C;
+    --terracotta-light: #EA580C;
+    --terracotta-glow: rgba(194, 65, 12, 0.08);
+
+    --text-primary: #1C1917;
+    --text-secondary: #57534E;
+    --text-muted: #78716C;
+    --text-light: #A8A29E;
+
+    --sage: #65A30D;
+    --sage-deep: #4D7C0F;
+    --sage-glow: rgba(101, 163, 13, 0.10);
+
+    --border: #E7E5E4;
+    --border-light: #F5F5F4;
+    --shadow-soft: 0 2px 16px rgba(28, 25, 23, 0.04);
+    --shadow-card: 0 1px 8px rgba(28, 25, 23, 0.06);
+    --shadow-elevated: 0 4px 24px rgba(28, 25, 23, 0.08);
+
+    --gradient-warm: linear-gradient(180deg, #FFFBF0 0%, #FFF8E7 100%);
+    --gradient-cream: linear-gradient(135deg, #FFFBF0 0%, #FEF3C7 100%);
+    --gradient-amber: linear-gradient(135deg, #D97706, #F59E0B);
+    --gradient-sage: linear-gradient(135deg, #65A30D, #84CC16);
+    --gradient-terracotta: linear-gradient(135deg, #C2410C, #EA580C);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  @page { size: landscape; margin: 0; }
+
+  html { font-size: 16px; }
+  @media (max-height: 900px) { html { font-size: 15px; } }
+  @media (max-height: 800px) { html { font-size: 14px; } }
+  @media (max-height: 700px) { html { font-size: 13px; } }
+  @media (max-width: 1200px) { html { font-size: 14px; } }
+  @media (max-width: 1024px) { html { font-size: 13px; } }
+
+  body {
+    font-family: 'Source Sans 3', 'Noto Serif SC', -apple-system, sans-serif;
+    background: var(--bg-cream);
+    color: var(--text-primary);
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+    width: 100%;
+    overflow-x: hidden;
+  }
+
+  .slide {
+    width: 100%;
+    min-height: 100vh;
+    height: auto;
+    padding: clamp(16px, 3vh, 40px) clamp(24px, 3.5vw, 56px);
+    position: relative;
+    overflow: hidden;
+    page-break-after: always;
+    page-break-inside: avoid;
+    background: var(--gradient-warm);
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+  }
+
+  .slide > * { max-width: 100%; }
+
+  .slide::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: radial-gradient(ellipse at 80% 20%, rgba(254, 243, 199, 0.4) 0%, transparent 50%);
+    pointer-events: none;
+  }
+
+  .slide-number {
+    position: absolute;
+    bottom: clamp(16px, 3vh, 28px);
+    right: clamp(24px, 4vw, 48px);
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(11px, 1vw, 13px);
+    color: var(--text-light);
+    font-weight: 400;
+    letter-spacing: 1px;
+    font-style: italic;
+  }
+
+  .brand {
+    position: absolute;
+    bottom: clamp(16px, 3vh, 28px);
+    left: clamp(24px, 4vw, 48px);
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: clamp(9px, 0.85vw, 11px);
+    color: var(--text-light);
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+  }
+
+  .slide-line {
+    position: absolute;
+    bottom: clamp(36px, 5vh, 52px);
+    left: clamp(24px, 4vw, 48px);
+    right: clamp(24px, 4vw, 48px);
+    height: 1px;
+    background: var(--border);
+  }
+
+  h1 {
+    font-family: 'Playfair Display', 'Noto Serif SC', serif;
+    font-size: clamp(1.5rem, 2.8vw, 2.5rem);
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.5px;
+    color: var(--text-primary);
+    margin-bottom: clamp(0.375rem, 1vh, 0.625rem);
+  }
+
+  h2 {
+    font-family: 'Playfair Display', 'Noto Serif SC', serif;
+    font-size: clamp(1.25rem, 2.2vw, 1.75rem);
+    font-weight: 600;
+    line-height: 1.25;
+    letter-spacing: -0.3px;
+    color: var(--text-primary);
+    margin-bottom: clamp(0.375rem, 0.8vh, 0.5rem);
+  }
+
+  h3 {
+    font-family: 'Source Sans 3', 'Noto Serif SC', sans-serif;
+    font-size: clamp(0.875rem, 1.2vw, 1.125rem);
+    font-weight: 600;
+    line-height: 1.3;
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+  }
+
+  .label {
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: clamp(0.5625rem, 0.8vw, 0.6875rem);
+    font-weight: 600;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--amber);
+    margin-bottom: 0.625rem;
+  }
+
+  .highlight { color: var(--amber-deep); font-weight: 600; }
+  .highlight-green { color: var(--sage-deep); font-weight: 600; }
+
+  .content-area { flex: 1; display: flex; flex-direction: column; }
+
+  .card {
+    background: var(--bg-white);
+    border: 1px solid var(--border);
+    border-radius: clamp(0.625rem, 1.2vw, 0.875rem);
+    padding: clamp(0.875rem, 1.6vw, 1.25rem);
+    box-shadow: var(--shadow-soft);
+  }
+
+  .card-amber {
+    border-color: rgba(217, 119, 6, 0.25);
+    background: linear-gradient(135deg, rgba(254, 243, 199, 0.5), rgba(255, 251, 240, 0.8));
+  }
+
+  .card-sage {
+    border-color: rgba(101, 163, 13, 0.25);
+    background: linear-gradient(135deg, rgba(101, 163, 13, 0.05), rgba(132, 204, 22, 0.03));
+  }
+
+  .card-terracotta {
+    border-color: rgba(194, 65, 12, 0.2);
+    background: linear-gradient(135deg, rgba(194, 65, 12, 0.04), rgba(234, 88, 12, 0.02));
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: clamp(0.6875rem, 1vw, 0.8125rem);
+  }
+
+  th {
+    background: var(--bg-cream-deep);
+    padding: 0.75rem 0.875rem;
+    text-align: left;
+    font-weight: 700;
+    color: var(--text-primary);
+    font-size: clamp(0.625rem, 0.8vw, 0.75rem);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    border-bottom: 1px solid var(--border);
+  }
+
+  td {
+    padding: 0.75rem 0.875rem;
+    border-bottom: 1px solid var(--border-light);
+    color: var(--text-secondary);
+    line-height: 1.5;
+    background: var(--bg-white);
+    vertical-align: top;
+  }
+
+  tr:last-child td { border-bottom: none; }
+  tr:nth-child(even) td { background: var(--bg-warm-light); }
+
+  .table-container {
+    width: 100%;
+    border-radius: 14px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow-card);
+  }
+
+  .col-einclaw {
+    background: linear-gradient(180deg, rgba(254, 243, 199, 0.55), rgba(255, 251, 240, 0.85)) !important;
+    color: var(--text-primary) !important;
+    font-weight: 600 !important;
+  }
+
+  .col-einclaw-head {
+    background: linear-gradient(180deg, #FEF3C7, #FFF8E7) !important;
+    color: var(--amber-deep) !important;
+  }
+
+  .cover-slide {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background: linear-gradient(180deg, #FFFBF0 0%, #FEF3C7 50%, #FFF8E7 100%);
+    min-height: 100vh;
+    height: auto;
+  }
+
+  .cover-slide::before {
+    content: '';
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: min(800px, 90vw);
+    height: min(800px, 90vh);
+    background: radial-gradient(circle, rgba(217, 119, 6, 0.06) 0%, transparent 60%);
+  }
+
+  .cover-slide h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 5vw, 4rem);
+    font-weight: 700;
+    letter-spacing: -1.5px;
+    color: var(--text-primary);
+    margin-bottom: clamp(0.5rem, 1.5vh, 1rem);
+  }
+
+  .scenario-quote {
+    font-family: 'Noto Serif SC', serif;
+    font-size: clamp(0.9375rem, 1.4vw, 1.125rem);
+    color: var(--text-primary);
+    line-height: 1.65;
+    font-style: italic;
+    background: var(--bg-cream-deep);
+    border-radius: clamp(0.875rem, 1.5vw, 1.125rem);
+    padding: clamp(1rem, 1.8vh, 1.375rem) clamp(1.125rem, 1.8vw, 1.5rem);
+    border-left: 3px solid var(--amber);
+  }
+
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.4rem 0.875rem;
+    border-radius: 999px;
+    background: var(--bg-cream-deep);
+    border: 1px solid var(--border);
+    font-size: clamp(0.625rem, 0.8vw, 0.75rem);
+    letter-spacing: 1.4px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    font-weight: 600;
+  }
+
+  .pill-amber {
+    background: var(--amber-glow);
+    border-color: rgba(217, 119, 6, 0.22);
+    color: var(--amber-deep);
+  }
+
+  .pill-sage {
+    background: var(--sage-glow);
+    border-color: rgba(101, 163, 13, 0.22);
+    color: var(--sage-deep);
+  }
+
+  .scenario-grid {
+    display: grid;
+    grid-template-columns: 1fr minmax(3rem, 5vw) 1.1fr;
+    align-items: stretch;
+    gap: 0;
+    width: 100%;
+  }
+
+  .arrow-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+
+  .arrow-col .big-arrow {
+    font-size: clamp(2rem, 4vw, 3rem);
+    color: var(--amber);
+    font-weight: 300;
+  }
+
+  .arrow-col .arrow-meta {
+    font-size: clamp(0.6875rem, 0.8vw, 0.8125rem);
+    color: var(--text-muted);
+    letter-spacing: 0.5px;
+  }
+
+  .scene-card {
+    background: var(--bg-white);
+    border: 1.5px solid var(--border);
+    border-radius: clamp(1rem, 1.8vw, 1.5rem);
+    padding: clamp(1.25rem, 2.2vw, 2rem) clamp(1.25rem, 2vw, 1.875rem);
+    box-shadow: var(--shadow-elevated);
+    display: flex;
+    flex-direction: column;
+    gap: clamp(0.75rem, 1.4vh, 1rem);
+  }
+
+  .file-block {
+    border: 1px solid var(--border-light);
+    border-radius: clamp(0.75rem, 1.2vw, 1rem);
+    padding: clamp(0.75rem, 1.2vh, 1rem) clamp(0.875rem, 1.4vw, 1.125rem);
+    background: var(--bg-warm-light);
+  }
+
+  .file-block-amber {
+    border-color: rgba(217, 119, 6, 0.18);
+    background: linear-gradient(180deg, rgba(255, 251, 240, 0.95), rgba(254, 243, 199, 0.5));
+  }
+
+  .file-block-sage {
+    border-color: rgba(101, 163, 13, 0.2);
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(101, 163, 13, 0.06));
+  }
+
+  .file-block .file-tag {
+    font-size: clamp(0.625rem, 0.7vw, 0.6875rem);
+    font-weight: 700;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    color: var(--amber-deep);
+    margin-bottom: 0.4rem;
+  }
+
+  .file-block .file-tag.sage { color: var(--sage-deep); }
+  .file-block .file-tag.terracotta { color: var(--terracotta); }
+
+  .file-block .file-body {
+    font-size: clamp(0.8125rem, 1vw, 0.9375rem);
+    color: var(--text-primary);
+    line-height: 1.6;
+  }
+
+  .timeline-step {
+    display: grid;
+    grid-template-columns: clamp(2rem, 3vw, 2.5rem) 1fr 1.4fr;
+    gap: clamp(0.75rem, 1.2vw, 1rem);
+    align-items: center;
+    padding: clamp(0.625rem, 1vh, 0.75rem) 0;
+  }
+
+  .timeline-step + .timeline-step { border-top: 1px dashed var(--border); }
+
+  .timeline-step .step-num {
+    width: clamp(2rem, 3vw, 2.5rem);
+    height: clamp(2rem, 3vw, 2.5rem);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--amber-glow-strong);
+    border: 1px solid rgba(217, 119, 6, 0.2);
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    color: var(--amber-deep);
+    font-size: clamp(0.875rem, 1vw, 1rem);
+  }
+
+  .three-cols {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: clamp(0.875rem, 1.5vw, 1.25rem);
+    width: 100%;
+  }
+
+  .two-cols {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(0.875rem, 1.5vw, 1.25rem);
+    width: 100%;
+  }
+
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.5rem, 2.5vw, 2rem);
+    font-weight: 700;
+    color: var(--amber-deep);
+    line-height: 1;
+    margin-bottom: 0.375rem;
+  }
+
+  .small-meta {
+    font-size: clamp(0.6875rem, 0.8vw, 0.8125rem);
+    color: var(--text-muted);
+    letter-spacing: 0.4px;
+  }
+
+  ul.bullets {
+    list-style: none;
+    padding: 0;
+  }
+
+  ul.bullets li {
+    padding: 0.4rem 0 0.4rem 1.25rem;
+    position: relative;
+    font-size: clamp(0.8125rem, 1.05vw, 0.9375rem);
+    line-height: 1.6;
+    color: var(--text-secondary);
+  }
+
+  ul.bullets li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.85rem;
+    width: 0.4rem;
+    height: 0.4rem;
+    border-radius: 50%;
+    background: var(--amber);
+  }
+
+  ul.bullets-sage li::before { background: var(--sage); }
+
+  @media (min-width: 1440px) {
+    .slide { padding: clamp(1.5rem, 4vh, 3.5rem) clamp(2.5rem, 5vw, 5rem); }
+  }
+  @media (max-width: 1512px) {
+    html { font-size: 14px; }
+    .slide { padding: clamp(1rem, 2.5vh, 2.25rem) clamp(1.5rem, 3.5vw, 3rem); }
+    h1 { font-size: clamp(1.375rem, 2.6vw, 2.25rem); }
+    h2 { font-size: clamp(1.125rem, 2vw, 1.625rem); }
+  }
+  @media (max-width: 1280px) { html { font-size: 13px; } }
+  @media (max-width: 1024px) {
+    .three-cols { grid-template-columns: 1fr 1fr; }
+    .scenario-grid { grid-template-columns: 1fr; }
+    .arrow-col .big-arrow { transform: rotate(90deg); }
+  }
+  @media (max-width: 768px) {
+    .three-cols, .two-cols { grid-template-columns: 1fr; }
+    .timeline-step { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ==================== SLIDE 1: COVER ==================== -->
+<div class="slide cover-slide">
+  <div style="position:relative;z-index:1;width:100%;max-width:min(70rem, 92vw);margin:0 auto;display:flex;flex-direction:column;align-items:center;gap:clamp(1.25rem, 3vh, 2rem);">
+
+    <div class="pill">Einclaw · 2026</div>
+
+    <h1 style="margin:0;">Einclaw</h1>
+
+    <div style="font-family:'Noto Serif SC', serif;font-size:clamp(1rem, 1.8vw, 1.5rem);color:var(--text-secondary);font-weight:500;letter-spacing:1.5px;line-height:1.5;">
+      随身语音 Agent 终端 — <span class="highlight">说出来,就完成了</span>
+    </div>
+
+    <div style="font-family:'Playfair Display', serif;font-style:italic;font-size:clamp(1.125rem, 2vw, 1.625rem);color:var(--amber-deep);font-weight:500;line-height:1.4;max-width:min(48rem, 88vw);">
+      Voice to Action — not just Voice to Text.
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(4, auto);gap:clamp(0.875rem, 2vw, 1.875rem);justify-content:center;align-items:center;margin-top:clamp(1rem, 2vh, 1.5rem);padding:clamp(0.875rem, 1.5vh, 1.125rem) clamp(1.5rem, 3vw, 2.5rem);border:1px solid rgba(217,119,6,0.15);border-radius:999px;background:rgba(255,255,255,0.6);">
+      <div class="small-meta"><strong style="color:var(--text-primary);">60 RMB</strong> BOM</div>
+      <div style="width:1px;height:1rem;background:var(--border);"></div>
+      <div class="small-meta"><strong style="color:var(--text-primary);">4G</strong> 独立联网</div>
+      <div style="width:1px;height:1rem;background:var(--border);"></div>
+      <div class="small-meta"><strong style="color:var(--text-primary);">7 天</strong> 续航</div>
+      <div style="width:1px;height:1rem;background:var(--border);"></div>
+      <div class="small-meta">无屏 · 无声 · 不依赖手机</div>
+    </div>
+
+    <div style="margin-top:clamp(1.5rem, 3vh, 2rem);display:grid;grid-template-columns:1fr auto 1fr auto 1fr;align-items:center;gap:clamp(0.625rem, 1vw, 1rem);max-width:min(56rem, 90vw);">
+      <div class="card card-amber" style="text-align:center;padding:clamp(0.75rem, 1.4vh, 1rem) clamp(0.875rem, 1.5vw, 1.125rem);">
+        <div style="font-size:clamp(0.625rem, 0.7vw, 0.75rem);color:var(--amber-deep);font-weight:700;letter-spacing:1.4px;text-transform:uppercase;margin-bottom:0.375rem;">Voice In</div>
+        <div style="font-size:clamp(0.8125rem, 1vw, 0.9375rem);font-weight:600;color:var(--text-primary);">语音输入</div>
+      </div>
+      <div style="font-size:clamp(1.25rem, 2vw, 1.75rem);color:var(--amber);font-weight:300;">→</div>
+      <div class="card card-sage" style="text-align:center;padding:clamp(0.75rem, 1.4vh, 1rem) clamp(0.875rem, 1.5vw, 1.125rem);">
+        <div style="font-size:clamp(0.625rem, 0.7vw, 0.75rem);color:var(--sage-deep);font-weight:700;letter-spacing:1.4px;text-transform:uppercase;margin-bottom:0.375rem;">Agent</div>
+        <div style="font-size:clamp(0.8125rem, 1vw, 0.9375rem);font-weight:600;color:var(--text-primary);">理解 · 执行</div>
+      </div>
+      <div style="font-size:clamp(1.25rem, 2vw, 1.75rem);color:var(--amber);font-weight:300;">→</div>
+      <div class="card card-terracotta" style="text-align:center;padding:clamp(0.75rem, 1.4vh, 1rem) clamp(0.875rem, 1.5vw, 1.125rem);">
+        <div style="font-size:clamp(0.625rem, 0.7vw, 0.75rem);color:var(--terracotta);font-weight:700;letter-spacing:1.4px;text-transform:uppercase;margin-bottom:0.375rem;">Result</div>
+        <div style="font-size:clamp(0.8125rem, 1vw, 0.9375rem);font-weight:600;color:var(--text-primary);">完整结果</div>
+      </div>
+    </div>
+
+  </div>
+  <div class="brand">EINCLAW</div>
+  <div class="slide-number">01</div>
+</div>
+
+<!-- ==================== SLIDE 2: WHY NOW ==================== -->
+<div class="slide">
+  <div class="label">Why Now · 我们看见的转变</div>
+  <h2>个人 AI 缺的不是模型,是 context 入口</h2>
+  <div style="font-size:clamp(0.875rem, 1.2vw, 1.0625rem);color:var(--text-secondary);line-height:1.65;max-width:min(56rem, 92vw);margin-top:clamp(0.5rem, 1vh, 0.75rem);">
+    过去 18 个月通用大模型能力指数级提升,但 "AI 真正帮我完成事情" 的体验没有同步增长。<br>
+    瓶颈不在模型,<span class="highlight">在于 AI 拿不到足够的个人 context,也无法直接触达行动结果</span>。
+  </div>
+
+  <div style="height:clamp(1rem, 2vh, 1.5rem);"></div>
+
+  <div class="content-area" style="justify-content:flex-start;">
+    <div class="three-cols" style="align-items:stretch;">
+
+      <div class="card" style="padding:clamp(1rem, 1.8vh, 1.375rem) clamp(1.125rem, 1.6vw, 1.375rem);opacity:0.78;">
+        <div class="pill" style="margin-bottom:clamp(0.75rem, 1.2vh, 1rem);">Pattern 1</div>
+        <h3 style="font-size:clamp(0.9375rem, 1.3vw, 1.125rem);">Voice to Text</h3>
+        <div class="small-meta" style="margin-bottom:clamp(0.5rem, 0.8vh, 0.625rem);">Anker · 飞书录音豆 · Plaud · SpeakOn</div>
+        <div style="font-size:clamp(0.8125rem, 1vw, 0.9375rem);color:var(--text-secondary);line-height:1.65;">
+          把语音变成文字 —<br>
+          <span style="color:var(--text-muted);">但文字不会自己变成行动。</span>
+        </div>
+        <div style="margin-top:clamp(0.75rem, 1.2vh, 1rem);padding-top:clamp(0.5rem, 0.8vh, 0.625rem);border-top:1px dashed var(--border);font-size:clamp(0.75rem, 0.85vw, 0.8125rem);color:var(--text-muted);">
+          交付物 = 录音 + 总结
+        </div>
+      </div>
+
+      <div class="card" style="padding:clamp(1rem, 1.8vh, 1.375rem) clamp(1.125rem, 1.6vw, 1.375rem);opacity:0.78;">
+        <div class="pill" style="margin-bottom:clamp(0.75rem, 1.2vh, 1rem);">Pattern 2</div>
+        <h3 style="font-size:clamp(0.9375rem, 1.3vw, 1.125rem);">Phone-bound AI</h3>
+        <div class="small-meta" style="margin-bottom:clamp(0.5rem, 0.8vh, 0.625rem);">ChatGPT · Doubao · 通义</div>
+        <div style="font-size:clamp(0.8125rem, 1vw, 0.9375rem);color:var(--text-secondary);line-height:1.65;">
+          能调度 Agent —<br>
+          <span style="color:var(--text-muted);">但必须掏手机、解锁、打开 App,延迟摩擦巨大。</span>
+        </div>
+        <div style="margin-top:clamp(0.75rem, 1.2vh, 1rem);padding-top:clamp(0.5rem, 0.8vh, 0.625rem);border-top:1px dashed var(--border);font-size:clamp(0.75rem, 0.85vw, 0.8125rem);color:var(--text-muted);">
+          交付物 = 取决于你愿不愿意拿手机
+        </div>
+      </div>
+
+      <div class="card card-amber" style="padding:clamp(1rem, 1.8vh, 1.375rem) clamp(1.125rem, 1.6vw, 1.375rem);">
+        <div class="pill pill-amber" style="margin-bottom:clamp(0.75rem, 1.2vh, 1rem);">Einclaw</div>
+        <h3 style="font-size:clamp(1rem, 1.4vw, 1.25rem);color:var(--amber-deep);">Voice to Action</h3>
+        <div class="small-meta" style="margin-bottom:clamp(0.5rem, 0.8vh, 0.625rem);color:var(--amber-deep);font-weight:600;">硬件 + Agent + 跨系统交付</div>
+        <div style="font-size:clamp(0.8125rem, 1vw, 0.9375rem);color:var(--text-primary);line-height:1.65;font-weight:500;">
+          语音绕开手机,<br>
+          <span class="highlight">直接驱动 Agent 完成任务并交付结果。</span>
+        </div>
+        <div style="margin-top:clamp(0.75rem, 1.2vh, 1rem);padding-top:clamp(0.5rem, 0.8vh, 0.625rem);border-top:1px dashed rgba(217,119,6,0.2);font-size:clamp(0.75rem, 0.85vw, 0.8125rem);color:var(--amber-deep);font-weight:600;">
+          交付物 = 你想要的事情完成了
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="slide-line"></div>
+  <div class="brand">EINCLAW</div>
+  <div class="slide-number">02</div>
+</div>
+
+<!-- ==================== SLIDE 3: EINKO → EINCLAW CONTEXT LOOP ==================== -->
+<div class="slide">
+  <div class="label">战略叙事 · 从 Einko 到 Einclaw</div>
+  <h2>个人 AI 的 Context 闭环</h2>
+  <div style="font-size:clamp(0.875rem, 1.2vw, 1.0625rem);color:var(--text-secondary);line-height:1.65;max-width:min(56rem, 92vw);">
+    我们不是在做一个产品,而是在搭建 <span class="highlight">个人 AI 的 context 基础设施</span>。
+  </div>
+
+  <div style="height:clamp(1rem, 2vh, 1.5rem);"></div>
+
+  <div class="content-area" style="justify-content:center;">
+    <div style="position:relative;width:100%;max-width:min(60rem, 92vw);margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:clamp(1rem, 2vw, 2rem);align-items:stretch;">
+
+      <div class="card card-sage" style="padding:clamp(1.25rem, 2vh, 1.625rem) clamp(1.25rem, 2vw, 1.625rem);">
+        <div class="pill pill-sage" style="margin-bottom:clamp(0.75rem, 1.2vh, 1rem);">2025 Q3 · 已落地</div>
+        <h3 style="font-size:clamp(1rem, 1.4vw, 1.25rem);color:var(--sage-deep);">Einko (iOS App)</h3>
+        <div style="font-size:clamp(0.8125rem, 1.05vw, 0.9375rem);color:var(--text-primary);line-height:1.65;font-weight:500;margin-bottom:clamp(0.625rem, 1vh, 0.75rem);">
+          处理用户在手机屏幕上看到的 <span class="highlight-green">视觉 context</span>
+        </div>
+        <div style="font-size:clamp(0.75rem, 0.9vw, 0.875rem);color:var(--text-secondary);line-height:1.65;">
+          屏幕 → AI 理解上下文 → 即时辅助
+        </div>
+        <div style="margin-top:clamp(0.75rem, 1.2vh, 1rem);padding:clamp(0.5rem, 0.8vh, 0.625rem) clamp(0.75rem, 1vw, 0.875rem);border-radius:0.75rem;background:rgba(255, 255, 255, 0.65);border:1px solid rgba(101, 163, 13, 0.18);font-size:clamp(0.75rem, 0.85vw, 0.8125rem);color:var(--sage-deep);font-weight:700;">
+          ✦ AdventureX 2025 黑客松全国冠军
+        </div>
+      </div>
+
+      <div class="card card-amber" style="padding:clamp(1.25rem, 2vh, 1.625rem) clamp(1.25rem, 2vw, 1.625rem);">
+        <div class="pill pill-amber" style="margin-bottom:clamp(0.75rem, 1.2vh, 1rem);">2026 · 量产中</div>
+        <h3 style="font-size:clamp(1rem, 1.4vw, 1.25rem);color:var(--amber-deep);">Einclaw (硬件 + 云)</h3>
+        <div style="font-size:clamp(0.8125rem, 1.05vw, 0.9375rem);color:var(--text-primary);line-height:1.65;font-weight:500;margin-bottom:clamp(0.625rem, 1vh, 0.75rem);">
+          处理用户在物理世界中产生的 <span class="highlight">语音 context</span>
+        </div>
+        <div style="font-size:clamp(0.75rem, 0.9vw, 0.875rem);color:var(--text-secondary);line-height:1.65;">
+          路上一句话 → Agent 执行 → 完整结果交付
+        </div>
+        <div style="margin-top:clamp(0.75rem, 1.2vh, 1rem);padding:clamp(0.5rem, 0.8vh, 0.625rem) clamp(0.75rem, 1vw, 0.875rem);border-radius:0.75rem;background:rgba(255, 255, 255, 0.65);border:1px solid rgba(217, 119, 6, 0.18);font-size:clamp(0.75rem, 0.85vw, 0.8125rem);color:var(--amber-deep);font-weight:700;">
+          ✦ 2026 上海 DIIS 创客松最具孵化价值奖
+        </div>
+      </div>
+
+    </div>
+
+    <div style="margin:clamp(1.25rem, 2.5vh, 2rem) auto 0;max-width:min(56rem, 90vw);text-align:center;padding:clamp(1rem, 2vh, 1.5rem) clamp(1.25rem, 2.5vw, 2.25rem);border-radius:999px;background:linear-gradient(135deg, rgba(217, 119, 6, 0.08), rgba(101, 163, 13, 0.08));border:1px solid rgba(217, 119, 6, 0.18);">
+      <div style="font-size:clamp(0.625rem, 0.8vw, 0.75rem);font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--text-muted);margin-bottom:0.375rem;">Einko + Einclaw =</div>
+      <div style="font-family:'Playfair Display','Noto Serif SC',serif;font-size:clamp(1.125rem, 1.8vw, 1.5rem);font-weight:700;color:var(--text-primary);">
+        一个人 24 小时完整的 <span class="highlight">个人 context 闭环</span>
+      </div>
+      <div style="margin-top:0.5rem;font-size:clamp(0.75rem, 0.9vw, 0.875rem);color:var(--text-muted);font-style:italic;">
+        Einko 验证 thesis · Einclaw 让 thesis 规模化
+      </div>
+    </div>
+
+  </div>
+
+  <div class="slide-line"></div>
+  <div class="brand">EINCLAW</div>
+  <div class="slide-number">03</div>
+</div>
+
+<!-- ==================== SLIDE 4: VOICE TO ACTION (核心差异) ==================== -->
+<div class="slide">
+  <div class="label">核心差异</div>
+  <h2>别人停在转录,我们做行动</h2>
+
+  <div style="height:clamp(0.75rem, 1.5vh, 1rem);"></div>
+
+  <div class="content-area" style="justify-content:flex-start;">
+    <div style="display:grid;grid-template-columns:1fr;gap:clamp(0.875rem, 1.5vh, 1.125rem);max-width:min(70rem, 95vw);margin:0 auto;width:100%;">
+
+      <!-- Voice transcript example -->
+      <div class="card" style="padding:clamp(1rem, 1.6vh, 1.25rem) clamp(1.125rem, 1.8vw, 1.5rem);background:var(--bg-cream-deep);border-style:dashed;">
+        <div class="pill" style="margin-bottom:clamp(0.625rem, 1vh, 0.875rem);">用户的一句话</div>
+        <div style="font-family:'Noto Serif SC', serif;font-size:clamp(1rem, 1.4vw, 1.25rem);color:var(--text-primary);line-height:1.55;font-style:italic;font-weight:500;">
+          "帮我研究一下 Cursor 最近的融资和增长情况,顺便比较一下 Windsurf 和 Replit。"
+        </div>
+      </div>
+
+      <div class="two-cols">
+        <!-- LEFT: Voice to Transcript -->
+        <div class="card" style="padding:clamp(1rem, 1.8vh, 1.375rem) clamp(1.125rem, 1.6vw, 1.375rem);opacity:0.86;">
+          <div style="display:flex;align-items:center;gap:0.625rem;margin-bottom:clamp(0.75rem, 1.2vh, 1rem);">
+            <div class="pill">现有市场</div>
+            <div style="font-size:clamp(0.6875rem, 0.8vw, 0.75rem);color:var(--text-muted);">Voice to Transcript</div>
+          </div>
+          <h3 style="color:var(--text-secondary);">交付:一段转录文字</h3>
+          <div style="margin-top:clamp(0.625rem, 1vh, 0.75rem);padding:clamp(0.75rem, 1.2vh, 1rem);border-radius:0.75rem;background:var(--bg-warm-light);border:1px solid var(--border);font-family:'Source Code Pro', monospace;font-size:clamp(0.75rem, 0.95vw, 0.875rem);color:var(--text-secondary);line-height:1.65;">
+            [00:00:08] 帮我研究一下 Cursor 最近的融资和增长情况,顺便比较一下 Windsurf 和 Replit。
+          </div>
+          <div style="margin-top:clamp(0.625rem, 1vh, 0.875rem);font-size:clamp(0.75rem, 0.9vw, 0.875rem);color:var(--text-muted);line-height:1.55;">
+            👉 接下来用户得 <strong>自己打开浏览器</strong>,搜索、整理、复制粘贴 — 大约 45 分钟桌面研究。
+          </div>
+        </div>
+
+        <!-- RIGHT: Voice to Action -->
+        <div class="card card-amber" style="padding:clamp(1rem, 1.8vh, 1.375rem) clamp(1.125rem, 1.6vw, 1.375rem);">
+          <div style="display:flex;align-items:center;gap:0.625rem;margin-bottom:clamp(0.75rem, 1.2vh, 1rem);">
+            <div class="pill pill-amber">Einclaw</div>
+            <div style="font-size:clamp(0.6875rem, 0.8vw, 0.75rem);color:var(--amber-deep);font-weight:600;">Voice to Action</div>
+          </div>
+          <h3 style="color:var(--amber-deep);">交付:一份完整结果</h3>
+          <div class="file-block file-block-amber" style="margin-top:clamp(0.625rem, 1vh, 0.75rem);">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.5rem;">
+              <div style="font-family:'Playfair Display', serif;font-weight:700;color:var(--text-primary);font-size:clamp(0.875rem, 1.1vw, 1rem);">cursor-research.md</div>
+              <div style="font-size:clamp(0.625rem, 0.7vw, 0.6875rem);color:var(--sage-deep);font-weight:700;letter-spacing:0.8px;">已发送 → Notion</div>
+            </div>
+            <div style="font-size:clamp(0.75rem, 0.9vw, 0.875rem);color:var(--text-secondary);line-height:1.65;">
+              · 团队背景 + 关键 hire timeline<br>
+              · 三轮融资明细 (来源 · 估值 · 领投)<br>
+              · 月活/付费用户增长曲线(引用源)<br>
+              · vs Windsurf / Replit 对比表<br>
+              · 8 条引用链接,可点击核验
+            </div>
+          </div>
+          <div style="margin-top:clamp(0.625rem, 1vh, 0.875rem);font-size:clamp(0.75rem, 0.9vw, 0.875rem);color:var(--amber-deep);font-weight:600;line-height:1.55;">
+            ⚡ 一次语音输入 → 一份可直接拿去看 LP 的 brief。
+          </div>
+        </div>
+      </div>
+
+      <div style="text-align:center;font-family:'Playfair Display', 'Noto Serif SC', serif;font-style:italic;font-size:clamp(0.9375rem, 1.4vw, 1.25rem);color:var(--text-primary);margin-top:clamp(0.5rem, 1vh, 0.875rem);">
+        差距不在体验层,而在 <span class="highlight">价值层级</span>。
+      </div>
+
+    </div>
+  </div>
+
+  <div class="slide-line"></div>
+  <div class="brand">EINCLAW</div>
+  <div class="slide-number">04</div>
+</div>
+
+<!-- ==================== SLIDE 5: HERO SCENARIO — 投资人调研 ==================== -->
+<div class="slide cover-slide" style="text-align:left;">
+  <div style="position:relative;z-index:1;width:100%;max-width:min(80rem, 94vw);margin:0 auto;display:flex;flex-direction:column;justify-content:center;gap:clamp(1rem, 2.5vh, 1.75rem);flex:1;">
+
+    <div style="text-align:center;">
+      <div class="pill pill-amber" style="margin-bottom:clamp(0.625rem, 1.2vh, 0.875rem);">Hero Scenario · 主推场景</div>
+      <div style="font-size:clamp(1.125rem, 2.5vw, 2rem);color:var(--text-primary);font-weight:700;line-height:1.2;letter-spacing:-0.5px;">
+        场景一:投资人 Lily 在出租车上的一句话
+      </div>
+      <div style="font-size:clamp(0.875rem, 1.2vw, 1.0625rem);color:var(--text-muted);margin-top:0.5rem;">
+        她下车前,Notion 已经收到完整调研 + CRM 已自动入库
+      </div>
+    </div>
+
+    <div class="scenario-grid">
+
+      <div class="scene-card">
+        <div class="pill" style="align-self:flex-start;">Voice in</div>
+        <div style="font-size:clamp(0.9375rem, 1.3vw, 1.125rem);font-weight:700;color:var(--text-primary);">出租车上 · 刚刷到一家公司</div>
+        <div class="scenario-quote">
+          "帮我研究一下 Acme Labs — 团队、最新融资、产品定位、近 6 个月的 PR 节奏,还有同赛道另外两家做对比。"
+        </div>
+        <div style="display:flex;flex-direction:column;gap:clamp(0.375rem, 0.6vh, 0.5rem);font-size:clamp(0.75rem, 0.9vw, 0.875rem);color:var(--text-muted);line-height:1.55;">
+          <div>· Einclaw Mic · 4G 独立联网</div>
+          <div>· 单按键启动 · 无需打开任何 App</div>
+          <div>· 用户行为时间:<strong style="color:var(--text-primary);">8 秒</strong></div>
+        </div>
+      </div>
+
+      <div class="arrow-col">
+        <div class="big-arrow">→</div>
+        <div class="arrow-meta"><strong style="color:var(--amber-deep);">2 分 13 秒</strong></div>
+        <div class="arrow-meta">Agent 执行</div>
+      </div>
+
+      <div class="scene-card" style="background:linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(255, 251, 240, 0.74));">
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+          <div>
+            <div style="font-size:clamp(0.625rem, 0.7vw, 0.75rem);color:var(--text-muted);font-weight:700;letter-spacing:1.2px;text-transform:uppercase;margin-bottom:0.25rem;">Generated file</div>
+            <div style="font-family:'Playfair Display', 'Noto Serif SC', serif;font-size:clamp(1.125rem, 1.5vw, 1.375rem);font-weight:700;color:var(--text-primary);">acme-labs-research.md</div>
+          </div>
+          <div class="pill pill-sage">已交付</div>
+        </div>
+
+        <div class="file-block file-block-amber">
+          <div class="file-tag">团队 · 融资</div>
+          <div class="file-body">
+            创始人 X (前 OpenAI 研究员) + Y (前 Stripe 工程负责人)<br>
+            Seed $4M (2024 Q4 · a16z 领投) → Series A $22M (2025 Q3 · Sequoia 领投)
+          </div>
+        </div>
+
+        <div class="file-block file-block-sage">
+          <div class="file-tag sage">产品定位 · 近 6 月 PR 节奏</div>
+          <div class="file-body">
+            Coding agent for legacy stacks · 月发布 1-2 次产品更新<br>
+            10 月 launch on Product Hunt #2 · 11 月 Dev tools podcast 露出 3 次
+          </div>
+        </div>
+
+        <div class="file-block">
+          <div class="file-tag terracotta">同赛道对比</div>
+          <div class="file-body" style="font-size:clamp(0.75rem, 0.9vw, 0.875rem);">
+            <strong>Acme Labs</strong> · ARR $3.2M · 增速 40% MoM<br>
+            <strong>Competitor B</strong> · ARR $1.8M · 增速 18% MoM<br>
+            <strong>Competitor C</strong> · ARR $0.9M · 增速 60% MoM (基数小)<br>
+            <span class="small-meta">引用 8 条来源链接,可一键核验</span>
+          </div>
+        </div>
+
+        <div style="display:flex;gap:0.5rem;flex-wrap:wrap;">
+          <div class="pill pill-sage" style="font-size:clamp(0.625rem, 0.7vw, 0.6875rem);">→ 已发送 Notion</div>
+          <div class="pill pill-sage" style="font-size:clamp(0.625rem, 0.7vw, 0.6875rem);">→ Affinity CRM 入库</div>
+        </div>
+      </div>
+
+    </div>
+
+    <div style="text-align:center;font-size:clamp(0.875rem, 1.1vw, 1rem);color:var(--text-secondary);font-style:italic;">
+      为什么这是 Hero — <span class="highlight">单客 LTV 最高 · 行为闭环天然 · "完整结果" 价值最易量化</span>(节省的研究小时数)
+    </div>
+
+  </div>
+  <div class="brand">EINCLAW</div>
+  <div class="slide-number">05</div>
+</div>
+
+<!-- ==================== SLIDE 6: SCENARIO 2 — PM IDEA CONTINUATION ==================== -->
+<div class="slide cover-slide" style="text-align:left;">
+  <div style="position:relative;z-index:1;width:100%;max-width:min(80rem, 94vw);margin:0 auto;display:flex;flex-direction:column;justify-content:center;gap:clamp(1rem, 2.5vh, 1.75rem);flex:1;">
+
+    <div style="text-align:center;">
+      <div class="pill" style="margin-bottom:clamp(0.625rem, 1.2vh, 0.875rem);">场景二 · 产品经理</div>
+      <div style="font-size:clamp(1.125rem, 2.5vw, 2rem);color:var(--text-primary);font-weight:700;line-height:1.2;letter-spacing:-0.5px;">
+        想法不是被记下来,是被推进一步
+      </div>
+      <div style="font-size:clamp(0.875rem, 1.2vw, 1.0625rem);color:var(--text-muted);margin-top:0.5rem;">
+        Agent 理解上下文延续:三次随手输入 = 同一份持续生长的 doc
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1.2fr;gap:clamp(1rem, 2vw, 1.75rem);align-items:stretch;">
+
+      <!-- LEFT: 3 voice inputs -->
+      <div class="scene-card">
+
+        <div class="timeline-step" style="border-top:none;padding-top:0;">
+          <div class="step-num">1</div>
+          <div>
+            <div style="font-size:clamp(0.6875rem, 0.8vw, 0.8125rem);color:var(--text-muted);font-weight:600;letter-spacing:0.8px;text-transform:uppercase;">通勤路上 · 09:14</div>
+            <div style="font-size:clamp(0.75rem, 0.9vw, 0.875rem);color:var(--sage-deep);font-weight:700;">v0 创建</div>
+          </div>
+          <div style="font-family:'Noto Serif SC', serif;font-size:clamp(0.8125rem, 1vw, 0.9375rem);color:var(--text-primary);line-height:1.55;font-style:italic;">
+            "我想做一个让用户在购物车页可以一键比价的功能,逻辑是先抓 SKU,然后比对三个友商。"
+          </div>
+        </div>
+
+        <div class="timeline-step">
+          <div class="step-num">2</div>
+          <div>
+            <div style="font-size:clamp(0.6875rem, 0.8vw, 0.8125rem);color:var(--text-muted);font-weight:600;letter-spacing:0.8px;text-transform:uppercase;">咖啡厅 · 12:42</div>
+            <div style="font-size:clamp(0.75rem, 0.9vw, 0.875rem);color:var(--amber-deep);font-weight:700;">v0.1 追加</div>
+          </div>
+          <div style="font-family:'Noto Serif SC', serif;font-size:clamp(0.8125rem, 1vw, 0.9375rem);color:var(--text-primary);line-height:1.55;font-style:italic;">
+            "关于上午那个比价功能,补一条 — 数据源用商品中台 + 京东开放 API,边界 case 是没库存的情况怎么 fallback。"
+          </div>
+        </div>
+
+        <div class="timeline-step">
+          <div class="step-num">3</div>
+          <div>
+            <div style="font-size:clamp(0.6875rem, 0.8vw, 0.8125rem);color:var(--text-muted);font-weight:600;letter-spacing:0.8px;text-transform:uppercase;">回家路上 · 19:38</div>
+            <div style="font-size:clamp(0.75rem, 0.9vw, 0.875rem);color:var(--terracotta);font-weight:700;">v0.2 整理</div>
+          </div>
+          <div style="font-family:'Noto Serif SC', serif;font-size:clamp(0.8125rem, 1vw, 0.9375rem);color:var(--text-primary);line-height:1.55;font-style:italic;">
+            "把上面三段整合成一份正式的 PRD 草稿,标注待和 RD 确认的问题。"
+          </div>
+        </div>
+
+      </div>
+
+      <!-- RIGHT: growing doc -->
+      <div class="scene-card" style="background:linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(254, 252, 246, 0.86));">
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+          <div>
+            <div style="font-size:clamp(0.625rem, 0.7vw, 0.75rem);color:var(--text-muted);font-weight:700;letter-spacing:1.2px;text-transform:uppercase;margin-bottom:0.25rem;">Live document</div>
+            <div style="font-family:'Playfair Display','Noto Serif SC',serif;font-size:clamp(1.125rem, 1.5vw, 1.375rem);font-weight:700;color:var(--text-primary);">cart-pricecheck-prd.md</div>
+          </div>
+          <div class="pill pill-amber" style="font-size:clamp(0.6875rem, 0.75vw, 0.75rem);">v0.2 · 持续生长中</div>
+        </div>
+
+        <div class="file-block file-block-sage">
+          <div class="file-tag sage">v0 · 创建于 09:14</div>
+          <div class="file-body">
+            <strong># 购物车比价功能 PRD</strong><br>
+            ## 背景<br>
+            用户在购物车页对价格敏感,跳出去比价摩擦大<br>
+            ## v0 逻辑<br>
+            1. 抓取购物车 SKU<br>
+            2. 调用比价模块,对比 3 个友商
+          </div>
+        </div>
+
+        <div class="file-block file-block-amber">
+          <div class="file-tag">v0.1 · 追加于 12:42 (Agent 智能合并)</div>
+          <div class="file-body">
+            ## 数据源<br>
+            内部商品中台 + 京东开放 API<br>
+            ## 边界 case<br>
+            - 友商库存不足 → fallback 隐藏该商品<br>
+            - 接口超时 → 显示 placeholder
+          </div>
+        </div>
+
+        <div class="file-block" style="border-color:rgba(194, 65, 12, 0.2);background:linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(194, 65, 12, 0.04));">
+          <div class="file-tag terracotta">v0.2 · 整理于 19:38</div>
+          <div class="file-body">
+            ✓ 三段输入已合并、去重、按 PRD 模板排序<br>
+            ✓ 自动生成 <strong>"待与 RD 确认问题"</strong> 子章节<br>
+            ✓ 一键导出 → 飞书文档 / Notion
+          </div>
+        </div>
+
+        <div class="small-meta">
+          ⚡ 关键能力:不是新建笔记,是 <strong style="color:var(--text-primary);">持续推进同一个 doc</strong> — Agent 理解上下文延续
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+  <div class="brand">EINCLAW</div>
+  <div class="slide-number">06</div>
+</div>
+
+<!-- ==================== SLIDE 7: SCENARIO 3 — CONTENT CREATOR ALL-DAY ==================== -->
+<div class="slide cover-slide" style="text-align:left;">
+  <div style="position:relative;z-index:1;width:100%;max-width:min(80rem, 94vw);margin:0 auto;display:flex;flex-direction:column;justify-content:center;gap:clamp(1rem, 2.5vh, 1.75rem);flex:1;">
+
+    <div style="text-align:center;">
+      <div class="pill" style="margin-bottom:clamp(0.625rem, 1.2vh, 0.875rem);">场景三 · 内容创作者</div>
+      <div style="font-size:clamp(1.125rem, 2.5vw, 2rem);color:var(--text-primary);font-weight:700;line-height:1.2;letter-spacing:-0.5px;">
+        从灵感到发布,全程不掏手机
+      </div>
+      <div style="font-size:clamp(0.875rem, 1.2vw, 1.0625rem);color:var(--text-muted);margin-top:0.5rem;">
+        80% 优质灵感发生在不能掏手机的场景里 — Einclaw 是唯一能在这些场景捕捉并执行的产品
+      </div>
+    </div>
+
+    <div class="three-cols" style="align-items:stretch;">
+
+      <!-- Morning -->
+      <div class="scene-card">
+        <div style="display:flex;align-items:center;gap:0.625rem;">
+          <div style="width:2.5rem;height:2.5rem;border-radius:50%;background:linear-gradient(135deg, #FEF3C7, #F59E0B);display:flex;align-items:center;justify-content:center;font-size:1.25rem;">🌅</div>
+          <div>
+            <div style="font-size:clamp(0.625rem, 0.75vw, 0.75rem);color:var(--text-muted);font-weight:700;letter-spacing:1.2px;text-transform:uppercase;">早晨 · 地铁</div>
+            <div style="font-size:clamp(0.875rem, 1.05vw, 1rem);font-weight:700;color:var(--text-primary);">捕捉选题</div>
+          </div>
+        </div>
+        <div class="scenario-quote" style="font-size:clamp(0.8125rem, 1vw, 0.9375rem);">
+          "记一个选题,关于 AI hardware 的 distribution 困境。"
+        </div>
+        <div class="file-block file-block-amber">
+          <div class="file-tag">Generated</div>
+          <div class="file-body" style="font-size:clamp(0.75rem, 0.9vw, 0.875rem);">
+            <strong>topic-brief.md</strong><br>
+            · 选题方向 + 关键词<br>
+            · 自动补充 3 条相关信源
+          </div>
+        </div>
+      </div>
+
+      <!-- Afternoon -->
+      <div class="scene-card">
+        <div style="display:flex;align-items:center;gap:0.625rem;">
+          <div style="width:2.5rem;height:2.5rem;border-radius:50%;background:linear-gradient(135deg, #DBEAFE, #3B82F6);display:flex;align-items:center;justify-content:center;font-size:1.25rem;">☕</div>
+          <div>
+            <div style="font-size:clamp(0.625rem, 0.75vw, 0.75rem);color:var(--text-muted);font-weight:700;letter-spacing:1.2px;text-transform:uppercase;">下午 · 咖啡厅</div>
+            <div style="font-size:clamp(0.875rem, 1.05vw, 1rem);font-weight:700;color:var(--text-primary);">即时锐评</div>
+          </div>
+        </div>
+        <div class="scenario-quote" style="font-size:clamp(0.8125rem, 1vw, 0.9375rem);">
+          "找到 Karpathy 上周关于 distribution 的推文,quote-repost,我的锐评是 — Distribution is the real moat."
+        </div>
+        <div class="file-block file-block-sage">
+          <div class="file-tag sage">已发布</div>
+          <div class="file-body" style="font-size:clamp(0.75rem, 0.9vw, 0.875rem);">
+            ✓ 命中正确推文<br>
+            ✓ Quote-repost 完成<br>
+            ✓ 已通知:本帖与 morning topic 关联
+          </div>
+        </div>
+      </div>
+
+      <!-- Evening -->
+      <div class="scene-card">
+        <div style="display:flex;align-items:center;gap:0.625rem;">
+          <div style="width:2.5rem;height:2.5rem;border-radius:50%;background:linear-gradient(135deg, #FEE2E2, #DC2626);display:flex;align-items:center;justify-content:center;font-size:1.25rem;">🌙</div>
+          <div>
+            <div style="font-size:clamp(0.625rem, 0.75vw, 0.75rem);color:var(--text-muted);font-weight:700;letter-spacing:1.2px;text-transform:uppercase;">晚上 · 回家路上</div>
+            <div style="font-size:clamp(0.875rem, 1.05vw, 1rem);font-weight:700;color:var(--text-primary);">长文整合发布</div>
+          </div>
+        </div>
+        <div class="scenario-quote" style="font-size:clamp(0.8125rem, 1vw, 0.9375rem);">
+          "把今天那个选题整合成 long-form,引用我之前 quote 的那条,发出去。"
+        </div>
+        <div class="file-block" style="border-color:rgba(194, 65, 12, 0.2);background:linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(194, 65, 12, 0.05));">
+          <div class="file-tag terracotta">已发布长帖</div>
+          <div class="file-body" style="font-size:clamp(0.75rem, 0.9vw, 0.875rem);">
+            ✓ 复用 morning topic-brief<br>
+            ✓ 嵌入 afternoon 的 quote-tweet<br>
+            ✓ 一篇 800 字长帖 → X 发布
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div style="text-align:center;padding:clamp(0.875rem, 1.5vh, 1.125rem) clamp(1.25rem, 2vw, 1.875rem);border-radius:999px;background:rgba(255, 255, 255, 0.7);border:1px solid var(--border);font-size:clamp(0.8125rem, 1.05vw, 0.9375rem);color:var(--text-primary);font-weight:600;max-width:fit-content;margin:0 auto;">
+      ⚡ 全程 <span class="highlight">零次解锁手机</span> · 三段语音输入 = 一日完整内容生产闭环
+    </div>
+
+  </div>
+  <div class="brand">EINCLAW</div>
+  <div class="slide-number">07</div>
+</div>
+
+<!-- ==================== SLIDE 8: COMPETITIVE LANDSCAPE ==================== -->
+<div class="slide">
+  <div class="label">竞品定位</div>
+  <h2>同样是语音硬件,根本不是同一类问题</h2>
+  <div style="font-size:clamp(0.875rem, 1.2vw, 1.0625rem);color:var(--text-secondary);line-height:1.65;max-width:min(60rem, 92vw);margin-bottom:clamp(0.875rem, 1.5vh, 1.125rem);">
+    我们不是更好的录音笔。我们是把 "录音笔" 这个产品类别替换掉的下一代终端。
+  </div>
+
+  <div class="content-area" style="justify-content:flex-start;">
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th style="width:18%;">维度</th>
+            <th style="width:24%;">Anker / 飞书录音豆</th>
+            <th style="width:24%;">SpeakOn</th>
+            <th style="width:34%;" class="col-einclaw-head">Einclaw</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong style="color:var(--text-primary);">主要场景</strong></td>
+            <td>长会议被动录音</td>
+            <td>语音转录文字展示</td>
+            <td class="col-einclaw">主动表达 → 行动</td>
+          </tr>
+          <tr>
+            <td><strong style="color:var(--text-primary);">输出物</strong></td>
+            <td>录音 + 总结文档</td>
+            <td>转录文字</td>
+            <td class="col-einclaw">结构化结果 + 跨系统交付</td>
+          </tr>
+          <tr>
+            <td><strong style="color:var(--text-primary);">联网方式</strong></td>
+            <td>蓝牙连手机</td>
+            <td>蓝牙连手机</td>
+            <td class="col-einclaw">4G 独立联网,脱离手机</td>
+          </tr>
+          <tr>
+            <td><strong style="color:var(--text-primary);">交互延迟</strong></td>
+            <td>录后处理(分钟–小时)</td>
+            <td>近实时转录</td>
+            <td class="col-einclaw">实时意图理解 + Agent 执行</td>
+          </tr>
+          <tr>
+            <td><strong style="color:var(--text-primary);">用户姿态</strong></td>
+            <td>被动收音</td>
+            <td>主动转录</td>
+            <td class="col-einclaw">主动指令 / 任务派发</td>
+          </tr>
+          <tr>
+            <td><strong style="color:var(--text-primary);">终极交付</strong></td>
+            <td>"我说了什么"</td>
+            <td>"我说了什么"</td>
+            <td class="col-einclaw">"我想要的事情完成了"</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div style="margin-top:clamp(1rem, 1.8vh, 1.25rem);padding:clamp(0.875rem, 1.5vh, 1.125rem) clamp(1.25rem, 2vw, 1.875rem);border-radius:1rem;background:linear-gradient(135deg, rgba(217, 119, 6, 0.06), rgba(254, 243, 199, 0.4));border:1px solid rgba(217, 119, 6, 0.18);text-align:center;font-family:'Playfair Display','Noto Serif SC',serif;font-style:italic;font-size:clamp(0.9375rem, 1.3vw, 1.125rem);color:var(--text-primary);">
+      录音笔解决 "我没记住" · Einclaw 解决 <span class="highlight">"我没时间做"</span>
+    </div>
+  </div>
+
+  <div class="slide-line"></div>
+  <div class="brand">EINCLAW</div>
+  <div class="slide-number">08</div>
+</div>
+
+<!-- ==================== SLIDE 9: HARDWARE ==================== -->
+<div class="slide">
+  <div class="label">硬件详情</div>
+  <h2>60 RMB BOM 跑出独立 4G AI 终端</h2>
+  <div style="font-size:clamp(0.875rem, 1.2vw, 1.0625rem);color:var(--text-secondary);line-height:1.65;max-width:min(56rem, 92vw);margin-bottom:clamp(1rem, 1.5vh, 1.25rem);">
+    工程团队把 "脱离手机的 AI 硬件" 做到了消费级 BOM 成本 — 行业内同类独立联网 AI 硬件 BOM 普遍在 200+。
+  </div>
+
+  <div class="content-area" style="justify-content:flex-start;">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:clamp(0.875rem, 1.6vh, 1.125rem);width:100%;">
+
+      <div class="card card-amber" style="padding:clamp(1.125rem, 2vh, 1.5rem) clamp(1.25rem, 2vw, 1.625rem);">
+        <div class="stat-num">60 <span style="font-size:0.5em;font-weight:600;color:var(--text-secondary);">RMB</span></div>
+        <div style="font-size:clamp(0.875rem, 1.1vw, 1rem);font-weight:700;color:var(--text-primary);margin-bottom:0.375rem;">BOM 成本</div>
+        <div class="small-meta">远低于行业同类独立联网 AI 硬件(普遍 200+ RMB BOM)</div>
+      </div>
+
+      <div class="card card-sage" style="padding:clamp(1.125rem, 2vh, 1.5rem) clamp(1.25rem, 2vw, 1.625rem);">
+        <div class="stat-num" style="color:var(--sage-deep);">4G</div>
+        <div style="font-size:clamp(0.875rem, 1.1vw, 1rem);font-weight:700;color:var(--text-primary);margin-bottom:0.375rem;">独立联网 + 独立存储</div>
+        <div class="small-meta">不依赖手机蓝牙、不依赖 Wi-Fi · 一键即用</div>
+      </div>
+
+      <div class="card card-terracotta" style="padding:clamp(1.125rem, 2vh, 1.5rem) clamp(1.25rem, 2vw, 1.625rem);">
+        <div class="stat-num" style="color:var(--terracotta);">7 天</div>
+        <div style="font-size:clamp(0.875rem, 1.1vw, 1rem);font-weight:700;color:var(--text-primary);margin-bottom:0.375rem;">续航</div>
+        <div class="small-meta">日常使用 7 天充一次 · 全部不间断录音可达 150 分钟</div>
+      </div>
+
+      <div class="card" style="padding:clamp(1.125rem, 2vh, 1.5rem) clamp(1.25rem, 2vw, 1.625rem);">
+        <div class="stat-num">1 键</div>
+        <div style="font-size:clamp(0.875rem, 1.1vw, 1rem);font-weight:700;color:var(--text-primary);margin-bottom:0.375rem;">极简交互</div>
+        <div class="small-meta">无屏 · 无扬声器 · 单按键启动 — 摩擦极低,只做一件事:输入</div>
+      </div>
+
+    </div>
+
+    <div style="margin-top:clamp(1rem, 1.8vh, 1.25rem);padding:clamp(0.875rem, 1.5vh, 1.125rem) clamp(1.25rem, 2vw, 1.625rem);border-radius:1rem;background:rgba(255,255,255,0.6);border:1px dashed var(--border);">
+      <div style="font-size:clamp(0.6875rem, 0.8vw, 0.75rem);color:var(--text-muted);font-weight:700;letter-spacing:1.4px;text-transform:uppercase;margin-bottom:0.5rem;">设计原则</div>
+      <div style="font-size:clamp(0.875rem, 1.1vw, 1rem);color:var(--text-primary);font-weight:600;line-height:1.6;">
+        硬件只做语音输入 — <span class="highlight">不做语音输出、不做结果展示。</span>
+        所有 "看结果" 的需求交给 Notion / 飞书 / X / Email 等用户已经在用的终端。
+      </div>
+    </div>
+
+  </div>
+
+  <div class="slide-line"></div>
+  <div class="brand">EINCLAW</div>
+  <div class="slide-number">09</div>
+</div>
+
+<!-- ==================== SLIDE 10: PLATFORM + 3 USAGE PATHS ==================== -->
+<div class="slide">
+  <div class="label">产品矩阵</div>
+  <h2>硬件不是孤岛 — 双轮驱动</h2>
+  <div style="font-size:clamp(0.875rem, 1.2vw, 1.0625rem);color:var(--text-secondary);line-height:1.65;max-width:min(56rem, 92vw);margin-bottom:clamp(1rem, 1.8vh, 1.25rem);">
+    硬件是入口,云端 OpenClaw Agent 平台是网络效应。三种使用路径覆盖不同心智段。
+  </div>
+
+  <div class="content-area" style="justify-content:flex-start;">
+    <div class="three-cols" style="align-items:stretch;">
+
+      <div class="card" style="padding:clamp(1rem, 1.8vh, 1.375rem) clamp(1.125rem, 1.6vw, 1.375rem);">
+        <div class="pill" style="margin-bottom:clamp(0.625rem, 1vh, 0.875rem);">Path 1 · Hardware-only</div>
+        <h3>仅购买 Einclaw Mic</h3>
+        <div style="font-size:clamp(0.8125rem, 1vw, 0.9375rem);color:var(--text-secondary);line-height:1.65;margin-top:clamp(0.5rem, 0.8vh, 0.625rem);">
+          已有 OpenClaw / 自建 Agent 工作流的 power user,直接接 API。
+        </div>
+        <div style="margin-top:clamp(0.875rem, 1.4vh, 1.125rem);padding:clamp(0.5rem, 0.8vh, 0.625rem) clamp(0.75rem, 1vw, 0.875rem);border-radius:0.625rem;background:var(--bg-cream-deep);font-size:clamp(0.75rem, 0.9vw, 0.875rem);color:var(--text-muted);">
+          收入:<strong style="color:var(--text-primary);">硬件单价</strong>
+        </div>
+      </div>
+
+      <div class="card card-sage" style="padding:clamp(1rem, 1.8vh, 1.375rem) clamp(1.125rem, 1.6vw, 1.375rem);">
+        <div class="pill pill-sage" style="margin-bottom:clamp(0.625rem, 1vh, 0.875rem);">Path 2 · Cloud-only</div>
+        <h3 style="color:var(--sage-deep);">仅订阅 Einclaw 云端</h3>
+        <div style="font-size:clamp(0.8125rem, 1vw, 0.9375rem);color:var(--text-secondary);line-height:1.65;margin-top:clamp(0.5rem, 0.8vh, 0.625rem);">
+          通过 Telegram / Discord / 桌面端调用 OpenClaw,先体验 skill 价值。
+        </div>
+        <div style="margin-top:clamp(0.875rem, 1.4vh, 1.125rem);padding:clamp(0.5rem, 0.8vh, 0.625rem) clamp(0.75rem, 1vw, 0.875rem);border-radius:0.625rem;background:rgba(101, 163, 13, 0.08);font-size:clamp(0.75rem, 0.9vw, 0.875rem);color:var(--sage-deep);">
+          收入:<strong>月度订阅</strong>
+        </div>
+      </div>
+
+      <div class="card card-amber" style="padding:clamp(1rem, 1.8vh, 1.375rem) clamp(1.125rem, 1.6vw, 1.375rem);">
+        <div class="pill pill-amber" style="margin-bottom:clamp(0.625rem, 1vh, 0.875rem);">Path 3 · Bundle (主推)</div>
+        <h3 style="color:var(--amber-deep);">硬件 + 云端打包</h3>
+        <div style="font-size:clamp(0.8125rem, 1vw, 0.9375rem);color:var(--text-primary);line-height:1.65;font-weight:500;margin-top:clamp(0.5rem, 0.8vh, 0.625rem);">
+          完整 Voice-to-Action 体验,丝滑零摩擦 — 主推产品线。
+        </div>
+        <div style="margin-top:clamp(0.875rem, 1.4vh, 1.125rem);padding:clamp(0.5rem, 0.8vh, 0.625rem) clamp(0.75rem, 1vw, 0.875rem);border-radius:0.625rem;background:rgba(217, 119, 6, 0.1);font-size:clamp(0.75rem, 0.9vw, 0.875rem);color:var(--amber-deep);font-weight:600;">
+          收入:硬件 + 订阅 + Skill 分成 (LTV 最高)
+        </div>
+      </div>
+
+    </div>
+
+    <div style="margin-top:clamp(1rem, 1.8vh, 1.25rem);padding:clamp(1rem, 1.8vh, 1.375rem) clamp(1.25rem, 2vw, 1.875rem);border-radius:1rem;background:rgba(255,255,255,0.7);border:1px solid var(--border);">
+      <div style="display:grid;grid-template-columns:1fr 2fr;gap:clamp(1rem, 2vw, 1.75rem);align-items:center;">
+        <div>
+          <div style="font-family:'Playfair Display',serif;font-size:clamp(1rem, 1.3vw, 1.25rem);font-weight:700;color:var(--text-primary);">OpenClaw 平台</div>
+          <div class="small-meta" style="margin-top:0.25rem;">开放 Agent 分发层</div>
+        </div>
+        <div style="font-size:clamp(0.8125rem, 1vw, 0.9375rem);color:var(--text-secondary);line-height:1.65;">
+          任何 skill 作者都可以发布、分发、被语音调用 — 战略意义在于:
+          <strong style="color:var(--text-primary);">硬件提供入口独占,云端构建 skill 网络效应</strong>。
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="slide-line"></div>
+  <div class="brand">EINCLAW</div>
+  <div class="slide-number">10</div>
+</div>
+
+<!-- ==================== SLIDE 11: COMMUNITY + ECOSYSTEM ==================== -->
+<div class="slide">
+  <div class="label">社区与生态</div>
+  <h2>小米式共创 — 我们在搭 skill 网络,不是卖一台硬件</h2>
+
+  <div style="height:clamp(0.625rem, 1vh, 0.875rem);"></div>
+
+  <div class="content-area" style="justify-content:flex-start;">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:clamp(1rem, 1.8vw, 1.5rem);width:100%;">
+
+      <!-- LEFT: community pillars -->
+      <div style="display:flex;flex-direction:column;gap:clamp(0.75rem, 1.2vh, 0.875rem);">
+
+        <div class="card" style="padding:clamp(0.875rem, 1.5vh, 1.125rem) clamp(1.125rem, 1.6vw, 1.375rem);">
+          <h3>1. 冷启动用户即共创者</h3>
+          <div style="font-size:clamp(0.8125rem, 1vw, 0.9375rem);color:var(--text-secondary);line-height:1.65;">
+            众筹首批用户参与 skill 设计与投票,产品反馈直接进入 roadmap。
+          </div>
+        </div>
+
+        <div class="card" style="padding:clamp(0.875rem, 1.5vh, 1.125rem) clamp(1.125rem, 1.6vw, 1.375rem);">
+          <h3>2. 垂直 skill 共创计划</h3>
+          <ul class="bullets" style="margin-top:0.375rem;">
+            <li>与 <strong style="color:var(--text-primary);">头部内容创作者</strong> 合作 → 内容工作流 skill 包</li>
+            <li>与 <strong style="color:var(--text-primary);">一线投资人</strong> 合作 → 调研 skill 包</li>
+            <li>与 <strong style="color:var(--text-primary);">PM 社区</strong> 合作 → 产品记录 skill 包</li>
+          </ul>
+        </div>
+
+        <div class="card card-amber" style="padding:clamp(0.875rem, 1.5vh, 1.125rem) clamp(1.125rem, 1.6vw, 1.375rem);">
+          <h3 style="color:var(--amber-deep);">3. 平台分成机制</h3>
+          <div style="font-size:clamp(0.8125rem, 1vw, 0.9375rem);color:var(--text-primary);line-height:1.65;">
+            Skill 作者获得调用分成 — 类比 App Store / 小米有品。
+            <strong>目标:12 个月内 100+ skills,前 10 个垂直社区。</strong>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- RIGHT: skill ecosystem visualization -->
+      <div class="card" style="padding:clamp(1rem, 1.8vh, 1.375rem) clamp(1.125rem, 1.6vw, 1.375rem);background:radial-gradient(circle at center, rgba(217, 119, 6, 0.06), rgba(255, 251, 240, 0.95));">
+        <div style="text-align:center;margin-bottom:clamp(0.875rem, 1.5vh, 1.125rem);">
+          <div class="pill pill-amber">Skill Ecosystem</div>
+        </div>
+
+        <div style="display:grid;grid-template-columns:repeat(2, 1fr);gap:clamp(0.5rem, 0.9vw, 0.75rem);">
+          <div style="padding:clamp(0.5rem, 0.8vh, 0.625rem) clamp(0.75rem, 1vw, 0.875rem);border-radius:0.625rem;background:rgba(255, 255, 255, 0.85);border:1px solid var(--border);">
+            <div style="font-size:clamp(0.75rem, 0.85vw, 0.8125rem);font-weight:700;color:var(--text-primary);">📔 日记 / 随笔</div>
+            <div class="small-meta">普通人</div>
+          </div>
+          <div style="padding:clamp(0.5rem, 0.8vh, 0.625rem) clamp(0.75rem, 1vw, 0.875rem);border-radius:0.625rem;background:rgba(255, 255, 255, 0.85);border:1px solid var(--border);">
+            <div style="font-size:clamp(0.75rem, 0.85vw, 0.8125rem);font-weight:700;color:var(--text-primary);">🔍 公司调研 (Hero)</div>
+            <div class="small-meta">投资人</div>
+          </div>
+          <div style="padding:clamp(0.5rem, 0.8vh, 0.625rem) clamp(0.75rem, 1vw, 0.875rem);border-radius:0.625rem;background:rgba(255, 255, 255, 0.85);border:1px solid var(--border);">
+            <div style="font-size:clamp(0.75rem, 0.85vw, 0.8125rem);font-weight:700;color:var(--text-primary);">📋 PRD 持续推进</div>
+            <div class="small-meta">产品经理</div>
+          </div>
+          <div style="padding:clamp(0.5rem, 0.8vh, 0.625rem) clamp(0.75rem, 1vw, 0.875rem);border-radius:0.625rem;background:rgba(255, 255, 255, 0.85);border:1px solid var(--border);">
+            <div style="font-size:clamp(0.75rem, 0.85vw, 0.8125rem);font-weight:700;color:var(--text-primary);">✍️ 内容创作工作流</div>
+            <div class="small-meta">创作者</div>
+          </div>
+          <div style="padding:clamp(0.5rem, 0.8vh, 0.625rem) clamp(0.75rem, 1vw, 0.875rem);border-radius:0.625rem;background:rgba(255, 255, 255, 0.85);border:1px solid var(--border);">
+            <div style="font-size:clamp(0.75rem, 0.85vw, 0.8125rem);font-weight:700;color:var(--text-primary);">📇 人脉通讯录</div>
+            <div class="small-meta">BD / 投资人</div>
+          </div>
+          <div style="padding:clamp(0.5rem, 0.8vh, 0.625rem) clamp(0.75rem, 1vw, 0.875rem);border-radius:0.625rem;background:rgba(255, 255, 255, 0.85);border:1px solid var(--border);">
+            <div style="font-size:clamp(0.75rem, 0.85vw, 0.8125rem);font-weight:700;color:var(--text-primary);">🎯 待办 + 提醒</div>
+            <div class="small-meta">所有人</div>
+          </div>
+          <div style="padding:clamp(0.5rem, 0.8vh, 0.625rem) clamp(0.75rem, 1vw, 0.875rem);border-radius:0.625rem;background:linear-gradient(135deg, rgba(254, 243, 199, 0.5), rgba(255, 251, 240, 0.8));border:1px dashed rgba(217, 119, 6, 0.3);">
+            <div style="font-size:clamp(0.75rem, 0.85vw, 0.8125rem);font-weight:700;color:var(--amber-deep);">+ 第三方 skill</div>
+            <div class="small-meta" style="color:var(--amber-deep);">开发者贡献</div>
+          </div>
+          <div style="padding:clamp(0.5rem, 0.8vh, 0.625rem) clamp(0.75rem, 1vw, 0.875rem);border-radius:0.625rem;background:linear-gradient(135deg, rgba(254, 243, 199, 0.5), rgba(255, 251, 240, 0.8));border:1px dashed rgba(217, 119, 6, 0.3);">
+            <div style="font-size:clamp(0.75rem, 0.85vw, 0.8125rem);font-weight:700;color:var(--amber-deep);">+ 长尾 skills</div>
+            <div class="small-meta" style="color:var(--amber-deep);">社区共创</div>
+          </div>
+        </div>
+
+        <div style="margin-top:clamp(1rem, 1.6vh, 1.25rem);padding-top:clamp(0.75rem, 1.2vh, 1rem);border-top:1px dashed var(--border);">
+          <div style="font-size:clamp(0.625rem, 0.75vw, 0.75rem);color:var(--text-muted);font-weight:700;letter-spacing:1.4px;text-transform:uppercase;margin-bottom:0.4rem;">R&amp;D Roadmap · 6–12 个月</div>
+          <div style="font-size:clamp(0.75rem, 0.9vw, 0.875rem);color:var(--text-secondary);line-height:1.55;">
+            探索 <strong style="color:var(--text-primary);">情感 context</strong>(语速 / 语调)作为 Agent 额外输入维度,使系统更理解用户当下状态。
+            <em style="color:var(--text-muted);">— 研究方向,不是当前能力。</em>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="slide-line"></div>
+  <div class="brand">EINCLAW</div>
+  <div class="slide-number">11</div>
+</div>
+
+<!-- ==================== SLIDE 12: PROGRESS + BUSINESS MODEL + MILESTONES ==================== -->
+<div class="slide">
+  <div class="label">进展 · 商业模式 · 里程碑</div>
+  <h2>已经有产品、有验证、有清晰的收入模型</h2>
+
+  <div style="height:clamp(0.625rem, 1vh, 0.875rem);"></div>
+
+  <div class="content-area" style="justify-content:flex-start;">
+    <div class="three-cols" style="align-items:stretch;">
+
+      <!-- Done -->
+      <div class="card card-sage" style="padding:clamp(1rem, 1.8vh, 1.375rem) clamp(1.125rem, 1.6vw, 1.375rem);">
+        <div class="pill pill-sage" style="margin-bottom:clamp(0.625rem, 1vh, 0.875rem);">已完成</div>
+        <h3 style="color:var(--sage-deep);">Traction</h3>
+        <ul class="bullets bullets-sage" style="margin-top:0.375rem;">
+          <li><strong style="color:var(--text-primary);">Einko App</strong> AdventureX 2025 黑客松全国冠军 (thesis 验证)</li>
+          <li><strong style="color:var(--text-primary);">硬件 DVT 完成</strong>,众筹版本进入量产,已签 ODM 合同 + 缴纳头款</li>
+          <li><strong style="color:var(--text-primary);">Einclaw 软件平台</strong>已上线,持续迭代体验中</li>
+          <li>2026 上海 DIIS 创客松 <strong style="color:var(--text-primary);">最具孵化价值奖</strong>(1w RMB)</li>
+        </ul>
+      </div>
+
+      <!-- Business Model -->
+      <div class="card" style="padding:clamp(1rem, 1.8vh, 1.375rem) clamp(1.125rem, 1.6vw, 1.375rem);">
+        <div class="pill" style="margin-bottom:clamp(0.625rem, 1vh, 0.875rem);">商业模式</div>
+        <h3>三层收入</h3>
+        <div style="display:flex;flex-direction:column;gap:clamp(0.5rem, 0.8vh, 0.625rem);margin-top:0.5rem;">
+          <div style="padding:clamp(0.5rem, 0.8vh, 0.625rem) clamp(0.75rem, 1vw, 0.875rem);border-radius:0.625rem;background:var(--bg-warm-light);border:1px solid var(--border-light);">
+            <div style="font-size:clamp(0.75rem, 0.9vw, 0.875rem);font-weight:700;color:var(--text-primary);">硬件销售</div>
+            <div class="small-meta">单价 [TBD] RMB · 毛利率 [TBD]%</div>
+          </div>
+          <div style="padding:clamp(0.5rem, 0.8vh, 0.625rem) clamp(0.75rem, 1vw, 0.875rem);border-radius:0.625rem;background:var(--bg-warm-light);border:1px solid var(--border-light);">
+            <div style="font-size:clamp(0.75rem, 0.9vw, 0.875rem);font-weight:700;color:var(--text-primary);">云端订阅</div>
+            <div class="small-meta">月费 [TBD] RMB · 含 N 次 Agent 调用</div>
+          </div>
+          <div style="padding:clamp(0.5rem, 0.8vh, 0.625rem) clamp(0.75rem, 1vw, 0.875rem);border-radius:0.625rem;background:var(--amber-glow);border:1px solid rgba(217, 119, 6, 0.18);">
+            <div style="font-size:clamp(0.75rem, 0.9vw, 0.875rem);font-weight:700;color:var(--amber-deep);">Skill 平台分成</div>
+            <div class="small-meta" style="color:var(--amber-deep);">长期 take rate · 网络效应核心</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Milestones -->
+      <div class="card card-amber" style="padding:clamp(1rem, 1.8vh, 1.375rem) clamp(1.125rem, 1.6vw, 1.375rem);">
+        <div class="pill pill-amber" style="margin-bottom:clamp(0.625rem, 1vh, 0.875rem);">12 个月里程碑</div>
+        <h3 style="color:var(--amber-deep);">Roadmap</h3>
+        <div style="display:flex;flex-direction:column;gap:clamp(0.5rem, 0.8vh, 0.625rem);margin-top:0.5rem;">
+          <div style="display:flex;gap:clamp(0.5rem, 0.8vw, 0.625rem);align-items:flex-start;">
+            <div style="flex-shrink:0;font-family:'Playfair Display',serif;font-size:clamp(0.75rem, 0.9vw, 0.875rem);font-weight:700;color:var(--amber-deep);background:rgba(217, 119, 6, 0.1);padding:0.25rem 0.5rem;border-radius:0.375rem;">Q2 26</div>
+            <div style="font-size:clamp(0.75rem, 0.9vw, 0.875rem);color:var(--text-primary);line-height:1.5;">众筹出货 [TBD] 台 + 媒体覆盖</div>
+          </div>
+          <div style="display:flex;gap:clamp(0.5rem, 0.8vw, 0.625rem);align-items:flex-start;">
+            <div style="flex-shrink:0;font-family:'Playfair Display',serif;font-size:clamp(0.75rem, 0.9vw, 0.875rem);font-weight:700;color:var(--amber-deep);background:rgba(217, 119, 6, 0.1);padding:0.25rem 0.5rem;border-radius:0.375rem;">Q3 26</div>
+            <div style="font-size:clamp(0.75rem, 0.9vw, 0.875rem);color:var(--text-primary);line-height:1.5;">云端付费转化率 [TBD]% · 投资人 hero 场景跑通</div>
+          </div>
+          <div style="display:flex;gap:clamp(0.5rem, 0.8vw, 0.625rem);align-items:flex-start;">
+            <div style="flex-shrink:0;font-family:'Playfair Display',serif;font-size:clamp(0.75rem, 0.9vw, 0.875rem);font-weight:700;color:var(--amber-deep);background:rgba(217, 119, 6, 0.1);padding:0.25rem 0.5rem;border-radius:0.375rem;">Q4 26</div>
+            <div style="font-size:clamp(0.75rem, 0.9vw, 0.875rem);color:var(--text-primary);line-height:1.5;">100 skills + 10 垂直 KOL 共创 + Pre-A 准备</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div style="margin-top:clamp(0.875rem, 1.5vh, 1.125rem);padding:clamp(0.75rem, 1.2vh, 0.875rem) clamp(1.125rem, 1.6vw, 1.5rem);border-radius:0.875rem;background:rgba(255,255,255,0.6);border:1px dashed var(--border);font-size:clamp(0.6875rem, 0.85vw, 0.8125rem);color:var(--text-muted);text-align:center;">
+      ⚡ <strong>[TBD]</strong> 项需在投递前替换为真实数据 — 优先依据众筹早期数据点(预约名单 / 前 100 单 / 媒体覆盖)填充
+    </div>
+
+  </div>
+
+  <div class="slide-line"></div>
+  <div class="brand">EINCLAW</div>
+  <div class="slide-number">12</div>
+</div>
+
+<!-- ==================== SLIDE 13: TEAM + FUNDRAISING ==================== -->
+<div class="slide">
+  <div class="label">团队 · 融资</div>
+  <h2>已经一起赢过一次的团队 · 同一个 thesis 的下一章</h2>
+
+  <div style="height:clamp(0.5rem, 1vh, 0.75rem);"></div>
+
+  <div class="content-area" style="justify-content:flex-start;">
+
+    <div class="two-cols" style="margin-bottom:clamp(0.875rem, 1.5vh, 1.125rem);">
+      <div class="card card-amber" style="padding:clamp(1rem, 1.8vh, 1.375rem) clamp(1.125rem, 1.6vw, 1.5rem);">
+        <div style="font-family:'Playfair Display',serif;font-size:clamp(1.5rem, 2.4vw, 2rem);font-weight:700;color:var(--text-primary);line-height:1;margin-bottom:clamp(0.5rem, 0.8vh, 0.75rem);">affe</div>
+        <div style="font-size:clamp(0.75rem, 0.95vw, 0.9375rem);color:var(--text-secondary);line-height:1.65;">
+          张雨霏,浙江大学 + Simon Fraser University 计算机科学双学位。曾任三星、阿里云、腾讯音乐、Splunk 研发工程师,后加入 StreamNative,深耕分布式系统与共识网络,Apache Flink &amp; Pulsar 生态核心贡献者,曾任 Apache RocketMQ Committer。2023 年尝试 AI 教育创业,后加入 Looki AI 负责 Proactive Agent 系统研发。<strong style="color:var(--text-primary);">2025 年带队 Einko 获 AdventureX 黑客松一等奖。</strong>
+        </div>
+      </div>
+
+      <div class="card card-sage" style="padding:clamp(1rem, 1.8vh, 1.375rem) clamp(1.125rem, 1.6vw, 1.5rem);">
+        <div style="font-family:'Playfair Display',serif;font-size:clamp(1.5rem, 2.4vw, 2rem);font-weight:700;color:var(--text-primary);line-height:1;margin-bottom:clamp(0.5rem, 0.8vh, 0.75rem);">Arvin</div>
+        <div style="font-size:clamp(0.75rem, 0.95vw, 0.9375rem);color:var(--text-secondary);line-height:1.65;">
+          创始人之一,产品 + 硬件负责人。互联网大厂到 Web3 创业的跨界背景:前字节跳动 TikTok 数据分析师,后任 .bit/d.id 与 SoSoValue 等 Web3 头部项目 PM,具备产品设计、团队管理与国际化 BD 经验。擅长把复杂技术转为可落地产品,具备全栈开发能力,可在 AI 辅助下主导 0→1 全过程。<strong style="color:var(--text-primary);">ETHGlobal、Base Batches 多次获奖</strong>,英语流利(雅思 7.5)。
+        </div>
+      </div>
+    </div>
+
+    <div class="two-cols">
+
+      <!-- Fundraising -->
+      <div class="card card-amber" style="padding:clamp(1.125rem, 2vh, 1.5rem) clamp(1.25rem, 2vw, 1.75rem);">
+        <div class="pill pill-amber" style="margin-bottom:clamp(0.625rem, 1vh, 0.875rem);">天使轮</div>
+        <div style="font-family:'Playfair Display',serif;font-size:clamp(2rem, 4vw, 3rem);font-weight:700;color:var(--amber-deep);line-height:1;margin-bottom:clamp(0.5rem, 0.8vh, 0.625rem);">0.5–1M USD</div>
+        <div style="font-size:clamp(0.75rem, 0.9vw, 0.875rem);color:var(--text-primary);font-weight:600;margin-bottom:clamp(0.625rem, 1vh, 0.875rem);">资金用途</div>
+        <div style="display:flex;flex-direction:column;gap:clamp(0.375rem, 0.6vh, 0.5rem);font-size:clamp(0.75rem, 0.9vw, 0.875rem);color:var(--text-secondary);">
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:0.375rem 0.625rem;border-radius:0.5rem;background:rgba(255, 255, 255, 0.6);">
+            <span>量产 + 供应链</span><strong style="color:var(--amber-deep);">40%</strong>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:0.375rem 0.625rem;border-radius:0.5rem;background:rgba(255, 255, 255, 0.6);">
+            <span>OpenClaw 平台 + Agent 工程</span><strong style="color:var(--amber-deep);">30%</strong>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:0.375rem 0.625rem;border-radius:0.5rem;background:rgba(255, 255, 255, 0.6);">
+            <span>首批 skill 共创 + KOL 合作</span><strong style="color:var(--amber-deep);">20%</strong>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:0.375rem 0.625rem;border-radius:0.5rem;background:rgba(255, 255, 255, 0.6);">
+            <span>团队扩张 (Agent + 固件)</span><strong style="color:var(--amber-deep);">10%</strong>
+          </div>
+        </div>
+      </div>
+
+      <!-- Why us / Closing pitch -->
+      <div class="card" style="padding:clamp(1.125rem, 2vh, 1.5rem) clamp(1.25rem, 2vw, 1.75rem);">
+        <div class="pill" style="margin-bottom:clamp(0.625rem, 1vh, 0.875rem);">为什么是我们</div>
+        <h3>双层壁垒</h3>
+        <ul class="bullets" style="margin-top:0.5rem;">
+          <li><strong style="color:var(--text-primary);">硬件入口的独占性</strong> — 没有 4G 独立终端,大厂的 skill 分发只能回到手机 App 范式,失去 "脱离手机" 这一层。</li>
+          <li><strong style="color:var(--text-primary);">Einko + Einclaw 双层 context 数据资产</strong> — 视觉 + 语音双 context 形成完整个人模型;大厂能复制硬件,复制不了已积累的 context 模型。</li>
+        </ul>
+
+        <div style="margin-top:clamp(0.875rem, 1.4vh, 1.125rem);padding:clamp(0.75rem, 1.2vh, 1rem) clamp(0.875rem, 1.2vw, 1.125rem);border-radius:0.75rem;background:linear-gradient(135deg, rgba(217, 119, 6, 0.06), rgba(101, 163, 13, 0.06));border:1px dashed var(--border);font-family:'Playfair Display','Noto Serif SC',serif;font-style:italic;font-size:clamp(0.875rem, 1.1vw, 1rem);color:var(--text-primary);text-align:center;">
+          12 个月跑出 — 出货 + 付费验证 + 100 skills,为 Pre-A 铺路。
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="slide-line"></div>
+  <div class="brand">EINCLAW</div>
+  <div class="slide-number">13</div>
+</div>
+
+</body>
+</html>
