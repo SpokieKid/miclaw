@@ -68,14 +68,9 @@
 4. 如何通过 gstacks 启动项目
 5. 如何培养 OPC 的设计品味
 
-### 15:10 ~ 15:55 OPC 代码开发：在本地搭建自动化测试框架，以及 Agentic Engineering 处理复杂工程
+### 15:10 ~ 15:55 Demo 演示：从设计开始创建一个 ChatGPT 套壳网站，详情页可以为空
 
-1. 为什么需要自动化测试？为什么对 Coding Agent 如此重要
-2. web-access skills 的安装
-3. 自动化测试框架与 Claude Code 的配合使用，包括 Playwright、CDP、chrome-dev-tools
-4. 将 Claude Code 融入 CI/CD 工作流，包括自动化部署以及可观测性
-
-### 16:00 ~ 16:45 OPC 代码开发：多项目 Agent 管理和项目管理
+### 16:00 ~ 16:45 仓库自动化实践与 Demo
 
 1. 上下文管理的核心要素与工具：使用 Linear 追踪、管理多个项目
 2. 使用 Tmux 建立持续的 Coding Session 来完成特定任务

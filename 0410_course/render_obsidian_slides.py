@@ -682,6 +682,7 @@ def build_html(slides: list[Slide], asset_map: dict[str, str], brand: str) -> st
     }}
 
     :root {{
+      --body-scale: 1.3;
       --title-size: clamp(1.8rem, 5vw, 4.8rem);
       --h2-size: clamp(1.35rem, 3.25vw, 2.4rem);
       --body-size: clamp(0.85rem, 1.4vw, 1.12rem);
@@ -724,7 +725,7 @@ def build_html(slides: list[Slide], asset_map: dict[str, str], brand: str) -> st
     }}
 
     .feature-list li, .bullet-list li {{
-      font-size: var(--body-size);
+      font-size: calc(var(--body-size) * var(--body-scale));
       line-height: 1.4;
     }}
 
@@ -900,7 +901,7 @@ def build_html(slides: list[Slide], asset_map: dict[str, str], brand: str) -> st
     .quote-subtitle,
     .split-note,
     .content-paragraph {{
-      font-size: clamp(0.95rem, 1.55vw, 1.2rem);
+      font-size: calc(clamp(0.95rem, 1.55vw, 1.2rem) * var(--body-scale));
       line-height: 1.65;
       color: var(--text-secondary);
     }}
@@ -1075,7 +1076,7 @@ def build_html(slides: list[Slide], asset_map: dict[str, str], brand: str) -> st
     }}
 
     .quote-subtitle-compact {{
-      font-size: clamp(0.95rem, 1.5vw, 1.16rem);
+      font-size: calc(clamp(0.95rem, 1.5vw, 1.16rem) * var(--body-scale));
       line-height: 1.6;
       max-width: min(46rem, 100%);
     }}
@@ -1110,11 +1111,11 @@ def build_html(slides: list[Slide], asset_map: dict[str, str], brand: str) -> st
       padding-left: clamp(1.3rem, 1.8vw, 1.65rem);
       color: var(--text-secondary);
       line-height: 1.58;
-      font-size: clamp(1.12rem, 1.78vw, 1.42rem);
+      font-size: calc(clamp(1.12rem, 1.78vw, 1.42rem) * var(--body-scale));
     }}
 
     .bullet-card .content-paragraph {{
-      font-size: clamp(1.08rem, 1.72vw, 1.34rem);
+      font-size: calc(clamp(1.08rem, 1.72vw, 1.34rem) * var(--body-scale));
       line-height: 1.68;
     }}
 
@@ -1197,7 +1198,7 @@ def build_html(slides: list[Slide], asset_map: dict[str, str], brand: str) -> st
 
     .flow-step span {{
       font-family: 'Noto Serif SC', serif;
-      font-size: clamp(0.95rem, 1.35vw, 1.18rem);
+      font-size: calc(clamp(0.95rem, 1.35vw, 1.18rem) * var(--body-scale));
       line-height: 1.35;
       color: var(--text-primary);
       font-weight: 600;
@@ -1249,7 +1250,7 @@ def build_html(slides: list[Slide], asset_map: dict[str, str], brand: str) -> st
 
     .bmc-label {{
       font-family: 'Noto Serif SC', serif;
-      font-size: clamp(0.76rem, 1vw, 1rem);
+      font-size: calc(clamp(0.76rem, 1vw, 1rem) * var(--body-scale));
       line-height: 1.3;
       font-weight: 700;
       color: var(--text-primary);

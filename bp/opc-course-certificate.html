@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>一核学院课程结业证书</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Noto+Serif+SC:wght@400;500;600;700;900&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #fcf7ee;
+    --paper-edge: #f4ebdc;
+    --ink: #1c1917;
+    --ink-soft: #57534e;
+    --ink-muted: #8b8175;
+    --gold: #9a5b18;
+    --gold-soft: rgba(154, 91, 24, 0.16);
+    --gold-line: rgba(154, 91, 24, 0.32);
+    --white: #ffffff;
+    --shadow: 0 20px 60px rgba(28, 25, 23, 0.14);
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  @page {
+    size: A4 portrait;
+    margin: 0;
+  }
+
+  html,
+  body {
+    margin: 0;
+    min-height: 100%;
+    background: linear-gradient(180deg, #f6efe4 0%, #efe5d6 100%);
+    color: var(--ink);
+    font-family: "Source Sans 3", sans-serif;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+
+  body {
+    display: flex;
+    justify-content: center;
+    padding: 24px;
+  }
+
+  .print-button {
+    position: fixed;
+    right: 18px;
+    bottom: 18px;
+    z-index: 20;
+    border: 1px solid rgba(28, 25, 23, 0.08);
+    border-radius: 999px;
+    padding: 10px 16px;
+    background: rgba(255, 255, 255, 0.92);
+    color: var(--ink);
+    font: inherit;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 10px 24px rgba(28, 25, 23, 0.1);
+    backdrop-filter: blur(10px);
+  }
+
+  .certificate {
+    position: relative;
+    width: 210mm;
+    min-height: 297mm;
+    padding: 14mm;
+    background:
+      radial-gradient(circle at top right, rgba(154, 91, 24, 0.05), transparent 22%),
+      radial-gradient(circle at bottom left, rgba(154, 91, 24, 0.05), transparent 18%),
+      linear-gradient(180deg, var(--paper) 0%, #fffdf9 45%, var(--paper) 100%);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+  }
+
+  .certificate::before,
+  .certificate::after {
+    content: "";
+    position: absolute;
+    pointer-events: none;
+  }
+
+  .certificate::before {
+    inset: 10mm;
+    border: 1px solid var(--gold-line);
+  }
+
+  .certificate::after {
+    inset: 13mm;
+    border: 1px solid rgba(154, 91, 24, 0.12);
+  }
+
+  .page {
+    position: relative;
+    z-index: 1;
+    min-height: calc(297mm - 28mm);
+    display: grid;
+    grid-template-rows: auto auto 1fr auto;
+    gap: 10mm;
+  }
+
+  .topbar {
+    position: relative;
+    min-height: 18mm;
+  }
+
+  .brand-block {
+    position: absolute;
+    top: 7.8mm;
+    left: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4.5mm 7mm 2.5mm;
+    background: rgba(252, 247, 238, 0.96);
+    border-radius: 999px;
+    transform: translateX(-50%);
+  }
+
+  .brand-logo {
+    width: 52mm;
+    height: auto;
+    display: block;
+  }
+
+  .title-stack {
+    text-align: center;
+    margin-top: 4mm;
+  }
+
+  .title-cn {
+    margin: 8mm 0 0;
+    font-family: "Noto Serif SC", serif;
+    font-size: 26px;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+  }
+
+  .title-en {
+    margin: 4px 0 0;
+    font-family: "Cormorant Garamond", serif;
+    font-size: 30px;
+    font-weight: 600;
+    color: var(--gold);
+    letter-spacing: 0.04em;
+  }
+
+  .divider {
+    width: 64mm;
+    height: 1px;
+    margin: 8mm auto 0;
+    background: linear-gradient(90deg, transparent, var(--gold-line), transparent);
+  }
+
+  .main {
+    position: relative;
+    padding: 2mm 10mm 0;
+    text-align: center;
+  }
+
+  .intro {
+    margin: 8mm 0 0;
+    font-family: "Noto Serif SC", serif;
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--ink-soft);
+  }
+
+  .recipient {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 92mm;
+    margin-top: 7mm;
+    padding: 0 6mm 4mm;
+    border-bottom: 1.5px solid var(--gold-line);
+    font-family: "Noto Serif SC", serif;
+    font-size: 24px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+  }
+
+  .citation {
+    max-width: 138mm;
+    margin: 9mm auto 0;
+    font-family: "Noto Serif SC", serif;
+    font-size: 16px;
+    line-height: 1.85;
+    color: var(--ink-soft);
+  }
+
+  .citation p {
+    margin: 0;
+  }
+
+  .citation p + p {
+    margin-top: 7px;
+  }
+
+  .course-card {
+    max-width: 148mm;
+    margin: 11mm auto 0;
+    padding: 6mm 8mm;
+    border: 1px solid var(--gold-soft);
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.72), rgba(255, 255, 255, 0.38));
+  }
+
+  .course-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+  }
+
+  .course-name-cn {
+    margin-top: 5mm;
+    font-family: "Noto Serif SC", serif;
+    font-size: 19px;
+    font-weight: 700;
+    line-height: 1.65;
+  }
+
+  .course-name-en {
+    margin-top: 4px;
+    font-family: "Cormorant Garamond", serif;
+    font-size: 21px;
+    font-weight: 600;
+    color: var(--gold);
+    line-height: 1.4;
+    letter-spacing: 0.02em;
+  }
+
+  .footer {
+    display: grid;
+    grid-template-columns: 1fr;
+    align-items: end;
+    padding: 0 8mm;
+  }
+
+  .meta {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8mm;
+  }
+
+  .meta-item {
+    border-top: 1px solid rgba(154, 91, 24, 0.22);
+    padding-top: 8px;
+  }
+
+  .meta-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+  }
+
+  .meta-value {
+    margin-top: 7px;
+    font-size: 15px;
+    font-weight: 400;
+    color: var(--ink);
+    line-height: 1.5;
+  }
+
+  .editable {
+    outline: none;
+  }
+
+  @media screen {
+    .editable {
+      transition: background-color 160ms ease, box-shadow 160ms ease;
+    }
+
+    .editable:hover,
+    .editable:focus {
+      background: rgba(255, 255, 255, 0.62);
+      box-shadow: inset 0 -1px 0 rgba(154, 91, 24, 0.2);
+    }
+  }
+
+  @media print {
+    body {
+      padding: 0;
+      background: none;
+    }
+
+    .print-button {
+      display: none;
+    }
+
+    .certificate {
+      box-shadow: none;
+    }
+  }
+</style>
+</head>
+<body>
+  <button class="print-button" type="button" onclick="window.print()">Print / 打印</button>
+
+  <main class="certificate">
+    <section class="page">
+      <header class="topbar">
+        <div class="brand-block">
+          <img class="brand-logo" src="./yihe.png" alt="一核学院">
+        </div>
+
+      </header>
+
+      <section class="title-stack">
+        <h1 class="title-cn">课程结业证书</h1>
+        <div class="title-en">Certificate of Completion</div>
+        <div class="divider"></div>
+      </section>
+
+      <section class="main">
+        <div class="intro">兹证明 / This certifies that</div>
+        <div class="recipient editable" contenteditable="true" spellcheck="false"></div>
+
+        <div class="citation">
+          <p>已圆满完成一核学院课程学习，并达到结业要求，特授予本证书。</p>
+          <p>has successfully completed the required program of SoloCore Academy and is hereby awarded this certificate.</p>
+        </div>
+
+        <div class="course-card">
+          <div class="course-label">项目 / Program</div>
+          <div class="course-name-cn editable" contenteditable="true" spellcheck="false">《OPC AI 十倍开发效率创业课》</div>
+          <div class="course-name-en editable" contenteditable="true" spellcheck="false">OPC AI 10x Entrepreneurship Bootcamp</div>
+        </div>
+      </section>
+
+      <footer class="footer">
+        <section class="meta">
+          <div class="meta-item">
+            <div class="meta-label">签发日期 / Issue Date</div>
+            <div class="meta-value editable" contenteditable="true" spellcheck="false">2026年04月27日</div>
+          </div>
+          <div class="meta-item">
+            <div class="meta-label">签发机构 / Issued By</div>
+            <div class="meta-value">杭州一生万物科技有限公司</div>
+          </div>
+        </section>
+      </footer>
+    </section>
+  </main>
+</body>
+</html>

@@ -96,17 +96,12 @@ SESSIONS = [
     },
     {
         "time": "15:10 - 15:55",
-        "title": "OPC 代码开发：在本地搭建自动化测试框架，以及 Agentic Engineering 处理复杂工程 (需要用到 Codex 桌面版)",
-        "items": [
-            "为什么需要自动化测试，为什么它对 Coding Agent 如此重要",
-            "web-access skills 的安装",
-            "自动化测试框架与 Claude Code 的配合使用，包括 Playwright、CDP、chrome-dev-tools",
-            "将 Claude Code 融入 CI/CD 工作流中，包括自动化部署以及可观测性",
-        ],
+        "title": "Demo 演示：从设计开始创建一个 ChatGPT 套壳网站，详情页可以为空",
+        "items": [],
     },
     {
         "time": "16:00 - 16:45",
-        "title": "OPC 代码开发：多项目 Agent 管理和项目管理",
+        "title": "仓库自动化实践与 Demo",
         "items": [
             "上下文管理的核心要素与工具：使用 Linear 追踪、管理多个项目",
             "使用 Tmux 建立持续的 Coding Session 来完成特定任务",

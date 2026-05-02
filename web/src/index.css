@@ -113,6 +113,31 @@
     --spacing: 0.25rem;
 }
 
+.scarlet-benefits-theme {
+    --scarlet-shell: #e7e3de;
+    --scarlet-panel: #f2f0ed;
+    --scarlet-card: #fbfaf8;
+    --scarlet-border: #e4e0da;
+    --scarlet-text: #171716;
+    --scarlet-muted: #7f7d78;
+    --scarlet-muted-soft: #b8b3ac;
+    --scarlet-accent: #b8654f;
+    --scarlet-accent-soft: #d8b4a3;
+    --scarlet-shadow: rgba(20, 20, 19, 0.08);
+    --scarlet-shadow-soft: rgba(20, 20, 19, 0.05);
+    --scarlet-dot: rgba(23, 23, 22, 0.08);
+    --scarlet-ink: #101012;
+    --scarlet-ink-soft: #2a2a2e;
+    --scarlet-graphite: #49494f;
+    --scarlet-silver: #c4beb7;
+    --scarlet-burgundy: #3a0710;
+    --scarlet-burgundy-soft: #6d1224;
+    --scarlet-skin: #e8b27d;
+    --scarlet-skin-deep: #b97241;
+    --scarlet-cream: #f7eadf;
+    --scarlet-glow: rgba(255, 255, 255, 0.72);
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;
